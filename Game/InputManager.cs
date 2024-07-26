@@ -21,12 +21,12 @@ namespace Input_Space
         private Dictionary<Keys, int> keyMap;
         private Dictionary<int, int> joystickMap;
 
-        public InputManager(int inputDevice, bool autoDetectDevice)
+        public InputManager(int inputDevice, bool autoDetectDevice = true)
         {
             this.inputDevice = inputDevice;
             this.autoDetectDevice = autoDetectDevice;
-            this.buttonState = 0;
-            this.buttonLastState = 0;
+            this.buttonState = 0b0;
+            this.buttonLastState = 0b0;
 
             keyMap = new Dictionary<Keys, int>
             {
@@ -95,22 +95,17 @@ namespace Input_Space
             }
         }
 
-        public bool IsButtonPressed(int button)
+        public bool Key_hold(int button)
         {
             return (buttonState & (1 << button)) != 0;
         }
 
-        public bool WasButtonPressed(int button)
-        {
-            return (buttonLastState & (1 << button)) != 0;
-        }
-
-        public bool IsButtonDown(int button)
+        public bool Key_down(int button)
         {
             return (buttonState & (1 << button)) != 0 && (buttonLastState & (1 << button)) == 0;
         }
 
-        public bool IsButtonUp(int button)
+        public bool Key_up(int button)
         {
             return (buttonState & (1 << button)) == 0 && (buttonLastState & (1 << button)) != 0;
         }

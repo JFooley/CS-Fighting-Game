@@ -11,7 +11,7 @@ public static class Program
         {
             inputManager.Update();
 
-            if (inputManager.IsButtonDown(0)) // Verifica se o botão virtual A foi pressionado
+            if (inputManager.Key_down(0)) // Verifica se o botão virtual A foi pressionado
             {
                 Console.WriteLine("Botão A pressionado");
             }
