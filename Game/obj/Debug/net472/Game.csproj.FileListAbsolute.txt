@@ -1,0 +1,13 @@
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.csproj.AssemblyReference.cache
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.AssemblyInfoInputs.cache
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.AssemblyInfo.cs
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.csproj.CoreCompileInputs.cache
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.sourcelink.json
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\Game.exe.config
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\Game.exe
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\Game.pdb
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\System.Windows.Forms.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.csproj.Up2Date
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.exe
+D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.pdb
