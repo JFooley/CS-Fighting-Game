@@ -1,5 +1,8 @@
 ﻿using Input_Space;
 using Animation_Space;
+using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
 using System;
 
 public static class Program

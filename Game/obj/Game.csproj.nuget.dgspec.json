@@ -49,6 +49,10 @@
               "version": "[1.0.3, )",
               "autoReferenced": true
             },
+            "SFML.Net": {
+              "target": "Package",
+              "version": "[2.6.0, )"
+            },
             "System.Collections": {
               "target": "Package",
               "version": "[4.3.0, )"
