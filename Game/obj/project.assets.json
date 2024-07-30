@@ -866,15 +866,15 @@
         }
       }
     },
-    ".NETFramework,Version=v4.7.2/win7-x86": {
+    ".NETFramework,Version=v4.7.2/win7-x64": {
       "CSFML/2.6.1": {
         "type": "package",
         "native": {
-          "runtimes/win-x86/native/csfml-audio.dll": {},
-          "runtimes/win-x86/native/csfml-graphics.dll": {},
-          "runtimes/win-x86/native/csfml-system.dll": {},
-          "runtimes/win-x86/native/csfml-window.dll": {},
-          "runtimes/win-x86/native/openal32.dll": {}
+          "runtimes/win-x64/native/csfml-audio.dll": {},
+          "runtimes/win-x64/native/csfml-graphics.dll": {},
+          "runtimes/win-x64/native/csfml-system.dll": {},
+          "runtimes/win-x64/native/csfml-window.dll": {},
+          "runtimes/win-x64/native/openal32.dll": {}
         },
         "build": {
           "build/netframework/_._": {}
@@ -2027,7 +2027,7 @@
       }
     },
     "runtimes": {
-      "win7-x86": {
+      "win7-x64": {
         "#import": []
       }
     }

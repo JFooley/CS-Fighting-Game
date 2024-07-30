@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using SFML.Graphics;
 using Animation_Space;
 
 public class Character
@@ -18,7 +19,7 @@ public class Character
 
     private Dictionary<string, Animation> animations;
     public Animation CurrentAnimation => animations[CurrentState];
-    private Dictionary<int, Image> spriteImages;
+    private Dictionary<int, Texture> spriteImages;
     private string folderPath;
 
     public int CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
@@ -33,6 +34,7 @@ public class Character
         LastState = initialState;
         PositionX = startX;
         PositionY = startY;
+        spriteImages = new Dictionary<int, Texture>();
     }
 
     public void Update()
@@ -67,9 +69,9 @@ public class Character
         }
     }
 
-    public Image GetCurrentSpriteImage()
+    public Texture GetCurrentSpriteImage()
     {
-        int spriteIndex = CurrentSprite;
+        int spriteIndex = this.CurrentSprite;
         if (spriteImages.ContainsKey(spriteIndex))
         {
             return spriteImages[spriteIndex];
@@ -77,21 +79,40 @@ public class Character
         return null; 
     }
     
-    public void LoadSpriteImages()
-    {
-        for (int i = 0; ; i++)
-        {
-            string filePath = $"{this.folderPath}/{i}.png";
-            if (System.IO.File.Exists(filePath))
+    public void LoadSpriteImages() {
+        // Verifica se o diretório existe
+        if (!System.IO.Directory.Exists(this.folderPath)) {
+            throw new System.IO.DirectoryNotFoundException($"O diretório {this.folderPath} não foi encontrado.");
+        }
+
+        // Obtém todos os arquivos no diretório especificado
+        string[] files = System.IO.Directory.GetFiles(this.folderPath);
+
+        foreach (string file in files) {
+            try
             {
-                spriteImages[i] = Image.FromFile(filePath);
+                // Tenta carregar a textura
+                Texture texture = new Texture(file);
+                
+                // Obtém o nome do arquivo sem a extensão
+                string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
+                
+                // Usa o nome do arquivo sem extensão como chave no dicionário
+                spriteImages[int.Parse(fileNameWithoutExtension)] = texture;
             }
-            else
+            catch (SFML.LoadingFailedException)
             {
-                break;
+                // Se falhar ao carregar a imagem, simplesmente ignore
+                Console.WriteLine($"Falha ao carregar o arquivo {file} como textura. Ignorando...");
+            }
+            catch (FormatException)
+            {
+                // Caso o nome do arquivo não seja um número, ignora
+                Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
             }
         }
     }
+
 
     public void UnloadSpriteImages()
     {

@@ -11,3 +11,12 @@ D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\System.Windows.Forms
 D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.csproj.Up2Date
 D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.exe
 D:\GABRIEL\Repositórios\Testes em C#\Game\obj\Debug\net472\Game.pdb
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\SFML.Audio.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\SFML.Graphics.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\SFML.System.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\SFML.Window.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\csfml-audio.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\csfml-graphics.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\csfml-system.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\csfml-window.dll
+D:\GABRIEL\Repositórios\Testes em C#\Game\bin\Debug\net472\openal32.dll
