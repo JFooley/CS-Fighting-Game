@@ -7,15 +7,16 @@ public class Animation
     public bool onLastFrame;
     public string post_state; 
     public int animSize;
-    public bool DoRun;
+    public bool doRun;
+    public bool doChangeState;
 
-    public Animation(List<FrameData> frames, string post_state)
-    {
+    public Animation(List<FrameData> frames, string post_state, bool doChangeState = true) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
-        this.DoRun = true;
+        this.doRun = true;
         this.animSize = Frames.Count() - 1;
         this.post_state = post_state;
+        this.doChangeState = doChangeState;
     }
 
     public FrameData GetCurrentFrame()
@@ -23,10 +24,8 @@ public class Animation
         return Frames[currentFrameIndex];
     }
 
-    public void AdvanceFrame()
-    {
-        if (DoRun)
-        {
+    public void AdvanceFrame() {
+        if (doRun) {
             if (currentFrameIndex < animSize) {
                 currentFrameIndex++;
                 onLastFrame = false;
@@ -36,8 +35,7 @@ public class Animation
         }
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         currentFrameIndex = 0;
         onLastFrame = false;
     }

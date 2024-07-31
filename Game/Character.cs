@@ -3,11 +3,13 @@ using System.Drawing;
 using SFML.Graphics;
 using Animation_Space;
 
+namespace Character_Space {
 public class Character
 {
     public string name;
+    public float size_ratio = 1;
 
-    public int LifePoints = 1000;
+    public int LifePoints = 0;
     public int StunPoints = 0;
     public int onBlockStun = 0;
     public int onHitStun = 0;
@@ -15,68 +17,73 @@ public class Character
     public int PositionX { get; private set; }
     public int PositionY { get; private set; }
     public string CurrentState { get; private set; }
-    public string LastState { get; private set; }
+    private string LastState { get; set; }
 
-    private Dictionary<string, Animation> animations;
+    public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward";
+    public bool onGround => !(this.CurrentState == "Jumping") || !(this.CurrentState == "JumpingForward") || !(this.CurrentState == "JumpingBackward") || !(this.CurrentState == "Airboned");
+
+    public Dictionary<string, Animation> animations;
     public Animation CurrentAnimation => animations[CurrentState];
-    private Dictionary<int, Texture> spriteImages;
-    private string folderPath;
+    private Dictionary<int, Sprite> spriteImages;
+    public string folderPath;
 
-    public int CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
+    public int CurrentSprite;
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
-    public Character(string name, Dictionary<string, Animation> animations, string initialState, int startX, int startY, string folderPath)
-    {   
+    public Character(string name, string initialState, int startX, int startY, string folderPath) {   
         this.folderPath = folderPath;
-        this.animations = animations;
         this.name = name;
         CurrentState = initialState;
         LastState = initialState;
         PositionX = startX;
         PositionY = startY;
-        spriteImages = new Dictionary<int, Texture>();
+        spriteImages = new Dictionary<int, Sprite>();
     }
 
-    public void Update()
-    {
-        // Check if state has changed
-        if (CurrentState != LastState)
-        {
-            animations[CurrentState].Reset();
-            LastState = CurrentState;
-        }
+    public void Update() {
+        // Update Current Sprite
+        this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
 
-        FrameData frameData = CurrentAnimation.GetCurrentFrame();
+        // Update position
+        PositionX += CurrentAnimation.GetCurrentFrame().DeltaX;
+        PositionY += CurrentAnimation.GetCurrentFrame().DeltaY;
 
-        // Update character position
-        PositionX += frameData.DeltaX;
-        PositionY += frameData.DeltaY;
+        // Check Push Box
+
+        // Check agressive colisions
 
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
             this.CurrentAnimation.Reset();
-            this.CurrentState = this.CurrentAnimation.post_state;
+            if (CurrentAnimation.doChangeState) {
+                this.ChangeState(this.CurrentAnimation.post_state);
+            }
         }
+
+        // Do Behaviour
+        this.DoBehavior();
     }
     
-    public void ChangeState(string newState)
-    {
-        if (animations.ContainsKey(newState))
-        {
+    public void ChangeState(string newState) {
+        if (animations.ContainsKey(newState)) {
             LastState = CurrentState;
             CurrentState = newState;
         }
+
+        if (CurrentState != LastState)
+        {
+            animations[CurrentState].Reset();
+            LastState = CurrentState;
+        }
     }
 
-    public Texture GetCurrentSpriteImage()
-    {
-        int spriteIndex = this.CurrentSprite;
-        if (spriteImages.ContainsKey(spriteIndex))
+    public Sprite GetCurrentSpriteImage() {
+        if (spriteImages.ContainsKey(this.CurrentSprite))
         {
-            return spriteImages[spriteIndex];
+            return spriteImages[this.CurrentSprite];
         }
-        return null; 
+        return new Sprite(); 
     }
     
     public void LoadSpriteImages() {
@@ -93,12 +100,13 @@ public class Character
             {
                 // Tenta carregar a textura
                 Texture texture = new Texture(file);
+                Sprite sprite = new Sprite(texture);
                 
                 // Obtém o nome do arquivo sem a extensão
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                spriteImages[int.Parse(fileNameWithoutExtension)] = texture;
+                spriteImages[int.Parse(fileNameWithoutExtension)] = sprite;
             }
             catch (SFML.LoadingFailedException)
             {
@@ -113,7 +121,6 @@ public class Character
         }
     }
 
-
     public void UnloadSpriteImages()
     {
         foreach (var image in spriteImages.Values)
@@ -122,4 +129,14 @@ public class Character
         }
         spriteImages.Clear(); // Clear the dictionary
     }
+
+    public virtual void Load() {
+        var animations = new Dictionary<string, Animation> {};
+        this.animations = animations;
+    }
+
+    public virtual void DoBehavior() {}
+}
+
+
 }

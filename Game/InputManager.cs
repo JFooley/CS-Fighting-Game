@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-// Essa classe gerencia os botões virtuais, seja pra teclado ou joystick, podendo fazer
-// o mapeamento automático se o joystick for conectado ou desconectado.
-
 namespace Input_Space
 {
     public class InputManager
@@ -21,7 +18,11 @@ namespace Input_Space
         private Dictionary<Keys, int> keyMap;
         private Dictionary<int, int> joystickMap;
 
-        public InputManager(int inputDevice, bool autoDetectDevice = true)
+        // Instância estática privada
+        private static InputManager instance;
+
+        // Construtor privado para impedir a criação de instâncias
+        private InputManager(int inputDevice, bool autoDetectDevice = true)
         {
             this.inputDevice = inputDevice;
             this.autoDetectDevice = autoDetectDevice;
@@ -30,31 +31,53 @@ namespace Input_Space
 
             keyMap = new Dictionary<Keys, int>
             {
-                { Keys.Q, 0 },  // Mapeia tecla física Q para botão virtual 0 (A)
-                { Keys.W, 1 },  // Mapeia tecla física W para botão virtual 1 (B)
-                { Keys.E, 2 },  // Mapeia tecla física E para botão virtual 2 (C)
-                { Keys.R, 3 },  // Mapeia tecla física R para botão virtual 3 (D)
-                { Keys.Enter, 4 },  // Mapeia tecla física Enter para botão virtual Start
-                { Keys.Space, 5 },  // Mapeia tecla física Space para botão virtual Select
-                { Keys.Up, 6 },  // Mapeia tecla física Up para botão virtual Up
-                { Keys.Down, 7 },  // Mapeia tecla física Down para botão virtual Down
-                { Keys.Left, 8 },  // Mapeia tecla física Left para botão virtual Left
-                { Keys.Right, 9 }   // Mapeia tecla física Right para botão virtual Right
+                { Keys.Q, 0 },
+                { Keys.W, 1 },
+                { Keys.E, 2 },
+                { Keys.R, 3 },
+                { Keys.Enter, 4 },
+                { Keys.Space, 5 },
+                { Keys.Up, 6 },
+                { Keys.Down, 7 },
+                { Keys.Left, 8 },
+                { Keys.Right, 9 }
             };
 
             joystickMap = new Dictionary<int, int>
             {
-                { 0x1000, 0 },  // Mapeia botão A do controle para botão virtual 0 (A)
-                { 0x2000, 1 },  // Mapeia botão B do controle para botão virtual 1 (B)
-                { 0x4000, 2 },  // Mapeia botão X do controle para botão virtual 2 (C)
-                { 0x8000, 3 },  // Mapeia botão Y do controle para botão virtual 3 (D)
-                { 0x0010, 4 },  // Mapeia botão Start do controle para botão virtual Start
-                { 0x0020, 5 },  // Mapeia botão Back do controle para botão virtual Select
-                { 0x0001, 6 },  // Mapeia D-Pad Up do controle para botão virtual Up
-                { 0x0002, 7 },  // Mapeia D-Pad Down do controle para botão virtual Down
-                { 0x0004, 8 },  // Mapeia D-Pad Left do controle para botão virtual Left
-                { 0x0008, 9 }   // Mapeia D-Pad Right do controle para botão virtual Right
+                { 0x1000, 0 },
+                { 0x2000, 1 },
+                { 0x4000, 2 },
+                { 0x8000, 3 },
+                { 0x0010, 4 },
+                { 0x0020, 5 },
+                { 0x0001, 6 },
+                { 0x0002, 7 },
+                { 0x0004, 8 },
+                { 0x0008, 9 }
             };
+        }
+
+        // Propriedade pública estática para obter a instância única
+        public static InputManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new InputManager(KEYBOARD_INPUT, true);
+                }
+                return instance;
+            }
+        }
+
+        // Se necessário, um método público para inicializar a instância com parâmetros
+        public static void Initialize(int inputDevice, bool autoDetectDevice = true)
+        {
+            if (instance == null)
+            {
+                instance = new InputManager(inputDevice, autoDetectDevice);
+            }
         }
 
         public void Update()
