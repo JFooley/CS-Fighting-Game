@@ -27,20 +27,55 @@ public class Akuma : Character {
             new FrameData(18282, 0, 0, new List<GenericBox> { hurtbox1 })
         };
 
-        var LPFrames = new List<FrameData> {
-            new FrameData(18273, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+        var MPFrames = new List<FrameData> {
+            new FrameData(18629, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18630, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18631, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18632, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18633, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18634, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18635, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18636, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 })
         };
         
-        var MPFrames = new List<FrameData> {
-            new FrameData(18273, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+        var HPFrames = new List<FrameData> {
+            new FrameData(18637, 10, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18638, 10, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18639, 10, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18640, 10, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18641, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18642, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18643, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18644, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18645, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 })
         };
 
         var MKFrames = new List<FrameData> {
-            new FrameData(18273, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18704, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18705, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18706, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18707, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18708, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18709, 3, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18710, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18711, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18712, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18713, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18714, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18715, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18716, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 })
         };
 
         var LKFrames = new List<FrameData> {
-            new FrameData(18273, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18726, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18728, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18729, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18730, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18731, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18732, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18733, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18758, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(18759, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
         };
 
         var walkingForwardFrames = new List<FrameData> {
@@ -58,7 +93,17 @@ public class Akuma : Character {
         };
 
         var walkingBackwardFrames = new List<FrameData> {
-            new FrameData(18273, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18299, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18300, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18301, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18302, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18303, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18304, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18305, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18306, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18307, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18308, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18309, -15, 0, new List<GenericBox> { hurtbox1 })
         };
 
         var crouchingInFrames = new List<FrameData> {
@@ -74,9 +119,9 @@ public class Akuma : Character {
         };
 
         var idleAnimation = new Animation(idleFrames, "Idle");
-        var AAnimation = new Animation(LPFrames, "Idle");
+        var AAnimation = new Animation(MPFrames, "Idle");
         var BAnimation = new Animation(LKFrames, "Idle");
-        var CAnimation = new Animation(MPFrames, "Idle");
+        var CAnimation = new Animation(HPFrames, "Idle");
         var DAnimation = new Animation(MKFrames, "Idle");
         var walkingFAnimation = new Animation(walkingForwardFrames, "Idle");
         var walkingBAnimation = new Animation(walkingBackwardFrames, "Idle");
