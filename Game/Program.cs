@@ -5,6 +5,15 @@ using SFML.System;
 using SFML.Window;
 using System;
 
+// ----- Game States -----
+// 0 - Intro
+// 1 - Main Screen
+// 2 - Select Character
+// 3 - Battle Intro
+// 4 - Round Start
+// 5 - Round End
+// 5 - Battle End
+
 public static class Program
 {
     public static void Main() {  
@@ -25,11 +34,13 @@ public static class Program
 
         List<Character> OnSceneCharacters = new List<Character> {Ken_object, Akuma_object};
 
-        while (window.IsOpen) {   
+        while (window.IsOpen) {
+            // First
             window.DispatchEvents();
             window.Clear(Color.Black);
             InputManager.Instance.Update();
 
+            // on Battle Scene
             foreach (Character char_object in OnSceneCharacters) char_object.Update();
 
             // Render Temporário
@@ -49,7 +60,8 @@ public static class Program
             Console.WriteLine("Posição X: " + Akuma_object.PositionX + " Posição Y: " + Akuma_object.PositionY);
             Console.WriteLine("State: " + Akuma_object.CurrentState + " Frame Index: " + Akuma_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + Akuma_object.CurrentSprite);
             // DEBUG
-
+            
+            // Finally
             window.Display();
         }
     }
