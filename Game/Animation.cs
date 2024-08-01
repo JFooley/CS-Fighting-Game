@@ -1,7 +1,6 @@
 namespace Animation_Space {
 
-public class Animation
-{
+public class Animation {
     public List<FrameData> Frames { get; private set; }
     public int currentFrameIndex;
     public bool onLastFrame;
@@ -41,8 +40,7 @@ public class Animation
     }
 }
 
-public class GenericBox
-{
+public class GenericBox {
     public const int HITBOX = 0;
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
@@ -50,8 +48,7 @@ public class GenericBox
     public int x1, x2, y1, y2;
     public int type;
 
-    public GenericBox(int type, int x1, int y1, int x2, int y2)
-    {   
+    public GenericBox(int type, int x1, int y1, int x2, int y2) {   
         this.type = type;
         this.x1 = x1;
         this.x2 = x2;
@@ -60,19 +57,19 @@ public class GenericBox
     }
 }
 
-public class FrameData
-{
+public class FrameData {
     public int Sprite_index { get; set; }
     public int DeltaX { get; set; }
     public int DeltaY { get; set; }
     public List<GenericBox> Boxes { get; set; }
+    public string Sound_index { get; set; }
 
-    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes)
-    {
-        Sprite_index = sprite_index;
-        DeltaX = deltaX;
-        DeltaY = deltaY;
-        Boxes = boxes;
+    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes, string Sound_index = "None") {
+        this.Sprite_index = sprite_index;
+        this.DeltaX = deltaX;
+        this.DeltaY = deltaY;
+        this.Boxes = boxes;
+        this.Sound_index = Sound_index;
     }
 }
 

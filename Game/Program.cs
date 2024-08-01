@@ -12,7 +12,7 @@ public static class Program
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
 
         // Crie uma janela
-        RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "Game");
+        RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "Fighting Game CS");
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(24);
 

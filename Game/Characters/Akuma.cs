@@ -4,7 +4,7 @@ using Input_Space;
 
 public class Akuma : Character {
     public Akuma(string initialState, int startX, int startY)
-        : base("Akuma", initialState, startX, startY, "D:/GABRIEL/Repositórios/Testes em C#/Game/Assets/chars/Akuma")
+        : base("Akuma", initialState, startX, startY, "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/chars/Akuma")
     {
         this.LifePoints = 900;
         this.StunPoints = 40;
@@ -107,15 +107,20 @@ public class Akuma : Character {
         };
 
         var crouchingInFrames = new List<FrameData> {
-            new FrameData(18273, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18312, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18313, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18314, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18315, 0, 0, new List<GenericBox> { hurtbox1 }),
         };
 
         var crouchingFrames = new List<FrameData> {
-            new FrameData(18273, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18316, 0, 0, new List<GenericBox> { hurtbox1 })
         };
 
         var crouchingOutFrames = new List<FrameData> {
-            new FrameData(18273, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18317, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18318, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(18319, 0, 0, new List<GenericBox> { hurtbox1 })
         };
 
         var idleAnimation = new Animation(idleFrames, "Idle");
@@ -126,7 +131,7 @@ public class Akuma : Character {
         var walkingFAnimation = new Animation(walkingForwardFrames, "Idle");
         var walkingBAnimation = new Animation(walkingBackwardFrames, "Idle");
         var crouchingInAnimation = new Animation(crouchingInFrames, "Crouching");
-        var crouchingAnimation = new Animation(crouchingFrames, "Crouching");
+        var crouchingAnimation = new Animation(crouchingFrames, "CrouchingOut");
         var crouchingOutAnimation = new Animation(crouchingOutFrames, "Idle");
 
         var animations = new Dictionary<string, Animation>
@@ -163,8 +168,16 @@ public class Akuma : Character {
             this.ChangeState("DAttack");
         }
 
+        // target combo
         if (InputManager.Instance.Key_down(2) && this.CurrentState == "AAttack" && this.CurrentAnimation.currentFrameIndex >= 3) {
             this.ChangeState("CAttack");
+        }
+
+        if (InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+            this.ChangeState("CrouchingIn");
+        }
+        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6)) {
+            this.ChangeState("Crouching");
         }
 
         if (InputManager.Instance.Key_hold(8) && !InputManager.Instance.Key_hold(9) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward")) {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GABRIEL\\Repositórios\\Testes em C#\\Game\\Game.csproj": {}
+    "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Game.csproj": {}
   },
   "projects": {
-    "D:\\GABRIEL\\Repositórios\\Testes em C#\\Game\\Game.csproj": {
+    "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GABRIEL\\Repositórios\\Testes em C#\\Game\\Game.csproj",
+        "projectUniqueName": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Game.csproj",
         "projectName": "Game",
-        "projectPath": "D:\\GABRIEL\\Repositórios\\Testes em C#\\Game\\Game.csproj",
+        "projectPath": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Game.csproj",
         "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-        "outputPath": "D:\\GABRIEL\\Repositórios\\Testes em C#\\Game\\obj\\",
+        "outputPath": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"

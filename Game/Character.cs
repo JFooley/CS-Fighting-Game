@@ -3,24 +3,42 @@ using System.Drawing;
 using SFML.Graphics;
 using Animation_Space;
 
+// ----- Default States -------
+// Idle
+// WalkingForward
+// WalkingBackward
+// DashForward
+// DashBackward
+// CrouchingIn
+// Crouching
+// CrouchingOut
+// OnHit
+// OnHitCrouching
+// OnBlock
+// OnBlockCrouching
+// Airboned
+// Fallen
+
 namespace Character_Space {
 public class Character
 {
     public string name;
+    public bool facingRight = true;
     public float size_ratio = 1;
 
     public int LifePoints = 0;
     public int StunPoints = 0;
-    public int onBlockStun = 0;
-    public int onHitStun = 0;
+    public int BlockStunFrames = 0;
+    public int HitStunFrames = 0;
 
     public int PositionX { get; private set; }
     public int PositionY { get; private set; }
     public string CurrentState { get; private set; }
     private string LastState { get; set; }
 
-    public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward";
+    public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
     public bool onGround => !(this.CurrentState == "Jumping") || !(this.CurrentState == "JumpingForward") || !(this.CurrentState == "JumpingBackward") || !(this.CurrentState == "Airboned");
+    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
 
     public Dictionary<string, Animation> animations;
     public Animation CurrentAnimation => animations[CurrentState];
@@ -63,6 +81,10 @@ public class Character
 
         // Do Behaviour
         this.DoBehavior();
+
+        // Render sprite
+
+        // Play sounds
     }
     
     public void ChangeState(string newState) {
@@ -121,8 +143,7 @@ public class Character
         }
     }
 
-    public void UnloadSpriteImages()
-    {
+    public void UnloadSpriteImages() {
         foreach (var image in spriteImages.Values)
         {
             image.Dispose(); // Free the memory used by the image
@@ -130,11 +151,10 @@ public class Character
         spriteImages.Clear(); // Clear the dictionary
     }
 
-    public virtual void Load() {
-        var animations = new Dictionary<string, Animation> {};
-        this.animations = animations;
-    }
+    public virtual void LoadSounds() {}
+    public virtual void UnloadSounds() {}
 
+    public virtual void Load() {}
     public virtual void DoBehavior() {}
 }
 
