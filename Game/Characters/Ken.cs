@@ -4,7 +4,7 @@ using Input_Space;
 
 public class Ken : Character {
     public Ken(string initialState, int startX, int startY)
-        : base("Ken", initialState, startX, startY, "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/chars/Ken")
+        : base("Ken", initialState, startX, startY, "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/chars/Ken", "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/sounds/Ken")
     {
         this.LifePoints = 1000;
         this.StunPoints = 50;
@@ -250,7 +250,7 @@ public class Ken : Character {
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle")},
             { "HeavyShory", new Animation(heavyShoryFrames, "Idle")},
-            { "LightHaduken", new Animation(heavyHadukenFrames, "Idle")},
+            { "LightHaduken", new Animation(lightHadukenFrames, "Idle")},
             { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle")},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle")},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle")}
@@ -258,6 +258,7 @@ public class Ken : Character {
 
         this.animations = animations;
         this.LoadSpriteImages();
+        this.LoadSounds();
     }
 
     public override void DoBehavior() {

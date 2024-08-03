@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+using SFML.Audio;
 using Animation_Space;
 
 // ----- Default States -------
@@ -24,7 +27,7 @@ public class Character
 {
     public string name;
     public bool facingRight = true;
-    public float size_ratio = 1;
+    public float size_ratio = 2.0f;
 
     public int LifePoints = 0;
     public int StunPoints = 0;
@@ -43,24 +46,32 @@ public class Character
     public Dictionary<string, Animation> animations;
     public Animation CurrentAnimation => animations[CurrentState];
     private Dictionary<int, Sprite> spriteImages;
+    private Dictionary<string, Sound> characterSounds;
+
     public string folderPath;
+    public string soundFolderPath;
 
     public int CurrentSprite;
+    public string CurrentSound;
+
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
-    public Character(string name, string initialState, int startX, int startY, string folderPath) {   
+    public Character(string name, string initialState, int startX, int startY, string folderPath, string soundFolderPath) {   
         this.folderPath = folderPath;
+        this.soundFolderPath = soundFolderPath;
         this.name = name;
-        CurrentState = initialState;
-        LastState = initialState;
-        PositionX = startX;
-        PositionY = startY;
-        spriteImages = new Dictionary<int, Sprite>();
+        this.CurrentState = initialState;
+        this.LastState = initialState;
+        this.PositionX = startX;
+        this.PositionY = startY;
+        this.spriteImages = new Dictionary<int, Sprite>();
+        this.characterSounds = new Dictionary<string, Sound>();
     }
 
     public void Update() {
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
+        this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
         // Update position
         PositionX += CurrentAnimation.GetCurrentFrame().DeltaX;
@@ -81,10 +92,19 @@ public class Character
 
         // Do Behaviour
         this.DoBehavior();
+    }
 
+    public void Render(RenderWindow window) {
         // Render sprite
+        Sprite temp_sprite = this.GetCurrentSpriteImage();
+        temp_sprite.Position = new Vector2f(this.PositionX, this.PositionY);
+        temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
+        window.Draw(temp_sprite);
 
         // Play sounds
+        if (characterSounds.ContainsKey(this.CurrentSound)) {
+            this.characterSounds[this.CurrentSound].Play();
+        }
     }
     
     public void ChangeState(string newState) {
@@ -142,7 +162,6 @@ public class Character
             }
         }
     }
-
     public void UnloadSpriteImages() {
         foreach (var image in spriteImages.Values)
         {
@@ -151,8 +170,38 @@ public class Character
         spriteImages.Clear(); // Clear the dictionary
     }
 
-    public virtual void LoadSounds() {}
-    public virtual void UnloadSounds() {}
+    public void LoadSounds() {
+        // Verifica se o diretório existe
+        if (!System.IO.Directory.Exists(this.soundFolderPath)) {
+            throw new System.IO.DirectoryNotFoundException($"O diretório {this.soundFolderPath} não foi encontrado.");
+        }
+
+        // Obtém todos os arquivos no diretório especificado
+        string[] files = System.IO.Directory.GetFiles(this.soundFolderPath);
+
+        foreach (string file in files) {
+            try
+            {
+                // Tenta carregar a textura
+                var buffer = new SoundBuffer(file);
+                
+                // Obtém o nome do arquivo sem a extensão
+                string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
+
+                // Adiciona no dicionário
+                this.characterSounds[fileNameWithoutExtension] = new Sound(buffer);
+            } catch (SFML.LoadingFailedException ex) {
+                Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
+            }
+        }
+    }
+    public void UnloadSounds() {
+        foreach (var sound in characterSounds.Values)
+        {
+            sound.Dispose(); // Free the memory used by the image
+        }
+        characterSounds.Clear(); 
+    }
 
     public virtual void Load() {}
     public virtual void DoBehavior() {}

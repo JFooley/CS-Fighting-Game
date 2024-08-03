@@ -4,7 +4,7 @@ using Input_Space;
 
 public class Akuma : Character {
     public Akuma(string initialState, int startX, int startY)
-        : base("Akuma", initialState, startX, startY, "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/chars/Akuma")
+        : base("Akuma", initialState, startX, startY, "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/chars/Akuma", "D:/GABRIEL/Repositórios/Fighting Game CS/Game/Assets/sounds/Ken")
     {
         this.LifePoints = 900;
         this.StunPoints = 40;
@@ -151,6 +151,7 @@ public class Akuma : Character {
         this.animations = animations;
 
         this.LoadSpriteImages();
+        this.LoadSounds();
     }
 
     public override void DoBehavior() {

@@ -4,6 +4,7 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 // ----- Game States -----
 // 0 - Intro
@@ -20,10 +21,12 @@ public static class Program
         // Inicializa o input
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
 
+        int game_satate = 0;
+
         // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "Fighting Game CS");
         window.Closed += (sender, e) => window.Close();
-        window.SetFramerateLimit(24);
+        window.SetFramerateLimit(30);
 
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens");
@@ -44,12 +47,7 @@ public static class Program
             foreach (Character char_object in OnSceneCharacters) char_object.Update();
 
             // Render Temporário
-            foreach (Character char_object in OnSceneCharacters) {
-                Sprite temp_sprite = char_object.GetCurrentSpriteImage();
-                temp_sprite.Position = new Vector2f(char_object.PositionX, char_object.PositionY);
-                temp_sprite.Scale = new Vector2f(2.0f, 2.0f);
-                window.Draw(temp_sprite);
-            }
+            foreach (Character char_object in OnSceneCharacters) char_object.Render(window);
 
             // DEBUG
             Console.Clear();

@@ -59,12 +59,12 @@ public class GenericBox {
 
 public class FrameData {
     public int Sprite_index { get; set; }
+    public string Sound_index { get; set; }
     public int DeltaX { get; set; }
     public int DeltaY { get; set; }
     public List<GenericBox> Boxes { get; set; }
-    public string Sound_index { get; set; }
 
-    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes, string Sound_index = "None") {
+    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes, string Sound_index = "") {
         this.Sprite_index = sprite_index;
         this.DeltaX = deltaX;
         this.DeltaY = deltaY;
