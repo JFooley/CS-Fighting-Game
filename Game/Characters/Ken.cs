@@ -30,7 +30,7 @@ public class Ken : Character {
         };
 
         var LPFrames = new List<FrameData> {
-            new FrameData(15008, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(15008, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_1"),
             new FrameData(15009, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15010, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15011, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
@@ -38,7 +38,7 @@ public class Ken : Character {
         };
         
         var MPFrames = new List<FrameData> {
-            new FrameData(15013, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(15013, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_2"),
             new FrameData(15014, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15015, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15016, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
@@ -48,8 +48,8 @@ public class Ken : Character {
         };
 
         var MKFrames = new List<FrameData> {
-            new FrameData(15104, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15072, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(15104, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_3"),
+            new FrameData(15072, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_grito_4"),
             new FrameData(15073, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15074, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15075, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
@@ -63,7 +63,7 @@ public class Ken : Character {
         };
 
         var LKFrames = new List<FrameData> {
-            new FrameData(15104, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(15104, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_1"),
             new FrameData(15105, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15106, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
             new FrameData(15107, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
@@ -136,7 +136,7 @@ public class Ken : Character {
         };
 
         var heavyHadukenFrames = new List<FrameData> {
-            new FrameData(15328, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15328, 0, 0, new List<GenericBox> { hurtbox1 }, "haduken"),
             new FrameData(15329, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15330, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15331, 0, 0, new List<GenericBox> { hurtbox1 }),
@@ -151,7 +151,7 @@ public class Ken : Character {
         };
 
         var lightHadukenFrames = new List<FrameData> {
-            new FrameData(15329, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15329, 0, 0, new List<GenericBox> { hurtbox1 }, "haduken"),
             new FrameData(15330, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15331, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15333, 0, 0, new List<GenericBox> { hurtbox1 }),
@@ -163,7 +163,7 @@ public class Ken : Character {
         };
 
         var heavyShoryFrames = new List<FrameData> {
-            new FrameData(15342, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15342, 0, 0, new List<GenericBox> { hurtbox1 }, "shory"),
             new FrameData(15343, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15344, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15345, 0, 0, new List<GenericBox> { hurtbox1 }),
@@ -180,7 +180,7 @@ public class Ken : Character {
         };
 
         var lightShoryFrames = new List<FrameData> {
-            new FrameData(15345, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15345, 0, 0, new List<GenericBox> { hurtbox1 }, "shory"),
             new FrameData(15346, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15347, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15348, 0, 0, new List<GenericBox> { hurtbox1 }),
@@ -194,7 +194,7 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
             new FrameData(15357, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15358, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15359, 0, 0, new List<GenericBox> { hurtbox1 }),
@@ -216,7 +216,7 @@ public class Ken : Character {
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
             new FrameData(15357, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15358, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(15359, 0, 0, new List<GenericBox> { hurtbox1 }),
