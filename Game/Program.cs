@@ -26,16 +26,16 @@ public static class Program
         // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "Fighting Game CS");
         window.Closed += (sender, e) => window.Close();
-        window.SetFramerateLimit(30);
+        window.SetFramerateLimit(24);
 
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens");
         var Ken_object = new Ken("Idle", 100, 30);
         Ken_object.Load();
-        var Akuma_object = new Akuma("Idle", 100, 250);
-        Akuma_object.Load();
+        // var Akuma_object = new Akuma("Idle", 100, 250);
+        // Akuma_object.Load();
 
-        List<Character> OnSceneCharacters = new List<Character> {Ken_object, Akuma_object};
+        List<Character> OnSceneCharacters = new List<Character> {Ken_object};
 
         while (window.IsOpen) {
             // First
@@ -47,16 +47,15 @@ public static class Program
             foreach (Character char_object in OnSceneCharacters) char_object.Update();
 
             // Render Temporário
-            foreach (Character char_object in OnSceneCharacters) char_object.Render(window);
+            foreach (Character char_object in OnSceneCharacters) char_object.Render(window, true);
 
             // DEBUG
             Console.Clear();
-            Console.WriteLine("-----------------------Personagem A-----------------------");
-            Console.WriteLine("Posição X: " + Ken_object.PositionX + " Posição Y: " + Ken_object.PositionY);
-            Console.WriteLine("State: " + Ken_object.CurrentState + " Frame Index: " + Ken_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + Ken_object.CurrentSprite);
-            Console.WriteLine("-----------------------Personagem B-----------------------");
-            Console.WriteLine("Posição X: " + Akuma_object.PositionX + " Posição Y: " + Akuma_object.PositionY);
-            Console.WriteLine("State: " + Akuma_object.CurrentState + " Frame Index: " + Akuma_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + Akuma_object.CurrentSprite);
+            foreach (Character char_object in OnSceneCharacters) {
+                Console.WriteLine("-----------------------Personagem A-----------------------");
+                Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
+                Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
+            }
             // DEBUG
             
             // Finally

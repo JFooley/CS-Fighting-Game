@@ -94,7 +94,7 @@ public class Character
         this.DoBehavior();
     }
 
-    public void Render(RenderWindow window) {
+    public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.PositionX, this.PositionY);
@@ -104,6 +104,27 @@ public class Character
         // Play sounds
         if (characterSounds.ContainsKey(this.CurrentSound)) {
             this.characterSounds[this.CurrentSound].Play();
+        }
+
+        if (drawHitboxes) {
+            foreach (GenericBox box in this.CurrentBoxes) {
+                // Calcula as coordenadas absolutas da hitbox
+                int x1 = PositionX + box.x1;
+                int y1 = PositionY + box.y1;
+                int x2 = PositionX + box.x2;
+                int y2 = PositionY + box.y2;
+
+                // Cria o retângulo da hitbox
+                RectangleShape hitboxRect = new RectangleShape(new Vector2f(x2 - x1, y2 - y1)) {
+                    Position = new Vector2f(x1, y1),
+                    FillColor = SFML.Graphics.Color.Transparent,
+                    OutlineColor = SFML.Graphics.Color.Blue, // Cor de contorno para a hitbox
+                    OutlineThickness = 1.0f // Espessura do contorno
+                };
+
+                // Desenha o retângulo da hitbox na janela
+                window.Draw(hitboxRect);
+            }
         }
     }
     
