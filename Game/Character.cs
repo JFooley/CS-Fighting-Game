@@ -23,8 +23,7 @@ using Animation_Space;
 // Fallen
 
 namespace Character_Space {
-public class Character
-{
+public class Character {
     public string name;
     public bool facingRight = true;
     public float size_ratio = 2.0f;
@@ -105,20 +104,34 @@ public class Character
         if (characterSounds.ContainsKey(this.CurrentSound)) {
             this.characterSounds[this.CurrentSound].Play();
         }
-
+        
+        // Draw Hitboxes
         if (drawHitboxes) {
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
-                int x1 = PositionX + box.x1;
-                int y1 = PositionY + box.y1;
-                int x2 = PositionX + box.x2;
-                int y2 = PositionY + box.y2;
+                int x1 = (int)(PositionX + box.x1 * size_ratio);
+                int y1 = (int)(PositionY + box.y1 * size_ratio);
+                int x2 = (int)(PositionX + box.x2 * size_ratio);
+                int y2 = (int)(PositionY + box.y2 * size_ratio);
 
                 // Cria o retângulo da hitbox
+                var color = SFML.Graphics.Color.Transparent;
+                switch (box.type) {
+                    case 0:
+                        color = SFML.Graphics.Color.Red;
+                        break;
+                    case 1:
+                        color = SFML.Graphics.Color.Blue;
+                        break;
+                    default:
+                        color = SFML.Graphics.Color.White;
+                        break;
+                }
+
                 RectangleShape hitboxRect = new RectangleShape(new Vector2f(x2 - x1, y2 - y1)) {
                     Position = new Vector2f(x1, y1),
                     FillColor = SFML.Graphics.Color.Transparent,
-                    OutlineColor = SFML.Graphics.Color.Blue, // Cor de contorno para a hitbox
+                    OutlineColor = color, // Cor de contorno para a hitbox
                     OutlineThickness = 1.0f // Espessura do contorno
                 };
 
@@ -128,6 +141,8 @@ public class Character
         }
     }
     
+    public virtual void DoBehavior() {}
+
     public void ChangeState(string newState) {
         if (animations.ContainsKey(newState)) {
             LastState = CurrentState;
@@ -149,6 +164,7 @@ public class Character
         return new Sprite(); 
     }
     
+    // Expecific Loads
     public void LoadSpriteImages() {
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(this.folderPath)) {
@@ -224,8 +240,13 @@ public class Character
         characterSounds.Clear(); 
     }
 
+    // General Load
     public virtual void Load() {}
-    public virtual void DoBehavior() {}
+    public void Unload() {
+        this.UnloadSounds();
+        this.UnloadSpriteImages();
+    }
+
 }
 
 
