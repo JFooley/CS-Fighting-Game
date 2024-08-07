@@ -1,6 +1,7 @@
 using Character_Space;
 using Animation_Space;
 using Input_Space;
+using Aux_Space;
 
 public class Ken : Character {
     public Ken(string initialState, int startX, int startY)
@@ -13,9 +14,7 @@ public class Ken : Character {
     public override void Load() {
         // Hurtboxes
         var hurtbox1 = new GenericBox(1, 98, 92, 150, 141);
-        var hurtbox2 = new GenericBox(1, 90, 142, 156, 196);
         var hurtbox3 = new GenericBox(1, 79, 141, 167, 195);
-        var hurtbox4 = new GenericBox(1, 95, 125, 161, 197);
 
         var hitbox1 = new GenericBox(0, 0, 10, 10, 2);
 
@@ -35,9 +34,9 @@ public class Ken : Character {
 
         var LPFrames = new List<FrameData> { 
             new FrameData(15008, 0, 0, new List<GenericBox> { new GenericBox(1, 105, 97, 144, 154), new GenericBox(1, 136, 103, 162, 129), new GenericBox(1, 91, 96, 125, 121), new GenericBox(1, 120, 87, 141, 105), new GenericBox(1, 87, 137, 162, 194), new GenericBox(2, 83, 177, 164, 195) }, "golpe_1"),
-            new FrameData(15009, 0, 0, new List<GenericBox> { new GenericBox(0, 145, 100, 206, 119), new GenericBox(1, 142, 103, 204, 116), new GenericBox(1, 120, 87, 142, 105), new GenericBox(1, 88, 97, 116, 121), new GenericBox(1, 105, 98, 146, 153), new GenericBox(1, 88, 148, 158, 194) }),
+            new FrameData(15009, 0, 0, new List<GenericBox> { new GenericBox(0, 145, 100, 206, 119), new GenericBox(1, 142, 103, 204, 116), new GenericBox(1, 120, 87, 142, 105), new GenericBox(1, 88, 97, 116, 121), new GenericBox(1, 105, 98, 146, 153), new GenericBox(1, 88, 148, 158, 194), new GenericBox(2, 83, 177, 164, 195) }),
             new FrameData(15010, 0, 0, new List<GenericBox> { new GenericBox(0, 144, 99, 200, 119), new GenericBox(1, 139, 102, 199, 117), new GenericBox(1, 105, 96, 145, 154), new GenericBox(1, 120, 86, 145, 107), new GenericBox(1, 91, 96, 124, 122), new GenericBox(1, 89, 146, 159, 195), new GenericBox(2, 83, 175, 166, 196) }),
-            new FrameData(15011, 0, 0, new List<GenericBox> { new GenericBox(1, 119, 87, 144, 107), new GenericBox(1, 139, 100, 178, 126), new GenericBox(1, 93, 99, 123, 122), new GenericBox(1, 105, 99, 145, 151), new GenericBox(1, 90, 145, 157, 194) }),
+            new FrameData(15011, 0, 0, new List<GenericBox> { new GenericBox(1, 119, 87, 144, 107), new GenericBox(1, 139, 100, 178, 126), new GenericBox(1, 93, 99, 123, 122), new GenericBox(1, 105, 99, 145, 151), new GenericBox(1, 90, 145, 157, 194), new GenericBox(2, 83, 177, 164, 195) }),
             new FrameData(15012, 0, 0, new List<GenericBox> { new GenericBox(1, 120, 88, 142, 108), new GenericBox(1, 105, 98, 143, 153), new GenericBox(1, 139, 101, 160, 128), new GenericBox(1, 93, 99, 126, 122), new GenericBox(1, 88, 147, 155, 196), new GenericBox(2, 84, 179, 165, 199) }),
         };
         
@@ -51,29 +50,40 @@ public class Ken : Character {
             new FrameData(15019, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 99, 142, 156), new GenericBox(1, 96, 102, 156, 130), new GenericBox(1, 123, 90, 146, 106), new GenericBox(1, 89, 144, 160, 195), new GenericBox(2, 80, 177, 167, 196) }),
         };
 
+        var BackMPFrames = new List<FrameData> {
+            new FrameData(15020, 0, 0, new List<GenericBox> { new GenericBox(1, 101, 102, 157, 140), new GenericBox(1, 125, 92, 147, 109), new GenericBox(1, 95, 139, 166, 195), new GenericBox(2, 84, 174, 180, 195) }, "golpe_3"),
+            new FrameData(15021, 0, 0, new List<GenericBox> { new GenericBox(2, 78, 174, 176, 196), new GenericBox(1, 108, 97, 146, 158), new GenericBox(1, 88, 150, 164, 195) }, "golpe_grito_2"),
+            new FrameData(15022, 0, 0, new List<GenericBox> { new GenericBox(1, 105, 96, 142, 160), new GenericBox(1, 84, 116, 109, 135), new GenericBox(1, 84, 149, 163, 194), new GenericBox(2, 74, 177, 174, 197) }),
+            new FrameData(15023, 0, 0, new List<GenericBox> { new GenericBox(2, 69, 179, 172, 197), new GenericBox(1, 113, 92, 136, 111), new GenericBox(1, 103, 103, 146, 159), new GenericBox(1, 85, 145, 161, 196), new GenericBox(1, 85, 110, 114, 127) }),
+            new FrameData(15024, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 95, 148, 156), new GenericBox(1, 94, 117, 111, 135), new GenericBox(1, 144, 101, 182, 113), new GenericBox(0, 144, 96, 191, 119), new GenericBox(0, 171, 93, 199, 121), new GenericBox(2, 68, 177, 174, 196), new GenericBox(1, 85, 150, 162, 195) }),
+            new FrameData(15025, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 92, 196, 116), new GenericBox(2, 67, 174, 168, 195), new GenericBox(1, 95, 96, 153, 143), new GenericBox(1, 143, 99, 189, 112), new GenericBox(1, 82, 142, 161, 193) }),
+            new FrameData(15026, 0, 0, new List<GenericBox> { new GenericBox(1, 95, 99, 146, 156), new GenericBox(1, 132, 94, 167, 119), new GenericBox(1, 79, 144, 159, 194), new GenericBox(2, 66, 176, 168, 196) }),
+            new FrameData(15027, 0, 0, new List<GenericBox> { new GenericBox(2, 72, 178, 172, 196), new GenericBox(1, 97, 98, 147, 158), new GenericBox(1, 85, 152, 161, 196) }),
+            new FrameData(15028, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 95, 128, 114), new GenericBox(1, 91, 110, 143, 162), new GenericBox(1, 85, 150, 162, 194), new GenericBox(2, 75, 178, 172, 197) }),
+            new FrameData(15029, 0, 0, new List<GenericBox> { new GenericBox(2, 85, 179, 180, 196), new GenericBox(1, 116, 93, 138, 111), new GenericBox(1, 98, 104, 148, 154), new GenericBox(1, 92, 140, 167, 195) }),
+        };
+
         var MKFrames = new List<FrameData> {
-            new FrameData(15104, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_3"),
-            new FrameData(15072, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_grito_4"),
-            new FrameData(15073, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15074, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15075, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15076, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15077, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15078, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15079, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15080, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15081, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15082, 4, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
+            new FrameData(15072, 10, 0, new List<GenericBox> { new GenericBox(1, 96, 102, 143, 150), new GenericBox(1, 82, 107, 100, 132), new GenericBox(1, 138, 124, 170, 150), new GenericBox(1, 114, 143, 148, 193), new GenericBox(1, 106, 92, 131, 106), new GenericBox(2, 83, 177, 160, 193)},  "golpe_3"),
+            new FrameData(15073, 4, 0, new List<GenericBox> { new GenericBox(0, 176, 89, 210, 117), new GenericBox(0, 158, 105, 184, 126), new GenericBox(0, 139, 118, 166, 142), new GenericBox(1, 90, 93, 141, 146), new GenericBox(1, 110, 137, 137, 194), new GenericBox(1, 69, 114, 90, 136), new GenericBox(2, 68, 182, 167, 195) }, "golpe_grito_4"),
+            new FrameData(15074, 4, 0, new List<GenericBox> { new GenericBox(0, 186, 95, 219, 120), new GenericBox(0, 162, 106, 189, 129), new GenericBox(0, 145, 117, 171, 140), new GenericBox(2, 83, 180, 168, 193), new GenericBox(1, 91, 91, 148, 140), new GenericBox(1, 112, 140, 139, 194), new GenericBox(1, 70, 120, 92, 140) }),
+            new FrameData(15075, 4, 0, new List<GenericBox> { new GenericBox(0, 174, 118, 204, 144), new GenericBox(0, 145, 123, 174, 146), new GenericBox(2, 84, 179, 164, 194), new GenericBox(1, 93, 94, 148, 139), new GenericBox(1, 112, 137, 144, 193), new GenericBox(1, 79, 128, 101, 148) }),
+            new FrameData(15076, 4, 0, new List<GenericBox> { new GenericBox(1, 109, 91, 131, 105), new GenericBox(1, 94, 96, 154, 140), new GenericBox(1, 135, 138, 176, 163), new GenericBox(1, 107, 141, 140, 193), new GenericBox(2, 88, 177, 164, 194) }),
+            new FrameData(15077, 4, 0, new List<GenericBox> { new GenericBox(2, 87, 178, 158, 194), new GenericBox(1, 96, 92, 149, 145), new GenericBox(1, 106, 139, 144, 194) }),
+            new FrameData(15078, 4, 0, new List<GenericBox> { new GenericBox(1, 102, 88, 124, 106), new GenericBox(1, 90, 100, 150, 132), new GenericBox(1, 100, 133, 141, 194), new GenericBox(2, 84, 179, 157, 194) }),
+            new FrameData(15079, 4, 0, new List<GenericBox> { new GenericBox(2, 81, 179, 165, 195), new GenericBox(1, 109, 89, 131, 107), new GenericBox(1, 92, 101, 144, 148), new GenericBox(1, 96, 148, 145, 195) }),
+            new FrameData(15080, 0, 0, new List<GenericBox> { new GenericBox(1, 117, 88, 137, 105), new GenericBox(1, 108, 100, 142, 151), new GenericBox(1, 95, 100, 153, 130), new GenericBox(1, 98, 143, 156, 195), new GenericBox(2, 80, 180, 168, 195) }),
+            new FrameData(15081, 0, 0, new List<GenericBox> { new GenericBox(2, 87, 178, 164, 196), new GenericBox(1, 118, 88, 138, 107), new GenericBox(1, 102, 100, 142, 154), new GenericBox(1, 96, 104, 157, 131), new GenericBox(1, 94, 146, 155, 196) }),
+            new FrameData(15082, 0, 0, new List<GenericBox> { new GenericBox(1, 122, 89, 140, 106), new GenericBox(1, 104, 99, 140, 153), new GenericBox(1, 97, 101, 159, 130), new GenericBox(1, 92, 143, 155, 195), new GenericBox(2, 82, 176, 163, 196) }),
         };
 
         var BackMKFrames = new List<FrameData> {
             new FrameData(15118, 0, 0, new List<GenericBox> { new GenericBox(1, 110, 86, 134, 103), new GenericBox(1, 100, 98, 141, 147), new GenericBox(1, 106, 132, 152, 193), new GenericBox(1, 88, 101, 157, 127), new GenericBox(2, 85, 169, 159, 195) }, "golpe_3"),
-            new FrameData(15119, 0, 0, new List<GenericBox> { new GenericBox(2, 77, 177, 155, 193), new GenericBox(1, 76, 88, 154, 128), new GenericBox(1, 106, 116, 159, 194) }, "golpe_grito_4"),
+            new FrameData(15119, 0, 0, new List<GenericBox> { new GenericBox(2, 77, 177, 155, 193), new GenericBox(1, 76, 88, 154, 128), new GenericBox(1, 106, 116, 159, 194) }, "golpe_grito_5"),
             new FrameData(15120, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 59, 137, 193), new GenericBox(1, 88, 91, 122, 129), new GenericBox(1, 68, 107, 95, 130), new GenericBox(2, 70, 177, 145, 193) }),
             new FrameData(15121, 0, 0, new List<GenericBox> { new GenericBox(2, 76, 179, 144, 193), new GenericBox(1, 108, 64, 140, 193), new GenericBox(1, 85, 89, 143, 134), new GenericBox(1, 75, 108, 93, 127) }),
             new FrameData(15122, 0, 0, new List<GenericBox> { new GenericBox(1, 108, 67, 144, 193), new GenericBox(2, 82, 178, 148, 193), new GenericBox(1, 86, 92, 147, 134) }),
-            new FrameData(15123, 0, 0, new List<GenericBox> { new GenericBox(1, 93, 92, 150, 142), new GenericBox(1, 114, 134, 146, 193), new GenericBox(2, 88, 175, 155, 194) }),
-            new FrameData(15124, 0, 0, new List<GenericBox> { new GenericBox(0, 164, 101, 211, 129), new GenericBox(0, 144, 113, 171, 138), new GenericBox(1, 93, 92, 148, 145), new GenericBox(1, 81, 111, 105, 147), new GenericBox(1, 116, 137, 151, 193), new GenericBox(2, 85, 177, 161, 193) }),
+            new FrameData(15123, 0, 0, new List<GenericBox> { new GenericBox(2, 90, 183, 156, 194), new GenericBox(0, 140, 68, 170, 97), new GenericBox(1, 94, 90, 151, 140), new GenericBox(1, 119, 140, 146, 193) }),            new FrameData(15124, 0, 0, new List<GenericBox> { new GenericBox(0, 164, 101, 211, 129), new GenericBox(0, 144, 113, 171, 138), new GenericBox(1, 93, 92, 148, 145), new GenericBox(1, 81, 111, 105, 147), new GenericBox(1, 116, 137, 151, 193), new GenericBox(2, 85, 177, 161, 193) }),
             new FrameData(15125, 0, 0, new List<GenericBox> { new GenericBox(0, 176, 132, 222, 160), new GenericBox(0, 152, 126, 183, 150), new GenericBox(1, 103, 95, 154, 149), new GenericBox(1, 122, 141, 162, 193), new GenericBox(1, 66, 111, 102, 148), new GenericBox(2, 91, 176, 171, 195) }),
             new FrameData(15126, 0, 0, new List<GenericBox> { new GenericBox(0, 165, 149, 191, 190), new GenericBox(1, 109, 95, 163, 152), new GenericBox(1, 79, 112, 109, 150), new GenericBox(1, 131, 150, 163, 193), new GenericBox(2, 106, 176, 168, 193) }),
             new FrameData(15127, 0, 0, new List<GenericBox> { new GenericBox(2, 91, 178, 169, 194), new GenericBox(1, 106, 98, 148, 148), new GenericBox(1, 122, 91, 148, 109), new GenericBox(1, 140, 101, 164, 126), new GenericBox(1, 86, 102, 115, 142), new GenericBox(1, 111, 136, 160, 194) }),
@@ -81,57 +91,57 @@ public class Ken : Character {
         };
 
         var LKFrames = new List<FrameData> {
-            new FrameData(15104, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }, "golpe_1"),
-            new FrameData(15105, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15106, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15107, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15108, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15109, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 }),
-            new FrameData(15110, 0, 0, new List<GenericBox> { hitbox1, hurtbox1 })
+            new FrameData(15104, 0, 0, new List<GenericBox> { new GenericBox(1, 124, 91, 145, 109), new GenericBox(1, 104, 96, 141, 155), new GenericBox(1, 139, 114, 156, 131), new GenericBox(1, 93, 144, 155, 195), new GenericBox(2, 86, 179, 163, 196) }, "golpe_1"),
+            new FrameData(15105, 0, 0, new List<GenericBox> { new GenericBox(2, 101, 179, 167, 193), new GenericBox(1, 127, 92, 149, 107), new GenericBox(1, 105, 100, 153, 153), new GenericBox(1, 124, 152, 161, 193), new GenericBox(1, 149, 129, 171, 155) }),
+            new FrameData(15106, 0, 0, new List<GenericBox> { new GenericBox(1, 125, 91, 149, 105), new GenericBox(1, 107, 100, 153, 147), new GenericBox(1, 121, 147, 157, 194), new GenericBox(1, 153, 129, 172, 157), new GenericBox(2, 103, 183, 173, 195), new GenericBox(0, 186, 154, 207, 181), new GenericBox(0, 171, 139, 187, 169) }),
+            new FrameData(15107, 0, 0, new List<GenericBox> { new GenericBox(2, 109, 181, 167, 194), new GenericBox(1, 126, 91, 149, 105), new GenericBox(1, 104, 97, 155, 146), new GenericBox(1, 123, 140, 157, 193), new GenericBox(1, 151, 129, 174, 160) }),
+            new FrameData(15108, 0, 0, new List<GenericBox> { new GenericBox(1, 128, 91, 148, 109), new GenericBox(1, 104, 99, 154, 150), new GenericBox(1, 127, 130, 163, 194), new GenericBox(2, 104, 182, 169, 193) }),
+            new FrameData(15109, 0, 0, new List<GenericBox> { new GenericBox(2, 97, 177, 168, 194), new GenericBox(1, 128, 90, 148, 106), new GenericBox(1, 107, 99, 156, 154), new GenericBox(1, 108, 153, 159, 193) }),
+            new FrameData(15110, 0, 0, new List<GenericBox> { new GenericBox(1, 122, 90, 141, 107), new GenericBox(1, 100, 97, 139, 153), new GenericBox(1, 137, 105, 156, 132), new GenericBox(1, 97, 143, 155, 195), new GenericBox(2, 85, 177, 162, 196) }),
         };
 
         var walkingForwardFrames = new List<FrameData> {
-            new FrameData(14671, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14672, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14673, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14674, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14675, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14676, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14677, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14678, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14679, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14680, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14681, 15, 0, new List<GenericBox> { hurtbox1, hurtbox3 })
+            new FrameData(14671, 7, 0, new List<GenericBox> { new GenericBox(2, 69, 182, 162, 196), new GenericBox(1, 120, 89, 140, 106), new GenericBox(1, 99, 97, 142, 156), new GenericBox(1, 84, 151, 152, 195), new GenericBox(1, 139, 103, 156, 139) }),
+            new FrameData(14672, 7, 0, new List<GenericBox> { new GenericBox(1, 119, 88, 140, 108), new GenericBox(1, 98, 99, 148, 151), new GenericBox(1, 143, 106, 157, 138), new GenericBox(1, 74, 151, 149, 195), new GenericBox(2, 64, 179, 157, 195) }),
+            new FrameData(14673, 7, 0, new List<GenericBox> { new GenericBox(2, 64, 177, 150, 195), new GenericBox(1, 119, 89, 141, 108), new GenericBox(1, 98, 101, 156, 138), new GenericBox(1, 72, 137, 145, 195) }),
+            new FrameData(14674, 7, 0, new List<GenericBox> { new GenericBox(1, 117, 87, 139, 104), new GenericBox(1, 97, 96, 139, 148), new GenericBox(1, 139, 100, 155, 138), new GenericBox(1, 87, 142, 137, 192), new GenericBox(2, 79, 177, 148, 194) }),
+            new FrameData(14675, 7, 0, new List<GenericBox> { new GenericBox(2, 84, 177, 145, 192), new GenericBox(1, 117, 85, 140, 102), new GenericBox(1, 99, 93, 156, 134), new GenericBox(1, 89, 134, 139, 191) }),
+            new FrameData(14676, 7, 0, new List<GenericBox> { new GenericBox(1, 117, 84, 139, 102), new GenericBox(1, 97, 94, 138, 147), new GenericBox(1, 138, 97, 156, 135), new GenericBox(1, 92, 143, 138, 194), new GenericBox(2, 87, 175, 148, 194) }),
+            new FrameData(14677, 7, 0, new List<GenericBox> { new GenericBox(2, 100, 178, 156, 195), new GenericBox(1, 116, 83, 140, 101), new GenericBox(1, 96, 94, 141, 134), new GenericBox(1, 139, 97, 158, 133), new GenericBox(1, 97, 134, 151, 195) }),
+            new FrameData(14678, 7, 0, new List<GenericBox> { new GenericBox(1, 105, 94, 139, 148), new GenericBox(1, 118, 83, 138, 102), new GenericBox(1, 97, 96, 129, 117), new GenericBox(1, 138, 96, 157, 133), new GenericBox(1, 97, 141, 155, 195), new GenericBox(2, 94, 177, 159, 196) }),
+            new FrameData(14679, 7, 0, new List<GenericBox> { new GenericBox(2, 89, 176, 170, 195), new GenericBox(1, 117, 83, 140, 101), new GenericBox(1, 97, 94, 141, 150), new GenericBox(1, 138, 98, 158, 133), new GenericBox(1, 93, 149, 169, 195) }),
+            new FrameData(14680, 7, 0, new List<GenericBox> { new GenericBox(1, 117, 85, 139, 104), new GenericBox(1, 102, 94, 142, 149), new GenericBox(1, 97, 97, 155, 134), new GenericBox(1, 92, 142, 165, 195), new GenericBox(2, 86, 173, 176, 197) }),
+            new FrameData(14681, 7, 0, new List<GenericBox> { new GenericBox(2, 75, 179, 170, 196), new GenericBox(1, 118, 88, 139, 105), new GenericBox(1, 105, 97, 141, 149), new GenericBox(1, 97, 103, 157, 139), new GenericBox(1, 84, 140, 162, 195) }),
         };
 
         var walkingBackwardFrames = new List<FrameData> {
-            new FrameData(14683, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14684, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14685, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14686, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14687, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14688, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14689, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14690, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14691, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14692, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
-            new FrameData(14693, -15, 0, new List<GenericBox> { hurtbox1, hurtbox3 })
+            new FrameData(14683, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14684, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14685, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14686, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14687, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14688, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14689, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14690, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14691, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14692, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 }),
+            new FrameData(14693, -7, 0, new List<GenericBox> { hurtbox1, hurtbox3 })
         };
 
         var dashForwardFrames = new List<FrameData> {
-            new FrameData(14768, 30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14769, 30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14770, 30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14771, 30, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14768, 15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14769, 15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14770, 15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14771, 15, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(14772, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(14773, 0, 0, new List<GenericBox> { hurtbox1 })
         };
 
         var dashBackwardFrames = new List<FrameData> {
-            new FrameData(14774, -30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14775, -30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14776, -30, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(14777, -30, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14774, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14775, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14776, -15, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(14777, -15, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(14778, 0, 0, new List<GenericBox> { hurtbox1 }),
             new FrameData(14779, 0, 0, new List<GenericBox> { hurtbox1 })
         };
@@ -144,7 +154,10 @@ public class Ken : Character {
         };
 
         var crouchingFrames = new List<FrameData> {
-            new FrameData(14699, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 131, 160, 195), new GenericBox(2, 83, 174, 173, 197) })
+            new FrameData(14704, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 131, 160, 195), new GenericBox(2, 83, 174, 173, 197) }),
+            new FrameData(14705, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 131, 160, 195), new GenericBox(2, 83, 174, 173, 197) }),
+            new FrameData(14706, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 131, 160, 195), new GenericBox(2, 83, 174, 173, 197) }),
+            new FrameData(14707, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 131, 160, 195), new GenericBox(2, 83, 174, 173, 197) }),
         };
 
         var crouchingOutFrames = new List<FrameData> {
@@ -212,67 +225,68 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
-            new FrameData(15357, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15358, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15359, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15366, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15367, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15368, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15369, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15370, 0, 0, new List<GenericBox> { hurtbox1 })
+            new FrameData(15356, 7, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
+            new FrameData(15357, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15358, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15359, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15457, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15458, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15459, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15460, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15461, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15457, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15458, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15459, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15460, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15461, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15366, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15367, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15368, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15369, 7, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15370, 7, 0, new List<GenericBox> { hurtbox1 })
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
-            new FrameData(15357, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15358, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15359, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15366, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15367, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15368, 0, 0, new List<GenericBox> { hurtbox1 }),
-            new FrameData(15369, 0, 0, new List<GenericBox> { hurtbox1 })
+            new FrameData(15356, 6, 0, new List<GenericBox> { hurtbox1 }, "tatso"),
+            new FrameData(15357, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15358, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15359, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15457, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15458, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15459, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15460, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15461, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15366, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15367, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15368, 6, 0, new List<GenericBox> { hurtbox1 }),
+            new FrameData(15369, 6, 0, new List<GenericBox> { hurtbox1 })
         };
         
         // States
         var animations = new Dictionary<string, Animation> {
             // Normals
-            { "Idle", new Animation(idleFrames, "Idle")},
-            { "AAttack", new Animation(LPFrames, "Idle")},
-            { "BAttack", new Animation(LKFrames, "Idle")},
-            { "CAttack", new Animation(MPFrames, "Idle")},
-            { "DAttack", new Animation(MKFrames, "Idle")},
-            { "BackDAttack", new Animation(BackMKFrames, "Idle")},
+            { "Idle", new Animation(idleFrames, "Idle", 20)},
+            { "AAttack", new Animation(LPFrames, "Idle", 24)},
+            { "BAttack", new Animation(LKFrames, "Idle", 24)},
+            { "CAttack", new Animation(MPFrames, "Idle", 20)},
+            { "DAttack", new Animation(MKFrames, "Idle", 20)},
+            { "BackDAttack", new Animation(BackMKFrames, "Idle", 20)},
+            { "BackCAttack", new Animation(BackMPFrames, "Idle", 20)},
             // Movment
-            { "WalkingForward", new Animation(walkingForwardFrames, "Idle")},
-            { "WalkingBackward", new Animation(walkingBackwardFrames, "Idle")},
-            { "DashForward", new Animation(dashForwardFrames, "Idle")},
-            { "DashBackward", new Animation(dashBackwardFrames, "Idle")},
-            { "CrouchingIn", new Animation(crouchingInFrames, "Crouching")},
-            { "Crouching", new Animation(crouchingFrames, "CrouchingOut")},
-            { "CrouchingOut", new Animation(crouchingOutFrames, "Idle")},
+            { "WalkingForward", new Animation(walkingForwardFrames, "Idle", 20)},
+            { "WalkingBackward", new Animation(walkingBackwardFrames, "Idle", 20)},
+            { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
+            { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
+            { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
+            { "Crouching", new Animation(crouchingFrames, "CrouchingOut", 4)},
+            { "CrouchingOut", new Animation(crouchingOutFrames, "Idle", 20)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Idle")},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Idle")},
-            { "LightHaduken", new Animation(lightHadukenFrames, "Idle")},
-            { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle")},
-            { "LightTatso", new Animation(lightTatsoFrames, "Idle")},
-            { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle")}
+            { "LightShory", new Animation(lightShoryFrames, "Idle", 20)},
+            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 20)},
+            { "LightHaduken", new Animation(lightHadukenFrames, "Idle", 20)},
+            { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
+            { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
+            { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)}
         };
 
         this.animations = animations;
@@ -293,32 +307,37 @@ public class Ken : Character {
         int[] light_tatso_string = {7, 8, 1};
         int[] heavy_tatso_string = {7, 8, 3};
 
-        if (InputManager.Instance.CheckString(light_shory_string, 5) && this.canNormalAtack) {
+        if (InputManager.Instance.CheckString(light_shory_string, 10) && this.canNormalAtack) {
             this.ChangeState("LightShory");
-        } else if (InputManager.Instance.CheckString(heavy_shory_string, 5) && this.canNormalAtack) {
+        } else if (InputManager.Instance.CheckString(heavy_shory_string, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyShory");
         }
 
-        if (InputManager.Instance.CheckString(light_haduken_string, 5) && this.canNormalAtack) {
+        if (InputManager.Instance.CheckString(light_haduken_string, 10) && this.canNormalAtack) {
             this.ChangeState("LightHaduken");
-        } else if (InputManager.Instance.CheckString(heavy_haduken_string, 5) && this.canNormalAtack) {
+        } else if (InputManager.Instance.CheckString(heavy_haduken_string, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyHaduken");
         }
 
-        if (InputManager.Instance.CheckString(light_tatso_string, 5) && this.canNormalAtack) {
+        if (InputManager.Instance.CheckString(light_tatso_string, 10) && this.canNormalAtack) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.CheckString(heavy_tatso_string, 5) && this.canNormalAtack) {
+        } else if (InputManager.Instance.CheckString(heavy_tatso_string, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyTatso");
         }
 
         // Cancels
-        if (InputManager.Instance.Key_down(3) && this.CurrentState == "BAttack" && this.CurrentAnimation.currentFrameIndex >= 3) {
+        if (InputManager.Instance.Key_down(3) && this.CurrentState == "BAttack" && this.CurrentFrameIndex >= 3) {
             this.ChangeState("DAttack");
+        }
+        if (InputManager.Instance.Key_down(2) && InputManager.Instance.Key_hold(8) && this.CurrentState == "CAttack" && this.CurrentFrameIndex >= 4) {
+            this.ChangeState("BackCAttack");
         }
 
         // Normals
         if (InputManager.Instance.Key_down(3) && InputManager.Instance.Key_hold(8) && this.canNormalAtack) {
             this.ChangeState("BackDAttack");
+        } else if (InputManager.Instance.Key_down(2) && InputManager.Instance.Key_hold(8) && this.canNormalAtack) {
+            this.ChangeState("BackCAttack");
         }
 
         if (InputManager.Instance.Key_down(0) && this.canNormalAtack) {
@@ -331,27 +350,41 @@ public class Ken : Character {
             this.ChangeState("DAttack");
         }
 
-        // Moviment
+        // Crouching
         if (InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
+        }
+        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold(7)) {
+            this.ChangeState("CrouchingOut");
         }
         if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6)) {
             this.ChangeState("Crouching");
         }
 
-        int[] dash_forward_string = {9, 9};
+        // Dashing
+        int[] dash_forward_string = {9, 9}; 
         int[] dash_backward_string = {8, 8};
-        if (InputManager.Instance.CheckString(dash_forward_string, 5) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.CheckString(dash_forward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
         } 
-        else if (InputManager.Instance.CheckString(dash_backward_string, 5) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        else if (InputManager.Instance.CheckString(dash_backward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
+        // Walking
         if (InputManager.Instance.Key_hold(8) && !InputManager.Instance.Key_hold(9) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("WalkingBackward");
         } else if (InputManager.Instance.Key_hold(9) && !InputManager.Instance.Key_hold(8) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
             this.ChangeState("WalkingForward");
+        }
+
+        // On Air
+        if (this.CurrentState == "LightShory") {
+            this.PositionY = this.floorLine - Physics.GetTrajectory(100, 8, this.CurrentFrameIndex - 2);
+        } else if (this.CurrentState == "HeavyShory") {
+            this.PositionY = this.floorLine - Physics.GetTrajectory(150, 8, this.CurrentFrameIndex - 5);
+        } else if (this.CurrentState == "Airboned" || this.CurrentState == "Jump" || this.CurrentState == "JumpIn" || this.CurrentState == "JumpOut") {
+            this.PositionY = this.floorLine - Physics.GetTrajectory(120, 15, this.CurrentFrameIndex);
         }
     }
 }

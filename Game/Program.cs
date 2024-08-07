@@ -1,5 +1,6 @@
 ﻿using Input_Space;
 using Character_Space;
+using Aux_Space;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -22,20 +23,22 @@ public static class Program
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
 
         int game_satate = 0;
+        bool showBoxs = false;
+
 
         // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "Fighting Game CS");
         window.Closed += (sender, e) => window.Close();
-        window.SetFramerateLimit(24);
+        window.SetFramerateLimit(60);
 
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens");
         var Ken_object = new Ken("Idle", 100, 30);
         Ken_object.Load();
-        // var Akuma_object = new Akuma("Idle", 100, 250);
-        // Akuma_object.Load();
+        var Psylock_object = new Psylock("Idle", 300, 30);
+        Psylock_object.Load();
 
-        List<Character> OnSceneCharacters = new List<Character> {Ken_object};
+        List<Character> OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
 
         while (window.IsOpen) {
             // First
@@ -45,11 +48,10 @@ public static class Program
 
             // on Battle Scene
             foreach (Character char_object in OnSceneCharacters) char_object.Update();
-
-            // Render Temporário
-            foreach (Character char_object in OnSceneCharacters) char_object.Render(window, true);
+            foreach (Character char_object in OnSceneCharacters) char_object.Render(window, showBoxs);
 
             // DEBUG
+            if (InputManager.Instance.Key_down(4)) showBoxs = !showBoxs;
             Console.Clear();
             foreach (Character char_object in OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem A-----------------------");

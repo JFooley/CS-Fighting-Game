@@ -8,14 +8,20 @@ public class Animation {
     public int animSize;
     public bool doRun;
     public bool doChangeState;
+    public int framerate;
+    public int screenFramerate;
+    private int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, bool doChangeState = true) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool doChangeState = true) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.doRun = true;
         this.animSize = Frames.Count() - 1;
         this.post_state = post_state;
         this.doChangeState = doChangeState;
+        this.framerate = framerate;
+        this.screenFramerate = screenFramerate;
+        this.frameCounter = 0;
     }
 
     public FrameData GetCurrentFrame()
@@ -24,7 +30,18 @@ public class Animation {
     }
 
     public void AdvanceFrame() {
-        if (doRun) {
+        if (!doRun) return;
+
+        // Calcula o número de frames de tela por frame de animação
+        float framesPerAnimFrame = screenFramerate / framerate;
+
+        // Incrementa o contador de frames
+        frameCounter++;
+
+        // Avança o frame de animação apenas quando o contador de frames atinge o limite calculado
+        if (frameCounter >= framesPerAnimFrame) {
+            frameCounter = 0; // Reseta o contador
+
             if (currentFrameIndex < animSize) {
                 currentFrameIndex++;
                 onLastFrame = false;
@@ -37,6 +54,7 @@ public class Animation {
     public void Reset() {
         currentFrameIndex = 0;
         onLastFrame = false;
+        frameCounter = 0;
     }
 }
 

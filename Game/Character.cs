@@ -5,6 +5,7 @@ using SFML.System;
 using SFML.Window;
 using SFML.Audio;
 using Animation_Space;
+using Aux_Space;
 
 // ----- Default States -------
 // Idle
@@ -12,6 +13,9 @@ using Animation_Space;
 // WalkingBackward
 // DashForward
 // DashBackward
+// JumpIn
+// Jump
+// JumpOut
 // CrouchingIn
 // Crouching
 // CrouchingOut
@@ -24,36 +28,43 @@ using Animation_Space;
 
 namespace Character_Space {
 public class Character {
+    // Infos
     public string name;
     public bool facingRight = true;
-    public float size_ratio = 2.0f;
+    public float size_ratio = 3.0f;
+    public string folderPath;
+    public string soundFolderPath;
+    public int floorLine;
 
+    // Statistics 
     public int LifePoints = 0;
     public int StunPoints = 0;
     public int BlockStunFrames = 0;
     public int HitStunFrames = 0;
 
-    public int PositionX { get; private set; }
-    public int PositionY { get; private set; }
-    public string CurrentState { get; private set; }
+    // Object infos
+    public int PositionX { get; set; }
+    public int PositionY { get; set; }
+    public string CurrentState { get; set; }
     private string LastState { get; set; }
 
+    // Combat logic infos
     public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
-    public bool onGround => !(this.CurrentState == "Jumping") || !(this.CurrentState == "JumpingForward") || !(this.CurrentState == "JumpingBackward") || !(this.CurrentState == "Airboned");
+    public bool onGround => !(this.PositionY > this.floorLine);
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
 
+    // Data structs
     public Dictionary<string, Animation> animations;
-    public Animation CurrentAnimation => animations[CurrentState];
     private Dictionary<int, Sprite> spriteImages;
     private Dictionary<string, Sound> characterSounds;
+    public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
-    public string folderPath;
-    public string soundFolderPath;
-
+    // Gets
     public int CurrentSprite;
     public string CurrentSound;
+    public Animation CurrentAnimation => animations[CurrentState];
+    public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
-    public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
     public Character(string name, string initialState, int startX, int startY, string folderPath, string soundFolderPath) {   
         this.folderPath = folderPath;
@@ -63,6 +74,7 @@ public class Character {
         this.LastState = initialState;
         this.PositionX = startX;
         this.PositionY = startY;
+        this.floorLine = startY;
         this.spriteImages = new Dictionary<int, Sprite>();
         this.characterSounds = new Dictionary<string, Sound>();
     }
@@ -102,7 +114,7 @@ public class Character {
 
         // Play sounds
         if (characterSounds.ContainsKey(this.CurrentSound)) {
-            this.characterSounds[this.CurrentSound].Play();
+            if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
         }
         
         // Draw Hitboxes
@@ -143,6 +155,7 @@ public class Character {
     
     public virtual void DoBehavior() {}
 
+    // Auxiliar instructions
     public void ChangeState(string newState) {
         if (animations.ContainsKey(newState)) {
             LastState = CurrentState;
@@ -164,7 +177,7 @@ public class Character {
         return new Sprite(); 
     }
     
-    // Expecific Loads
+    // Visuals load
     public void LoadSpriteImages() {
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(this.folderPath)) {
@@ -207,6 +220,7 @@ public class Character {
         spriteImages.Clear(); // Clear the dictionary
     }
 
+    // Sounds load
     public void LoadSounds() {
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(this.soundFolderPath)) {
