@@ -23,6 +23,16 @@ public static class Program
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(60);
 
+        var view = new View(new FloatRect(0, 0, 1366, 768);
+        window.SetView(view);
+
+        window.Resized += (sender, e) => {
+            float aspectRatio = e.Width / (float)e.Height;
+            view.Size = new Vector2f(1366 * aspectRatio, 768);
+            window.SetView(view);
+        };
+
+
         // Inicializa o input e camera
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
         Camera camera = Camera.GetInstance(window);
