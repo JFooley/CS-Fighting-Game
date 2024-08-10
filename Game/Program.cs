@@ -44,10 +44,7 @@ public static class Program
         camera.Update();
         stage.setChars(Ken_object, Psylock_object);
 
-        window.Resized += (sender, e) =>
-{
-    Camera.GetInstance().UpdateScreenSize(e.Size);
-};
+        window.Resized += (sender, e) => Camera.GetInstance().UpdateScreenSize(e.Size);
 
         while (window.IsOpen) {
             // First
