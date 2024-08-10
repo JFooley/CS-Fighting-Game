@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
@@ -41,6 +42,7 @@ public class Character {
     public int StunPoints = 0;
     public int BlockStunFrames = 0;
     public int HitStunFrames = 0;
+    public int move_speed = 0;
 
     // Object infos
     public int PositionX { get; set; }
@@ -106,9 +108,12 @@ public class Character {
     }
 
     public void Render(RenderWindow window, bool drawHitboxes = false) {
+        // Get onScreen position
+        var realPosition = Camera.GetInstance().GetRealPosition(this.PositionX - 125, this.PositionY);
+
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = new Vector2f(this.PositionX, this.PositionY);
+        temp_sprite.Position = realPosition;
         temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
         window.Draw(temp_sprite);
 
@@ -121,10 +126,10 @@ public class Character {
         if (drawHitboxes) {
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
-                int x1 = (int)(PositionX + box.x1 * size_ratio);
-                int y1 = (int)(PositionY + box.y1 * size_ratio);
-                int x2 = (int)(PositionX + box.x2 * size_ratio);
-                int y2 = (int)(PositionY + box.y2 * size_ratio);
+                int x1 = (int)(realPosition.X + box.x1 * size_ratio);
+                int y1 = (int)(realPosition.Y + box.y1 * size_ratio);
+                int x2 = (int)(realPosition.X + box.x2 * size_ratio);
+                int y2 = (int)(realPosition.Y + box.y2 * size_ratio);
 
                 // Cria o retângulo da hitbox
                 var color = SFML.Graphics.Color.Transparent;
@@ -144,7 +149,7 @@ public class Character {
                     Position = new Vector2f(x1, y1),
                     FillColor = SFML.Graphics.Color.Transparent,
                     OutlineColor = color, // Cor de contorno para a hitbox
-                    OutlineThickness = 1.0f // Espessura do contorno
+                    OutlineThickness = 2.0f // Espessura do contorno
                 };
 
                 // Desenha o retângulo da hitbox na janela
@@ -179,13 +184,16 @@ public class Character {
     
     // Visuals load
     public void LoadSpriteImages() {
+        string currentDirectory = Directory.GetCurrentDirectory();
+        string fullPath = Path.Combine(currentDirectory, this.folderPath);
+
         // Verifica se o diretório existe
-        if (!System.IO.Directory.Exists(this.folderPath)) {
-            throw new System.IO.DirectoryNotFoundException($"O diretório {this.folderPath} não foi encontrado.");
+        if (!System.IO.Directory.Exists(fullPath)) {
+            throw new System.IO.DirectoryNotFoundException($"O diretório {fullPath} não foi encontrado.");
         }
 
         // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(this.folderPath);
+        string[] files = System.IO.Directory.GetFiles(fullPath);
 
         foreach (string file in files) {
             try
@@ -222,13 +230,16 @@ public class Character {
 
     // Sounds load
     public void LoadSounds() {
+        string currentDirectory = Directory.GetCurrentDirectory();
+        string fullSoundPath = Path.Combine(currentDirectory, this.soundFolderPath);
+
         // Verifica se o diretório existe
-        if (!System.IO.Directory.Exists(this.soundFolderPath)) {
-            throw new System.IO.DirectoryNotFoundException($"O diretório {this.soundFolderPath} não foi encontrado.");
+        if (!System.IO.Directory.Exists(fullSoundPath)) {
+            throw new System.IO.DirectoryNotFoundException($"O diretório {fullSoundPath} não foi encontrado.");
         }
 
         // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(this.soundFolderPath);
+        string[] files = System.IO.Directory.GetFiles(fullSoundPath);
 
         foreach (string file in files) {
             try
