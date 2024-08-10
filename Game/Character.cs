@@ -32,7 +32,7 @@ public class Character {
     // Infos
     public string name;
     public bool facingRight = true;
-    public float size_ratio = 3.0f;
+    public float size_ratio = 1.0f;
     public string folderPath;
     public string soundFolderPath;
     public int floorLine;
@@ -109,7 +109,7 @@ public class Character {
 
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
-        var realPosition = Camera.GetInstance().GetRealPosition(this.PositionX - 125, this.PositionY);
+        var realPosition = new Vector2f(this.PositionX - 125, this.PositionY);
 
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
