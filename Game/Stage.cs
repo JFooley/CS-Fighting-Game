@@ -9,7 +9,7 @@ namespace Stage_Space {
 public class Stage {
     // Basic Infos
     public string name = "Empty";
-    public float size_ratio = 3.0f;
+    public float size_ratio = 1.0f;
     public string spritesFolderPath;
     public string soundFolderPath;
 
@@ -62,7 +62,7 @@ public class Stage {
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = this.spriteImages[this.CurrentSprite];
             temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
-            temp_sprite.Position = Camera.GetInstance().GetRealPosition(0, 0);
+            temp_sprite.Position = new Vector2f (0, 0);
             window.Draw(temp_sprite);
         }
 
