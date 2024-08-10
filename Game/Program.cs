@@ -24,6 +24,7 @@ public static class Program
         window.SetFramerateLimit(60);
 
         var view = new View(new FloatRect(0, 0, 1366, 768);
+        view.Zoom(0.3f);
         window.SetView(view);
 
         window.Resized += (sender, e) => {
