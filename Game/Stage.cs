@@ -109,6 +109,7 @@ public class Stage {
                 // Tenta carregar a textura
                 Texture texture = new Texture(file);
                 Sprite sprite = new Sprite(texture);
+                sprite.Texture.Smooth = false;
                 
                 // Obtém o nome do arquivo sem a extensão
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
