@@ -32,7 +32,6 @@ public static class Program
             window.SetView(view);
         };
 
-
         // Inicializa o input e camera
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
         Camera camera = Camera.GetInstance(window);
