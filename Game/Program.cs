@@ -51,7 +51,6 @@ public static class Program
         // Ultimos ajustes
         List<Character> OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
         camera.SetChars(Ken_object, Psylock_object);
-        camera.Update();
         stage.setChars(Ken_object, Psylock_object);
 
         while (window.IsOpen) {
@@ -59,7 +58,7 @@ public static class Program
             window.DispatchEvents();
             window.Clear(Color.Black);
             InputManager.Instance.Update();
-            camera.Update();
+            camera.Update(window, view);
 
             // on Battle Scene
             stage.Update(window);
