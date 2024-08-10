@@ -4,7 +4,7 @@ using Animation_Space;
 
 public class BurningDojo : Stage {
     public BurningDojo()
-        : base("Burning Dojo", 120, 800, 336, "Assets/stages/Burning Dojo/sprites", "Assets/stages/Burning Dojo/sound")
+        : base("Burning Dojo", 369, 800, 336, "Assets/stages/Burning Dojo/sprites", "Assets/stages/Burning Dojo/sound")
     {
 
     }

@@ -2,6 +2,8 @@
 using Character_Space;
 using SFML.Graphics;
 using SFML.Window;
+using System.Configuration;
+using Stage_Space;
 
 // ----- Game States -----
 // 0 - Intro
@@ -12,34 +14,39 @@ using SFML.Window;
 // 5 - Round End
 // 5 - Battle End
 
+// ----- Screen Infos -----
+// True Size: 1280x720
+// View Size: 384x216
+
 public static class Program
 {
     public static void Main() {  
-        int game_state = 0;
+        Console.WriteLine("Stage index: ");
+        int selected_stage = int.Parse(Console.ReadLine());
         bool showBoxs = false;
 
-        // Crie uma janela
-        RenderWindow window = new RenderWindow(new VideoMode(1366, 768), "Fighting Game CS");
+        // Crie uma janela e a view
+        RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
         window.Closed += (sender, e) => window.Close();
-        window.SetFramerateLimit(60);
+        window.SetFramerateLimit(Config.Framerate);
 
-        var view = new View(new FloatRect(0, 0, 1366, 768);
+        var view = new View(new FloatRect(0, 0, Config.WindowWidth, Config.WindowHeight));
         view.Zoom(0.3f);
         window.SetView(view);
 
-        window.Resized += (sender, e) => {
-            float aspectRatio = e.Width / (float)e.Height;
-            view.Size = new Vector2f(1366 * aspectRatio, 768);
-            window.SetView(view);
-        };
-
         // Inicializa o input e camera
         InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
-        Camera camera = Camera.GetInstance(window);
+        Camera camera = Camera.GetInstance(window, view);
 
         // Carega o Stage
-        var stage = new BurningDojo();
+        List<Stage> stages = new List<Stage>{
+            new BurningDojo(),
+            new MidnightDuel(),
+            new NightAlley(),
+        };
+        var stage = stages[selected_stage];
         stage.LoadStage();
+
 
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens");
@@ -51,6 +58,7 @@ public static class Program
         // Ultimos ajustes
         List<Character> OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
         camera.SetChars(Ken_object, Psylock_object);
+        camera.SetLimits(stage.length, stage.height);
         stage.setChars(Ken_object, Psylock_object);
 
         while (window.IsOpen) {
@@ -58,16 +66,15 @@ public static class Program
             window.DispatchEvents();
             window.Clear(Color.Black);
             InputManager.Instance.Update();
-            camera.Update(window, view);
+            camera.Update();
 
             // on Battle Scene
-            stage.Update(window);
             foreach (Character char_object in OnSceneCharacters) char_object.Update();
+            stage.Update(window);
             foreach (Character char_object in OnSceneCharacters) char_object.Render(window, showBoxs);
 
             // DEBUG
             if (InputManager.Instance.Key_down(4)) showBoxs = !showBoxs;
-
             Console.Clear();
             foreach (Character char_object in OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem A-----------------------");

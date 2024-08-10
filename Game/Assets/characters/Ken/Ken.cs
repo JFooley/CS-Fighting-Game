@@ -10,7 +10,7 @@ public class Ken : Character {
         this.LifePoints = 1000;
         this.StunPoints = 50;
 
-        this.move_speed = 10;
+        this.move_speed = 3;
     }
     
     public override void Load() {

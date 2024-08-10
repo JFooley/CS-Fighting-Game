@@ -66,6 +66,12 @@ public class Stage {
             window.Draw(temp_sprite);
         }
 
+        // Play background music
+        if (this.stageSounds["music"].Status == SoundStatus.Stopped){
+            this.stageSounds["music"].Volume = Config.Music_Volume;
+            this.stageSounds["music"].Play();
+        }
+
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
@@ -83,7 +89,10 @@ public class Stage {
     }
 
     private void DoBehavior() {
-        
+        // Move characters away from border
+        character_A.PositionX = (int) Math.Max(0, Math.Min(character_A.PositionX, this.length));
+        character_B.PositionX = (int) Math.Max(0, Math.Min(character_B.PositionX, this.length));
+
     }
 
     public void setChars(Character char_A, Character char_B) {

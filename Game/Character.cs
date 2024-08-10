@@ -1,12 +1,7 @@
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 using SFML.Audio;
 using Animation_Space;
-using Aux_Space;
 
 // ----- Default States -------
 // Idle
@@ -109,7 +104,7 @@ public class Character {
 
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
-        var realPosition = new Vector2f(this.PositionX - 125, this.PositionY);
+        var realPosition = new Vector2f(this.PositionX - 125, this.PositionY - 250);
 
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
@@ -149,7 +144,7 @@ public class Character {
                     Position = new Vector2f(x1, y1),
                     FillColor = SFML.Graphics.Color.Transparent,
                     OutlineColor = color, // Cor de contorno para a hitbox
-                    OutlineThickness = 2.0f // Espessura do contorno
+                    OutlineThickness = 1.0f // Espessura do contorno
                 };
 
                 // Desenha o retângulo da hitbox na janela
