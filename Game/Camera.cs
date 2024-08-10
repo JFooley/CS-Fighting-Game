@@ -44,13 +44,16 @@ public class Camera
         this.CharB = charB;
     }
 
-    public void Update()
+    public void Update(RenderWindow window, View view)
     {
         if (CharA != null && CharB != null)
         {
             this.X = (this.CharA.PositionX + this.CharB.PositionX) / 2;
             this.Y = ((this.CharA.PositionY + this.CharB.PositionY) / 2) + 90;
         }
+
+        view.Center = new Vector2f(this.X, this.Y);
+        window.setView(view);
     }
 
     public Vector2f GetRealPosition(int X_sprite, int Y_sprite)
