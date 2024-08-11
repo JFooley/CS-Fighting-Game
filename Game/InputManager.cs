@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+// ------ Virtual-keys Codes -------
+            // A        0 
+            // B        1 
+            // C        2 
+            // D        3 
+            // Start    4 
+            // Select   5 
+            // Up       6 
+            // Down     7 
+            // Left     8 
+            // Right    9 
+
 namespace Input_Space
 {
 public class InputManager {
@@ -136,7 +148,7 @@ public class InputManager {
         return (buttonState & (1 << button)) == 0 && (buttonLastState & (1 << button)) != 0;
     }
 
-    public bool CheckString(int[] sequence, int maxFrames){
+    public bool Was_down(int[] sequence, int maxFrames){
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;
 

@@ -10,11 +10,39 @@ public class Psylock : Character {
         this.LifePoints = 1000;
         this.StunPoints = 50;
 
+        this.dash_speed = 8;
         this.move_speed = 3;
     }
     
     public override void Load() {
+        // Boxes
+        var pushbox = new GenericBox(2, 85, 177, 155, 195);
+
         // Animations
+        var introFrames = new List<FrameData> {
+            new FrameData(196, 0, 0, new List<GenericBox> {}),
+            new FrameData(196, 0, 0, new List<GenericBox> {}),
+            new FrameData(196, 0, 0, new List<GenericBox> {}),
+            new FrameData(197, 0, 0, new List<GenericBox> {}),
+            new FrameData(198, 0, 0, new List<GenericBox> {}),
+            new FrameData(199, 0, 0, new List<GenericBox> {}),
+            new FrameData(200, 0, 0, new List<GenericBox> {}),
+            new FrameData(201, 0, 0, new List<GenericBox> {}),
+            new FrameData(202, 0, 0, new List<GenericBox> {}),
+            new FrameData(203, 0, 0, new List<GenericBox> {}),
+            new FrameData(204, 0, 0, new List<GenericBox> {}),
+            new FrameData(205, 0, 0, new List<GenericBox> {}),
+            new FrameData(206, 0, 0, new List<GenericBox> {}),
+            new FrameData(207, 0, 0, new List<GenericBox> {}),
+            new FrameData(208, 0, 0, new List<GenericBox> {}),
+            new FrameData(209, 0, 0, new List<GenericBox> {}),
+            new FrameData(210, 0, 0, new List<GenericBox> {}),
+            new FrameData(211, 0, 0, new List<GenericBox> {}),
+            new FrameData(212, 0, 0, new List<GenericBox> {}),
+            new FrameData(212, 0, 0, new List<GenericBox> {}),
+            new FrameData(212, 0, 0, new List<GenericBox> {}),
+        };
+
         var idleFrames = new List<FrameData> { 
             new FrameData(45, 0, 0, new List<GenericBox> { new GenericBox(1, 100, 97, 123, 115), new GenericBox(1, 94, 114, 124, 149), new GenericBox(1, 124, 101, 147, 129), new GenericBox(1, 85, 143, 155, 194), new GenericBox(2, 78, 176, 163, 195) }),
             new FrameData(46, 0, 0, new List<GenericBox> { new GenericBox(2, 78, 181, 163, 194), new GenericBox(1, 103, 100, 122, 114), new GenericBox(1, 94, 115, 125, 152), new GenericBox(1, 126, 101, 148, 131), new GenericBox(1, 87, 146, 154, 193) }),
@@ -158,25 +186,25 @@ public class Psylock : Character {
         };
 
         var dashForwardFrames = new List<FrameData> {
-            new FrameData(116, 10, 0, new List<GenericBox> { new GenericBox(1, 77, 118, 120, 135), new GenericBox(1, 120, 125, 152, 157), new GenericBox(1, 151, 135, 187, 164), new GenericBox(1, 96, 155, 122, 191) }),
-            new FrameData(117, 13, 0, new List<GenericBox> { new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
-            new FrameData(118, 15, 0, new List<GenericBox> { new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
-            new FrameData(119, 15, 0, new List<GenericBox> { new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
-            new FrameData(120, 13, 0, new List<GenericBox> { new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
-            new FrameData(121, 10, 0, new List<GenericBox> { new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),        
+            new FrameData(116, 0, 0, new List<GenericBox> { new GenericBox(1, 77, 118, 120, 135), new GenericBox(1, 120, 125, 152, 157), new GenericBox(1, 151, 135, 187, 164), new GenericBox(1, 96, 155, 122, 191) }),
+            new FrameData(117, this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
+            new FrameData(118, this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
+            new FrameData(119, this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
+            new FrameData(120, this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
+            new FrameData(121, 0, 0, new List<GenericBox> { new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),        
         };
 
         var dashBackwardFrames = new List<FrameData> {
-            new FrameData(122, -8, 0, new List<GenericBox> { new GenericBox(2, 149, 190, 75, 177), new GenericBox(1, 91, 95, 133, 160), new GenericBox(1, 67, 129, 90, 159), new GenericBox(1, 132, 152, 153, 189) }),
-            new FrameData(123, -10, 0, new List<GenericBox> { new GenericBox(1, 124, 126, 174, 144), new GenericBox(1, 87, 112, 126, 158), new GenericBox(1, 74, 90, 109, 122) }),
-            new FrameData(124, -13, 0, new List<GenericBox> { new GenericBox(1, 68, 91, 90, 131), new GenericBox(1, 90, 112, 125, 154), new GenericBox(1, 120, 138, 138, 157), new GenericBox(1, 123, 100, 149, 126), new GenericBox(1, 146, 91, 162, 111) }),
-            new FrameData(125, -15, 0, new List<GenericBox> { new GenericBox(1, 65, 110, 97, 139), new GenericBox(1, 94, 114, 126, 157), new GenericBox(1, 125, 142, 141, 158), new GenericBox(1, 107, 87, 137, 115) }),
-            new FrameData(126, -15, 0, new List<GenericBox> { new GenericBox(1, 89, 124, 132, 154), new GenericBox(1, 126, 140, 144, 157), new GenericBox(1, 88, 81, 114, 129), new GenericBox(1, 66, 139, 89, 157), new GenericBox(1, 101, 153, 116, 172) }),
-            new FrameData(127, -13, 0, new List<GenericBox> { new GenericBox(1, 52, 100, 75, 120), new GenericBox(1, 72, 111, 106, 140), new GenericBox(1, 72, 150, 101, 180), new GenericBox(1, 85, 128, 133, 162), new GenericBox(1, 133, 141, 148, 157) }),
-            new FrameData(128, -10, 0, new List<GenericBox> { new GenericBox(1, 106, 104, 153, 137), new GenericBox(1, 86, 117, 121, 152), new GenericBox(1, 106, 151, 127, 190), new GenericBox(1, 57, 137, 85, 170) }),
-            new FrameData(129, -8, 0, new List<GenericBox> { new GenericBox(1, 120, 95, 138, 111), new GenericBox(1, 104, 110, 147, 127), new GenericBox(1, 94, 124, 127, 148), new GenericBox(1, 79, 148, 153, 194) }),
-            new FrameData(130, -0, 0, new List<GenericBox> { new GenericBox(1, 96, 118, 123, 146), new GenericBox(1, 122, 118, 142, 134), new GenericBox(1, 104, 104, 122, 118), new GenericBox(1, 86, 146, 155, 193), new GenericBox(2, 77, 177, 163, 195) }),
-            new FrameData(131, -0, 0, new List<GenericBox> { new GenericBox(2, 79, 178, 163, 195), new GenericBox(1, 104, 109, 120, 123), new GenericBox(1, 93, 123, 123, 163), new GenericBox(1, 121, 126, 138, 142), new GenericBox(1, 86, 149, 151, 194) }),
+            new FrameData(122, 0, 0, new List<GenericBox> { new GenericBox(2, 149, 190, 75, 177), new GenericBox(1, 91, 95, 133, 160), new GenericBox(1, 67, 129, 90, 159), new GenericBox(1, 132, 152, 153, 189) }),
+            new FrameData(123, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 124, 126, 174, 144), new GenericBox(1, 87, 112, 126, 158), new GenericBox(1, 74, 90, 109, 122) }),
+            new FrameData(124, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 68, 91, 90, 131), new GenericBox(1, 90, 112, 125, 154), new GenericBox(1, 120, 138, 138, 157), new GenericBox(1, 123, 100, 149, 126), new GenericBox(1, 146, 91, 162, 111) }),
+            new FrameData(125, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 65, 110, 97, 139), new GenericBox(1, 94, 114, 126, 157), new GenericBox(1, 125, 142, 141, 158), new GenericBox(1, 107, 87, 137, 115) }),
+            new FrameData(126, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 89, 124, 132, 154), new GenericBox(1, 126, 140, 144, 157), new GenericBox(1, 88, 81, 114, 129), new GenericBox(1, 66, 139, 89, 157), new GenericBox(1, 101, 153, 116, 172) }),
+            new FrameData(127, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 52, 100, 75, 120), new GenericBox(1, 72, 111, 106, 140), new GenericBox(1, 72, 150, 101, 180), new GenericBox(1, 85, 128, 133, 162), new GenericBox(1, 133, 141, 148, 157) }),
+            new FrameData(128, -this.dash_speed, 0, new List<GenericBox> { new GenericBox(1, 106, 104, 153, 137), new GenericBox(1, 86, 117, 121, 152), new GenericBox(1, 106, 151, 127, 190), new GenericBox(1, 57, 137, 85, 170) }),
+            new FrameData(129, 0, 0, new List<GenericBox> { new GenericBox(1, 120, 95, 138, 111), new GenericBox(1, 104, 110, 147, 127), new GenericBox(1, 94, 124, 127, 148), new GenericBox(1, 79, 148, 153, 194) }),
+            new FrameData(130, 0, 0, new List<GenericBox> { new GenericBox(1, 96, 118, 123, 146), new GenericBox(1, 122, 118, 142, 134), new GenericBox(1, 104, 104, 122, 118), new GenericBox(1, 86, 146, 155, 193), new GenericBox(2, 77, 177, 163, 195) }),
+            new FrameData(131, 0, 0, new List<GenericBox> { new GenericBox(2, 79, 178, 163, 195), new GenericBox(1, 104, 109, 120, 123), new GenericBox(1, 93, 123, 123, 163), new GenericBox(1, 121, 126, 138, 142), new GenericBox(1, 86, 149, 151, 194) }),
         };
 
         var crouchingFrames = new List<FrameData> {
@@ -190,7 +218,7 @@ public class Psylock : Character {
             // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
             { "AAttack", new Animation(AFrames, "Idle", 30)},
-            { "BAttack", new Animation(BFrames, "Idle", 30)},
+            { "BAttack", new Animation(BFrames, "Idle", 20)},
             { "CAttack", new Animation(CFrames, "Idle", 20)},
             { "DAttack", new Animation(DFrames, "Idle", 20)},
             { "FrontDAttack", new Animation(FrontDFrames, "Idle", 15)},
@@ -201,6 +229,8 @@ public class Psylock : Character {
             { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
             { "Crouching", new Animation(crouchingFrames, "Idle", 4)},
+            // Bonus
+            { "Intro", new Animation(introFrames, "Idle", 10)},
         };
 
         this.animations = animations;
@@ -252,10 +282,10 @@ public class Psylock : Character {
         // Dashing
         int[] dash_forward_string = {9, 9}; 
         int[] dash_backward_string = {8, 8};
-        if (InputManager.Instance.CheckString(dash_forward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down(dash_forward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
         } 
-        else if (InputManager.Instance.CheckString(dash_backward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        else if (InputManager.Instance.Was_down(dash_backward_string, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
@@ -267,8 +297,8 @@ public class Psylock : Character {
         }
 
         // On Air
-        if (this.CurrentState == "Airboned" || this.CurrentState == "Jump" || this.CurrentState == "JumpIn" || this.CurrentState == "JumpOut") {
-            this.PositionY = this.floorLine - Physics.GetTrajectory(120, 15, this.CurrentFrameIndex);
-        }
+        // if (this.CurrentState == "Airboned" || this.CurrentState == "Jump" || this.CurrentState == "JumpIn" || this.CurrentState == "JumpOut") {
+        //     this.PositionY = 
+        // }
     }
 }

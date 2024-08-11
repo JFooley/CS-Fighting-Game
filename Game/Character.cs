@@ -2,8 +2,10 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
 using Animation_Space;
+using Aux_Space;
 
 // ----- Default States -------
+// Intro
 // Idle
 // WalkingForward
 // WalkingBackward
@@ -38,6 +40,8 @@ public class Character {
     public int BlockStunFrames = 0;
     public int HitStunFrames = 0;
     public int move_speed = 0;
+    public int dash_speed = 0;
+    public Physics physics = new Physics();
 
     // Object infos
     public int PositionX { get; set; }
@@ -61,7 +65,6 @@ public class Character {
     public string CurrentSound;
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
-
 
     public Character(string name, string initialState, int startX, int startY, string folderPath, string soundFolderPath) {   
         this.folderPath = folderPath;

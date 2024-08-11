@@ -11,8 +11,8 @@ public class Camera
     public Character CharA { get; private set; }
     public Character CharB { get; private set; }
 
-    public int X_stage_limits;
-    public int Y_stage_limits;
+    public int X_stage_limits = 0;
+    public int Y_stage_limits = 0;
 
     public float camera_zoom = 0.3f;
 

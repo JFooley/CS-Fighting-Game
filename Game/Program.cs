@@ -21,15 +21,21 @@ using Stage_Space;
 public static class Program
 {
     public static void Main() {  
-        Console.WriteLine("Stage index: ");
-        int selected_stage = int.Parse(Console.ReadLine());
+        // Console.WriteLine("Stage index: ");
+        // int selected_stage = int.Parse(Console.ReadLine());
+        int selected_stage = 0;
         bool showBoxs = false;
 
-        // Crie uma janela e a view
+        // Necessary infos
+        int game_state = 0;
+
+        // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(Config.Framerate);
-
+        window.SetVerticalSyncEnabled(true);
+        
+        // Cria uma view
         var view = new View(new FloatRect(0, 0, Config.WindowWidth, Config.WindowHeight));
         view.Zoom(0.3f);
         window.SetView(view);
@@ -47,12 +53,11 @@ public static class Program
         var stage = stages[selected_stage];
         stage.LoadStage();
 
-
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens");
-        var Ken_object = new Ken("Idle", stage.start_point_A, stage.floorLine);
+        var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine);
         Ken_object.Load();
-        var Psylock_object = new Psylock("Idle", stage.start_point_B, stage.floorLine);
+        var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine);
         Psylock_object.Load();
 
         // Ultimos ajustes
