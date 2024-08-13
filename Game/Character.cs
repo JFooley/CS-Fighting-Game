@@ -11,9 +11,9 @@ using Aux_Space;
 // WalkingBackward
 // DashForward
 // DashBackward
-// JumpIn
+// JumpForward
 // Jump
-// JumpOut
+// JumpBackward
 // CrouchingIn
 // Crouching
 // CrouchingOut
@@ -41,6 +41,7 @@ public class Character {
     public int HitStunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;
+    public int jump_hight = 0;
     public Physics physics = new Physics();
 
     // Object infos
@@ -51,7 +52,7 @@ public class Character {
 
     // Combat logic infos
     public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
-    public bool onGround => !(this.PositionY > this.floorLine);
+    public bool onGround => this.PositionY == this.floorLine;
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
 
     // Data structs

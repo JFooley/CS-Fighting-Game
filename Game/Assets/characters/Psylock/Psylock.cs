@@ -297,8 +297,6 @@ public class Psylock : Character {
         }
 
         // On Air
-        // if (this.CurrentState == "Airboned" || this.CurrentState == "Jump" || this.CurrentState == "JumpIn" || this.CurrentState == "JumpOut") {
-        //     this.PositionY = 
-        // }
+
     }
 }

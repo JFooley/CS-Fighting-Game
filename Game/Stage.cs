@@ -89,10 +89,18 @@ public class Stage {
     }
 
     private void DoBehavior() {
+        int maxDistance = 350;
+
         // Move characters away from border
         character_A.PositionX = (int) Math.Max(0, Math.Min(character_A.PositionX, this.length));
         character_B.PositionX = (int) Math.Max(0, Math.Min(character_B.PositionX, this.length));
 
+        // Keep characters close
+        if (this.character_A.PositionX > character_B.PositionX + maxDistance) this.character_A.PositionX = character_B.PositionX + maxDistance;
+        if (this.character_A.PositionX < character_B.PositionX - maxDistance) this.character_A.PositionX = character_B.PositionX - maxDistance;
+        if (this.character_B.PositionX > character_A.PositionX + maxDistance) this.character_B.PositionX = character_A.PositionX + maxDistance;
+        if (this.character_B.PositionX < character_A.PositionX - maxDistance) this.character_B.PositionX = character_A.PositionX - maxDistance;
+        
     }
 
     public void setChars(Character char_A, Character char_B) {

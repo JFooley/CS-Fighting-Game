@@ -21,9 +21,8 @@ using Stage_Space;
 public static class Program
 {
     public static void Main() {  
-        // Console.WriteLine("Stage index: ");
-        // int selected_stage = int.Parse(Console.ReadLine());
-        int selected_stage = 0;
+        Console.WriteLine("Stage index: ");
+        int selected_stage = int.Parse(Console.ReadLine());
         bool showBoxs = false;
 
         // Necessary infos
@@ -81,12 +80,12 @@ public static class Program
             // DEBUG
             if (InputManager.Instance.Key_down(4)) showBoxs = !showBoxs;
             Console.Clear();
-            foreach (Character char_object in OnSceneCharacters) {
-                Console.WriteLine("-----------------------Personagem A-----------------------");
-                Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
-                Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
-            }
-            Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
+            // foreach (Character char_object in OnSceneCharacters) {
+            //     Console.WriteLine("-----------------------Personagem A-----------------------");
+            //     Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
+            //     Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
+            // }
+            // Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
             // DEBUG
             
             // Finally
