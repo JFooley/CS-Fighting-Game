@@ -92,14 +92,14 @@ public class Stage {
         int maxDistance = 350;
 
         // Move characters away from border
-        character_A.PositionX = (int) Math.Max(0, Math.Min(character_A.PositionX, this.length));
-        character_B.PositionX = (int) Math.Max(0, Math.Min(character_B.PositionX, this.length));
+        character_A.Position.X = (int) Math.Max(0, Math.Min(character_A.Position.X, this.length));
+        character_B.Position.X = (int) Math.Max(0, Math.Min(character_B.Position.X, this.length));
 
         // Keep characters close
-        if (this.character_A.PositionX > character_B.PositionX + maxDistance) this.character_A.PositionX = character_B.PositionX + maxDistance;
-        if (this.character_A.PositionX < character_B.PositionX - maxDistance) this.character_A.PositionX = character_B.PositionX - maxDistance;
-        if (this.character_B.PositionX > character_A.PositionX + maxDistance) this.character_B.PositionX = character_A.PositionX + maxDistance;
-        if (this.character_B.PositionX < character_A.PositionX - maxDistance) this.character_B.PositionX = character_A.PositionX - maxDistance;
+        if (this.character_A.Position.X > character_B.Position.X + maxDistance) this.character_A.Position.X = character_B.Position.X + maxDistance;
+        if (this.character_A.Position.X < character_B.Position.X - maxDistance) this.character_A.Position.X = character_B.Position.X - maxDistance;
+        if (this.character_B.Position.X > character_A.Position.X + maxDistance) this.character_B.Position.X = character_A.Position.X + maxDistance;
+        if (this.character_B.Position.X < character_A.Position.X - maxDistance) this.character_B.Position.X = character_A.Position.X - maxDistance;
         
         this.doSpecialBehaviour();
     }

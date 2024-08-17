@@ -485,50 +485,50 @@ public class Ken : Character {
 
         if (this.CurrentState == "Jump") {
             var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.PositionY, 
+                start_Y: this.Position.Y, 
                 target_Y: this.floorLine, 
-                max_Y: this.PositionY - this.jump_hight, 
+                max_Y: this.Position.Y - this.jump_hight, 
                 anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
             );
-            this.PositionY = delta_Y;
+            this.Position.Y = delta_Y;
         } else if (this.CurrentState == "JumpForward") {
             var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.PositionY, 
+                start_Y: this.Position.Y, 
                 target_Y: this.floorLine, 
-                max_Y: this.PositionY - this.jump_hight, 
+                max_Y: this.Position.Y - this.jump_hight, 
                 anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
             );
-            this.PositionY = delta_Y;
-            this.PositionX += this.move_speed + 1;
+            this.Position.Y = delta_Y;
+            this.Position.X += this.move_speed + 1;
         } else if (this.CurrentState == "JumpBackward") {
             var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.PositionY, 
+                start_Y: this.Position.Y, 
                 target_Y: this.floorLine, 
-                max_Y: this.PositionY - this.jump_hight, 
+                max_Y: this.Position.Y - this.jump_hight, 
                 anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
             );
-            this.PositionY = delta_Y;
-            this.PositionX -= this.move_speed + 1;
+            this.Position.Y = delta_Y;
+            this.Position.X -= this.move_speed + 1;
         }
 
         if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
             var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.PositionY, 
+                start_Y: this.Position.Y, 
                 target_Y: this.floorLine, 
-                max_Y: this.PositionY - 130, 
+                max_Y: this.Position.Y - 130, 
                 anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
             );
-            this.PositionY = delta_Y;
-            this.PositionX += 1;
+            this.Position.Y = delta_Y;
+            this.Position.X += 1;
         } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
             var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.PositionY, 
+                start_Y: this.Position.Y, 
                 target_Y: this.floorLine, 
-                max_Y: this.PositionY - 160, 
+                max_Y: this.Position.Y - 160, 
                 anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
             );
-            this.PositionY = delta_Y;
-            this.PositionX += 2;
+            this.Position.Y = delta_Y;
+            this.Position.X += 2;
         } 
         
     

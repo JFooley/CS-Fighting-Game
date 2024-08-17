@@ -59,8 +59,8 @@ public class Camera
         // Camera to center between players
         if (CharA != null && CharB != null)
         {
-            this.X = (this.CharA.PositionX + this.CharB.PositionX) / 2;
-            this.Y = ((this.CharA.PositionY + this.CharB.PositionY) / 2) - 125;
+            this.X = (this.CharA.Position.X + this.CharB.Position.X) / 2;
+            this.Y = ((this.CharA.Position.Y + this.CharB.Position.Y) / 2) - 125;
         }
 
         // Limit camera pos

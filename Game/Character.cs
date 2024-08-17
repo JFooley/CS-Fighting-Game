@@ -49,14 +49,13 @@ public class Character {
     public Physics physics = new Physics();
 
     // Object infos
-    public int PositionX { get; set; }
-    public int PositionY { get; set; }
+    public Vector2i Position = new Vector2i(0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
 
     // Combat logic infos
     public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
-    public bool onGround => this.PositionY == this.floorLine;
+    public bool onGround => this.Position.Y == this.floorLine;
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
 
     // Data structs
@@ -77,8 +76,8 @@ public class Character {
         this.name = name;
         this.CurrentState = initialState;
         this.LastState = initialState;
-        this.PositionX = startX;
-        this.PositionY = startY;
+        this.Position.X = startX;
+        this.Position.Y = startY;
         this.floorLine = startY;
         this.spriteImages = new Dictionary<int, Sprite>();
         this.characterSounds = new Dictionary<string, Sound>();
@@ -90,8 +89,8 @@ public class Character {
         this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
         // Update position
-        PositionX += CurrentAnimation.GetCurrentFrame().DeltaX;
-        PositionY += CurrentAnimation.GetCurrentFrame().DeltaY;
+        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX;
+        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY;
 
         // Check Push Box
 
@@ -113,7 +112,7 @@ public class Character {
 
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
-        var realPosition = new Vector2f(this.PositionX - 125, this.PositionY - 250);
+        var realPosition = new Vector2f(this.Position.X - 125, this.Position.Y - 250);
 
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();

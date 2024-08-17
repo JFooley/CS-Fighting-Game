@@ -82,7 +82,7 @@ public static class Program
             Console.Clear();
             foreach (Character char_object in OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem A-----------------------");
-                Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
+                Console.WriteLine("Posição X: " + char_object.Position.X + " Posição Y: " + char_object.Position.Y);
                 Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
             }
             Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
