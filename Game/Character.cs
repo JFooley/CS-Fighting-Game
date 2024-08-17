@@ -23,6 +23,7 @@ using Aux_Space;
 // OnBlockCrouching
 // Airboned
 // Fallen
+// Wakeup
 
 namespace Character_Space {
 public class Character {
@@ -55,7 +56,7 @@ public class Character {
     // Combat logic infos
     public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
     public bool onGround => this.Position.Y == this.floorLine;
-    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
+    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned" || this.CurrentState == "Fallen" || this.CurrentState == "Wakeup";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
 
     // Data structs
@@ -169,13 +170,13 @@ public class Character {
 
         this.physics.reset();
     }
-    public void ChangeState(string newState, int index = 0) {
+    public void ChangeState(string newState, int index = 0, bool reset = false) {
         if (animations.ContainsKey(newState)) {
             this.LastState = CurrentState;
             this.CurrentState = newState;
         }
 
-        if (CurrentState != LastState)
+        if (CurrentState != LastState || reset)
         {
             this.animations[CurrentState].Reset();
             this.LastState = CurrentState;

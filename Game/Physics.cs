@@ -11,7 +11,7 @@ public class Physics {
     int max_Y;
     int anim_length;
     
-    public int GetTrajectory(int start_Y, int target_Y, int max_Y, int anim_length) {
+    private int GetTrajectory(int start_Y, int target_Y, int max_Y, int anim_length) {
         if (this.counter == 0) {
             this.start_Y = start_Y;
             this.target_Y = target_Y;

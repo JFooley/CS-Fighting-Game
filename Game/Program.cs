@@ -81,6 +81,14 @@ public static class Program
             // DEBUG
             if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
 
+            // if (InputManager.Instance.Key_down("R")) { 
+            //     Ken_object.ChangeState("Airboned", reset: true);
+            //     Ken_object.SetVelocity(
+            //         X: -5, 
+            //         Y: 50, 
+            //         T: 9 * (60 / Ken_object.CurrentAnimation.framerate));
+            // }
+
             Console.Clear();
             foreach (Character char_object in OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem "+ char_object.name + "-----------------------");
