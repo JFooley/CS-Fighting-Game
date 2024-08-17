@@ -1,3 +1,6 @@
+using Character_Space;
+using SFML.System;
+
 namespace Aux_Space {
 
 public class Physics {
@@ -26,8 +29,6 @@ public class Physics {
 
         if (this.counter >= this.anim_length) { 
             this.counter = 0;
-        } else if (y == target_Y ) {
-            this.counter -= 1;
         }
 
         return (int)Math.Round(y);
@@ -35,6 +36,25 @@ public class Physics {
 
     public void reset() {
         this.counter = 0;
+    }
+
+    public void Update(Character character) {
+        if (character.Velocity.X != 0 && character.Velocity.Z != 0) {
+            character.Position.X += (int) character.Velocity.X;
+        }
+
+        if (character.Velocity.Y != 0 && character.Velocity.Z != 0) {
+            character.Position.Y = this.GetTrajectory(
+                start_Y: character.Position.Y, 
+                target_Y: character.floorLine, 
+                max_Y: character.Position.Y - (int) character.Velocity.Y * 2, 
+                anim_length: (int) character.Velocity.Z
+            );
+        }
+
+        // Resets movement
+        character.Velocity.Z -= 1;
+        if (character.Velocity.Z == 0) character.Velocity = new Vector3f(0, 0, 0);
     }
 
 }

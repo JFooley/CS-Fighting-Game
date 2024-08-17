@@ -40,16 +40,15 @@ public class Character {
     // Statistics 
     public int LifePoints = 0;
     public int StunPoints = 0;
-    public int BlockStunFrames = 0;
-    public int HitStunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 0;
     public int push_box_width = 0;
-    public Physics physics = new Physics();
 
     // Object infos
+    public Physics physics = new Physics();
     public Vector2i Position = new Vector2i(0, 0);
+    public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
 
@@ -57,6 +56,7 @@ public class Character {
     public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
     public bool onGround => this.Position.Y == this.floorLine;
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching";
+    public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
 
     // Data structs
     public Dictionary<string, Animation> animations;
@@ -91,9 +91,9 @@ public class Character {
         // Update position
         Position.X += CurrentAnimation.GetCurrentFrame().DeltaX;
         Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY;
+        this.physics.Update(this);
 
         // Check Push Box
-
 
         // Check agressive colisions
 
@@ -109,7 +109,6 @@ public class Character {
         // Do Behaviour
         this.DoBehavior();
     }
-
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
         var realPosition = new Vector2f(this.Position.X - 125, this.Position.Y - 250);
@@ -160,10 +159,16 @@ public class Character {
             }
         }
     }
-    
     public virtual void DoBehavior() {}
 
     // Auxiliar instructions
+    public void SetVelocity(int X = 0, int Y = 0, int T = 0) {
+        this.Velocity.X = X;
+        this.Velocity.Y = Y;
+        this.Velocity.Z = T;
+
+        this.physics.reset();
+    }
     public void ChangeState(string newState, int index = 0) {
         if (animations.ContainsKey(newState)) {
             this.LastState = CurrentState;
@@ -177,7 +182,6 @@ public class Character {
             this.CurrentAnimation.currentFrameIndex = index;
         }
     }
-
     public Sprite GetCurrentSpriteImage() {
         if (spriteImages.ContainsKey(this.CurrentSprite))
         {

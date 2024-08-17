@@ -3,6 +3,7 @@ using Character_Space;
 using Animation_Space;
 using Input_Space;
 using Aux_Space;
+using System.IO.Compression;
 
 public class Ken : Character {
     private int tatso_speed = 5;
@@ -15,7 +16,7 @@ public class Ken : Character {
 
         this.dash_speed = 8;
         this.move_speed = 3;
-        this.jump_hight = 160;
+        this.jump_hight = 100;
         this.push_box_width = 25;
     }
     
@@ -168,19 +169,19 @@ public class Ken : Character {
         };
 
         var dashForwardFrames = new List<FrameData> {
-            new FrameData(14768, this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14769, this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14770, this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14771, this.dash_speed, 0, new List<GenericBox> {  }),
+            new FrameData(14768, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14769, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14770, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14771, 0, 0, new List<GenericBox> {  }),
             new FrameData(14772, 0, 0, new List<GenericBox> {  }),
             new FrameData(14773, 0, 0, new List<GenericBox> {  })
         };
 
         var dashBackwardFrames = new List<FrameData> {
-            new FrameData(14774, -this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14775, -this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14776, -this.dash_speed, 0, new List<GenericBox> {  }),
-            new FrameData(14777, -this.dash_speed, 0, new List<GenericBox> {  }),
+            new FrameData(14774, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14775, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14776, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14777, 0, 0, new List<GenericBox> {  }),
             new FrameData(14778, 0, 0, new List<GenericBox> {  }),
             new FrameData(14779, 0, 0, new List<GenericBox> {  })
         };
@@ -311,41 +312,41 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, this.tatso_speed, 0, new List<GenericBox> {  }, "tatso"),
-            new FrameData(15357, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15358, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15359, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15366, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15367, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15368, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15369, this.tatso_speed, 0, new List<GenericBox> {  }),
-            new FrameData(15370, this.tatso_speed, 0, new List<GenericBox> {  })
+            new FrameData(15356, 0, 0, new List<GenericBox> {  }, "tatso"),
+            new FrameData(15357, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15358, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15359, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15457, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15458, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15459, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15460, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15461, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15457, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15458, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15459, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15460, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15461, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15366, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15367, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15368, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15369, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15370, 0, 0, new List<GenericBox> {  })
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, this.tatso_speed-1, 0, new List<GenericBox> {  }, "tatso"),
-            new FrameData(15357, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15358, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15359, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15457, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15458, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15459, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15460, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15461, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15366, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15367, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15368, this.tatso_speed-1, 0, new List<GenericBox> {  }),
-            new FrameData(15369, this.tatso_speed-1, 0, new List<GenericBox> {  })
+            new FrameData(15356, 0, 0, new List<GenericBox> {  }, "tatso"),
+            new FrameData(15357, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15358, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15359, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15457, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15458, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15459, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15460, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15461, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15366, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15367, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15368, 0, 0, new List<GenericBox> {  }),
+            new FrameData(15369, 0, 0, new List<GenericBox> {  })
         };
         
         // States
@@ -377,6 +378,7 @@ public class Ken : Character {
             { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
+            { "AirTatso", new Animation(heavyTatsoFrames, "AirTatso", 60)},
             // Bonus
             { "Intro", new Animation(introFrames, "Idle", 10)},
         };
@@ -405,24 +407,21 @@ public class Ken : Character {
             this.ChangeState("HeavyHaduken");
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.canNormalAtack && this.onGround) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.canNormalAtack && this.onGround) {
             this.ChangeState("HeavyTatso");
+        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && !this.onGround) {
+            this.ChangeState("AirTatso");
         }
 
 
         // Cancels
         if (InputManager.Instance.Key_down("B") && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
             this.ChangeState("MKAttack");
-        }
-
-        if (InputManager.Instance.Key_down("R") && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
+        } else if (InputManager.Instance.Key_down("R") && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
             this.ChangeState("CloseHPAttack");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.CurrentState == "CloseHPAttack" && this.CurrentFrameIndex >= 5) {
-            this.ChangeState("LightShory");
-        }
-
+        } 
 
 
         // Normals
@@ -460,9 +459,17 @@ public class Ken : Character {
         // Dashing
         if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
+            this.SetVelocity(
+                X: this.dash_speed,
+                Y: 0,
+                T: 3 * (60 / this.CurrentAnimation.framerate));
         } 
         else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
+            this.SetVelocity(
+                X: - this.dash_speed,
+                Y: 0,
+                T: 3 * (60 / this.CurrentAnimation.framerate));
         }
 
 
@@ -474,63 +481,57 @@ public class Ken : Character {
         }
 
 
-        // Air moviments
+        // Jumps
         if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("Jump");
+            this.SetVelocity(
+                X: 0, 
+                Y: this.jump_hight, 
+                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+
         } else if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpForward");
+            this.SetVelocity(
+                X: this.move_speed + 1, 
+                Y: this.jump_hight, 
+                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+
         } else if (this.onGround && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpBackward");
+            this.SetVelocity(
+                X: -(this.move_speed + 1), 
+                Y: this.jump_hight, 
+                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
 
-        if (this.CurrentState == "Jump") {
-            var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.Position.Y, 
-                target_Y: this.floorLine, 
-                max_Y: this.Position.Y - this.jump_hight, 
-                anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
-            );
-            this.Position.Y = delta_Y;
-        } else if (this.CurrentState == "JumpForward") {
-            var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.Position.Y, 
-                target_Y: this.floorLine, 
-                max_Y: this.Position.Y - this.jump_hight, 
-                anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
-            );
-            this.Position.Y = delta_Y;
-            this.Position.X += this.move_speed + 1;
-        } else if (this.CurrentState == "JumpBackward") {
-            var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.Position.Y, 
-                target_Y: this.floorLine, 
-                max_Y: this.Position.Y - this.jump_hight, 
-                anim_length: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate)
-            );
-            this.Position.Y = delta_Y;
-            this.Position.X -= this.move_speed + 1;
-        }
 
-        if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
-            var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.Position.Y, 
-                target_Y: this.floorLine, 
-                max_Y: this.Position.Y - 130, 
-                anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
-            );
-            this.Position.Y = delta_Y;
-            this.Position.X += 1;
-        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
-            var delta_Y = this.physics.GetTrajectory(
-                start_Y: this.Position.Y, 
-                target_Y: this.floorLine, 
-                max_Y: this.Position.Y - 160, 
-                anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
-            );
-            this.Position.Y = delta_Y;
-            this.Position.X += 2;
+        // Air Specials
+        if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 3) {
+            this.SetVelocity(
+                X: 1, 
+                Y: 65, 
+                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
+
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 3) {
+            this.SetVelocity(
+                X: 2, 
+                Y: 80, 
+                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 
-        
-    
+
+        if (this.CurrentState == "LightTatso" && this.CurrentAnimation.currentFrameIndex == 3) {
+            this.SetVelocity(
+                X: this.tatso_speed - 1, 
+                Y: 10, 
+                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
+
+        } else if (this.CurrentState == "HeavyTatso" && this.CurrentAnimation.currentFrameIndex == 3) {
+            this.SetVelocity(
+                X: this.tatso_speed, 
+                Y: 10, 
+                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
+        } else if (this.CurrentState == "AirTatso" && this.onGround) {
+            this.ChangeState("Idle");
+        } 
     }
 }

@@ -4,6 +4,7 @@ using SFML.Graphics;
 using SFML.Window;
 using System.Configuration;
 using Stage_Space;
+using System.CodeDom;
 
 // ----- Game States -----
 // 0 - Intro
@@ -79,12 +80,14 @@ public static class Program
 
             // DEBUG
             if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
+
             Console.Clear();
             foreach (Character char_object in OnSceneCharacters) {
-                Console.WriteLine("-----------------------Personagem A-----------------------");
+                Console.WriteLine("-----------------------Personagem "+ char_object.name + "-----------------------");
                 Console.WriteLine("Posição X: " + char_object.Position.X + " Posição Y: " + char_object.Position.Y);
                 Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
             }
+            Console.WriteLine("-----------------------Outros-----------------------");
             Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
             Console.WriteLine("Inputs: " + Convert.ToString(InputManager.Instance.getButtonState, 2).PadLeft(12, '0'));
             // DEBUG
