@@ -16,7 +16,6 @@ public class Ken : Character {
 
         this.dash_speed = 8;
         this.move_speed = 3;
-        this.jump_hight = 100;
         this.push_box_width = 25;
     }
     
@@ -415,14 +414,12 @@ public class Ken : Character {
             this.ChangeState("AirTatso");
         }
 
-
         // Cancels
         if (InputManager.Instance.Key_down("B") && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
             this.ChangeState("MKAttack");
         } else if (InputManager.Instance.Key_down("R") && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
             this.ChangeState("CloseHPAttack");
         } 
-
 
         // Normals
         if (InputManager.Instance.Key_down("B") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
@@ -443,7 +440,6 @@ public class Ken : Character {
             this.ChangeState("CloseHPAttack");
         }
 
-
         // Crouching
         if (InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
@@ -454,7 +450,6 @@ public class Ken : Character {
         if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up")) {
             this.ChangeState("Crouching");
         }
-
 
         // Dashing
         if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
@@ -472,14 +467,12 @@ public class Ken : Character {
                 T: 3 * (60 / this.CurrentAnimation.framerate));
         }
 
-
         // Walking
         if (InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("WalkingBackward");
         } else if (InputManager.Instance.Key_hold("Right") && !InputManager.Instance.Key_hold("Left") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
             this.ChangeState("WalkingForward");
         }
-
 
         // Jumps
         if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
@@ -503,7 +496,6 @@ public class Ken : Character {
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
-
 
         // Air Specials
         if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 3) {
