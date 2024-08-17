@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-// ------ Virtual-keys Codes -------
-            // A        0 
-            // B        1 
-            // C        2 
-            // D        3 
-            // Start    4 
-            // Select   5 
-            // Up       6 
-            // Down     7 
-            // Left     8 
-            // Right    9 
-
 namespace Input_Space
 {
-public class InputManager {
+public class InputManager {    
     public const int KEYBOARD_INPUT = 0;
     public const int JOYSTICK_INPUT = 1;
 
+    private static Dictionary<string, int> keysTranslationMap = new Dictionary<string, int>
+    {
+        { "A", 0 },
+        { "B", 1 },
+        { "C", 2 },
+        { "D", 3 },
+        { "L", 4 },
+        { "R", 5 },
+        { "Up", 6 },
+        { "Down", 7 },
+        { "Left", 8 },
+        { "Right", 9 },
+        { "Start", 10 },
+        { "Select", 11 }
+    };
+    private int maxButtonIndex = 12;
+
     private int inputDevice;
     private bool autoDetectDevice;
-    private int buttonState;
-    private int buttonLastState;
+    public int buttonState;
+    public int buttonLastState;
+
+    public int getButtonState => this.buttonState;
 
     // Mapping para teclado e mouse
     private Dictionary<Keys, int> keyMap;
@@ -45,32 +52,36 @@ public class InputManager {
         this.buttonState = 0b0;
         this.buttonLastState = 0b0;
 
-        keyMap = new Dictionary<Keys, int>
+        this.keyMap = new Dictionary<Keys, int>
         {
-            { Keys.Q, 0 },
-            { Keys.W, 1 },
-            { Keys.E, 2 },
-            { Keys.R, 3 },
-            { Keys.Enter, 4 },
-            { Keys.Space, 5 },
+            { Keys.A, 0 },
+            { Keys.S, 1 },
+            { Keys.Q, 2 },
+            { Keys.W, 3 },
+            { Keys.D, 4 },
+            { Keys.E, 5 },
             { Keys.Up, 6 },
             { Keys.Down, 7 },
             { Keys.Left, 8 },
-            { Keys.Right, 9 }
+            { Keys.Right, 9 },
+            { Keys.Enter, 10 },
+            { Keys.Select, 11 },
         };
 
-        joystickMap = new Dictionary<int, int>
+        this.joystickMap = new Dictionary<int, int>
         {
-            { 0x1000, 0 },
-            { 0x2000, 1 },
-            { 0x4000, 2 },
-            { 0x8000, 3 },
-            { 0x0010, 4 },
-            { 0x0020, 5 },
-            { 0x0001, 6 },
-            { 0x0002, 7 },
-            { 0x0004, 8 },
-            { 0x0008, 9 }
+            { 0x1000, 0 },      // A
+            { 0x2000, 1 },      // B
+            { 0x4000, 2 },      // X
+            { 0x8000, 3 },      // Y
+            { 0x0100, 4 },      // L
+            { 0x0200, 5 },      // R
+            { 0x0001, 6 },      // Up
+            { 0x0002, 7 },      // Down
+            { 0x0004, 8 },      // Esquerda
+            { 0x0008, 9 },      // Direita
+            { 0x0010, 10 },     // Start
+            { 0x0020, 11 },     // Select
         };
 
         // Inicializa o buffer de inputs
@@ -97,8 +108,7 @@ public class InputManager {
         }
     }
 
-    public void Update()
-    {
+    public void Update() {
         if (autoDetectDevice && JoystickInput.IsJoystickConnected()) {
             inputDevice = JOYSTICK_INPUT;
         }
@@ -120,7 +130,7 @@ public class InputManager {
         buttonLastState = buttonState;
         buttonState = 0;
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < this.maxButtonIndex; i++) {
             if ((currentInput & (1 << i)) != 0) {
                 buttonState |= (1 << i);
             }
@@ -133,22 +143,22 @@ public class InputManager {
         inputBuffer.Enqueue(buttonState);
     }
 
-    public bool Key_hold(int button)
-    {
-        return (buttonState & (1 << button)) != 0;
+    // Key Detection
+    public bool Key_hold(String key) {
+        return (buttonState & (1 << keysTranslationMap[key])) != 0;
+    }
+    public bool Key_down(String key) {
+        return (buttonState & (1 << keysTranslationMap[key])) != 0 && (buttonLastState & (1 << keysTranslationMap[key])) == 0;
+    }
+    public bool Key_up(String key) {
+        return (buttonState & (1 << keysTranslationMap[key])) == 0 && (buttonLastState & (1 << keysTranslationMap[key])) != 0;
     }
 
-    public bool Key_down(int button)
-    {
-        return (buttonState & (1 << button)) != 0 && (buttonLastState & (1 << button)) == 0;
-    }
+    public bool Was_down(String[] rawSequence, int maxFrames){
+        int[] sequence = {};
 
-    public bool Key_up(int button)
-    {
-        return (buttonState & (1 << button)) == 0 && (buttonLastState & (1 << button)) != 0;
-    }
+        sequence = rawSequence.Select(key => keysTranslationMap[key]).ToArray();
 
-    public bool Was_down(int[] sequence, int maxFrames){
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;
 
@@ -168,7 +178,12 @@ public class InputManager {
             bool found = false;
             for (int j = currentFrame - 1; j >= Math.Max(0, currentFrame - maxFrames); j--) {
                 // Verifica se o botão foi apertado (não estava pressionado antes e foi pressionado depois)
-                if ((bufferList[j] & (1 << sequence[i])) == 0 && (bufferList[j + 1] & (1 << sequence[i])) != 0) {
+                // if ((bufferList[j] & (1 << sequence[i])) == 0 && (bufferList[j + 1] & (1 << sequence[i])) != 0) {
+                //     found = true;
+                //     currentFrame = j;
+                //     break;
+                // }
+                if ((bufferList[j] & (1 << sequence[i])) != (bufferList[j + 1] & (1 << sequence[i]))) {
                     found = true;
                     currentFrame = j;
                     break;
@@ -179,10 +194,9 @@ public class InputManager {
         }
         return true;
     }
-
 }
-public static class RawInput
-{
+
+public static class RawInput {
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(Keys vKey);
 
@@ -202,8 +216,7 @@ public static class RawInput
     }
 }
 
-public class JoystickInput
-{
+public class JoystickInput {
     [DllImport("xinput1_4.dll")]
     private static extern int XInputGetState(int dwUserIndex, out XINPUT_STATE pState);
 

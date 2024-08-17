@@ -34,6 +34,9 @@ public class Character {
     public string soundFolderPath;
     public int floorLine;
 
+    // Controls
+    public int player { get; set; }
+
     // Statistics 
     public int LifePoints = 0;
     public int StunPoints = 0;
@@ -42,6 +45,7 @@ public class Character {
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 0;
+    public int push_box_width = 0;
     public Physics physics = new Physics();
 
     // Object infos
@@ -90,6 +94,7 @@ public class Character {
         PositionY += CurrentAnimation.GetCurrentFrame().DeltaY;
 
         // Check Push Box
+
 
         // Check agressive colisions
 
@@ -160,16 +165,17 @@ public class Character {
     public virtual void DoBehavior() {}
 
     // Auxiliar instructions
-    public void ChangeState(string newState) {
+    public void ChangeState(string newState, int index = 0) {
         if (animations.ContainsKey(newState)) {
-            LastState = CurrentState;
-            CurrentState = newState;
+            this.LastState = CurrentState;
+            this.CurrentState = newState;
         }
 
         if (CurrentState != LastState)
         {
-            animations[CurrentState].Reset();
-            LastState = CurrentState;
+            this.animations[CurrentState].Reset();
+            this.LastState = CurrentState;
+            this.CurrentAnimation.currentFrameIndex = index;
         }
     }
 

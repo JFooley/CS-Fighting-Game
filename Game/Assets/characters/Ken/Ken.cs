@@ -16,11 +16,12 @@ public class Ken : Character {
         this.dash_speed = 8;
         this.move_speed = 3;
         this.jump_hight = 160;
+        this.push_box_width = 25;
     }
     
     public override void Load() {
         // Hurtboxes
-        var pushbox = new GenericBox(2, 89, 182, 161, 196);
+        var pushbox = new GenericBox(2, 125 - this.push_box_width, 103, 125 + this.push_box_width, 195);
 
         // Animations
         var introFrames = new List<FrameData> {
@@ -41,7 +42,7 @@ public class Ken : Character {
         };
 
         var idleFrames = new List<FrameData> {
-            new FrameData(14657, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 102, 140, 153), new GenericBox(1, 118, 92, 139, 109), new GenericBox(1, 137, 107, 156, 135), new GenericBox(1, 96, 105, 131, 127), new GenericBox(1, 91, 148, 152, 196) }),
+            new FrameData(14657, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 102, 102, 140, 153), new GenericBox(1, 118, 92, 139, 109), new GenericBox(1, 137, 107, 156, 135), new GenericBox(1, 96, 105, 131, 127), new GenericBox(1, 91, 148, 152, 196) }),
             new FrameData(14658, 0, 0, new List<GenericBox> { new GenericBox(1, 103, 101, 141, 153), new GenericBox(1, 95, 104, 155, 135), new GenericBox(1, 119, 91, 139, 108), new GenericBox(1, 91, 147, 154, 195), pushbox }),
             new FrameData(14659, 0, 0, new List<GenericBox> { new GenericBox(1, 103, 97, 141, 149), new GenericBox(1, 118, 88, 140, 105), new GenericBox(1, 95, 98, 156, 131), new GenericBox(1, 91, 144, 154, 195), pushbox}),
             new FrameData(14660, 0, 0, new List<GenericBox> { new GenericBox(1, 100, 96, 140, 149), new GenericBox(1, 119, 85, 139, 103), new GenericBox(1, 95, 97, 156, 128), new GenericBox(1, 92, 144, 152, 196), pushbox}),
@@ -81,6 +82,23 @@ public class Ken : Character {
             new FrameData(15027, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 97, 98, 147, 158), new GenericBox(1, 85, 152, 161, 196) }),
             new FrameData(15028, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 95, 128, 114), new GenericBox(1, 91, 110, 143, 162), new GenericBox(1, 85, 150, 162, 194) }),
             new FrameData(15029, -4, 0, new List<GenericBox> { pushbox, new GenericBox(1, 116, 93, 138, 111), new GenericBox(1, 98, 104, 148, 154), new GenericBox(1, 92, 140, 167, 195) }),
+        };
+
+        var cl_HPFrames = new List<FrameData> {
+            new FrameData(15053, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 92, 141, 110), new GenericBox(1, 93, 104, 146, 145), new GenericBox(1, 146, 107, 162, 119), new GenericBox(1, 100, 145, 156, 195) }, "golpe_3"),
+            new FrameData(15054, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 125, 94, 143, 110), new GenericBox(1, 106, 106, 143, 159), new GenericBox(1, 98, 153, 154, 195), new GenericBox(1, 144, 106, 158, 120), new GenericBox(1, 93, 115, 106, 148) }, "golpe_grito_3"),
+            new FrameData(15055, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 130, 92, 145, 109), new GenericBox(1, 109, 103, 145, 155), new GenericBox(1, 100, 151, 153, 195) }),
+            new FrameData(15056, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 130, 91, 150, 108), new GenericBox(1, 113, 103, 151, 153), new GenericBox(1, 151, 113, 170, 150), new GenericBox(1, 102, 108, 115, 125), new GenericBox(1, 98, 148, 154, 195) }),
+            new FrameData(15057, 0, 0, new List<GenericBox> { pushbox, new GenericBox(0, 162, 101, 190, 136), new GenericBox(1, 129, 89, 149, 107), new GenericBox(1, 113, 102, 154, 152), new GenericBox(1, 102, 110, 120, 129), new GenericBox(1, 100, 148, 155, 195) }),
+            new FrameData(15058, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 144, 76, 166, 116), new GenericBox(1, 125, 90, 144, 107), new GenericBox(1, 115, 105, 150, 156), new GenericBox(1, 97, 148, 154, 195) }),
+            new FrameData(15059, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 114, 80, 152, 153), new GenericBox(1, 96, 143, 154, 195), new GenericBox(1, 102, 116, 114, 129) }),
+            new FrameData(15060, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 90, 141, 107), new GenericBox(1, 140, 76, 165, 120), new GenericBox(1, 113, 104, 149, 153), new GenericBox(1, 95, 146, 154, 195) }),
+            new FrameData(15061, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 142, 73, 164, 115), new GenericBox(1, 120, 88, 140, 104), new GenericBox(1, 109, 104, 146, 156), new GenericBox(1, 95, 150, 154, 195) }),
+            new FrameData(15062, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 121, 87, 138, 104), new GenericBox(1, 141, 79, 161, 116), new GenericBox(1, 107, 102, 144, 154), new GenericBox(1, 95, 146, 152, 195) }),
+            new FrameData(15063, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 121, 87, 138, 104), new GenericBox(1, 105, 99, 146, 153), new GenericBox(1, 145, 98, 162, 122), new GenericBox(1, 96, 148, 153, 195) }),
+            new FrameData(15064, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 89, 138, 103), new GenericBox(1, 104, 101, 143, 153), new GenericBox(1, 143, 110, 158, 130) }),
+            new FrameData(15065, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 96, 144, 151, 195), new GenericBox(1, 118, 92, 137, 108), new GenericBox(1, 101, 102, 147, 145) }),
+            new FrameData(15066, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 120, 92, 135, 105), new GenericBox(1, 100, 102, 144, 151), new GenericBox(1, 93, 146, 153, 195) }),
         };
 
         var MKFrames = new List<FrameData> {
@@ -196,7 +214,7 @@ public class Ken : Character {
             new FrameData(14741, 0, 0, new List<GenericBox> { new GenericBox(1, 119, 80, 138, 98), new GenericBox(1, 93, 94, 140, 124), new GenericBox(1, 107, 123, 149, 185) }),
             new FrameData(14742, 0, 0, new List<GenericBox> { new GenericBox(1, 117, 79, 137, 95), new GenericBox(1, 95, 89, 138, 122), new GenericBox(1, 107, 122, 155, 149), new GenericBox(1, 106, 149, 139, 193) }),
             new FrameData(14743, 0, 0, new List<GenericBox> { new GenericBox(1, 119, 78, 137, 93), new GenericBox(1, 95, 89, 142, 125), new GenericBox(1, 109, 126, 152, 158), new GenericBox(1, 109, 159, 138, 194) }),
-            new FrameData(14744, 0, 0, new List<GenericBox> {pushbox, new GenericBox(1, 121, 80, 141, 96), new GenericBox(1, 100, 89, 142, 124), new GenericBox(1, 106, 123, 154, 161), new GenericBox(1, 105, 160, 138, 192) }, "pouso"),
+            new FrameData(14744, 0, 0, new List<GenericBox> {pushbox, new GenericBox(1, 121, 80, 141, 96), new GenericBox(1, 100, 89, 142, 124), new GenericBox(1, 106, 123, 154, 161), new GenericBox(1, 105, 160, 138, 192) }),
         };
 
         var JumpBackward = new List<FrameData>(jumpForward);
@@ -251,6 +269,7 @@ public class Ken : Character {
 
         var heavyShoryFrames = new List<FrameData> {
             new FrameData(15345, 0, 0, new List<GenericBox> {  }, "shory"),
+            new FrameData(15345, 0, 0, new List<GenericBox> {  }),
             new FrameData(15346, 0, 0, new List<GenericBox> {  }),
             new FrameData(15347, 0, 0, new List<GenericBox> {  }),
             new FrameData(15348, 0, 0, new List<GenericBox> {  }),
@@ -274,6 +293,7 @@ public class Ken : Character {
 
         var lightShoryFrames = new List<FrameData> {
             new FrameData(15345, 0, 0, new List<GenericBox> {  }, "shory"),
+            new FrameData(15345, 0, 0, new List<GenericBox> {  }),
             new FrameData(15346, 0, 0, new List<GenericBox> {  }),
             new FrameData(15347, 0, 0, new List<GenericBox> {  }),
             new FrameData(15348, 0, 0, new List<GenericBox> {  }),
@@ -332,12 +352,13 @@ public class Ken : Character {
         var animations = new Dictionary<string, Animation> {
             // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
-            { "AAttack", new Animation(LPFrames, "Idle", 30)},
-            { "BAttack", new Animation(LKFrames, "Idle", 30)},
-            { "CAttack", new Animation(MPFrames, "Idle", 20)},
-            { "DAttack", new Animation(MKFrames, "Idle", 20)},
-            { "BackDAttack", new Animation(BackMKFrames, "Idle", 20)},
-            { "BackCAttack", new Animation(HPFrames, "Idle", 20)},
+            { "LPAttack", new Animation(LPFrames, "Idle", 30)},
+            { "LKAttack", new Animation(LKFrames, "Idle", 30)},
+            { "MPAttack", new Animation(MPFrames, "Idle", 20)},
+            { "MKAttack", new Animation(MKFrames, "Idle", 20)},
+            { "BackMKAttack", new Animation(BackMKFrames, "Idle", 20)},
+            { "BackMPAttack", new Animation(HPFrames, "Idle", 20)},
+            { "CloseHPAttack", new Animation(cl_HPFrames, "Idle", 30)},
             // Movment
             { "WalkingForward", new Animation(walkingForwardFrames, "Idle", 20)},
             { "WalkingBackward", new Animation(walkingBackwardFrames, "Idle", 20)},
@@ -366,91 +387,99 @@ public class Ken : Character {
     }
 
     public override void DoBehavior() {
-        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold(8) & !InputManager.Instance.Key_hold(9)) {
+        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left") & !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("Idle");
             physics.reset();
         }
 
         // Specials
-        if (InputManager.Instance.Was_down(new int[] {9, 7, 9, 0}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.canNormalAtack) {
             this.ChangeState("LightShory");
-        } else if (InputManager.Instance.Was_down(new int[] {9, 7, 9, 2}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyShory");
         }
 
-        if (InputManager.Instance.Was_down(new int[] {7, 9, 0}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10) && this.canNormalAtack) {
             this.ChangeState("LightHaduken");
-        } else if (InputManager.Instance.Was_down(new int[] {7, 9, 2}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyHaduken");
         }
 
-        if (InputManager.Instance.Was_down(new int[] {7, 8, 1}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.canNormalAtack) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.Was_down(new int[] {7, 8, 3}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.canNormalAtack) {
             this.ChangeState("HeavyTatso");
         }
 
+
         // Cancels
-        if (InputManager.Instance.Was_down( new int[] {3}, 4) && this.CurrentState == "BAttack" && this.CurrentFrameIndex >= 3) {
-            this.ChangeState("DAttack");
+        if (InputManager.Instance.Key_down("B") && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
+            this.ChangeState("MKAttack");
         }
 
-        if (InputManager.Instance.Key_down(3) && this.CurrentState == "BAttack" && this.CurrentFrameIndex >= 3) {
-            this.ChangeState("DAttack");
+        if (InputManager.Instance.Key_down("R") && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
+            this.ChangeState("CloseHPAttack");
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.CurrentState == "CloseHPAttack" && this.CurrentFrameIndex >= 5) {
+            this.ChangeState("LightShory");
         }
-        if (InputManager.Instance.Key_down(2) && InputManager.Instance.Key_hold(8) && this.CurrentState == "CAttack" && this.CurrentFrameIndex >= 4) {
-            this.ChangeState("BackCAttack");
-        }
+
+
 
         // Normals
-        if (InputManager.Instance.Key_down(3) && InputManager.Instance.Key_hold(8) && this.canNormalAtack) {
-            this.ChangeState("BackDAttack");
-        } else if (InputManager.Instance.Key_down(2) && InputManager.Instance.Key_hold(8) && this.canNormalAtack) {
-            this.ChangeState("BackCAttack");
+        if (InputManager.Instance.Key_down("B") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+            this.ChangeState("BackMKAttack");
+        } else if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+            this.ChangeState("BackMPAttack");
         }
 
-        if (InputManager.Instance.Key_down(0) && this.canNormalAtack) {
-            this.ChangeState("AAttack");
-        } else if (InputManager.Instance.Key_down(1) && this.canNormalAtack) {
-            this.ChangeState("BAttack");
-        } else if (InputManager.Instance.Key_down(2) && this.canNormalAtack) {
-            this.ChangeState("CAttack");
-        } else if (InputManager.Instance.Key_down(3) && this.canNormalAtack ) {
-            this.ChangeState("DAttack");
+        if (InputManager.Instance.Key_down("C") && this.canNormalAtack) {
+            this.ChangeState("LPAttack");
+        } else if (InputManager.Instance.Key_down("A") && this.canNormalAtack) {
+            this.ChangeState("LKAttack");
+        } else if (InputManager.Instance.Key_down("D") && this.canNormalAtack) {
+            this.ChangeState("MPAttack");
+        } else if (InputManager.Instance.Key_down("B") && this.canNormalAtack ) {
+            this.ChangeState("MKAttack");
+        } else if (InputManager.Instance.Key_down("R") && this.canNormalAtack) {
+            this.ChangeState("CloseHPAttack");
         }
+
 
         // Crouching
-        if (InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
         }
-        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold(7)) {
+        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold("Down")) {
             this.ChangeState("CrouchingOut");
         }
-        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold(7) && !InputManager.Instance.Key_hold(6)) {
+        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up")) {
             this.ChangeState("Crouching");
         }
 
+
         // Dashing
-        if (InputManager.Instance.Was_down(new int[] {9, 9}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
         } 
-        else if (InputManager.Instance.Was_down(new int[] {8, 8}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
+
         // Walking
-        if (InputManager.Instance.Key_hold(8) && !InputManager.Instance.Key_hold(9) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("WalkingBackward");
-        } else if (InputManager.Instance.Key_hold(9) && !InputManager.Instance.Key_hold(8) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
+        } else if (InputManager.Instance.Key_hold("Right") && !InputManager.Instance.Key_hold("Left") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
             this.ChangeState("WalkingForward");
         }
 
+
         // Air moviments
-        if (this.onGround && InputManager.Instance.Key_hold(6) && !InputManager.Instance.Key_hold(8) && !InputManager.Instance.Key_hold(9)) {
+        if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("Jump");
-        } else if (this.onGround && InputManager.Instance.Key_hold(6) && !InputManager.Instance.Key_hold(8) && InputManager.Instance.Key_hold(9)) {
+        } else if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpForward");
-        } else if (this.onGround && InputManager.Instance.Key_hold(6) && InputManager.Instance.Key_hold(8) && !InputManager.Instance.Key_hold(9)) {
+        } else if (this.onGround && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpBackward");
         } 
 
@@ -482,21 +511,21 @@ public class Ken : Character {
             this.PositionX -= this.move_speed + 1;
         }
 
-        if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex >= 2) {
+        if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
             var delta_Y = this.physics.GetTrajectory(
                 start_Y: this.PositionY, 
                 target_Y: this.floorLine, 
                 max_Y: this.PositionY - 130, 
-                anim_length: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate)
+                anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
             );
             this.PositionY = delta_Y;
             this.PositionX += 1;
-        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex >= 2) {
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex >= 3) {
             var delta_Y = this.physics.GetTrajectory(
                 start_Y: this.PositionY, 
                 target_Y: this.floorLine, 
                 max_Y: this.PositionY - 160, 
-                anim_length: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate)
+                anim_length: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate)
             );
             this.PositionY = delta_Y;
             this.PositionX += 2;

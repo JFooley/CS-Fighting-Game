@@ -28,8 +28,6 @@ class FrameDataApp:
         self.canvas.bind("<Motion>", self.on_mouse_move)
         self.root.bind("<BackSpace>", self.delete_last_box)
         self.root.bind("<Return>", self.next_frame)
-        self.root.bind("<space>", self.show_previous_frame)
-        self.root.bind("<KeyRelease-space>", self.show_current_frame)
 
         # Load the first image
         self.load_next_image()
@@ -101,19 +99,6 @@ class FrameDataApp:
             return "blue"
         else:
             return "white"
-
-    def show_previous_frame(self, event):
-        if self.current_frame > 0:
-            # Save current hitboxes
-            current_hitboxes = self.hitboxes[:]
-            # Load previous image and hitboxes
-            self.current_frame -= 1
-            self.load_next_image()
-            # Restore the current state
-            self.current_frame += 1
-            self.hitboxes = current_hitboxes
-        self.canvas.delete("all")
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
 
     def show_current_frame(self, event):
         self.redraw()

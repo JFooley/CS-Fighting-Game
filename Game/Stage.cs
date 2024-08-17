@@ -101,7 +101,10 @@ public class Stage {
         if (this.character_B.PositionX > character_A.PositionX + maxDistance) this.character_B.PositionX = character_A.PositionX + maxDistance;
         if (this.character_B.PositionX < character_A.PositionX - maxDistance) this.character_B.PositionX = character_A.PositionX - maxDistance;
         
+        this.doSpecialBehaviour();
     }
+
+    public virtual void doSpecialBehaviour() {}
 
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
@@ -191,7 +194,6 @@ public class Stage {
     }
 
     public virtual void LoadStage() {}
-
     public virtual void UnloadStage() {}
 
 }

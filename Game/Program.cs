@@ -78,14 +78,15 @@ public static class Program
             foreach (Character char_object in OnSceneCharacters) char_object.Render(window, showBoxs);
 
             // DEBUG
-            if (InputManager.Instance.Key_down(4)) showBoxs = !showBoxs;
+            if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
             Console.Clear();
-            // foreach (Character char_object in OnSceneCharacters) {
-            //     Console.WriteLine("-----------------------Personagem A-----------------------");
-            //     Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
-            //     Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
-            // }
-            // Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
+            foreach (Character char_object in OnSceneCharacters) {
+                Console.WriteLine("-----------------------Personagem A-----------------------");
+                Console.WriteLine("Posição X: " + char_object.PositionX + " Posição Y: " + char_object.PositionY);
+                Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
+            }
+            Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
+            Console.WriteLine("Inputs: " + Convert.ToString(InputManager.Instance.getButtonState, 2).PadLeft(12, '0'));
             // DEBUG
             
             // Finally
