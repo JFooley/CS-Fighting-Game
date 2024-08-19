@@ -1,3 +1,4 @@
+using SFML.System;
 using Character_Space;
 using Animation_Space;
 using Input_Space;
@@ -7,14 +8,14 @@ public class Psylock : Character {
     public Psylock(string initialState, int startX, int startY)
         : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds")
     {
-        this.LifePoints = 1000;
-        this.StunPoints = 50;
+        this.LifePoints = new Vector2i(1000, 1000);
+        this.StunPoints = new Vector2i(50, 50);
 
         this.dash_speed = 8;
         this.move_speed = 3;
         this.push_box_width = 25;
     }
-    
+
     public override void Load() {
         // Boxes
         var pushbox = new GenericBox(2, 125 - this.push_box_width, 109, 125 + this.push_box_width, 195);
@@ -279,19 +280,19 @@ public class Psylock : Character {
 
 
         // Normals
-        if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+        if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.notActing) {
             this.ChangeState("AltDAttack");
-        } else if (InputManager.Instance.Key_down("C") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("C") && InputManager.Instance.Key_hold("Left") && this.notActing) {
             this.ChangeState("AltCAttack");
         }
 
-        if (InputManager.Instance.Key_down("A") && this.canNormalAtack) {
+        if (InputManager.Instance.Key_down("A") && this.notActing) {
             this.ChangeState("AAttack");
-        } else if (InputManager.Instance.Key_down("B") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("B") && this.notActing) {
             this.ChangeState("BAttack");
-        } else if (InputManager.Instance.Key_down("C") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("C") && this.notActing) {
             this.ChangeState("CAttack");
-        } else if (InputManager.Instance.Key_down("D") && this.canNormalAtack ) {
+        } else if (InputManager.Instance.Key_down("D") && this.notActing ) {
             this.ChangeState("DAttack");
         }
 
@@ -303,9 +304,9 @@ public class Psylock : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
-        } else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
@@ -329,27 +330,80 @@ public class Psylock : Character {
         }
 
         // Jumps
-        if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
+        if (this.notActing && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("Jump");
             this.SetVelocity(
                 X: 0, 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
 
-        } else if (this.onGround && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
+        } else if (this.notActing && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpForward");
             this.SetVelocity(
                 X: this.move_speed + 1, 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
 
-        } else if (this.onGround && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
+        } else if (this.notActing && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpBackward");
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
+    }
 
+    public override void ImposeBehavior(Character target, bool doHit) {
+        switch (this.CurrentState) {
+            case "AAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+                
+            case "BAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+                
+            case "CAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+
+            case "DAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+            
+            default:
+                if (doHit) {
+                    target.ChangeState("Idle");
+                    target.SetVelocity(this.facing * 2, 0, 10);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+        }
     }
 }

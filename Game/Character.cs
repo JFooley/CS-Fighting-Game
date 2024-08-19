@@ -29,7 +29,7 @@ namespace Character_Space {
 public class Character {
     // Infos
     public string name;
-    public bool facingRight = true;
+    public int facing = 1;
     public float size_ratio = 1.0f;
     public string folderPath;
     public string soundFolderPath;
@@ -39,11 +39,11 @@ public class Character {
     public int player { get; set; }
 
     // Statistics 
-    public int LifePoints = 0;
-    public int StunPoints = 0;
+    public Vector2i LifePoints = new Vector2i(1000, 1000);
+    public Vector2i StunPoints = new Vector2i(50, 50);
     public int move_speed = 0;
     public int dash_speed = 0;
-    public int jump_hight = 100;
+    public int jump_hight = 80;
     public int push_box_width = 0;
 
     // Object infos
@@ -54,10 +54,15 @@ public class Character {
     private string LastState { get; set; }
 
     // Combat logic infos
-    public bool canNormalAtack => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
-    public bool onGround => this.Position.Y == this.floorLine;
-    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned" || this.CurrentState == "Fallen" || this.CurrentState == "Wakeup";
+    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
+    public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
+
+    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
+    public bool canAct = false;
+    public bool hasHit = false;
+    public bool blockingHigh => notActing;
+    public bool blockingLow;
 
     // Data structs
     public Dictionary<string, Animation> animations;
@@ -94,10 +99,6 @@ public class Character {
         Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY;
         this.physics.Update(this);
 
-        // Check Push Box
-
-        // Check agressive colisions
-
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
@@ -108,7 +109,7 @@ public class Character {
         }
 
         // Do Behaviour
-        this.DoBehavior();
+        if (this.canAct) this.DoBehavior();
     }
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
@@ -129,10 +130,10 @@ public class Character {
         if (drawHitboxes) {
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
-                int x1 = (int)(realPosition.X + box.x1 * size_ratio);
-                int y1 = (int)(realPosition.Y + box.y1 * size_ratio);
-                int x2 = (int)(realPosition.X + box.x2 * size_ratio);
-                int y2 = (int)(realPosition.Y + box.y2 * size_ratio);
+                int x1 = (int)(realPosition.X + box.pA.X * size_ratio);
+                int y1 = (int)(realPosition.Y + box.pA.Y * size_ratio);
+                int x2 = (int)(realPosition.X + box.pB.X * size_ratio);
+                int y2 = (int)(realPosition.Y + box.pB.Y * size_ratio);
 
                 // Cria o retângulo da hitbox
                 var color = SFML.Graphics.Color.Transparent;
@@ -160,9 +161,12 @@ public class Character {
             }
         }
     }
-    public virtual void DoBehavior() {}
 
-    // Auxiliar instructions
+    // Battle methods
+    public virtual void DoBehavior() {}
+    public virtual void ImposeBehavior(Character target, bool doHit) {}
+
+    // Auxiliar methods
     public void SetVelocity(int X = 0, int Y = 0, int T = 0) {
         this.Velocity.X = X;
         this.Velocity.Y = Y;
@@ -190,7 +194,17 @@ public class Character {
         }
         return new Sprite(); 
     }
-    
+    public void Reset(int start_point, int facing, String state = "Idle") {
+        this.ChangeState(state);
+        this.LifePoints.X = this.LifePoints.Y;
+        this.StunPoints.X = this.StunPoints.Y;
+        this.Position.X = start_point;
+        this.Position.Y = this.floorLine;
+        this.facing = facing;
+        this.physics.reset();
+        this.Velocity = new Vector3f(0, 0, 0);
+    }
+
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();

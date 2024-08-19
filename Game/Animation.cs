@@ -1,3 +1,5 @@
+using SFML.System;
+
 namespace Animation_Space {
 
 public class Animation {
@@ -7,6 +9,8 @@ public class Animation {
     public bool onLastFrame;
     public string post_state; 
     public int animSize;
+    public int realAnimSize => animSize * (60 / this.framerate);
+
     public bool doRun;
     public bool doChangeState;
     public int framerate;
@@ -81,16 +85,26 @@ public class GenericBox {
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
 
-    public int x1, x2, y1, y2;
+    public Vector2i pA;
+    public Vector2i pB;
+
     public int type;
 
     public GenericBox(int type, int x1, int y1, int x2, int y2) {   
         this.type = type;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+        this.pA.X = x1;
+        this.pB.X = x2;
+        this.pA.Y = y1;
+        this.pB.Y = y2;
     }
+
+    public bool Intersects(GenericBox box, Vector2i position_A, Vector2i position_B) {
+        return this.pA.X + position_A.X < box.pB.X + position_B.X && // Verifica se o lado direito da box atual está à esquerda do lado direito da outra box
+            this.pB.X + position_A.X > box.pA.X + position_B.X && // Verifica se o lado esquerdo da box atual está à direita do lado esquerdo da outra box
+            this.pA.Y + position_A.Y < box.pB.Y + position_B.Y && // Verifica se o lado inferior da box atual está acima do lado inferior da outra box
+            this.pB.Y + position_A.Y > box.pA.Y + position_B.Y;   // Verifica se o lado superior da box atual está abaixo do lado superior da outra box
+    }
+
 }
 
 public class FrameData {

@@ -3,6 +3,7 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Character_Space;
+using Microsoft.SqlServer.Server;
 
 namespace Stage_Space {
 
@@ -14,10 +15,15 @@ public class Stage {
     public string soundFolderPath;
 
     // Battle Info
+    public List<Character> OnSceneCharacters { get; set; }
     public Character character_A;
     public Character character_B;
     public int rounds_A;
     public int rounds_B;
+    public int round_length = Config.RoundLength;
+    public DateTime round_start_time;
+    public int elapsed_time => (int) (DateTime.Now - this.round_start_time).TotalSeconds;
+
 
     // Technical infos
     public int floorLine;
@@ -54,9 +60,13 @@ public class Stage {
         this.stageSounds = new Dictionary<string, Sound>();
     }
 
-    public void Update(RenderWindow window) {
+    // Behaviour
+    public void Update(RenderWindow window, bool showBoxs) {
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
+
+        // Update Chars
+        foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
 
         // Render sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
@@ -84,10 +94,12 @@ public class Stage {
             }
         }
 
+        // Render Chars
+        foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
+
         // Do Behaviour
         this.DoBehavior();
     }
-
     private void DoBehavior() {
         int maxDistance = 350;
 
@@ -100,17 +112,98 @@ public class Stage {
         if (this.character_A.Position.X < character_B.Position.X - maxDistance) this.character_A.Position.X = character_B.Position.X - maxDistance;
         if (this.character_B.Position.X > character_A.Position.X + maxDistance) this.character_B.Position.X = character_A.Position.X + maxDistance;
         if (this.character_B.Position.X < character_A.Position.X - maxDistance) this.character_B.Position.X = character_A.Position.X - maxDistance;
-        
+
+        // Keep characters facing each other
+        if (this.character_A.Position.X < this.character_B.Position.X) {
+            this.character_A.facing = 1;
+            this.character_B.facing = -1;
+        } else {
+            this.character_A.facing = -1;
+            this.character_B.facing = 1;
+        }
+
+        this.checkColisions();
         this.doSpecialBehaviour();
     }
-
     public virtual void doSpecialBehaviour() {}
 
+    // Auxiliary
+    public void checkColisions() {
+        foreach (GenericBox boxA in character_A.CurrentBoxes) {
+            foreach (GenericBox boxB in character_B.CurrentBoxes) {
+                if (boxA.type == 2 && boxB.type == 2 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // Push A e Push B
+                    Console.WriteLine("Caso Push");
+
+                } else if (boxA.type == 0 && boxB.type == 1 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // A hit B
+                    Console.WriteLine("A hit B");
+                    character_A.ImposeBehavior(character_B, false);
+
+                } else if (boxA.type == 1 && boxB.type == 0 && boxB.Intersects(boxA, character_B.Position, character_A.Position)) { // B hit A
+                    Console.WriteLine("B hit A");
+                    character_B.ImposeBehavior(character_A, false);
+                }
+            }
+        }
+  
+    }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
+        this.character_A.facing = 1;
+
         this.character_B = char_B;
+        this.character_B.facing = -1;
+    }
+    public bool CheckRoundEnd() {
+        bool doEnd = false;
+
+        if (character_A.LifePoints.X <= 0) {
+            this.rounds_B += 1;
+            doEnd = true;
+        }
+        if (character_B.LifePoints.X <= 0) {
+            this.rounds_A += 1;
+            doEnd = true;
+        }
+
+        if (this.elapsed_time >= this.round_length) {
+            if (character_A.LifePoints.X <= character_B.LifePoints.X) {
+                this.rounds_B += 1;
+                doEnd = true;
+            } 
+            if (character_A.LifePoints.X >= character_B.LifePoints.X) {
+                this.rounds_A += 1;
+                doEnd = true;
+            } 
+        }
+
+        return doEnd;
+    }
+    public bool CheckMatchEnd() {       
+        if (this.rounds_A == 2 || this.rounds_B == 2) return true;
+        return false;
+    }
+    public void ResetRoundTime() {
+        this.round_start_time = DateTime.Now;
+    }
+    public void ResetMatch() {
+        this.rounds_A = 0;
+        this.rounds_B = 0;
+    }
+    public void ResetPlayers(bool force = false) {
+        if (force) {
+            this.character_A.Reset(this.start_point_A, facing: 1, state: "Intro");
+            this.character_B.Reset(this.start_point_B, facing: -1, state: "Intro");
+        } else {
+            this.character_A.Reset(this.start_point_A, facing: 1);
+            this.character_B.Reset(this.start_point_B, facing: -1);
+        }
+    }
+    public void TogglePlayers() {
+        this.character_A.canAct = !this.character_A.canAct;
+        this.character_B.canAct = !this.character_B.canAct;
     }
 
+    // All loads
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);

@@ -11,8 +11,8 @@ public class Ken : Character {
     public Ken(string initialState, int startX, int startY)
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds")
     {
-        this.LifePoints = 1000;
-        this.StunPoints = 50;
+        this.LifePoints = new Vector2i(1000, 1000);
+        this.StunPoints = new Vector2i(50, 50);
 
         this.dash_speed = 8;
         this.move_speed = 3;
@@ -111,8 +111,6 @@ public class Ken : Character {
             new FrameData(15078, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 88, 124, 106), new GenericBox(1, 90, 100, 150, 132), new GenericBox(1, 100, 133, 141, 194), pushbox}),
             new FrameData(15079, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 109, 89, 131, 107), new GenericBox(1, 92, 101, 144, 148), new GenericBox(1, 96, 148, 145, 195) }),
             new FrameData(15080, 0, 0, new List<GenericBox> { new GenericBox(1, 117, 88, 137, 105), new GenericBox(1, 108, 100, 142, 151), new GenericBox(1, 95, 100, 153, 130), new GenericBox(1, 98, 143, 156, 195), pushbox}),
-            new FrameData(15081, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 118, 88, 138, 107), new GenericBox(1, 102, 100, 142, 154), new GenericBox(1, 96, 104, 157, 131), new GenericBox(1, 94, 146, 155, 196) }),
-            new FrameData(15082, 0, 0, new List<GenericBox> { new GenericBox(1, 122, 89, 140, 106), new GenericBox(1, 104, 99, 140, 153), new GenericBox(1, 97, 101, 159, 130), new GenericBox(1, 92, 143, 155, 195), pushbox}),
         };
 
         var BackMKFrames = new List<FrameData> {
@@ -442,23 +440,23 @@ public class Ken : Character {
         }
 
         // Specials
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.notActing) {
             this.ChangeState("LightShory");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10) && this.notActing) {
             this.ChangeState("HeavyShory");
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10) && this.canNormalAtack) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10) && this.notActing) {
             this.ChangeState("LightHaduken");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10) && this.canNormalAtack) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.canNormalAtack && this.onGround) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.notActing) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.canNormalAtack && this.onGround) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.notActing) {
             this.ChangeState("HeavyTatso");
-        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && !this.onGround) {
+        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
             this.ChangeState("AirTatso");
         }
 
@@ -470,21 +468,21 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Key_down("B") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+        if (InputManager.Instance.Key_down("B") && InputManager.Instance.Key_hold("Left") && this.notActing) {
             this.ChangeState("BackMKAttack");
-        } else if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.notActing) {
             this.ChangeState("BackMPAttack");
         }
 
-        if (InputManager.Instance.Key_down("C") && this.canNormalAtack) {
+        if (InputManager.Instance.Key_down("C") && this.notActing) {
             this.ChangeState("LPAttack");
-        } else if (InputManager.Instance.Key_down("A") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("A") && this.notActing) {
             this.ChangeState("LKAttack");
-        } else if (InputManager.Instance.Key_down("D") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("D") && this.notActing) {
             this.ChangeState("MPAttack");
-        } else if (InputManager.Instance.Key_down("B") && this.canNormalAtack ) {
+        } else if (InputManager.Instance.Key_down("B") && this.notActing ) {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("R") && this.canNormalAtack) {
+        } else if (InputManager.Instance.Key_down("R") && this.notActing) {
             this.ChangeState("CloseHPAttack");
         }
 
@@ -500,14 +498,14 @@ public class Ken : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false) && this.notActing) {
             this.ChangeState("DashForward");
             this.SetVelocity(
                 X: this.dash_speed,
                 Y: 0,
                 T: 3 * (60 / this.CurrentAnimation.framerate));
         } 
-        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false) && this.notActing) {
             this.ChangeState("DashBackward");
             this.SetVelocity(
                 X: - this.dash_speed,
@@ -523,21 +521,21 @@ public class Ken : Character {
         }
 
         // Jumps
-        if (this.onGround && !this.onHitStun && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
+        if (this.notActing && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpForward");
             this.SetVelocity(
                 X: this.move_speed + 1, 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
-        else if (this.onGround && !this.onHitStun && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
+        else if (this.notActing && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
             this.ChangeState("JumpBackward");
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         }
-        else if (this.onGround && !this.onHitStun && InputManager.Instance.Key_hold("Up")) {
+        else if (this.notActing && InputManager.Instance.Key_hold("Up")) {
             this.ChangeState("Jump");
             this.SetVelocity(
                 X: 0, 
@@ -545,17 +543,17 @@ public class Ken : Character {
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
 
-        // Air Specials
+        // Air Specials movement
         if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 3) {
             this.SetVelocity(
                 X: 1, 
-                Y: 65, 
+                Y: 43, 
                 T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 
         else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 3) {
             this.SetVelocity(
                 X: 2, 
-                Y: 80, 
+                Y: 73, 
                 T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 
         else if (this.CurrentState == "LightTatso" && this.CurrentAnimation.currentFrameIndex == 3) {
@@ -570,8 +568,62 @@ public class Ken : Character {
                 Y: 10, 
                 T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 
-        else if (this.CurrentState == "AirTatso" && this.onGround) {
+        else if (this.CurrentState == "AirTatso" && this.notActing) {
             this.ChangeState("Idle");
         } 
+    }
+
+    public override void ImposeBehavior(Character target, bool doHit) {
+        switch (this.CurrentState) {
+            case "LPAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+                
+            case "LKAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+                
+            case "MPAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+
+            case "MKAttack":
+                if (doHit) {
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+
+            default:
+                if (doHit) {
+                    target.ChangeState("Idle");
+                    target.SetVelocity(this.facing * 2, 0, 10);
+                } else {
+                    target.ChangeState("Idle");
+                    this.SetVelocity(-this.facing * 2, 0, 10);
+                }
+                break;
+        }
     }
 }

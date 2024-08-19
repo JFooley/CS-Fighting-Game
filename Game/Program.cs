@@ -2,18 +2,19 @@
 using Character_Space;
 using SFML.Graphics;
 using SFML.Window;
-using System.Configuration;
 using Stage_Space;
-using System.CodeDom;
 
 // ----- Game States -----
 // 0 - Intro
 // 1 - Main Screen
 // 2 - Select Character
-// 3 - Battle Intro
-// 4 - Round Start
-// 5 - Round End
-// 5 - Battle End
+// 3 - Battle
+
+// ----- Sub States -----
+// 0 - Battle Intro
+// 1 - Round Start
+// 2 - Battling
+// 3 - Round End
 
 // ----- Screen Infos -----
 // True Size: 1280x720
@@ -21,13 +22,22 @@ using System.CodeDom;
 
 public static class Program
 {
+    public const int Intro = 0;
+    public const int MainScreen = 1;
+    public const int SelectCharacter = 2;
+    public const int Battle = 3;
+    public const int RoundStart = 1;
+    public const int Battling = 2;
+    public const int RoundEnd = 3;
+
     public static void Main() {  
         Console.WriteLine("Stage index: ");
         int selected_stage = int.Parse(Console.ReadLine());
         bool showBoxs = false;
 
         // Necessary infos
-        int game_state = 0;
+        int game_state = Intro;
+        int sub_state = Intro;
 
         // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
@@ -61,47 +71,92 @@ public static class Program
         Psylock_object.Load();
 
         // Ultimos ajustes
-        List<Character> OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
         camera.SetChars(Ken_object, Psylock_object);
         camera.SetLimits(stage.length, stage.height);
         stage.setChars(Ken_object, Psylock_object);
+        stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
 
         while (window.IsOpen) {
             // First
             window.DispatchEvents();
-            window.Clear(Color.Black);
             InputManager.Instance.Update();
-            camera.Update();
 
-            // on Battle Scene
-            foreach (Character char_object in OnSceneCharacters) char_object.Update();
-            stage.Update(window);
-            foreach (Character char_object in OnSceneCharacters) char_object.Render(window, showBoxs);
+            //
+            switch (game_state) {
+                case Intro:
+                    game_state = Battle;
+                    break;
+
+                case MainScreen:
+                    break;
+
+                case SelectCharacter:
+                    break;
+
+                case Battle:
+                    camera.Update();
+                    stage.Update(window, showBoxs);
+
+                    switch (sub_state) {
+                        case Intro:
+                            stage.ResetRoundTime();
+                            if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar
+                                sub_state = RoundStart;
+                            }
+                            break;
+
+                        case RoundStart: // Inicia a round
+                            stage.ResetRoundTime();
+                            stage.ResetPlayers();
+                            stage.TogglePlayers();
+                            sub_state = Battling;
+                            break;
+
+                        case Battling: // Durante a batalha
+                            if (stage.CheckRoundEnd()) {
+                                sub_state = RoundEnd;
+                                stage.TogglePlayers();
+                            }
+                            break;
+
+                        case RoundEnd: // Finaliza do round
+
+                            Thread.Sleep(2000); // RETIRAR
+
+                            if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
+                                stage.ResetMatch();
+                                stage.ResetPlayers(force: true);
+                                sub_state = Intro;
+                                game_state = Intro;
+                            } else {
+                                sub_state = RoundStart;
+                            }
+                            break;
+                    }
+
+                    break;
+            }
+
+            // Finally
+            window.Display();
 
             // DEBUG
-            if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
-
-            // if (InputManager.Instance.Key_down("R")) { 
-            //     Ken_object.ChangeState("Airboned", reset: true);
-            //     Ken_object.SetVelocity(
-            //         X: -5, 
-            //         Y: 50, 
-            //         T: 9 * (60 / Ken_object.CurrentAnimation.framerate));
-            // }
-
+            if (InputManager.Instance.Key_change("Start")) showBoxs = !showBoxs;
             Console.Clear();
-            foreach (Character char_object in OnSceneCharacters) {
+            foreach (Character char_object in stage.OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem "+ char_object.name + "-----------------------");
                 Console.WriteLine("Posição X: " + char_object.Position.X + " Posição Y: " + char_object.Position.Y);
-                Console.WriteLine("State: " + char_object.CurrentState + " Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " Sprite Index: " + char_object.CurrentSprite);
+                Console.WriteLine("State: " + char_object.CurrentState + " - Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " - Sprite Index: " + char_object.CurrentSprite);
+                Console.WriteLine("LP: " + char_object.LifePoints.X + "/" + char_object.LifePoints.Y);
+                Console.WriteLine("SP: " + char_object.StunPoints.X + "/" + char_object.StunPoints.Y);
+                Console.WriteLine("Facing: " + char_object.facing);
             }
             Console.WriteLine("-----------------------Outros-----------------------");
             Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
             Console.WriteLine("Inputs: " + Convert.ToString(InputManager.Instance.getButtonState, 2).PadLeft(12, '0'));
+            Console.WriteLine("-----------------------Battle-----------------------");
+            Console.WriteLine("Rounds A - " + stage.rounds_A + " | " + (stage.round_length - stage.elapsed_time) + " | " + stage.rounds_B + " - Rounds B");
             // DEBUG
-            
-            // Finally
-            window.Display();
         }
     }
 }

@@ -22,7 +22,7 @@ public class InputManager {
         { "Left", 8 },
         { "Right", 9 },
         { "Start", 10 },
-        { "Select", 11 }
+        { "Select", 11 },
     };
     private int maxButtonIndex = 12;
 
@@ -153,11 +153,12 @@ public class InputManager {
     public bool Key_up(String key) {
         return (buttonState & (1 << keysTranslationMap[key])) == 0 && (buttonLastState & (1 << keysTranslationMap[key])) != 0;
     }
+    public bool Key_change(String key) {
+        return (buttonState & (1 << keysTranslationMap[key])) != (buttonLastState & (1 << keysTranslationMap[key]));
+    }
 
-    public bool Was_down(String[] rawSequence, int maxFrames){
-        int[] sequence = {};
-
-        sequence = rawSequence.Select(key => keysTranslationMap[key]).ToArray();
+    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true) {
+        int[] sequence = rawSequence.Select(key => keysTranslationMap[key]).ToArray();
 
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;
@@ -165,35 +166,42 @@ public class InputManager {
         // Converter a fila para uma lista temporária para acesso por índice
         List<int> bufferList = inputBuffer.ToList();
 
-        // Primeiro, verificar se o último botão da sequência foi pressionado neste frame
-        if (frameCount < 2 || (bufferList[frameCount - 1] & (1 << sequence[sequenceLength - 1])) == 0 || (bufferList[frameCount - 2] & (1 << sequence[sequenceLength - 1])) != 0) {
-            return false;
-        }
-
         // Começa a verificar a sequência de trás para frente
         int currentIndex = sequenceLength - 1;
         int currentFrame = frameCount - 1;
 
         for (int i = currentIndex; i >= 0; i--) {
             bool found = false;
-            for (int j = currentFrame - 1; j >= Math.Max(0, currentFrame - maxFrames); j--) {
-                // Verifica se o botão foi apertado (não estava pressionado antes e foi pressionado depois)
-                // if ((bufferList[j] & (1 << sequence[i])) == 0 && (bufferList[j + 1] & (1 << sequence[i])) != 0) {
-                //     found = true;
-                //     currentFrame = j;
-                //     break;
-                // }
-                if ((bufferList[j] & (1 << sequence[i])) != (bufferList[j + 1] & (1 << sequence[i]))) {
+            for (int j = currentFrame; j > 0 && j >= Math.Max(0, currentFrame - maxFrames); j--) {
+                // Verifica se o botão foi pressionado neste frame (1 neste frame e 0 no frame anterior)
+                if (i == 0 && flexEntry && (bufferList[j] & (1 << sequence[i])) != 0 ) {
                     found = true;
-                    currentFrame = j;
+                    currentFrame = j - 1;
                     break;
-                }
-            } if (!found) {
+                } else if ((bufferList[j] & (1 << sequence[i])) != 0 && (bufferList[j - 1] & (1 << sequence[i])) == 0) {
+                    found = true;
+                    currentFrame = j - 1;
+                    break;
+                } 
+            }
+
+            if (!found) {
                 return false;
             }
+
+            // Verifica se não há outros botões acionados se flexEntry é falso
+            if (!flexEntry) {
+                for (int j = Math.Max(0, currentFrame - maxFrames); j <= currentFrame; j++) {
+                    if ((bufferList[j] & ~((1 << sequence[i]))) != 0) {
+                        return false;
+                    }
+                }
+            }
         }
+
         return true;
     }
+
 }
 
 public static class RawInput {

@@ -34,4 +34,5 @@ public static class Config {
     }
 
     // Others
+    public static int RoundLength = 90;
 }
