@@ -51,8 +51,8 @@ public class Animation {
         return this.SimpleFrames[currentFrameIndex];
     }
 
-    public void AdvanceFrame() {
-        if (!doRun) return;
+    public bool AdvanceFrame() {
+        if (!doRun) return false;
 
         // Calcula o número de frames de tela por frame de animação
         float framesPerAnimFrame = screenFramerate / framerate;
@@ -70,7 +70,11 @@ public class Animation {
             } else {
                 onLastFrame = true;
             }
+
+            return true; // do frame change
         }
+
+        return false; // no frame change
     }
 
     public void Reset() {

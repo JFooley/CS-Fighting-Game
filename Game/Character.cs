@@ -60,7 +60,7 @@ public class Character {
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
     public bool canAct = false;
-    public bool hasHit = false;
+    public bool hasHit = false; // Colidiu com algo nesse frame
     public bool blockingHigh => notActing;
     public bool blockingLow;
 
@@ -100,7 +100,7 @@ public class Character {
         this.physics.Update(this);
 
         // Advance to the next frame
-        CurrentAnimation.AdvanceFrame();
+        if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
         if (this.CurrentAnimation.onLastFrame) {
             this.CurrentAnimation.Reset();
             if (CurrentAnimation.doChangeState) {
@@ -180,8 +180,7 @@ public class Character {
             this.CurrentState = newState;
         }
 
-        if (CurrentState != LastState || reset)
-        {
+        if (CurrentState != LastState || reset) {
             this.animations[CurrentState].Reset();
             this.LastState = CurrentState;
             this.CurrentAnimation.currentFrameIndex = index;

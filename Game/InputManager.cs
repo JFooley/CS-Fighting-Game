@@ -27,6 +27,8 @@ public class InputManager {
     private int maxButtonIndex = 12;
 
     private int inputDevice;
+    private int inputDevice_A;
+    private int inputDevice_B;
     private bool autoDetectDevice;
     public int buttonState;
     public int buttonLastState;
@@ -39,6 +41,8 @@ public class InputManager {
 
     // Buffer de inputs para os últimos 240 frames
     private readonly Queue<int> inputBuffer;
+    private readonly Queue<int> inputBuffer_A;
+    private readonly Queue<int> inputBuffer_B;
     private const int BufferSize = 240;
 
     // Singleton
@@ -108,6 +112,7 @@ public class InputManager {
         }
     }
 
+    // Behaviour
     public void Update() {
         if (autoDetectDevice && JoystickInput.IsJoystickConnected()) {
             inputDevice = JOYSTICK_INPUT;

@@ -134,12 +134,14 @@ public class Stage {
                 if (boxA.type == 2 && boxB.type == 2 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // Push A e Push B
                     Console.WriteLine("Caso Push");
 
-                } else if (boxA.type == 0 && boxB.type == 1 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // A hit B
+                } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // A hit B
                     Console.WriteLine("A hit B");
+                    character_A.hasHit = true;
                     character_A.ImposeBehavior(character_B, false);
 
-                } else if (boxA.type == 1 && boxB.type == 0 && boxB.Intersects(boxA, character_B.Position, character_A.Position)) { // B hit A
+                } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && boxB.Intersects(boxA, character_B.Position, character_A.Position)) { // B hit A
                     Console.WriteLine("B hit A");
+                    character_B.hasHit = true;
                     character_B.ImposeBehavior(character_A, false);
                 }
             }

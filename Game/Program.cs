@@ -141,7 +141,7 @@ public static class Program
             window.Display();
 
             // DEBUG
-            if (InputManager.Instance.Key_change("Start")) showBoxs = !showBoxs;
+            if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
             Console.Clear();
             foreach (Character char_object in stage.OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem "+ char_object.name + "-----------------------");
