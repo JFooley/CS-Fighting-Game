@@ -151,9 +151,12 @@ public class Stage {
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
         this.character_A.facing = 1;
+        this.character_A.player = 1;
 
         this.character_B = char_B;
         this.character_B.facing = -1;
+        this.character_B.player = 2;
+
     }
     public bool CheckRoundEnd() {
         bool doEnd = false;

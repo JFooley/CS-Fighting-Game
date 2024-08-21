@@ -434,78 +434,78 @@ public class Ken : Character {
     }
 
     public override void DoBehavior() {
-        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left") & !InputManager.Instance.Key_hold("Right")) {
+        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.player) & !InputManager.Instance.Key_hold("Right", player: this.player)) {
             this.ChangeState("Idle");
             physics.reset();
         }
 
         // Specials
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("LightShory");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10) && this.notActing) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("HeavyShory");
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("LightHaduken");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10) && this.notActing) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) && this.notActing) {
+        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.player) && this.notActing) {
             this.ChangeState("HeavyTatso");
-        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
+        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.player) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
             this.ChangeState("AirTatso");
         }
 
         // Cancels
-        if (InputManager.Instance.Key_down("B") && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
+        if (InputManager.Instance.Key_down("B", player: this.player) && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("R") && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
+        } else if (InputManager.Instance.Key_down("R", player: this.player) && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
             this.ChangeState("CloseHPAttack");
         } 
 
         // Normals
-        if (InputManager.Instance.Key_down("B") && InputManager.Instance.Key_hold("Left") && this.notActing) {
+        if (InputManager.Instance.Key_down("B", player: this.player) && InputManager.Instance.Key_hold("Left", player: this.player) && this.notActing) {
             this.ChangeState("BackMKAttack");
-        } else if (InputManager.Instance.Key_down("D") && InputManager.Instance.Key_hold("Left") && this.notActing) {
+        } else if (InputManager.Instance.Key_down("D", player: this.player) && InputManager.Instance.Key_hold("Left", player: this.player) && this.notActing) {
             this.ChangeState("BackMPAttack");
         }
 
-        if (InputManager.Instance.Key_down("C") && this.notActing) {
+        if (InputManager.Instance.Key_down("C", player: this.player) && this.notActing) {
             this.ChangeState("LPAttack");
-        } else if (InputManager.Instance.Key_down("A") && this.notActing) {
+        } else if (InputManager.Instance.Key_down("A", player: this.player) && this.notActing) {
             this.ChangeState("LKAttack");
-        } else if (InputManager.Instance.Key_down("D") && this.notActing) {
+        } else if (InputManager.Instance.Key_down("D", player: this.player) && this.notActing) {
             this.ChangeState("MPAttack");
-        } else if (InputManager.Instance.Key_down("B") && this.notActing ) {
+        } else if (InputManager.Instance.Key_down("B", player: this.player) && this.notActing ) {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("R") && this.notActing) {
+        } else if (InputManager.Instance.Key_down("R", player: this.player) && this.notActing) {
             this.ChangeState("CloseHPAttack");
         }
 
         // Crouching
-        if (InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Key_hold("Down", player: this.player) && !InputManager.Instance.Key_hold("Up", player: this.player) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
         }
-        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold("Down")) {
+        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold("Down", player: this.player)) {
             this.ChangeState("CrouchingOut");
         }
-        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down") && !InputManager.Instance.Key_hold("Up")) {
+        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down", player: this.player) && !InputManager.Instance.Key_hold("Up", player: this.player)) {
             this.ChangeState("Crouching");
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false, player: this.player) && this.notActing) {
             this.ChangeState("DashForward");
             this.SetVelocity(
                 X: this.dash_speed,
                 Y: 0,
                 T: 3 * (60 / this.CurrentAnimation.framerate));
         } 
-        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false) && this.notActing) {
+        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false, player: this.player) && this.notActing) {
             this.ChangeState("DashBackward");
             this.SetVelocity(
                 X: - this.dash_speed,
@@ -514,28 +514,28 @@ public class Ken : Character {
         }
 
         // Walking
-        if (InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Key_hold("Left", player: this.player) && !InputManager.Instance.Key_hold("Right", player: this.player) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("WalkingBackward");
-        } else if (InputManager.Instance.Key_hold("Right") && !InputManager.Instance.Key_hold("Left") && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
+        } else if (InputManager.Instance.Key_hold("Right", player: this.player) && !InputManager.Instance.Key_hold("Left", player: this.player) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
             this.ChangeState("WalkingForward");
         }
 
         // Jumps
-        if (this.notActing && InputManager.Instance.Key_hold("Up") && !InputManager.Instance.Key_hold("Left") && InputManager.Instance.Key_hold("Right")) {
+        if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.player) && !InputManager.Instance.Key_hold("Left", player: this.player) && InputManager.Instance.Key_hold("Right", player: this.player)) {
             this.ChangeState("JumpForward");
             this.SetVelocity(
                 X: this.move_speed + 1, 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         } 
-        else if (this.notActing && InputManager.Instance.Key_hold("Up") && InputManager.Instance.Key_hold("Left") && !InputManager.Instance.Key_hold("Right")) {
+        else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.player) && InputManager.Instance.Key_hold("Left", player: this.player) && !InputManager.Instance.Key_hold("Right", player: this.player)) {
             this.ChangeState("JumpBackward");
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         }
-        else if (this.notActing && InputManager.Instance.Key_hold("Up")) {
+        else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.player)) {
             this.ChangeState("Jump");
             this.SetVelocity(
                 X: 0, 

@@ -6,8 +6,13 @@ using System.Windows.Forms;
 namespace Input_Space
 {
 public class InputManager {    
-    public const int KEYBOARD_INPUT = 0;
-    public const int JOYSTICK_INPUT = 1;
+    public const int NONE_INPUT = 0;
+    public const int KEYBOARD_INPUT = 1;
+    public const int JOYSTICK_INPUT = 2;
+
+    public const int DEFAULT = 0;
+    public const int PLAYER_A = 1;
+    public const int PLAYER_B = 2;
 
     private static Dictionary<string, int> keysTranslationMap = new Dictionary<string, int>
     {
@@ -26,35 +31,36 @@ public class InputManager {
     };
     private int maxButtonIndex = 12;
 
-    private int inputDevice;
-    private int inputDevice_A;
-    private int inputDevice_B;
     private bool autoDetectDevice;
-    public int buttonState;
-    public int buttonLastState;
-
-    public int getButtonState => this.buttonState;
+    private int[] inputDevice = new int[3];
+    public int[] buttonState = new int[3];
+    public int[] buttonLastState = new int[3];
 
     // Mapping para teclado e mouse
     private Dictionary<Keys, int> keyMap;
     private Dictionary<int, int> joystickMap;
 
     // Buffer de inputs para os últimos 240 frames
-    private readonly Queue<int> inputBuffer;
-    private readonly Queue<int> inputBuffer_A;
-    private readonly Queue<int> inputBuffer_B;
     private const int BufferSize = 240;
+    private readonly Queue<int> inputBuffer = new Queue<int>(BufferSize);
+    private readonly Queue<int> inputBuffer_A = new Queue<int>(BufferSize);
+    private readonly Queue<int> inputBuffer_B = new Queue<int>(BufferSize);
+    private Queue<int>[] buffers;
 
     // Singleton
     private static InputManager instance;
 
     // Construtor
-    private InputManager(int inputDevice, bool autoDetectDevice = true)
+    private InputManager(bool autoDetectDevice = true)
     {
-        this.inputDevice = inputDevice;
         this.autoDetectDevice = autoDetectDevice;
-        this.buttonState = 0b0;
-        this.buttonLastState = 0b0;
+        for (int i = 0; i < 3; i++) {
+            this.buttonState[i] = 0b0;
+            this.buttonLastState[i] = 0b0;
+        }
+        inputDevice[0] = JOYSTICK_INPUT;
+        inputDevice[1] = JOYSTICK_INPUT;
+        inputDevice[2] = KEYBOARD_INPUT;
 
         this.keyMap = new Dictionary<Keys, int>
         {
@@ -88,8 +94,7 @@ public class InputManager {
             { 0x0020, 11 },     // Select
         };
 
-        // Inicializa o buffer de inputs
-        inputBuffer = new Queue<int>(BufferSize);
+        this.buffers = new Queue<int>[] {inputBuffer, inputBuffer_A, inputBuffer_B};
     }
 
     // Singleton
@@ -99,77 +104,83 @@ public class InputManager {
         {
             if (instance == null)
             {
-                instance = new InputManager(KEYBOARD_INPUT, true);
+                instance = new InputManager(true);
             }
             return instance;
         }
     }
-    public static void Initialize(int inputDevice, bool autoDetectDevice = true)
+    public static void Initialize(bool autoDetectDevice = true)
     {
         if (instance == null)
         {
-            instance = new InputManager(inputDevice, autoDetectDevice);
+            instance = new InputManager(autoDetectDevice);
         }
     }
 
     // Behaviour
     public void Update() {
         if (autoDetectDevice && JoystickInput.IsJoystickConnected()) {
-            inputDevice = JOYSTICK_INPUT;
+            inputDevice[0] = JOYSTICK_INPUT;
+            inputDevice[1] = JOYSTICK_INPUT;
+            inputDevice[2] = KEYBOARD_INPUT;
         }
         else {
-            inputDevice = KEYBOARD_INPUT;
+            inputDevice[0] = KEYBOARD_INPUT;
+            inputDevice[1] = KEYBOARD_INPUT;
+            inputDevice[2] = NONE_INPUT;
         }
 
-        int currentInput = 0;
-
-        if (inputDevice == KEYBOARD_INPUT) {
-            currentInput = RawInput.ReadKeyboardState(keyMap);
-        }
-        else if (inputDevice == JOYSTICK_INPUT) {
-            currentInput = JoystickInput.ReadJoystickState(joystickMap);
-        }
-        else {
-            throw new InvalidOperationException("Invalid input device"); }
-
-        buttonLastState = buttonState;
-        buttonState = 0;
-
-        for (int i = 0; i < this.maxButtonIndex; i++) {
-            if ((currentInput & (1 << i)) != 0) {
-                buttonState |= (1 << i);
+        int[] currentInput =  new int[3] {0, 0, 0};
+        for (int i = 0; i < 3; i++) {
+            if (inputDevice[i] == KEYBOARD_INPUT) {
+                currentInput[i] = RawInput.ReadKeyboardState(keyMap);
+            }
+            else if (inputDevice[i] == JOYSTICK_INPUT) {
+                currentInput[i] = JoystickInput.ReadJoystickState(joystickMap);
             }
         }
 
-        // Adiciona o estado atual do botão no buffer
-        if (inputBuffer.Count >= BufferSize) {
-            inputBuffer.Dequeue();
+        for (int j = 0; j < 3; j++) {
+            buttonLastState[j] = buttonState[j];
+            buttonState[j] = 0;
+            for (int i = 0; i < this.maxButtonIndex; i++) {
+                if ((currentInput[j] & (1 << i)) != 0) {
+                    buttonState[j] |= (1 << i);
+                }
+            }
+
+            // Adiciona o estado atual do botão no buffer
+            if (buffers[j].Count >= BufferSize) {
+                buffers[j].Dequeue();
+            }
+            buffers[j].Enqueue(buttonState[j]);
         }
-        inputBuffer.Enqueue(buttonState);
+
+
     }
 
     // Key Detection
-    public bool Key_hold(String key) {
-        return (buttonState & (1 << keysTranslationMap[key])) != 0;
+    public bool Key_hold(String key, int player = DEFAULT) {
+        return (buttonState[player] & (1 << keysTranslationMap[key])) != 0;
     }
-    public bool Key_down(String key) {
-        return (buttonState & (1 << keysTranslationMap[key])) != 0 && (buttonLastState & (1 << keysTranslationMap[key])) == 0;
+    public bool Key_down(String key, int player = DEFAULT) {
+        return (buttonState[player] & (1 << keysTranslationMap[key])) != 0 && (buttonLastState[player] & (1 << keysTranslationMap[key])) == 0;
     }
-    public bool Key_up(String key) {
-        return (buttonState & (1 << keysTranslationMap[key])) == 0 && (buttonLastState & (1 << keysTranslationMap[key])) != 0;
+    public bool Key_up(String key, int player = DEFAULT) {
+        return (buttonState[player] & (1 << keysTranslationMap[key])) == 0 && (buttonLastState[player] & (1 << keysTranslationMap[key])) != 0;
     }
-    public bool Key_change(String key) {
-        return (buttonState & (1 << keysTranslationMap[key])) != (buttonLastState & (1 << keysTranslationMap[key]));
+    public bool Key_change(String key, int player = DEFAULT) {
+        return (buttonState[player] & (1 << keysTranslationMap[key])) != (buttonLastState[player] & (1 << keysTranslationMap[key]));
     }
 
-    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true) {
+    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true, int player = DEFAULT) {
         int[] sequence = rawSequence.Select(key => keysTranslationMap[key]).ToArray();
 
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;
 
         // Converter a fila para uma lista temporária para acesso por índice
-        List<int> bufferList = inputBuffer.ToList();
+        List<int> bufferList = buffers[player].ToList();
 
         // Começa a verificar a sequência de trás para frente
         int currentIndex = sequenceLength - 1;

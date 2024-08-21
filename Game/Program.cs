@@ -51,7 +51,7 @@ public static class Program
         window.SetView(view);
 
         // Inicializa o input e camera
-        InputManager.Initialize(InputManager.KEYBOARD_INPUT, true);
+        InputManager.Initialize(autoDetectDevice: true);
         Camera camera = Camera.GetInstance(window, view);
 
         // Carega o Stage
@@ -153,7 +153,9 @@ public static class Program
             }
             Console.WriteLine("-----------------------Outros-----------------------");
             Console.WriteLine("Camera - X: " + camera.X + " Y: " + camera.Y);
-            Console.WriteLine("Inputs: " + Convert.ToString(InputManager.Instance.getButtonState, 2).PadLeft(12, '0'));
+            Console.WriteLine("Inputs Default: " + Convert.ToString(InputManager.Instance.buttonState[0], 2).PadLeft(12, '0'));
+            Console.WriteLine("Inputs Char A:  " + Convert.ToString(InputManager.Instance.buttonState[1], 2).PadLeft(12, '0'));
+            Console.WriteLine("Inputs Char B:  " + Convert.ToString(InputManager.Instance.buttonState[2], 2).PadLeft(12, '0'));
             Console.WriteLine("-----------------------Battle-----------------------");
             Console.WriteLine("Rounds A - " + stage.rounds_A + " | " + (stage.round_length - stage.elapsed_time) + " | " + stage.rounds_B + " - Rounds B");
             // DEBUG
