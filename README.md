@@ -17,10 +17,11 @@ Implementado:
 - Block
 - Dash universal
 - Auto orientação da direção lógica dos personagens
-- Pushback
+- Pushback em golpes
 - Lógica básica de combate (tempo, rounds, gatilhos de fim de round, resets)
 
 Em desenvolvimento:
+- Pushback usando as pushboxes
 - Orientação visual dos personagens (olharem para o lado correto)
 - HUD
 - Dano e stun na colisão
