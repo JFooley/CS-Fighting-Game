@@ -17,6 +17,7 @@ Implementado:
 - Block
 - Auto orientação da direção lógica dos personagens
 - Pushback
+- Lógica básica de combate (tempo, rounds, gatilhos de fim de round, resets)
 
 Em desenvolvimento:
 - Orientação visual dos personagens (olharem para o lado correto)
