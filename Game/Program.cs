@@ -64,7 +64,7 @@ public static class Program
         stage.LoadStage();
 
         // Carrega os personagens
-        Console.WriteLine("Carregando os persoangens");
+        Console.WriteLine("Carregando os persoangens, aguarde");
         var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine);
         Ken_object.Load();
         var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine);
@@ -75,6 +75,7 @@ public static class Program
         camera.SetLimits(stage.length, stage.height);
         stage.setChars(Ken_object, Psylock_object);
         stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
+        Console.WriteLine("Finalizado");
 
         while (window.IsOpen) {
             // First
