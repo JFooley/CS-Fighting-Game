@@ -21,15 +21,17 @@ public class InputManager {
         { "C", 2 },
         { "D", 3 },
         { "L", 4 },
-        { "R", 5 },
-        { "Up", 6 },
-        { "Down", 7 },
-        { "Left", 8 },
-        { "Right", 9 },
-        { "Start", 10 },
-        { "Select", 11 },
+        { "LT", 5 },
+        { "R", 6 },
+        { "RT", 7 },
+        { "Up", 8 },
+        { "Down", 9 },
+        { "Left", 10 },
+        { "Right", 11 },
+        { "Start", 12 },
+        { "Select", 13 },
     };
-    private int maxButtonIndex = 12;
+    private int maxButtonIndex = 14;
 
     private bool autoDetectDevice;
     private int[] inputDevice = new int[3];
@@ -64,18 +66,20 @@ public class InputManager {
 
         this.keyMap = new Dictionary<Keys, int>
         {
-            { Keys.A, 0 },
-            { Keys.S, 1 },
-            { Keys.Q, 2 },
-            { Keys.W, 3 },
-            { Keys.D, 4 },
-            { Keys.E, 5 },
-            { Keys.Up, 6 },
-            { Keys.Down, 7 },
-            { Keys.Left, 8 },
-            { Keys.Right, 9 },
-            { Keys.Enter, 10 },
-            { Keys.Select, 11 },
+            { Keys.A, 0 },      // A
+            { Keys.S, 1 },      // B
+            { Keys.Q, 2 },      // X
+            { Keys.W, 3 },      // Y
+            { Keys.R, 4 },      // L
+            { Keys.F, 5 },      // LT
+            { Keys.E, 6 },      // R
+            { Keys.D, 7 },      // RT
+            { Keys.Up, 8 },     // Up
+            { Keys.Down, 9 },   // Down
+            { Keys.Left, 10 },  // Left
+            { Keys.Right, 11 }, // Right
+            { Keys.Enter, 12 }, // Start
+            { Keys.Space, 13 }, // Select
         };
 
         this.joystickMap = new Dictionary<int, int>
@@ -85,13 +89,15 @@ public class InputManager {
             { 0x4000, 2 },      // X
             { 0x8000, 3 },      // Y
             { 0x0100, 4 },      // L
-            { 0x0200, 5 },      // R
-            { 0x0001, 6 },      // Up
-            { 0x0002, 7 },      // Down
-            { 0x0004, 8 },      // Esquerda
-            { 0x0008, 9 },      // Direita
-            { 0x0010, 10 },     // Start
-            { 0x0020, 11 },     // Select
+            { -1, 5 },          // LT
+            { 0x0200, 6 },      // R
+            { -2, 7 },          // RT
+            { 0x0001, 8 },      // Up
+            { 0x0002, 9 },      // Down
+            { 0x0004, 10 },     // Esquerda
+            { 0x0008, 11 },     // Direita
+            { 0x0010, 12 },     // Start
+            { 0x0020, 13 },     // Select
         };
 
         this.buffers = new Queue<int>[] {inputBuffer, inputBuffer_A, inputBuffer_B};
@@ -284,9 +290,12 @@ public class JoystickInput {
         {
             int stateValue = 0;
             foreach (var button in joystickMap)
-            {
-                if ((state.Gamepad.wButtons & button.Key) != 0)
-                {
+            {   
+                if (button.Key == -1) {
+                    if (state.Gamepad.bLeftTrigger > 0) stateValue |= (1 << button.Value);
+                } else if (button.Key == -2) {
+                    if (state.Gamepad.bRightTrigger > 0) stateValue |= (1 << button.Value);
+                } else if ((state.Gamepad.wButtons & button.Key) != 0) {
                     stateValue |= (1 << button.Value);
                 }
             }

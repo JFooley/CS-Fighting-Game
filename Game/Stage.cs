@@ -137,16 +137,15 @@ public class Stage {
                 } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // A hit B
                     Console.WriteLine("A hit B");
                     character_A.hasHit = true;
-                    character_A.ImposeBehavior(character_B, false);
+                    character_A.ImposeBehavior(character_B, isblockingHigh: character_B.isBlockingHigh(), isblockingLow: character_B.isBlockingLow());
 
                 } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && boxB.Intersects(boxA, character_B.Position, character_A.Position)) { // B hit A
                     Console.WriteLine("B hit A");
                     character_B.hasHit = true;
-                    character_B.ImposeBehavior(character_A, false);
+                    character_B.ImposeBehavior(character_A, isblockingHigh: character_A.isBlockingHigh(), isblockingLow: character_A.isBlockingLow());
                 }
             }
-        }
-  
+        } 
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;

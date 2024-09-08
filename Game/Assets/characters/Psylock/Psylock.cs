@@ -353,10 +353,10 @@ public class Psylock : Character {
         } 
     }
 
-    public override void ImposeBehavior(Character target, bool doHit) {
+    public override void ImposeBehavior(Character target, bool isblockingHigh = false, bool isblockingLow = false) {
         switch (this.CurrentState) {
             case "AAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -366,7 +366,7 @@ public class Psylock : Character {
                 break;
                 
             case "BAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -376,7 +376,7 @@ public class Psylock : Character {
                 break;
                 
             case "CAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -386,7 +386,7 @@ public class Psylock : Character {
                 break;
 
             case "DAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -396,7 +396,7 @@ public class Psylock : Character {
                 break;
             
             default:
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Idle");
                     target.SetVelocity(this.facing * 2, 0, 10);
                 } else {

@@ -3,6 +3,7 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Aux_Space;
+using Input_Space;
 
 // ----- Default States -------
 // Intro
@@ -56,13 +57,12 @@ public class Character {
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
-
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
     public bool canAct = false;
     public bool hasHit = false; // Colidiu com algo nesse frame
-    public bool blockingHigh => notActing;
-    public bool blockingLow;
+    private bool blockingHigh = false;
+    private bool blockingLow = false;
 
     // Data structs
     public Dictionary<string, Animation> animations;
@@ -164,7 +164,17 @@ public class Character {
 
     // Battle methods
     public virtual void DoBehavior() {}
-    public virtual void ImposeBehavior(Character target, bool doHit) {}
+    public virtual void ImposeBehavior(Character target, bool isblockingHigh = false, bool isblockingLow = false) {}
+    public bool isBlockingHigh() {
+        if (this.notActing && InputManager.Instance.Key_hold("Left", player: this.player) && this.facing == 1) return true;
+        else if (this.notActing && InputManager.Instance.Key_hold("Right", player: this.player) && this.facing == -1) return true;
+        return false;
+    }
+    public bool isBlockingLow() {
+        if (this.notActing && InputManager.Instance.Key_hold("Left", player: this.player) && InputManager.Instance.Key_hold("Down", player: this.player) && this.facing == 1) return true;
+        else if (this.notActing && InputManager.Instance.Key_hold("Right", player: this.player) && InputManager.Instance.Key_hold("Down", player: this.player) && this.facing == -1) return true;
+        return false;
+    }
 
     // Auxiliar methods
     public void SetVelocity(int X = 0, int Y = 0, int T = 0) {

@@ -461,9 +461,9 @@ public class Ken : Character {
         }
 
         // Cancels
-        if (InputManager.Instance.Key_down("B", player: this.player) && this.CurrentState == "LKAttack" && this.CurrentFrameIndex >= 3) {
+        if (InputManager.Instance.Key_down("B", player: this.player) && this.hasHit && this.CurrentState == "LKAttack") {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("R", player: this.player) && this.CurrentState == "MPAttack" && this.CurrentFrameIndex >= 2) {
+        } else if (InputManager.Instance.Key_down("R", player: this.player) && this.hasHit && this.CurrentState == "MPAttack") {
             this.ChangeState("CloseHPAttack");
         } 
 
@@ -573,10 +573,10 @@ public class Ken : Character {
         } 
     }
 
-    public override void ImposeBehavior(Character target, bool doHit) {
+    public override void ImposeBehavior(Character target, bool isblockingHigh = false, bool isblockingLow = false) {
         switch (this.CurrentState) {
             case "LPAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -586,7 +586,7 @@ public class Ken : Character {
                 break;
                 
             case "LKAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -596,7 +596,7 @@ public class Ken : Character {
                 break;
                 
             case "MPAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -606,7 +606,7 @@ public class Ken : Character {
                 break;
 
             case "MKAttack":
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Airboned");
                     target.SetVelocity(this.facing * 5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -616,7 +616,7 @@ public class Ken : Character {
                 break;
 
             default:
-                if (doHit) {
+                if (!isblockingHigh) {
                     target.ChangeState("Idle");
                     target.SetVelocity(this.facing * 2, 0, 10);
                 } else {
