@@ -15,6 +15,7 @@ Implementado:
 - Sistema para inferir estado no oponente
 - Cancels
 - Block
+- Dash universal
 - Auto orientação da direção lógica dos personagens
 - Pushback
 - Lógica básica de combate (tempo, rounds, gatilhos de fim de round, resets)
