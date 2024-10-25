@@ -189,11 +189,11 @@ public class Psylock : Character {
 
         var dashForwardFrames = new List<FrameData> {
             new FrameData(116, 0, 0, new List<GenericBox> { new GenericBox(1, 77, 118, 120, 135), new GenericBox(1, 120, 125, 152, 157), new GenericBox(1, 151, 135, 187, 164), new GenericBox(1, 96, 155, 122, 191) }),
-            new FrameData(117, 0, 0, new List<GenericBox> { new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
-            new FrameData(118, 0, 0, new List<GenericBox> { new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
-            new FrameData(119, 0, 0, new List<GenericBox> { new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
-            new FrameData(120, 0, 0, new List<GenericBox> { new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
-            new FrameData(121, 0, 0, new List<GenericBox> { new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),        
+            new FrameData(117, 18, 0, new List<GenericBox> { new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
+            new FrameData(118, 10, 0, new List<GenericBox> { new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
+            new FrameData(119, 14, 0, new List<GenericBox> { new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
+            new FrameData(120, 3, 0, new List<GenericBox> { new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
+            new FrameData(121, 0, 0, new List<GenericBox> { new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),
         };
 
         var dashBackwardFrames = new List<FrameData> {
@@ -308,18 +308,6 @@ public class Psylock : Character {
             this.ChangeState("DashForward");
         } else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false, player: this.player) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
-        }
-
-        if (this.CurrentState == "DashForward" && this.CurrentAnimation.currentFrameIndex == 1) {
-            this.SetVelocity(
-                X: this.dash_speed,
-                Y: 0,
-                T: 4 * (60 / this.CurrentAnimation.framerate)); 
-        } else if (this.CurrentState == "DashBackward" && this.CurrentAnimation.currentFrameIndex == 1) {
-            this.SetVelocity(
-                X: - this.dash_speed,
-                Y: 0,
-                T: 5 * (60 / this.CurrentAnimation.framerate));
         }
 
         // Walking

@@ -166,21 +166,21 @@ public class Ken : Character {
         };
 
         var dashForwardFrames = new List<FrameData> {
-            new FrameData(14768, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14769, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14770, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14768, 12, 0, new List<GenericBox> {  }),
+            new FrameData(14769, 3, 0, new List<GenericBox> {  }),
+            new FrameData(14770, 13, 0, new List<GenericBox> {  }),
             new FrameData(14771, 0, 0, new List<GenericBox> {  }),
             new FrameData(14772, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14773, 0, 0, new List<GenericBox> {  })
+            new FrameData(14773, 0, 0, new List<GenericBox> {  }),
         };
 
         var dashBackwardFrames = new List<FrameData> {
             new FrameData(14774, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14775, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14776, 0, 0, new List<GenericBox> {  }),
+            new FrameData(14775, -17, 0, new List<GenericBox> {  }),
+            new FrameData(14776, -7, 0, new List<GenericBox> {  }),
             new FrameData(14777, 0, 0, new List<GenericBox> {  }),
             new FrameData(14778, 0, 0, new List<GenericBox> {  }),
-            new FrameData(14779, 0, 0, new List<GenericBox> {  })
+            new FrameData(14779, 0, 0, new List<GenericBox> {  }),
         };
 
         var jumpFrames = new List<FrameData> {
@@ -500,17 +500,9 @@ public class Ken : Character {
         // Dashing
         if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false, player: this.player) && this.notActing) {
             this.ChangeState("DashForward");
-            this.SetVelocity(
-                X: this.dash_speed,
-                Y: 0,
-                T: 3 * (60 / this.CurrentAnimation.framerate));
         } 
         else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false, player: this.player) && this.notActing) {
             this.ChangeState("DashBackward");
-            this.SetVelocity(
-                X: - this.dash_speed,
-                Y: 0,
-                T: 3 * (60 / this.CurrentAnimation.framerate));
         }
 
         // Walking

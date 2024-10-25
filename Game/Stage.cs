@@ -65,9 +65,6 @@ public class Stage {
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
 
-        // Update Chars
-        foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
-
         // Render sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = this.spriteImages[this.CurrentSprite];
@@ -94,7 +91,8 @@ public class Stage {
             }
         }
 
-        // Render Chars
+        // Update e render Chars
+        foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
         foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
 
         // Do Behaviour

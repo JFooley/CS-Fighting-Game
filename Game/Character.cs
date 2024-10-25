@@ -127,7 +127,17 @@ public class Character {
         }
         
         // Draw Hitboxes
-        if (drawHitboxes) {
+        if (drawHitboxes) {  
+            // Desenha o ponto central
+            RectangleShape anchor = new RectangleShape(new Vector2f(1, 10)) {
+                Position = new Vector2f(this.Position.X, this.Position.Y - 55),
+                FillColor = SFML.Graphics.Color.Transparent,
+                OutlineColor = Color.White, 
+                OutlineThickness = 1.0f 
+            };
+            
+            window.Draw(anchor);
+
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
                 int x1 = (int)(realPosition.X + box.pA.X * size_ratio);
