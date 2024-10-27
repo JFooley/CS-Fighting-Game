@@ -23,6 +23,7 @@ Implementado:
 - Padronização dos controles
   
 Em desenvolvimento:
+- Hitstop
 - Pushback usando as pushboxes
 - HUD
 - Dano e stun na colisão
