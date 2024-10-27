@@ -1,3 +1,4 @@
+using Character_Space;
 using SFML.System;
 
 namespace Animation_Space {
@@ -63,12 +64,14 @@ public class Animation {
         // Avança o frame de animação apenas quando o contador de frames atinge o limite calculado
         if (frameCounter >= framesPerAnimFrame) {
             frameCounter = 0; // Reseta o contador
+            currentFrameIndex++; // Avança um frame
 
             if (currentFrameIndex < animSize) {
-                currentFrameIndex++;
-                onLastFrame = false;
+                this.onLastFrame = false;
+            } else if (currentFrameIndex == animSize) {
+                this.onLastFrame = true;
             } else {
-                onLastFrame = true;
+                this.Reset();
             }
 
             return true; // do frame change
@@ -89,8 +92,8 @@ public class GenericBox {
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
 
-    public Vector2i pA;
-    public Vector2i pB;
+    public Vector2f pA;
+    public Vector2f pB;
 
     public int type;
 
@@ -102,11 +105,19 @@ public class GenericBox {
         this.pB.Y = y2;
     }
 
-    public bool Intersects(GenericBox box, Vector2i position_A, Vector2i position_B) {
-        return this.pA.X + position_A.X < box.pB.X + position_B.X && // Verifica se o lado direito da box atual está à esquerda do lado direito da outra box
-            this.pB.X + position_A.X > box.pA.X + position_B.X && // Verifica se o lado esquerdo da box atual está à direita do lado esquerdo da outra box
-            this.pA.Y + position_A.Y < box.pB.Y + position_B.Y && // Verifica se o lado inferior da box atual está acima do lado inferior da outra box
-            this.pB.Y + position_A.Y > box.pA.Y + position_B.Y;   // Verifica se o lado superior da box atual está abaixo do lado superior da outra box
+    public static bool Intersects(GenericBox boxA, GenericBox boxB, Character charA, Character charB) {
+        // Verifica e ajusta a posição da caixa dependendo da orientação (facing) dos personagens
+        float boxAPosAX = charA.facing == -1 ? 250 - boxA.pB.X : boxA.pA.X;
+        float boxAPosBX = charA.facing == -1 ? 250 - boxA.pA.X : boxA.pB.X;
+        
+        float boxBPosAX = charB.facing == -1 ? 250 - boxB.pB.X : boxB.pA.X;
+        float boxBPosBX = charB.facing == -1 ? 250 - boxB.pA.X : boxB.pB.X;
+
+        // Verifica a colisão com as caixas ajustadas para orientação
+        return (boxAPosAX + charA.Position.X < boxBPosBX + charB.Position.X) &&
+            (boxAPosBX + charA.Position.X > boxBPosAX + charB.Position.X) &&
+            (boxA.pA.Y + charA.Position.Y < boxB.pB.Y + charB.Position.Y) &&
+            (boxA.pB.Y + charA.Position.Y > boxB.pA.Y + charB.Position.Y);
     }
 
 }

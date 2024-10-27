@@ -37,7 +37,7 @@ public class Character {
     public int floorLine;
 
     // Controls
-    public int player { get; set; }
+    public int playerIndex { get; set; }
 
     // Statistics 
     public Vector2i LifePoints = new Vector2i(1000, 1000);
@@ -49,7 +49,7 @@ public class Character {
 
     // Object infos
     public Physics physics = new Physics();
-    public Vector2i Position = new Vector2i(0, 0);
+    public Vector2f Position = new Vector2f(0, 0);
     public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
@@ -59,7 +59,7 @@ public class Character {
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
-    public bool canAct = false;
+    public bool notPaused = false;
     public bool hasHit = false; // Colidiu com algo nesse frame
     private bool blockingHigh = false;
     private bool blockingLow = false;
@@ -89,36 +89,35 @@ public class Character {
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
+    // Every Frame methods
     public void Update() {
+        // Do Behaviour
+        if (this.notPaused) this.DoBehavior();
+
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
         this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
         // Update position
-        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX;
-        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY;
+        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
+        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
         this.physics.Update(this);
 
         // Advance to the next frame
-        if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
-        if (this.CurrentAnimation.onLastFrame) {
-            this.CurrentAnimation.Reset();
-            if (CurrentAnimation.doChangeState) {
-                this.ChangeState(this.CurrentAnimation.post_state);
-            }
+        if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
+            this.ChangeState(this.CurrentAnimation.post_state);
         }
+        if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
 
-        // Do Behaviour
-        if (this.canAct) this.DoBehavior();
     }
     public void Render(RenderWindow window, bool drawHitboxes = false) {
         // Get onScreen position
-        var realPosition = new Vector2f(this.Position.X - 125, this.Position.Y - 250);
+        var positionBox = new Vector2f(this.Position.X - 125, this.Position.Y - 250);
 
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = realPosition;
-        temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
+        temp_sprite.Position = new Vector2f(this.Position.X - (125 * this.facing), this.Position.Y - 250);
+        temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         window.Draw(temp_sprite);
 
         // Play sounds
@@ -140,10 +139,10 @@ public class Character {
 
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
-                int x1 = (int)(realPosition.X + box.pA.X * size_ratio);
-                int y1 = (int)(realPosition.Y + box.pA.Y * size_ratio);
-                int x2 = (int)(realPosition.X + box.pB.X * size_ratio);
-                int y2 = (int)(realPosition.Y + box.pB.Y * size_ratio);
+                float x1 = positionBox.X + (this.facing == -1 ? 250 - box.pB.X : box.pA.X) * size_ratio;
+                float y1 = positionBox.Y + box.pA.Y * size_ratio;
+                float x2 = positionBox.X + (this.facing == -1 ? 250 - box.pA.X : box.pB.X) * size_ratio;
+                float y2 = positionBox.Y + box.pB.Y * size_ratio;
 
                 // Cria o retângulo da hitbox
                 var color = SFML.Graphics.Color.Transparent;
@@ -174,16 +173,15 @@ public class Character {
 
     // Battle methods
     public virtual void DoBehavior() {}
-    public virtual void ImposeBehavior(Character target, bool isblockingHigh = false, bool isblockingLow = false) {}
+    public virtual void ImposeBehavior(Character target) {}
+    public bool isBlocking() {
+        return this.isBlockingHigh() || this.isBlockingLow();
+    }
     public bool isBlockingHigh() {
-        if (this.notActing && InputManager.Instance.Key_hold("Left", player: this.player) && this.facing == 1) return true;
-        else if (this.notActing && InputManager.Instance.Key_hold("Right", player: this.player) && this.facing == -1) return true;
-        return false;
+        return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
     }
     public bool isBlockingLow() {
-        if (this.notActing && InputManager.Instance.Key_hold("Left", player: this.player) && InputManager.Instance.Key_hold("Down", player: this.player) && this.facing == 1) return true;
-        else if (this.notActing && InputManager.Instance.Key_hold("Right", player: this.player) && InputManager.Instance.Key_hold("Down", player: this.player) && this.facing == -1) return true;
-        return false;
+        return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
 
     // Auxiliar methods

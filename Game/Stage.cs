@@ -113,11 +113,11 @@ public class Stage {
 
         // Keep characters facing each other
         if (this.character_A.Position.X < this.character_B.Position.X) {
-            this.character_A.facing = 1;
-            this.character_B.facing = -1;
+            if (this.character_A.CurrentAnimation.onLastFrame || this.character_A.notActing) this.character_A.facing = 1;
+            if (this.character_B.CurrentAnimation.onLastFrame || this.character_B.notActing) this.character_B.facing = -1;
         } else {
-            this.character_A.facing = -1;
-            this.character_B.facing = 1;
+            if (this.character_A.CurrentAnimation.onLastFrame || this.character_A.notActing) this.character_A.facing = -1;
+            if (this.character_B.CurrentAnimation.onLastFrame || this.character_B.notActing) this.character_B.facing = 1;
         }
 
         this.checkColisions();
@@ -129,18 +129,18 @@ public class Stage {
     public void checkColisions() {
         foreach (GenericBox boxA in character_A.CurrentBoxes) {
             foreach (GenericBox boxB in character_B.CurrentBoxes) {
-                if (boxA.type == 2 && boxB.type == 2 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // Push A e Push B
+                if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // Push A e Push B
                     Console.WriteLine("Caso Push");
 
-                } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && boxA.Intersects(boxB, character_A.Position, character_B.Position)) { // A hit B
+                } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // A hit B
                     Console.WriteLine("A hit B");
                     character_A.hasHit = true;
-                    character_A.ImposeBehavior(character_B, isblockingHigh: character_B.isBlockingHigh(), isblockingLow: character_B.isBlockingLow());
+                    character_A.ImposeBehavior(character_B);
 
-                } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && boxB.Intersects(boxA, character_B.Position, character_A.Position)) { // B hit A
+                } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && GenericBox.Intersects(boxB, boxA, character_B, character_A)) { // B hit A
                     Console.WriteLine("B hit A");
                     character_B.hasHit = true;
-                    character_B.ImposeBehavior(character_A, isblockingHigh: character_A.isBlockingHigh(), isblockingLow: character_A.isBlockingLow());
+                    character_B.ImposeBehavior(character_A);
                 }
             }
         } 
@@ -148,11 +148,11 @@ public class Stage {
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
         this.character_A.facing = 1;
-        this.character_A.player = 1;
+        this.character_A.playerIndex = 1;
 
         this.character_B = char_B;
         this.character_B.facing = -1;
-        this.character_B.player = 2;
+        this.character_B.playerIndex = 2;
 
     }
     public bool CheckRoundEnd() {
@@ -201,8 +201,8 @@ public class Stage {
         }
     }
     public void TogglePlayers() {
-        this.character_A.canAct = !this.character_A.canAct;
-        this.character_B.canAct = !this.character_B.canAct;
+        this.character_A.notPaused = !this.character_A.notPaused;
+        this.character_B.notPaused = !this.character_B.notPaused;
     }
 
     // All loads

@@ -14,23 +14,46 @@ public class InputManager {
     public const int PLAYER_A = 1;
     public const int PLAYER_B = 2;
 
-    private static Dictionary<string, int> keysTranslationMap = new Dictionary<string, int>
+    private static Dictionary<int, Dictionary<string, int>> keysTranslationMap = new Dictionary<int, Dictionary<string, int>>
     {
-        { "A", 0 },
-        { "B", 1 },
-        { "C", 2 },
-        { "D", 3 },
-        { "L", 4 },
-        { "LT", 5 },
-        { "R", 6 },
-        { "RT", 7 },
-        { "Up", 8 },
-        { "Down", 9 },
-        { "Left", 10 },
-        { "Right", 11 },
-        { "Start", 12 },
-        { "Select", 13 },
+        { -1, new Dictionary<string, int>
+            {
+                { "A", 0 },
+                { "B", 1 },
+                { "C", 2 },
+                { "D", 3 },
+                { "L", 4 },
+                { "LT", 5 },
+                { "R", 6 },
+                { "RT", 7 },
+                { "Up", 8 },
+                { "Down", 9 },
+                { "Left", 11 },
+                { "Right", 10 },
+                { "Start", 12 },
+                { "Select", 13 },
+            }
+        },
+        { 1, new Dictionary<string, int>
+            {
+                { "A", 0 },
+                { "B", 1 },
+                { "C", 2 },
+                { "D", 3 },
+                { "L", 4 },
+                { "LT", 5 },
+                { "R", 6 },
+                { "RT", 7 },
+                { "Up", 8 },
+                { "Down", 9 },
+                { "Left", 10 },
+                { "Right", 11 },
+                { "Start", 12 },
+                { "Select", 13 },
+            }
+        }
     };
+
     private int maxButtonIndex = 14;
 
     private bool autoDetectDevice;
@@ -166,21 +189,21 @@ public class InputManager {
     }
 
     // Key Detection
-    public bool Key_hold(String key, int player = DEFAULT) {
-        return (buttonState[player] & (1 << keysTranslationMap[key])) != 0;
+    public bool Key_hold(String key, int player = DEFAULT, int facing = 1) {
+        return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != 0;
     }
-    public bool Key_down(String key, int player = DEFAULT) {
-        return (buttonState[player] & (1 << keysTranslationMap[key])) != 0 && (buttonLastState[player] & (1 << keysTranslationMap[key])) == 0;
+    public bool Key_down(String key, int player = DEFAULT, int facing = 1) {
+        return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != 0 && (buttonLastState[player] & (1 << keysTranslationMap[facing][key])) == 0;
     }
-    public bool Key_up(String key, int player = DEFAULT) {
-        return (buttonState[player] & (1 << keysTranslationMap[key])) == 0 && (buttonLastState[player] & (1 << keysTranslationMap[key])) != 0;
+    public bool Key_up(String key, int player = DEFAULT, int facing = 1) {
+        return (buttonState[player] & (1 << keysTranslationMap[facing][key])) == 0 && (buttonLastState[player] & (1 << keysTranslationMap[facing][key])) != 0;
     }
-    public bool Key_change(String key, int player = DEFAULT) {
-        return (buttonState[player] & (1 << keysTranslationMap[key])) != (buttonLastState[player] & (1 << keysTranslationMap[key]));
+    public bool Key_change(String key, int player = DEFAULT, int facing = 1) {
+        return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != (buttonLastState[player] & (1 << keysTranslationMap[facing][key]));
     }
 
-    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true, int player = DEFAULT) {
-        int[] sequence = rawSequence.Select(key => keysTranslationMap[key]).ToArray();
+    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true, int player = DEFAULT, int facing = 1) {
+        int[] sequence = rawSequence.Select(key => keysTranslationMap[facing][key]).ToArray();
 
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;

@@ -20,19 +20,17 @@ public class Camera
     private View _view;
 
     // Camera position
-    public int X { get; private set; }
-    public int Y { get; private set; }
+    public float X { get; private set; }
+    public float Y { get; private set; }
 
-    private Camera(RenderWindow window, View view, int X = 0, int Y = 0)
-    {
+    private Camera(RenderWindow window, View view, int X = 0, int Y = 0) {
         this.X = X;
         this.Y = Y;
         this._window = window;
         this._view = view;
     }
 
-    public static Camera GetInstance(RenderWindow window = null, View view = null, int X = 0, int Y = 0)
-    {
+    public static Camera GetInstance(RenderWindow window = null, View view = null, int X = 0, int Y = 0) {
         lock (_lock)
         {
             if (_instance == null)
