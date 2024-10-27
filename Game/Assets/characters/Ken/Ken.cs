@@ -402,15 +402,15 @@ public class Ken : Character {
             { "BackMPAttack", new Animation(HPFrames, "Idle", 20)},
             { "CloseHPAttack", new Animation(cl_HPFrames, "Idle", 30)},
             // Movment
-            { "WalkingForward", new Animation(walkingForwardFrames, "Idle", 20)},
-            { "WalkingBackward", new Animation(walkingBackwardFrames, "Idle", 20)},
+            { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 20)},
+            { "WalkingBackward", new Animation(walkingBackwardFrames, "WalkingBackward", 20)},
             { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
             { "Jump", new Animation(jumpFrames, "Idle", 20)},
             { "JumpForward", new Animation(jumpForward, "Idle", 20)},
             { "JumpBackward", new Animation(JumpBackward, "Idle", 20)},
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
-            { "Crouching", new Animation(crouchingFrames, "CrouchingOut", 4)},
+            { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             { "CrouchingOut", new Animation(crouchingOutFrames, "Idle", 20)},
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle", 20)},
