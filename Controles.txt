@@ -1,7 +1,4 @@
-Para rodar execute dotnet run no terminal
-
 Controles
-
 Teclado:
 Setas - Movimentação
 Q = A 	- Soco Fraco
