@@ -25,6 +25,7 @@ Implementado:
 - Pushback usando as pushboxes
   
 Em desenvolvimento:
+- Particulas de dano e block
 - HUD
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
