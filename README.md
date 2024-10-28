@@ -21,9 +21,9 @@ Implementado:
 - Lógica básica de combate (tempo, rounds, gatilhos de fim de round, resets)
 - Orientação visual dos personagens (olharem para o lado correto)
 - Padronização dos controles
+- Hitstop
   
 Em desenvolvimento:
-- Hitstop
 - Pushback usando as pushboxes
 - HUD
 - Dano e stun na colisão
