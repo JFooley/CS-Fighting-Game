@@ -16,7 +16,7 @@ public class Animation {
     public bool doChangeState;
     public int framerate;
     public int screenFramerate;
-    private int frameCounter;
+    public int frameCounter;
 
     public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool doChangeState = true) {
         this.Frames = frames;

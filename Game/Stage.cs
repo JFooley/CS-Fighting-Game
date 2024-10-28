@@ -4,6 +4,7 @@ using SFML.Audio;
 using Animation_Space;
 using Character_Space;
 using Input_Space;
+using System.Runtime.InteropServices;
 
 namespace Stage_Space {
 
@@ -17,7 +18,6 @@ public class Stage {
     // Battle Info
     private int hitstopCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
-    public List<Character> OnSceneParticles = new List<Character> {};
 
     public Character character_A;
     public Character character_B;
@@ -99,13 +99,11 @@ public class Stage {
         // Update chars and particles
         if (hitstopCounter == 0) {
             foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
-            foreach (Character part_object in this.OnSceneParticles) part_object.Update();
             this.DoBehavior();
         }
         
         // Render chars and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
-        foreach (Character part_object in this.OnSceneParticles) part_object.Render(window, showBoxs);
 
     }
     private void DoBehavior() {
@@ -137,71 +135,30 @@ public class Stage {
 
     // Auxiliary
     public void checkColisions() {
-        // Player x Player
-        foreach (GenericBox boxA in character_A.CurrentBoxes) {
-            foreach (GenericBox boxB in character_B.CurrentBoxes) {
-                if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // Push A e Push B
-                    Console.WriteLine("Caso Push");
-                    GenericBox.Colide(boxA, boxB, character_A, character_B);
+        for (int i = 0; i < this.OnSceneCharacters.Count(); i++) {
+            for (int j = 0; j < this.OnSceneCharacters.Count(); j++) {
+                if (i == j) continue;
+                var charA = this.OnSceneCharacters[i];
+                var charB = this.OnSceneCharacters[j];
+                foreach (GenericBox boxA in charA.CurrentBoxes) {
+                    foreach (GenericBox boxB in charB.CurrentBoxes) {
+                        if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) { // Push A e Push B
+                            GenericBox.Colide(boxA, boxB, charA, charB);
 
-                } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // A hit B
-                    Console.WriteLine("A hit B");
-                    this.hitstopCounter = Config.hitStopTime;
-                    character_A.hasHit = true;
-                    character_A.ImposeBehavior(character_B);
+                            Console.WriteLine("Caso Push");
 
-                } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && GenericBox.Intersects(boxB, boxA, character_B, character_A)) { // B hit A
-                    Console.WriteLine("B hit A");
-                    this.hitstopCounter = Config.hitStopTime;
-                    character_B.hasHit = true;
-                    character_B.ImposeBehavior(character_A);
-                }
-            }
-        }
-
-        // Particle x Particle
-        foreach (Character particleA in this.OnSceneParticles) {
-            foreach (Character particleB in this.OnSceneParticles) {
-                if (particleA == particleB) continue;
-
-                foreach (GenericBox boxPA in particleA.CurrentBoxes) {
-                    foreach (GenericBox boxPB in particleB.CurrentBoxes) {
-                        if (!character_A.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != particleB.team && GenericBox.Intersects(boxPA, boxPB, particleA, particleB)) {
-                            Console.WriteLine("Particle hit Particle");
+                        } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
                             this.hitstopCounter = Config.hitStopTime;
-                            character_A.hasHit = true;
-                            character_A.ImposeBehavior(character_B);
+                            charA.hasHit = true;
+                            charA.ImposeBehavior(charB);
+
+                            Console.WriteLine(charA.name + " hit " + charB.name);
                         }
                     }
                 }
             }
-
-            // Particle x Player A
-            foreach (GenericBox boxPA in particleA.CurrentBoxes) {
-                foreach (GenericBox boxPB in character_A.CurrentBoxes) {
-                    if (!particleA.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != character_A.team && GenericBox.Intersects(boxPA, boxPB, particleA, character_A)) {
-                        Console.WriteLine("Particle hit " + character_A.name);
-                        this.hitstopCounter = Config.hitStopTime;
-                        particleA.hasHit = true;
-                        particleA.ImposeBehavior(character_A);
-                    }
-                }
-            }
-
-            // Particle x Player B
-            foreach (GenericBox boxPA in particleA.CurrentBoxes) {
-                foreach (GenericBox boxPB in character_B.CurrentBoxes) {
-                    if (!particleA.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != character_B.team && GenericBox.Intersects(boxPA, boxPB, particleA, character_B)) {
-                        Console.WriteLine("Particle hit " + character_B.name);
-                        this.hitstopCounter = Config.hitStopTime;
-                        particleA.hasHit = true;
-                        particleA.ImposeBehavior(character_B);
-                    }
-                }
-            }
         }
-
-        this.OnSceneParticles.RemoveAll(obj => obj.LifePoints.X == 0);
+        this.OnSceneCharacters.RemoveAll(obj => obj.LifePoints.X == -1);
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;

@@ -2,6 +2,7 @@ using Character_Space;
 using Animation_Space;
 using SFML.System;
 using Input_Space;
+using System.Runtime.InteropServices;
 
 public class Fireball : Character {
     public Fireball(string initialState, float startX, float startY, int team)
@@ -38,10 +39,20 @@ public class Fireball : Character {
             new FrameData(21, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
         };
 
+        var KenFireballFinal = new List<FrameData> {
+            new FrameData(22, 0, 0, new List<GenericBox> {}),
+            new FrameData(23, 0, 0, new List<GenericBox> {}),
+            new FrameData(24, 0, 0, new List<GenericBox> {}),
+            new FrameData(25, 0, 0, new List<GenericBox> {}),
+            new FrameData(26, 0, 0, new List<GenericBox> {}),
+            new FrameData(27, 0, 0, new List<GenericBox> {}),
+        };
+
         // States
         var animations = new Dictionary<string, Animation> {
             {"Ken1", new Animation(KenFireballFrames, "Ken1", 20)},
             {"Ken2", new Animation(KenFireballFrames, "Ken2", 30)},
+            {"KenExit", new Animation(KenFireballFinal, "", 30, doChangeState: false)},
         };
 
         this.animations = animations;
@@ -59,16 +70,20 @@ public class Fireball : Character {
                 this.Position.X += 10 * this.facing;
                  break;
 
+            case "KenExit":
+                if (this.CurrentAnimation.onLastFrame) this.LifePoints.X = -1;
+                break;
+
             default:
                 break;
         }
     }
 
     public override void ImposeBehavior(Character target) {
-        this.LifePoints.X = 0;
         switch (this.CurrentState) {
             case "Ken1":
                 target.SetVelocity(-5, 0, 2);
+                this.ChangeState("KenExit");
                 if (!target.isBlocking()) {
                     target.ChangeState("Airboned");
                 } else {
@@ -78,6 +93,7 @@ public class Fireball : Character {
 
             case "Ken2":
                 target.SetVelocity(-5, 0, 2);
+                this.ChangeState("KenExit");
                 if (!target.isBlocking()) {
                     target.ChangeState("Airboned");
                 } else {
@@ -86,6 +102,7 @@ public class Fireball : Character {
                 break;
 
             default:
+                this.LifePoints.X = -1;
                 break;
         }
     }

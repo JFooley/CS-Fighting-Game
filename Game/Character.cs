@@ -120,7 +120,7 @@ public class Character {
         window.Draw(temp_sprite);
 
         // Play sounds
-        if (characterSounds.ContainsKey(this.CurrentSound)) {
+        if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
             if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
         }
         
