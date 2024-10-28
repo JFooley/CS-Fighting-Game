@@ -34,7 +34,8 @@ public class Character {
     public float size_ratio = 1.0f;
     public string folderPath;
     public string soundFolderPath;
-    public int floorLine;
+    public float floorLine;
+    public int team;
 
     // Controls
     public int playerIndex { get; set; }
@@ -66,9 +67,9 @@ public class Character {
     private bool blockingLow = false;
 
     // Data structs
-    public Dictionary<string, Animation> animations;
-    private Dictionary<int, Sprite> spriteImages;
-    private Dictionary<string, Sound> characterSounds;
+    public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
+    private Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
+    private Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
     // Gets
@@ -77,7 +78,7 @@ public class Character {
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
-    public Character(string name, string initialState, int startX, int startY, string folderPath, string soundFolderPath) {   
+    public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath) {   
         this.folderPath = folderPath;
         this.soundFolderPath = soundFolderPath;
         this.name = name;

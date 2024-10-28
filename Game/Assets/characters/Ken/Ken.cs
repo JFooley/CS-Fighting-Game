@@ -441,6 +441,10 @@ public class Ken : Character {
 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightHaduken");
+            // var fb = new Fireball("Ken1", stage.start_point_A, stage.floorLine, 0);
+            // fb.notPaused = true;
+            // fb.Load();
+            // stage.OnSceneParticles.Add(fb);
         } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Right", "B"}, 10, player: this.playerIndex, facing: this.facing)) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         }
@@ -559,7 +563,6 @@ public class Ken : Character {
     }
 
     public override void ImposeBehavior(Character target) {
-
         switch (this.CurrentState) {
             case "LPAttack":
                 this.SetVelocity(-2, 0, 10);

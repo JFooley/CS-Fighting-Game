@@ -3,6 +3,7 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Character_Space;
+using Input_Space;
 
 namespace Stage_Space {
 
@@ -15,7 +16,9 @@ public class Stage {
 
     // Battle Info
     private int hitstopCounter = 0;
-    public List<Character> OnSceneCharacters { get; set; }
+    public List<Character> OnSceneCharacters = new List<Character> {};
+    public List<Character> OnSceneParticles = new List<Character> {};
+
     public Character character_A;
     public Character character_B;
     public int rounds_A;
@@ -24,14 +27,13 @@ public class Stage {
     public DateTime round_start_time;
     public int elapsed_time => (int) (DateTime.Now - this.round_start_time).TotalSeconds;
 
-
     // Technical infos
     public int floorLine;
     public int length;
     public int height;
     public int start_point_A;
     public int start_point_B;
-    public Vector2i center_point => new Vector2i((int) (length / 2), (int) (height / 2));
+    public Vector2f center_point => new Vector2f((length / 2), (height / 2));
 
     // Animation infos
     public string CurrentState { get; set; }
@@ -94,13 +96,17 @@ public class Stage {
             }
         }
 
-        // Update e render Chars
+        // Update chars and particles
         if (hitstopCounter == 0) {
             foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
-            // Do Behaviour
+            foreach (Character part_object in this.OnSceneParticles) part_object.Update();
             this.DoBehavior();
         }
+        
+        // Render chars and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
+        foreach (Character part_object in this.OnSceneParticles) part_object.Render(window, showBoxs);
+
     }
     private void DoBehavior() {
         int maxDistance = 350;
@@ -131,6 +137,7 @@ public class Stage {
 
     // Auxiliary
     public void checkColisions() {
+        // Player x Player
         foreach (GenericBox boxA in character_A.CurrentBoxes) {
             foreach (GenericBox boxB in character_B.CurrentBoxes) {
                 if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // Push A e Push B
@@ -150,18 +157,62 @@ public class Stage {
                     character_B.ImposeBehavior(character_A);
                 }
             }
-        } 
-    }
+        }
 
+        // Particle x Particle
+        foreach (Character particleA in this.OnSceneParticles) {
+            foreach (Character particleB in this.OnSceneParticles) {
+                if (particleA == particleB) continue;
+
+                foreach (GenericBox boxPA in particleA.CurrentBoxes) {
+                    foreach (GenericBox boxPB in particleB.CurrentBoxes) {
+                        if (!character_A.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != particleB.team && GenericBox.Intersects(boxPA, boxPB, particleA, particleB)) {
+                            Console.WriteLine("Particle hit Particle");
+                            this.hitstopCounter = Config.hitStopTime;
+                            character_A.hasHit = true;
+                            character_A.ImposeBehavior(character_B);
+                        }
+                    }
+                }
+            }
+
+            // Particle x Player A
+            foreach (GenericBox boxPA in particleA.CurrentBoxes) {
+                foreach (GenericBox boxPB in character_A.CurrentBoxes) {
+                    if (!particleA.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != character_A.team && GenericBox.Intersects(boxPA, boxPB, particleA, character_A)) {
+                        Console.WriteLine("Particle hit " + character_A.name);
+                        this.hitstopCounter = Config.hitStopTime;
+                        particleA.hasHit = true;
+                        particleA.ImposeBehavior(character_A);
+                    }
+                }
+            }
+
+            // Particle x Player B
+            foreach (GenericBox boxPA in particleA.CurrentBoxes) {
+                foreach (GenericBox boxPB in character_B.CurrentBoxes) {
+                    if (!particleA.hasHit && boxPA.type == 0 && boxPB.type == 1 && particleA.team != character_B.team && GenericBox.Intersects(boxPA, boxPB, particleA, character_B)) {
+                        Console.WriteLine("Particle hit " + character_B.name);
+                        this.hitstopCounter = Config.hitStopTime;
+                        particleA.hasHit = true;
+                        particleA.ImposeBehavior(character_B);
+                    }
+                }
+            }
+        }
+
+        this.OnSceneParticles.RemoveAll(obj => obj.LifePoints.X == 0);
+    }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
         this.character_A.facing = 1;
         this.character_A.playerIndex = 1;
+        this.character_A.team = 0;
 
         this.character_B = char_B;
         this.character_B.facing = -1;
         this.character_B.playerIndex = 2;
-
+        this.character_B.team = 1;
     }
     public bool CheckRoundEnd() {
         bool doEnd = false;
