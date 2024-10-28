@@ -22,9 +22,9 @@ Implementado:
 - Orientação visual dos personagens (olharem para o lado correto)
 - Padronização dos controles
 - Hitstop
+- Pushback usando as pushboxes
   
 Em desenvolvimento:
-- Pushback usando as pushboxes
 - HUD
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
