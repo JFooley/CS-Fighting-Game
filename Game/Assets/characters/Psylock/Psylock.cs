@@ -18,7 +18,7 @@ public class Psylock : Character {
 
     public override void Load() {
         // Boxes
-        var pushbox = new GenericBox(2, 125 - this.push_box_width, 109, 125 + this.push_box_width, 195);
+        var pushbox = new GenericBox(2, 125 - this.push_box_width, 145, 125 + this.push_box_width, 195);
 
         // Animations
         var introFrames = new List<FrameData> {

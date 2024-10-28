@@ -92,6 +92,8 @@ public class GenericBox {
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
 
+    
+
     public Vector2f pA;
     public Vector2f pB;
 
@@ -106,18 +108,40 @@ public class GenericBox {
     }
 
     public static bool Intersects(GenericBox boxA, GenericBox boxB, Character charA, Character charB) {
-        // Verifica e ajusta a posição da caixa dependendo da orientação (facing) dos personagens
-        float boxAPosAX = charA.facing == -1 ? 250 - boxA.pB.X : boxA.pA.X;
-        float boxAPosBX = charA.facing == -1 ? 250 - boxA.pA.X : boxA.pB.X;
-        
-        float boxBPosAX = charB.facing == -1 ? 250 - boxB.pB.X : boxB.pA.X;
-        float boxBPosBX = charB.facing == -1 ? 250 - boxB.pA.X : boxB.pB.X;
+        return (boxA.getRealA(charA).X < boxB.getRealB(charB).X) &&
+            (boxA.getRealB(charA).X > boxB.getRealA(charB).X) &&
+            (boxA.getRealA(charA).Y < boxB.getRealB(charB).Y) &&
+            (boxA.getRealB(charA).Y > boxB.getRealA(charB).Y);
+    }
 
-        // Verifica a colisão com as caixas ajustadas para orientação
-        return (boxAPosAX + charA.Position.X < boxBPosBX + charB.Position.X) &&
-            (boxAPosBX + charA.Position.X > boxBPosAX + charB.Position.X) &&
-            (boxA.pA.Y + charA.Position.Y < boxB.pB.Y + charB.Position.Y) &&
-            (boxA.pB.Y + charA.Position.Y > boxB.pA.Y + charB.Position.Y);
+    public static void Colide(GenericBox boxA, GenericBox boxB, Character charA, Character charB) {
+        // Calcule a sobreposição entre boxA e boxB no eixo X
+        var overlapX = Math.Min(boxA.getRealB(charA).X, boxB.getRealB(charB).X) - Math.Max(boxA.getRealA(charA).X, boxB.getRealA(charB).X);
+
+        // Verifique quem está à esquerda
+        if (boxA.getRealA(charA).X < boxB.getRealA(charB).X) {
+            // A está à esquerda de B; mova-os para afastá-los até o limite da sobreposição
+            charA.Position.X -= overlapX / 2;
+            charB.Position.X += overlapX / 2;
+        } else {
+            // B está à esquerda de A; mova-os para afastá-los até o limite da sobreposição
+            charA.Position.X += overlapX / 2;
+            charB.Position.X -= overlapX / 2;
+        }
+    }
+
+    // Get methods
+    public Vector2f getRealA(Character charA) {
+        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pB.X + 250 : charA.VisualPosition.X + this.pA.X;
+        float Y = charA.VisualPosition.Y + this.pA.Y;
+
+        return new Vector2f(X, Y);
+    }
+    public Vector2f getRealB(Character charA) {
+        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pA.X + 250 : charA.VisualPosition.X + this.pB.X;
+        float Y = charA.VisualPosition.Y + this.pB.Y;
+
+        return new Vector2f(X, Y);
     }
 
 }

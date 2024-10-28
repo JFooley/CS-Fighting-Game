@@ -50,12 +50,13 @@ public class Character {
     // Object infos
     public Physics physics = new Physics();
     public Vector2f Position = new Vector2f(0, 0);
+    public Vector2f VisualPosition => new Vector2f(this.Position.X - 125, this.Position.Y - 250);
     public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
 
     // Combat logic infos
-    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut";
+    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
@@ -111,9 +112,6 @@ public class Character {
 
     }
     public void Render(RenderWindow window, bool drawHitboxes = false) {
-        // Get onScreen position
-        var positionBox = new Vector2f(this.Position.X - 125, this.Position.Y - 250);
-
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.Position.X - (125 * this.facing), this.Position.Y - 250);
@@ -139,10 +137,10 @@ public class Character {
 
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
-                float x1 = positionBox.X + (this.facing == -1 ? 250 - box.pB.X : box.pA.X) * size_ratio;
-                float y1 = positionBox.Y + box.pA.Y * size_ratio;
-                float x2 = positionBox.X + (this.facing == -1 ? 250 - box.pA.X : box.pB.X) * size_ratio;
-                float y2 = positionBox.Y + box.pB.Y * size_ratio;
+                float x1 = box.getRealA(this).X * size_ratio;
+                float y1 = box.getRealA(this).Y * size_ratio;
+                float x2 = box.getRealB(this).X * size_ratio;
+                float y2 = box.getRealB(this).Y * size_ratio;
 
                 // Cria o retângulo da hitbox
                 var color = SFML.Graphics.Color.Transparent;

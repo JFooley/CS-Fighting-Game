@@ -16,12 +16,12 @@ Enter = Start - Mostra as hitboxs
 
 Controle:
 Setas - Movimentação
-A 	= A - Soco Fraco
-B 	= B - Soco Forte
-X 	= C - Chute Fraco
-Y 	= D - Chute Forte
-RB	- (depende do personagem)
-RT 	- (depende do personagem)
-LB 	- (depende do personagem)
-LT 	- (depende do personagem)
-Start 	- Mostra as hitboxs
+A = A   - Soco Fraco
+B = B   - Soco Forte
+X = C   - Chute Fraco
+Y = D   - Chute Forte
+RB = RB - (depende do personagem)
+RT = RT - (depende do personagem)
+LB = LB - (depende do personagem)
+LT = LT - (depende do personagem)
+Start = Start - Mostra as hitboxs

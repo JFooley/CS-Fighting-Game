@@ -2,6 +2,7 @@
 using Character_Space;
 using SFML.Graphics;
 using SFML.Window;
+using SFML.System;
 using Stage_Space;
 
 // ----- Game States -----
@@ -34,6 +35,7 @@ public static class Program
         Console.WriteLine("Stage index: ");
         int selected_stage = int.Parse(Console.ReadLine());
         bool showBoxs = false;
+        Clock clock = new Clock();
 
         // Necessary infos
         int game_state = Intro;
@@ -144,6 +146,11 @@ public static class Program
             // DEBUG
             if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
             Console.Clear();
+            // FPS
+            float deltaTime = clock.Restart().AsSeconds();
+            Console.WriteLine("FPS: " + (int) (1 / deltaTime) + " | Frame time: " + deltaTime);
+            Console.WriteLine("-----------------------Game-----------------------");
+            Console.WriteLine("State: " + game_state + " Sub-state: " + sub_state);
             foreach (Character char_object in stage.OnSceneCharacters) {
                 Console.WriteLine("-----------------------Personagem "+ char_object.name + "-----------------------");
                 Console.WriteLine("Posição X: " + char_object.Position.X + " Posição Y: " + char_object.Position.Y);

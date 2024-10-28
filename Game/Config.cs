@@ -35,4 +35,5 @@ public static class Config {
 
     // Others
     public static int RoundLength = 90;
+    public static int hitStopTime = 3;
 }

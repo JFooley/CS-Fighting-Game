@@ -3,7 +3,6 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Character_Space;
-using Microsoft.SqlServer.Server;
 
 namespace Stage_Space {
 
@@ -15,6 +14,7 @@ public class Stage {
     public string soundFolderPath;
 
     // Battle Info
+    private int hitstopCounter = 0;
     public List<Character> OnSceneCharacters { get; set; }
     public Character character_A;
     public Character character_B;
@@ -62,6 +62,10 @@ public class Stage {
 
     // Behaviour
     public void Update(RenderWindow window, bool showBoxs) {
+        if (hitstopCounter > 0) {
+            hitstopCounter--;
+        }
+
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
 
@@ -82,7 +86,6 @@ public class Stage {
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
-            this.CurrentAnimation.Reset();
             if (CurrentAnimation.doChangeState) {
                 if (animations.ContainsKey(this.CurrentAnimation.post_state)) {
                     this.LastState = this.CurrentState;
@@ -92,18 +95,19 @@ public class Stage {
         }
 
         // Update e render Chars
-        foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
+        if (hitstopCounter == 0) {
+            foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
+            // Do Behaviour
+            this.DoBehavior();
+        }
         foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
-
-        // Do Behaviour
-        this.DoBehavior();
     }
     private void DoBehavior() {
         int maxDistance = 350;
 
         // Move characters away from border
-        character_A.Position.X = (int) Math.Max(0, Math.Min(character_A.Position.X, this.length));
-        character_B.Position.X = (int) Math.Max(0, Math.Min(character_B.Position.X, this.length));
+        character_A.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.Position.X, this.length - character_A.push_box_width));
+        character_B.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.Position.X, this.length - character_B.push_box_width));
 
         // Keep characters close
         if (this.character_A.Position.X > character_B.Position.X + maxDistance) this.character_A.Position.X = character_B.Position.X + maxDistance;
@@ -113,11 +117,11 @@ public class Stage {
 
         // Keep characters facing each other
         if (this.character_A.Position.X < this.character_B.Position.X) {
-            if (this.character_A.CurrentAnimation.onLastFrame || this.character_A.notActing) this.character_A.facing = 1;
-            if (this.character_B.CurrentAnimation.onLastFrame || this.character_B.notActing) this.character_B.facing = -1;
+            if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = 1;
+            if (this.character_B.CurrentAnimation.currentFrameIndex == 0 || this.character_B.notActing) this.character_B.facing = -1;
         } else {
-            if (this.character_A.CurrentAnimation.onLastFrame || this.character_A.notActing) this.character_A.facing = -1;
-            if (this.character_B.CurrentAnimation.onLastFrame || this.character_B.notActing) this.character_B.facing = 1;
+            if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = -1;
+            if (this.character_B.CurrentAnimation.currentFrameIndex == 0 || this.character_B.notActing) this.character_B.facing = 1;
         }
 
         this.checkColisions();
@@ -131,20 +135,24 @@ public class Stage {
             foreach (GenericBox boxB in character_B.CurrentBoxes) {
                 if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // Push A e Push B
                     Console.WriteLine("Caso Push");
+                    GenericBox.Colide(boxA, boxB, character_A, character_B);
 
                 } else if (!character_A.hasHit && boxA.type == 0 && boxB.type == 1 && GenericBox.Intersects(boxA, boxB, character_A, character_B)) { // A hit B
                     Console.WriteLine("A hit B");
+                    this.hitstopCounter = Config.hitStopTime;
                     character_A.hasHit = true;
                     character_A.ImposeBehavior(character_B);
 
                 } else if (!character_B.hasHit && boxA.type == 1 && boxB.type == 0 && GenericBox.Intersects(boxB, boxA, character_B, character_A)) { // B hit A
                     Console.WriteLine("B hit A");
+                    this.hitstopCounter = Config.hitStopTime;
                     character_B.hasHit = true;
                     character_B.ImposeBehavior(character_A);
                 }
             }
         } 
     }
+
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
         this.character_A.facing = 1;
