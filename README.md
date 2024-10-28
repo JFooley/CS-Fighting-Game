@@ -19,13 +19,14 @@ Implementado:
 - Auto orientação da direção lógica dos personagens
 - Pushback em golpes
 - Lógica básica de combate (tempo, rounds, gatilhos de fim de round, resets)
-
+- Orientação visual dos personagens (olharem para o lado correto)
+- Padronização dos controles
+- Hitstop
+  
 Em desenvolvimento:
 - Pushback usando as pushboxes
-- Orientação visual dos personagens (olharem para o lado correto)
 - HUD
 - Dano e stun na colisão
-- Padronização dos controles
 - Lógica do jogo mais robusta
 - Estados de intervalo entre rounds
 - Menu de seleção de personagem e stage
