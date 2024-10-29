@@ -32,4 +32,4 @@ Em desenvolvimento:
 - Estados de intervalo entre rounds
 - Menu de seleção de personagem e stage
 
-Para rodar execute dotnet run no terminal
+Para rodar execute "dotnet run" no terminal na pasta Game
