@@ -4,6 +4,7 @@ using SFML.Audio;
 using Animation_Space;
 using Aux_Space;
 using Input_Space;
+using Stage_Space;
 
 // ----- Default States -------
 // Intro
@@ -27,15 +28,14 @@ using Input_Space;
 // Wakeup
 
 namespace Character_Space {
-public class Character {
+public class Character : Object_Space.Object {
     // Infos
     public string name;
-    public int facing = 1;
-    public float size_ratio = 1.0f;
     public string folderPath;
     public string soundFolderPath;
     public float floorLine;
     public int team;
+    public Stage stage;
 
     // Controls
     public int playerIndex { get; set; }
@@ -50,7 +50,6 @@ public class Character {
 
     // Object infos
     public Physics physics = new Physics();
-    public Vector2f Position = new Vector2f(0, 0);
     public Vector2f VisualPosition => new Vector2f(this.Position.X - 125, this.Position.Y - 250);
     public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
@@ -61,12 +60,11 @@ public class Character {
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
-    public bool notPaused = false;
-    public bool hasHit = false; // Colidiu com algo nesse frame
+    public bool hasHit = false; 
     private bool blockingHigh = false;
     private bool blockingLow = false;
 
-    // Data structs
+    // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
     private Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
     private Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
@@ -74,48 +72,34 @@ public class Character {
 
     // Gets
     public int CurrentSprite;
-    public string CurrentSound;
+    public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
-    public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath) {   
+    public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage) : base() {
         this.folderPath = folderPath;
         this.soundFolderPath = soundFolderPath;
         this.name = name;
         this.CurrentState = initialState;
         this.LastState = initialState;
-        this.Position.X = startX;
-        this.Position.Y = startY;
+        this.stage = stage;
+        this.Position = new Vector2f(startX, startY);
         this.floorLine = startY;
         this.spriteImages = new Dictionary<int, Sprite>();
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
     // Every Frame methods
-    public void Update() {
-        // Do Behaviour
-        if (this.notPaused) this.DoBehavior();
-
-        // Update Current Sprite
-        this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
-        this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
-
-        // Update position
-        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
-        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
-        this.physics.Update(this);
-
-        // Advance to the next frame
-        if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
-            this.ChangeState(this.CurrentAnimation.post_state);
-        }
-        if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
-
+    public override void Update() {
+        base.Update();
+        this.DoBehave();
+        this.DoAnimate();
     }
-    public void Render(RenderWindow window, bool drawHitboxes = false) {
+    public override void DoRender(RenderWindow window, bool drawHitboxes = false) {
+        base.DoRender(window, drawHitboxes);
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = new Vector2f(this.Position.X - (125 * this.facing), this.Position.Y - 250);
+        temp_sprite.Position = new Vector2f(this.Position.X - (this.quadsize / 2 * this.facing), this.Position.Y - this.quadsize);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         window.Draw(temp_sprite);
 
@@ -169,9 +153,26 @@ public class Character {
             }
         }
     }
+    public override void DoAnimate() {
+        base.DoAnimate();
+        // Update Current Sprite
+        this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
+        this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
+
+        // Update position
+        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
+        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
+        this.physics.Update(this);
+
+        // Advance to the next frame
+        if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
+            this.ChangeState(this.CurrentAnimation.post_state);
+        }
+        // if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
+        CurrentAnimation.AdvanceFrame();
+    }
 
     // Battle methods
-    public virtual void DoBehavior() {}
     public virtual void ImposeBehavior(Character target) {}
     public bool isBlocking() {
         return this.isBlockingHigh() || this.isBlockingLow();
@@ -192,16 +193,18 @@ public class Character {
         this.physics.reset();
     }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
+        this.LastState = CurrentState;
+
         if (animations.ContainsKey(newState)) {
-            this.LastState = CurrentState;
             this.CurrentState = newState;
         }
 
         if (CurrentState != LastState || reset) {
             this.animations[CurrentState].Reset();
-            this.LastState = CurrentState;
             this.CurrentAnimation.currentFrameIndex = index;
         }
+
+        this.hasHit = false;
     }
     public Sprite GetCurrentSpriteImage() {
         if (spriteImages.ContainsKey(this.CurrentSprite))
@@ -307,12 +310,14 @@ public class Character {
 
     // General Load
     public virtual void Load() {}
-    public void Unload() {
+    public override void Unload() {
         this.UnloadSounds();
         this.UnloadSpriteImages();
     }
-
-}
+    public override void Copy(){
+        
+    }
+    }
 
 
 }

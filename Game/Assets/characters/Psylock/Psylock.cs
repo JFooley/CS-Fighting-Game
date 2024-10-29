@@ -3,10 +3,11 @@ using Character_Space;
 using Animation_Space;
 using Input_Space;
 using Aux_Space;
+using Stage_Space;
 
 public class Psylock : Character {
-    public Psylock(string initialState, int startX, int startY)
-        : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds")
+    public Psylock(string initialState, int startX, int startY, Stage stage)
+        : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
         this.StunPoints = new Vector2i(50, 50);
@@ -263,7 +264,7 @@ public class Psylock : Character {
         this.LoadSounds();
     }
 
-    public override void DoBehavior() {
+    public override void DoBehave() {
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
         }

@@ -1,16 +1,15 @@
 using Character_Space;
 using Animation_Space;
 using SFML.System;
-using Input_Space;
-using System.Runtime.InteropServices;
+using Stage_Space;
 
 public class Fireball : Character {
-    public Fireball(string initialState, float startX, float startY, int team)
-        : base("Fireball", initialState, startX, startY, "Assets/particles/sprites", "Assets/particles/sounds") {
+    public Fireball(string initialState, float startX, float startY, int team, int facing, Stage stage)
+        : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage) {
             this.team = team;
+            this.facing = facing;
             this.LifePoints = new Vector2i(1, 1);
         }
-
     public override void Load() {
         // Animations
         var kenFB0 = new GenericBox(0, 139, 115, 163, 143);
@@ -40,12 +39,12 @@ public class Fireball : Character {
         };
 
         var KenFireballFinal = new List<FrameData> {
-            new FrameData(11, 0, 0, new List<GenericBox> {}),
             new FrameData(12, 0, 0, new List<GenericBox> {}),
             new FrameData(13, 0, 0, new List<GenericBox> {}),
             new FrameData(14, 0, 0, new List<GenericBox> {}),
             new FrameData(15, 0, 0, new List<GenericBox> {}),
             new FrameData(16, 0, 0, new List<GenericBox> {}),
+            new FrameData(17, 0, 0, new List<GenericBox> {}),
         };
 
         // States
@@ -60,7 +59,7 @@ public class Fireball : Character {
         this.LoadSounds();
     }
 
-    public override void DoBehavior() {        
+    public override void DoBehave() {        
         switch (this.CurrentState) {
             case "Ken1":
                 this.Position.X += 7 * this.facing;
@@ -71,7 +70,7 @@ public class Fireball : Character {
                  break;
 
             case "KenExit":
-                if (this.CurrentAnimation.onLastFrame) this.LifePoints.X = -1;
+                if (this.CurrentAnimation.onLastFrame) this.remove = true;
                 break;
 
             default:
@@ -80,30 +79,42 @@ public class Fireball : Character {
     }
 
     public override void ImposeBehavior(Character target) {
+        bool hit = false;
         switch (this.CurrentState) {
             case "Ken1":
                 target.SetVelocity(-5, 0, 2);
                 this.ChangeState("KenExit");
-                if (!target.isBlocking()) {
-                    target.ChangeState("Airboned");
-                } else {
+
+                if (target.isBlocking()) {
                     target.ChangeState("Blocking");
+
+                } else {
+                    target.ChangeState("OnHit");
+                    hit = true;
                 }
                 break;
 
             case "Ken2":
                 target.SetVelocity(-5, 0, 2);
                 this.ChangeState("KenExit");
-                if (!target.isBlocking()) {
-                    target.ChangeState("Airboned");
-                } else {
+
+                if (target.isBlocking()) {
                     target.ChangeState("Blocking");
+
+                } else {
+                    target.ChangeState("OnHit");
+                    hit = true;
+
                 }
                 break;
 
             default:
-                this.LifePoints.X = -1;
+                this.remove = true;
                 break;
         }
+
+        this.stage.spawnHitspark(hit, target.Position, this.facing, this.team);
     }
+
+
 }

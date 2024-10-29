@@ -72,10 +72,12 @@ public static class Program
 
         // Carrega os personagens
         Console.WriteLine("Carregando os persoangens, aguarde");
-        var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine);
+        var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
         Ken_object.Load();
-        var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine);
+        Ken_object.behave = false;
+        var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
         Psylock_object.Load();
+        Psylock_object.behave = false;
 
         // Ultimos ajustes
         camera.SetChars(Ken_object, Psylock_object);
@@ -150,27 +152,6 @@ public static class Program
             deltaTime = clock.Restart().AsSeconds();
 
             // DEBUG
-            if (stage.character_A.CurrentState == "LightHaduken" && stage.character_A.CurrentAnimation.currentFrameIndex == 3 && stage.character_A.CurrentAnimation.frameCounter == 1) {
-                var fb = new Fireball("Ken1", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
-                fb.facing = stage.character_A.facing;
-                fb.notPaused = true;
-                fb.Load();
-                stage.OnSceneCharacters.Add(fb);
-
-                // var hs = new Hitspark("OnBlock1", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
-                // hs.facing = stage.character_A.facing;
-                // hs.notPaused = true;
-                // hs.Load();
-                // stage.OnSceneCharacters.Add(hs);
-            }
-            if (stage.character_A.CurrentState == "HeavyHaduken" && stage.character_A.CurrentAnimation.currentFrameIndex == 3 && stage.character_A.CurrentAnimation.frameCounter == 1) {
-                var fb = new Fireball("Ken2", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
-                fb.facing = stage.character_A.facing;
-                fb.notPaused = true;
-                fb.Load();
-                stage.OnSceneCharacters.Add(fb);
-            }
-            
             if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
             if (InputManager.Instance.Key_down("Select")) printInfos = !printInfos;
 

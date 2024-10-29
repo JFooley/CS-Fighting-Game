@@ -92,12 +92,11 @@ public class GenericBox {
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
 
-    
-
     public Vector2f pA;
     public Vector2f pB;
 
     public int type;
+    public int quadsize = 250;
 
     public GenericBox(int type, int x1, int y1, int x2, int y2) {   
         this.type = type;
@@ -132,13 +131,13 @@ public class GenericBox {
 
     // Get methods
     public Vector2f getRealA(Character charA) {
-        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pB.X + 250 : charA.VisualPosition.X + this.pA.X;
+        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pB.X + this.quadsize : charA.VisualPosition.X + this.pA.X;
         float Y = charA.VisualPosition.Y + this.pA.Y;
 
         return new Vector2f(X, Y);
     }
     public Vector2f getRealB(Character charA) {
-        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pA.X + 250 : charA.VisualPosition.X + this.pB.X;
+        float X = charA.facing == -1 ? charA.VisualPosition.X - this.pA.X + this.quadsize : charA.VisualPosition.X + this.pB.X;
         float Y = charA.VisualPosition.Y + this.pB.Y;
 
         return new Vector2f(X, Y);

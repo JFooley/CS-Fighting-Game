@@ -4,12 +4,13 @@ using Animation_Space;
 using Input_Space;
 using Aux_Space;
 using System.IO.Compression;
+using Stage_Space;
 
 public class Ken : Character {
     private int tatso_speed = 5;
 
-    public Ken(string initialState, int startX, int startY)
-        : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds")
+    public Ken(string initialState, int startX, int startY, Stage stage)
+        : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
         this.StunPoints = new Vector2i(50, 50);
@@ -426,7 +427,7 @@ public class Ken : Character {
         this.LoadSounds();
     }
 
-    public override void DoBehavior() {
+    public override void DoBehave() {
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
             physics.reset();
@@ -441,8 +442,11 @@ public class Ken : Character {
 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightHaduken");
+            stage.spawnFireball("Ken1", this.Position, this.facing, this.team, X_offset: 10);
+
         } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Right", "B"}, 10, player: this.playerIndex, facing: this.facing)) && this.notActing) {
             this.ChangeState("HeavyHaduken");
+            stage.spawnFireball("Ken2", this.Position, this.facing, this.team, X_offset: 10);
         }
 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
@@ -557,12 +561,14 @@ public class Ken : Character {
             this.ChangeState("Idle");
         } 
     }
-
+    
     public override void ImposeBehavior(Character target) {
+        bool hit = false;
         switch (this.CurrentState) {
             case "LPAttack":
                 this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -573,6 +579,7 @@ public class Ken : Character {
             case "LKAttack":
                 this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -583,6 +590,7 @@ public class Ken : Character {
             case "MPAttack":
                 this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -593,6 +601,7 @@ public class Ken : Character {
             case "MKAttack":
                 this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
@@ -605,6 +614,7 @@ public class Ken : Character {
                 if (target.isBlockingHigh()) {
                     target.ChangeState("Idle");
                 } else {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 }
@@ -613,6 +623,7 @@ public class Ken : Character {
             default:
                 this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Idle");
                     target.SetVelocity(-2, 0, 10);
                 } else {
@@ -620,5 +631,6 @@ public class Ken : Character {
                 }
                 break;
         }
+        this.stage.spawnHitspark(hit, target.Position, this.facing, this.team, -10);
     }
 }

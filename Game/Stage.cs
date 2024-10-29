@@ -3,8 +3,6 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Character_Space;
-using Input_Space;
-using System.Runtime.InteropServices;
 
 namespace Stage_Space {
 
@@ -18,7 +16,7 @@ public class Stage {
     // Battle Info
     private int hitstopCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
-
+    public List<Character> newCharacters = new List<Character> {};
     public Character character_A;
     public Character character_B;
     public int rounds_A;
@@ -103,7 +101,7 @@ public class Stage {
         }
         
         // Render chars and particles
-        foreach (Character char_object in this.OnSceneCharacters) char_object.Render(window, showBoxs);
+        foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
 
     }
     private void DoBehavior() {
@@ -133,6 +131,24 @@ public class Stage {
     }
     public virtual void doSpecialBehaviour() {}
 
+    // Spawns
+    public void spawnHitspark(bool hit, Vector2f position, int facing, int team, int X_offset = 0) {
+        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, team, facing);
+        Random random = new Random();
+        if (hit) {
+            hs.CurrentState = "OnHit" + random.Next(1, 4);
+        } else {
+            hs.CurrentState = "OnBlock" + random.Next(1, 1);
+        }
+        hs.Load();
+        this.newCharacters.Add(hs);
+    }
+    public void spawnFireball(string state, Vector2f position, int facing, int team, int X_offset = 10) {
+        var fb = new Fireball(state, position.X + X_offset * facing, position.Y, team, facing, this);
+        fb.Load();
+        this.newCharacters.Add(fb);
+    }
+
     // Auxiliary
     public void checkColisions() {
         for (int i = 0; i < this.OnSceneCharacters.Count(); i++) {
@@ -158,7 +174,10 @@ public class Stage {
                 }
             }
         }
-        this.OnSceneCharacters.RemoveAll(obj => obj.LifePoints.X == -1);
+        this.OnSceneCharacters.RemoveAll(obj => obj.remove);
+        this.OnSceneCharacters.AddRange(this.newCharacters);
+        this.newCharacters.Clear();
+        
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
@@ -217,8 +236,8 @@ public class Stage {
         }
     }
     public void TogglePlayers() {
-        this.character_A.notPaused = !this.character_A.notPaused;
-        this.character_B.notPaused = !this.character_B.notPaused;
+        this.character_A.behave = !this.character_A.behave;
+        this.character_B.behave = !this.character_B.behave;
     }
 
     // All loads
