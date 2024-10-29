@@ -151,13 +151,21 @@ public static class Program
 
             // DEBUG
             if (stage.character_A.CurrentState == "LightHaduken" && stage.character_A.CurrentAnimation.currentFrameIndex == 3 && stage.character_A.CurrentAnimation.frameCounter == 1) {
-                var fb = new Fireball("Ken1", stage.character_A.Position.X, stage.character_A.Position.Y, 0);
+                var fb = new Fireball("Ken1", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
+                fb.facing = stage.character_A.facing;
                 fb.notPaused = true;
                 fb.Load();
                 stage.OnSceneCharacters.Add(fb);
+
+                // var hs = new Hitspark("OnBlock1", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
+                // hs.facing = stage.character_A.facing;
+                // hs.notPaused = true;
+                // hs.Load();
+                // stage.OnSceneCharacters.Add(hs);
             }
             if (stage.character_A.CurrentState == "HeavyHaduken" && stage.character_A.CurrentAnimation.currentFrameIndex == 3 && stage.character_A.CurrentAnimation.frameCounter == 1) {
-                var fb = new Fireball("Ken2", stage.character_A.Position.X, stage.character_A.Position.Y, 0);
+                var fb = new Fireball("Ken2", stage.character_A.Position.X + 10 * stage.character_A.facing, stage.character_A.Position.Y, 0);
+                fb.facing = stage.character_A.facing;
                 fb.notPaused = true;
                 fb.Load();
                 stage.OnSceneCharacters.Add(fb);
