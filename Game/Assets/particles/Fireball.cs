@@ -82,7 +82,7 @@ public class Fireball : Character {
         bool hit = false;
         switch (this.CurrentState) {
             case "Ken1":
-                target.SetVelocity(-5, 0, 2);
+                Character.Pushback(target: target, "Medium");
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
@@ -95,7 +95,7 @@ public class Fireball : Character {
                 break;
 
             case "Ken2":
-                target.SetVelocity(-5, 0, 2);
+                Character.Pushback(target: target, "Heavy");
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
