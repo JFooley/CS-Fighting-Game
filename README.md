@@ -23,13 +23,13 @@ Implementado:
 - Padronização dos controles
 - Hitstop
 - Pushback usando as pushboxes
+- Particulas de dano e block
   
 Em desenvolvimento:
-- Particulas de dano e block
 - HUD
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
 - Estados de intervalo entre rounds
 - Menu de seleção de personagem e stage
 
-Para rodar execute dotnet run no terminal
+Para rodar execute "dotnet run" no terminal na pasta Game
