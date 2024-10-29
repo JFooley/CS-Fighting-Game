@@ -23,9 +23,9 @@ Implementado:
 - Padronização dos controles
 - Hitstop
 - Pushback usando as pushboxes
+- Particulas de dano e block
   
 Em desenvolvimento:
-- Particulas de dano e block
 - HUD
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
