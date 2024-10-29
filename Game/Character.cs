@@ -173,7 +173,9 @@ public class Character : Object_Space.Object {
     }
 
     // Battle methods
-    public virtual void ImposeBehavior(Character target) {}
+    public virtual bool ImposeBehavior(Character target) {
+        return true;
+    }
     public bool isBlocking() {
         return this.isBlockingHigh() || this.isBlockingLow();
     }

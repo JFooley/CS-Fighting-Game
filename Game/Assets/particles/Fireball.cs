@@ -78,7 +78,7 @@ public class Fireball : Character {
         }
     }
 
-    public override void ImposeBehavior(Character target) {
+    public override bool ImposeBehavior(Character target) {
         bool hit = false;
         switch (this.CurrentState) {
             case "Ken1":
@@ -112,8 +112,7 @@ public class Fireball : Character {
                 this.remove = true;
                 break;
         }
-
-        this.stage.spawnHitspark(hit, target.Position, this.facing, this.team);
+        return hit;
     }
 
 

@@ -342,57 +342,67 @@ public class Psylock : Character {
         } 
     }
 
-    public override void ImposeBehavior(Character target) {
+    public override bool ImposeBehavior(Character target) {
+        bool hit = false;
         switch (this.CurrentState) {
             case "AAttack":
+                this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
-                    this.SetVelocity(-2, 0, 10);
                 }
                 break;
                 
             case "BAttack":
+                this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
-                    this.SetVelocity(-2, 0, 10);
+                    
                 }
                 break;
                 
             case "CAttack":
+                this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
-                    this.SetVelocity(-2, 0, 10);
+                    
                 }
                 break;
 
             case "DAttack":
+                this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Airboned");
                     target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
-                    this.SetVelocity(-2, 0, 10);
+                    
                 }
                 break;
             
             default:
+                this.SetVelocity(-2, 0, 10);
                 if (!target.isBlocking()) {
+                    hit = true;
                     target.ChangeState("Idle");
                     target.SetVelocity(-2, 0, 10);
                 } else {
                     target.ChangeState("Idle");
-                    this.SetVelocity(-2, 0, 10);
                 }
                 break;
         }
+        return hit;
     }
 }

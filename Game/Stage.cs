@@ -132,8 +132,8 @@ public class Stage {
     public virtual void doSpecialBehaviour() {}
 
     // Spawns
-    public void spawnHitspark(bool hit, Vector2f position, int facing, int team, int X_offset = 0) {
-        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, team, facing);
+    public void spawnHitspark(bool hit, Vector2f position, int facing, int X_offset = 0) {
+        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, 0, facing);
         Random random = new Random();
         if (hit) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
@@ -161,23 +161,21 @@ public class Stage {
                         if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) { // Push A e Push B
                             GenericBox.Colide(boxA, boxB, charA, charB);
 
-                            Console.WriteLine("Caso Push");
-
                         } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
                             this.hitstopCounter = Config.hitStopTime;
                             charA.hasHit = true;
-                            charA.ImposeBehavior(charB);
+                            var hit = charA.ImposeBehavior(charB);
+                            this.spawnHitspark(hit, charB.Position, charA.facing, -10);
 
-                            Console.WriteLine(charA.name + " hit " + charB.name);
                         }
                     }
                 }
             }
         }
+
         this.OnSceneCharacters.RemoveAll(obj => obj.remove);
         this.OnSceneCharacters.AddRange(this.newCharacters);
         this.newCharacters.Clear();
-        
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;

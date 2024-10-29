@@ -562,7 +562,7 @@ public class Ken : Character {
         } 
     }
     
-    public override void ImposeBehavior(Character target) {
+    public override bool ImposeBehavior(Character target) {
         bool hit = false;
         switch (this.CurrentState) {
             case "LPAttack":
@@ -631,6 +631,7 @@ public class Ken : Character {
                 }
                 break;
         }
-        this.stage.spawnHitspark(hit, target.Position, this.facing, this.team, -10);
+        
+        return hit;
     }
 }
