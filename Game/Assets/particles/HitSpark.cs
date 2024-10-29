@@ -3,9 +3,9 @@ using Animation_Space;
 using SFML.System;
 
 public class Hitspark : Character {
-    public Hitspark(string initialState, float startX, float startY, int team, int facing)
+    public Hitspark(string initialState, float startX, float startY, int facing)
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", null) {
-            this.team = team;
+            this.team = 0;
             this.facing = facing;
             this.LifePoints = new Vector2i(1, 1);
         }

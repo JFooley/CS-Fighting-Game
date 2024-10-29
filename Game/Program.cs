@@ -74,16 +74,15 @@ public static class Program
         Console.WriteLine("Carregando os persoangens, aguarde");
         var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
         Ken_object.Load();
-        Ken_object.behave = false;
         var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
         Psylock_object.Load();
-        Psylock_object.behave = false;
 
         // Ultimos ajustes
         camera.SetChars(Ken_object, Psylock_object);
         camera.SetLimits(stage.length, stage.height);
         stage.setChars(Ken_object, Psylock_object);
         stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
+        stage.TogglePlayers();
         Console.WriteLine("Finalizado");
 
         while (window.IsOpen) {

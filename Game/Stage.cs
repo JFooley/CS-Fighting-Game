@@ -33,6 +33,10 @@ public class Stage {
     public int start_point_B;
     public Vector2f center_point => new Vector2f((length / 2), (height / 2));
 
+    // Pre-renders
+    private Hitspark spark; 
+    private Fireball fireball;
+
     // Animation infos
     public string CurrentState { get; set; }
     public string LastState { get; set; }
@@ -58,6 +62,9 @@ public class Stage {
         this.CurrentState = "Default";
         this.spriteImages = new Dictionary<int, Sprite>();
         this.stageSounds = new Dictionary<string, Sound>();
+
+        this.spark = new Hitspark("Default", 0, 0, 1);
+        this.fireball = new Fireball("Default", 0, 0, 0, 1, this);
     }
 
     // Behaviour
@@ -133,19 +140,23 @@ public class Stage {
 
     // Spawns
     public void spawnHitspark(bool hit, Vector2f position, int facing, int X_offset = 0) {
-        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, 0, facing);
+        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, facing);
         Random random = new Random();
         if (hit) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
         } else {
             hs.CurrentState = "OnBlock" + random.Next(1, 1);
         }
-        hs.Load();
+        hs.animations = this.spark.animations;
+        hs.spriteImages = this.spark.spriteImages;
+        hs.characterSounds = this.spark.characterSounds;
         this.newCharacters.Add(hs);
     }
     public void spawnFireball(string state, Vector2f position, int facing, int team, int X_offset = 10) {
         var fb = new Fireball(state, position.X + X_offset * facing, position.Y, team, facing, this);
-        fb.Load();
+        fb.animations = this.fireball.animations;
+        fb.spriteImages = this.fireball.spriteImages;
+        fb.characterSounds = this.fireball.characterSounds;
         this.newCharacters.Add(fb);
     }
 
@@ -240,6 +251,9 @@ public class Stage {
 
     // All loads
     public void LoadSpriteImages() {
+        this.spark.Load();
+        this.fireball.Load();
+
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);
 

@@ -66,8 +66,8 @@ public class Character : Object_Space.Object {
 
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
-    private Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
-    private Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
+    public Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
+    public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
     // Gets
