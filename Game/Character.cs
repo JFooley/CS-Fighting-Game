@@ -187,7 +187,7 @@ public class Character : Object_Space.Object {
     }
 
     // Auxiliar methods
-    public void SetVelocity(int X = 0, int Y = 0, int T = 0) {
+    public void SetVelocity(float X = 0, float Y = 0, int T = 0) {
         this.Velocity.X = X;
         this.Velocity.Y = Y;
         this.Velocity.Z = T;
@@ -225,7 +225,15 @@ public class Character : Object_Space.Object {
         this.physics.reset();
         this.Velocity = new Vector3f(0, 0, 0);
     }
-
+    public static void Pushback(Character target, string amount) {
+        if (amount == "Light") {
+            target.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
+        } else if (amount == "Medium") {
+            target.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
+        } else if (amount == "Heavy"){
+            target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+        }
+    }
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();

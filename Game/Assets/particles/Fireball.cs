@@ -15,27 +15,27 @@ public class Fireball : Character {
         var kenFB0 = new GenericBox(0, 139, 115, 163, 143);
         var kenFB1 = new GenericBox(1, 139, 115, 163, 143);
         var KenFireballFrames = new List<FrameData> { 
-            new FrameData(01, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(02, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(03, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(04, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(05, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(06, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(07, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(08, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(09, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(010, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(011, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(012, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(013, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(014, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(015, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(016, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(017, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(018, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(019, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(020, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(021, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(21, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(22, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(23, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(24, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(25, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(26, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(27, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(28, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(29, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(210, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(211, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(212, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(213, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(214, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(215, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(216, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(217, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(218, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(219, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(220, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(221, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
         };
 
         var KenFireballFinal = new List<FrameData> {
@@ -62,11 +62,11 @@ public class Fireball : Character {
     public override void DoBehave() {        
         switch (this.CurrentState) {
             case "Ken1":
-                this.Position.X += 7 * this.facing;
+                this.Position.X += 5 * this.facing;
                  break;
 
             case "Ken2":
-                this.Position.X += 10 * this.facing;
+                this.Position.X += 7 * this.facing;
                  break;
 
             case "KenExit":

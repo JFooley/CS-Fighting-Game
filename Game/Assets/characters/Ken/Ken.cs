@@ -566,72 +566,77 @@ public class Ken : Character {
         bool hit = false;
         switch (this.CurrentState) {
             case "LPAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Blocking");
                 }
                 break;
                 
             case "LKAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
                 
             case "MPAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
 
             case "MKAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
 
             case "BackMKAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Heavy");
                 if (target.isBlockingHigh()) {
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
                     target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
+                }
+                break;
+
+            case "CloseHPAttack":
+                Character.Pushback(target: target, "Heavy");
+                if (target.isBlocking()) {
+                    target.ChangeState("Idle");
+                } else {
+                    hit = true;
+                    target.ChangeState("Airboned");
+                    target.SetVelocity(-2, 50, 25);
                 }
                 break;
 
             default:
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Idle");
-                    target.SetVelocity(-2, 0, 10);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
         }
-        
+
         return hit;
     }
 }

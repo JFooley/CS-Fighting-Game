@@ -36,4 +36,13 @@ public static class Config {
     // Others
     public static int RoundLength = 90;
     public static int hitStopTime = 3;
+
+    // Battle constants 32 38 48
+    public static float light_pushback = 4f;
+    public static float medium_pushback = 3.8f;
+    public static float heavy_pushback = 4.8f;
+
+    public static int light_pushback_frames = 8;
+    public static int medium_pushback_frames = 10;
+    public static int heavy_pushback_frames = 10;
 }
