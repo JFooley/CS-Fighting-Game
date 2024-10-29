@@ -346,22 +346,20 @@ public class Psylock : Character {
         bool hit = false;
         switch (this.CurrentState) {
             case "AAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
                 
             case "BAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                     
@@ -369,11 +367,10 @@ public class Psylock : Character {
                 break;
                 
             case "CAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                     
@@ -381,11 +378,10 @@ public class Psylock : Character {
                 break;
 
             case "DAttack":
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
-                    target.SetVelocity(-5, 50, target.CurrentAnimation.realAnimSize);
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                     
@@ -393,7 +389,7 @@ public class Psylock : Character {
                 break;
             
             default:
-                this.SetVelocity(-2, 0, 10);
+                Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Idle");

@@ -341,7 +341,7 @@ public class Ken : Character {
             new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, })
         };
         
-        var airbonedFrames = new List<FrameData> {
+        var OnBlockFrames = new List<FrameData> {
             new FrameData(14880, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 71, 90, 89, 105), new GenericBox(1, 88, 93, 158, 188) }),
             new FrameData(14881, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 66, 102, 84, 115), new GenericBox(1, 82, 99, 154, 133), new GenericBox(1, 125, 116, 172, 167) }),
             new FrameData(14882, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 67, 105, 145, 131), new GenericBox(1, 138, 112, 177, 165) }),
@@ -415,7 +415,7 @@ public class Ken : Character {
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
             { "AirTatso", new Animation(heavyTatsoFrames, "AirTatso", 30)},
             // Hit and Block
-            { "Airboned", new Animation(airbonedFrames, "Fallen", 15)},
+            { "OnBlock", new Animation(OnBlockFrames, "Fallen", 15)},
             { "Fallen", new Animation(fallenFrames, "Wakeup", 15)},
             { "Wakeup", new Animation(wakeupFrames, "Idle", 15)},
             // Bonus
@@ -569,7 +569,7 @@ public class Ken : Character {
                 Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Blocking");
                 }
@@ -579,7 +579,7 @@ public class Ken : Character {
                 Character.Pushback(target: target, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -589,7 +589,7 @@ public class Ken : Character {
                 Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -599,7 +599,7 @@ public class Ken : Character {
                 Character.Pushback(target: target, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -611,7 +611,7 @@ public class Ken : Character {
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                 }
                 break;
 
@@ -621,7 +621,7 @@ public class Ken : Character {
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
-                    target.ChangeState("Airboned");
+                    target.ChangeState("OnHit");
                     target.SetVelocity(-2, 50, 25);
                 }
                 break;
