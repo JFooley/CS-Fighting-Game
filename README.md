@@ -24,12 +24,13 @@ Implementado:
 - Hitstop
 - Pushback usando as pushboxes
 - Particulas de dano e block
-  
+- HUD de Batalha
+- Estados de intervalo entre rounds
+
 Em desenvolvimento:
-- HUD
+- Fix: pushback no corner (o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner)
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
-- Estados de intervalo entre rounds
 - Menu de seleção de personagem e stage
 
 Para rodar execute "dotnet run" no terminal na pasta Game
