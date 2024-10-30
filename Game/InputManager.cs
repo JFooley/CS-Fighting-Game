@@ -168,7 +168,6 @@ public class InputManager {
         }
 
         int[] currentInput =  new int[3] {0, 0, 0};
-        Console.Clear();
         for (int i = 0; i < 3; i++) {
             if (inputDevice[i] == KEYBOARD_INPUT) {
                 currentInput[i] = RawInput.ReadKeyboardState(keyMap);
