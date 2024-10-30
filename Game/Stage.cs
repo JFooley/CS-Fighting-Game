@@ -105,8 +105,8 @@ public class Stage {
 
         // Update chars and particles
         if (hitstopCounter == 0) {
-            foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
             this.DoBehavior();
+            foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
         }
         
         // Render chars and particles

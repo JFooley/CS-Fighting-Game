@@ -8,7 +8,8 @@ namespace Input_Space
 public class InputManager {    
     public const int NONE_INPUT = 0;
     public const int KEYBOARD_INPUT = 1;
-    public const int JOYSTICK_INPUT = 2;
+    public const int JOYSTICK_0_INPUT = 2;
+    public const int JOYSTICK_1_INPUT = 3;
 
     public const int DEFAULT = 0;
     public const int PLAYER_A = 1;
@@ -85,9 +86,9 @@ public class InputManager {
             this.buttonState[i] = 0b0;
             this.buttonLastState[i] = 0b0;
         }
-        inputDevice[0] = JOYSTICK_INPUT;
-        inputDevice[1] = JOYSTICK_INPUT;
-        inputDevice[2] = KEYBOARD_INPUT;
+        inputDevice[0] = KEYBOARD_INPUT;
+        inputDevice[1] = JOYSTICK_0_INPUT;
+        inputDevice[2] = JOYSTICK_1_INPUT;
 
         this.keyMap = new Dictionary<Keys, int>
         {
@@ -150,9 +151,14 @@ public class InputManager {
 
     // Behaviour
     public void Update() {
-        if (autoDetectDevice && JoystickInput.IsJoystickConnected()) {
-            inputDevice[0] = JOYSTICK_INPUT;
-            inputDevice[1] = JOYSTICK_INPUT;
+        if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && autoDetectDevice && JoystickInput.IsJoystickConnected(1)) {
+            inputDevice[0] = KEYBOARD_INPUT;
+            inputDevice[1] = JOYSTICK_0_INPUT;
+            inputDevice[2] = JOYSTICK_1_INPUT;
+        }
+        if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
+            inputDevice[0] = JOYSTICK_0_INPUT;
+            inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = KEYBOARD_INPUT;
         }
         else {
@@ -166,8 +172,11 @@ public class InputManager {
             if (inputDevice[i] == KEYBOARD_INPUT) {
                 currentInput[i] = RawInput.ReadKeyboardState(keyMap);
             }
-            else if (inputDevice[i] == JOYSTICK_INPUT) {
-                currentInput[i] = JoystickInput.ReadJoystickState(joystickMap);
+            else if (inputDevice[i] == JOYSTICK_0_INPUT) {
+                currentInput[i] = JoystickInput.ReadJoystickState(joystickMap, dwUserIndex: 0);
+            }
+            else if (inputDevice[i] == JOYSTICK_1_INPUT) {
+                currentInput[i] = JoystickInput.ReadJoystickState(joystickMap, dwUserIndex: 1);
             }
         }
 
@@ -262,7 +271,7 @@ public static class RawInput {
         {
             if ((GetAsyncKeyState(key.Key) & 0x8000) != 0)
             {
-                state |= (1 << key.Value);
+                state |= 1 << key.Value;
             }
         }
 
@@ -305,10 +314,10 @@ public class JoystickInput {
         public ushort wRightMotorSpeed;
     }
 
-    public static int ReadJoystickState(Dictionary<int, int> joystickMap)
+    public static int ReadJoystickState(Dictionary<int, int> joystickMap, int dwUserIndex = 0)
     {
         XINPUT_STATE state;
-        int result = XInputGetState(0, out state);
+        int result = XInputGetState(dwUserIndex, out state);
 
         if (result == 0)
         {
@@ -328,10 +337,10 @@ public class JoystickInput {
         return 0;
     }
 
-    public static bool IsJoystickConnected()
+    public static bool IsJoystickConnected(int dwUserIndex = 0)
     {
         XINPUT_STATE state;
-        int result = XInputGetState(0, out state);
+        int result = XInputGetState(dwUserIndex, out state);
 
         return result == 0;
     }
