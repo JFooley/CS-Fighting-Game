@@ -14,7 +14,7 @@ namespace UI_space {
         private Color bar_outline = new Color(255, 255, 255);
         private Color bar_graylife = new Color(200, 0, 0);
         private Color bar_life = new Color(7, 209, 0);
-        private Color stunbar_background = new Color(200, 200, 200);
+        private Color stunbar_background = new Color(150, 150, 150);
 
         private Dictionary<char, Sprite> characterSprites;
 
