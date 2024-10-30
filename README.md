@@ -29,6 +29,7 @@ Implementado:
 
 Em desenvolvimento:
 - Fix: pushback no corner (o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner)
+- Fix: Player 2 consegue "arrastar" o player 1 quando ele chega no limite de distancia
 - Dano e stun na colisão
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
