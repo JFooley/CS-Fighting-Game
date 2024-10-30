@@ -129,19 +129,19 @@ public static class Program
                             if (stage.CheckRoundEnd()) {
                                 sub_state = RoundEnd;
                                 stage.TogglePlayers();
+                                UI.Instance.DrawText(window, "KO", 0, -30, spacing: -25);
                             }
                             break;
 
                         case RoundEnd: // Finaliza do round
-                            if (InputManager.Instance.anyKey) {
-                                if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
-                                    stage.ResetMatch();
-                                    stage.ResetPlayers(force: true);
-                                    sub_state = Intro;
-                                    game_state = Intro;
-                                } else {
-                                    sub_state = RoundStart;
-                                }
+                            Thread.Sleep(2000);
+                            if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
+                                stage.ResetMatch();
+                                stage.ResetPlayers(force: true);
+                                sub_state = Intro;
+                                game_state = Intro;
+                            } else {
+                                sub_state = RoundStart;
                             }
                             break;
                     }

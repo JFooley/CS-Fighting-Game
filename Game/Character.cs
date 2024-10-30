@@ -42,7 +42,7 @@ public class Character : Object_Space.Object {
 
     // Statistics 
     public Vector2i LifePoints = new Vector2i(1000, 1000);
-    public Vector2i DizzyPoints = new Vector2i(50, 50);
+    public Vector2i DizzyPoints = new Vector2i(1000, 1000);
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 80;
@@ -238,7 +238,8 @@ public class Character : Object_Space.Object {
         }
     }
     public static void Damage(Character target, int damage, int dizzy_damage) {
-
+        target.LifePoints.X -= damage;
+        target.DizzyPoints.X -= dizzy_damage;
     }
     public static void Stun(Character target, String type, int frame_amount) {
         

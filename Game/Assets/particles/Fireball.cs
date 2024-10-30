@@ -88,9 +88,11 @@ public class Fireball : Character {
 
                 if (target.isBlocking()) {
                     target.ChangeState("Blocking");
+                    Character.Damage(target: target, 10, 0);
 
                 } else {
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 100, 170);
                     hit = true;
                 }
                 break;
@@ -101,9 +103,11 @@ public class Fireball : Character {
 
                 if (target.isBlocking()) {
                     target.ChangeState("Blocking");
+                    Character.Damage(target: target, 10, 0);
 
                 } else {
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 150, 170);
                     hit = true;
 
                 }

@@ -13,7 +13,7 @@ public class Ken : Character {
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
-        this.DizzyPoints = new Vector2i(50, 50);
+        this.DizzyPoints = new Vector2i(1000, 1000);
 
         this.dash_speed = 8;
         this.move_speed = 3;
@@ -430,6 +430,8 @@ public class Ken : Character {
     public override void DoBehave() {
         if (this.behave == false) return;
 
+        this.DizzyPoints.X = Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1);
+
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
             physics.reset();
@@ -478,10 +480,8 @@ public class Ken : Character {
             this.ChangeState("MPAttack");
         } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
             this.ChangeState("MKAttack");
-        } // else if (InputManager.Instance.Key_down("R", player: this.playerIndex, facing: this.facing) && this.notActing) {
-        //     this.ChangeState("CloseHPAttack");
-        // }
-
+        } 
+        
         // Crouching
         if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
@@ -574,6 +574,7 @@ public class Ken : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Blocking");
                 }
@@ -584,6 +585,7 @@ public class Ken : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -594,6 +596,7 @@ public class Ken : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -604,6 +607,7 @@ public class Ken : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 5);
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -616,6 +620,7 @@ public class Ken : Character {
                 } else {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 }
                 break;
 
@@ -627,6 +632,7 @@ public class Ken : Character {
                     hit = true;
                     target.ChangeState("OnHit");
                     target.SetVelocity(-2, 50, 25);
+                    Character.Damage(target: target, 50, 170);
                 }
                 break;
 
@@ -635,6 +641,7 @@ public class Ken : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Idle");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }

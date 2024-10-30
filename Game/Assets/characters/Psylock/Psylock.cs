@@ -10,7 +10,7 @@ public class Psylock : Character {
         : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
-        this.DizzyPoints = new Vector2i(50, 50);
+        this.DizzyPoints = new Vector2i(1000, 1000);
 
         this.dash_speed = 8;
         this.move_speed = 3;
@@ -266,6 +266,8 @@ public class Psylock : Character {
 
     public override void DoBehave() {
         if (this.behave == false) return;
+
+        this.DizzyPoints.X = Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1);
         
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
@@ -352,6 +354,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
@@ -362,6 +365,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                     
@@ -373,6 +377,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                     
@@ -384,6 +389,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                     
@@ -396,6 +402,7 @@ public class Psylock : Character {
                     hit = true;
                     target.ChangeState("Idle");
                     target.SetVelocity(-2, 0, 10);
+                    Character.Damage(target: target, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
