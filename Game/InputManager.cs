@@ -61,6 +61,8 @@ public class InputManager {
     public int[] buttonState = new int[3];
     public int[] buttonLastState = new int[3];
 
+    public bool anyKey => this.buttonState[DEFAULT] > 0;
+
     // Mapping para teclado e mouse
     private Dictionary<Keys, int> keyMap;
     private Dictionary<int, int> joystickMap;
@@ -201,7 +203,6 @@ public class InputManager {
     public bool Key_change(String key, int player = DEFAULT, int facing = 1) {
         return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != (buttonLastState[player] & (1 << keysTranslationMap[facing][key]));
     }
-
     public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true, int player = DEFAULT, int facing = 1) {
         int[] sequence = rawSequence.Select(key => keysTranslationMap[facing][key]).ToArray();
 

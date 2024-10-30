@@ -133,16 +133,15 @@ public static class Program
                             break;
 
                         case RoundEnd: // Finaliza do round
-
-                            Thread.Sleep(2000); // RETIRAR
-
-                            if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
-                                stage.ResetMatch();
-                                stage.ResetPlayers(force: true);
-                                sub_state = Intro;
-                                game_state = Intro;
-                            } else {
-                                sub_state = RoundStart;
+                            if (InputManager.Instance.anyKey) {
+                                if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
+                                    stage.ResetMatch();
+                                    stage.ResetPlayers(force: true);
+                                    sub_state = Intro;
+                                    game_state = Intro;
+                                } else {
+                                    sub_state = RoundStart;
+                                }
                             }
                             break;
                     }
@@ -169,7 +168,7 @@ public static class Program
                     Console.WriteLine("Posição X: " + char_object.Position.X + " Posição Y: " + char_object.Position.Y);
                     Console.WriteLine("State: " + char_object.CurrentState + " - Frame Index: " + char_object.CurrentAnimation.currentFrameIndex + " - Sprite Index: " + char_object.CurrentSprite);
                     Console.WriteLine("LP: " + char_object.LifePoints.X + "/" + char_object.LifePoints.Y);
-                    Console.WriteLine("SP: " + char_object.StunPoints.X + "/" + char_object.StunPoints.Y);
+                    Console.WriteLine("SP: " + char_object.DizzyPoints.X + "/" + char_object.DizzyPoints.Y);
                     Console.WriteLine("Facing: " + char_object.facing);
                     Console.WriteLine("Blocking High: " + char_object.isBlockingHigh());
                     Console.WriteLine("Blocking Low:  " + char_object.isBlockingLow());

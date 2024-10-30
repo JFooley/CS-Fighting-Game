@@ -14,7 +14,7 @@ namespace UI_space {
         private Color bar_outline = new Color(255, 255, 255);
         private Color bar_graylife = new Color(200, 0, 0);
         private Color bar_life = new Color(7, 209, 0);
-        private Color stunbar_background = new Color(150, 150, 150);
+        private Color dizzybar_background = new Color(150, 150, 150);
 
         private Dictionary<char, Sprite> characterSprites;
 
@@ -93,7 +93,7 @@ namespace UI_space {
         // Battle UI
         public void DrawBattleUI(RenderWindow window, Stage stage) {
             // Draw time
-            this.DrawText(window, "" + stage.round_time, 0, -110, center: true, spacing: -25);
+            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -110, center: true, spacing: -25);
 
             // Draw lifebar A
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;;
@@ -105,9 +105,9 @@ namespace UI_space {
             this.DrawRectangle(window, -180 + (150 - lifeA), -95, lifeA, 8, this.bar_life);
 
             // Draw Stun bar A
-            var stunA_scale = ( stage.character_A.StunPoints.Y - stage.character_A.StunPoints.X) * 150 / stage.character_A.StunPoints.Y;
+            var stunA_scale = ( stage.character_A.DizzyPoints.Y - stage.character_A.DizzyPoints.X) * 150 / stage.character_A.DizzyPoints.Y;
             var stunA = Math.Max(Math.Min(stunA_scale, 150), 0);
-            this.DrawRectangle(window, -180, -86, 150, 1, this.stunbar_background);
+            this.DrawRectangle(window, -180, -86, 150, 1, this.dizzybar_background);
             this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
             
             // Draw lifebar B
@@ -120,9 +120,9 @@ namespace UI_space {
             this.DrawRectangle(window, 30, -95, lifeB, 8, this.bar_life);
             
             // Draw Stun bar B
-            var stunB_scale = ( stage.character_B.StunPoints.Y - stage.character_B.StunPoints.X) * 150 / stage.character_B.StunPoints.Y;
+            var stunB_scale = ( stage.character_B.DizzyPoints.Y - stage.character_B.DizzyPoints.X) * 150 / stage.character_B.DizzyPoints.Y;
             var stunB = Math.Max(Math.Min(stunB_scale, 150), 0);
-            this.DrawRectangle(window, 30, -86, 150, 1, this.stunbar_background);
+            this.DrawRectangle(window, 30, -86, 150, 1, this.dizzybar_background);
             this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
 
             // Draw round indicator ≈

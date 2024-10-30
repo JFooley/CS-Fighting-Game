@@ -7,7 +7,6 @@ public class Hitspark : Character {
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", null) {
             this.team = 0;
             this.facing = facing;
-            this.LifePoints = new Vector2i(1, 1);
         }
 
     public override void Load() {

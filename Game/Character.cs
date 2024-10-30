@@ -42,7 +42,7 @@ public class Character : Object_Space.Object {
 
     // Statistics 
     public Vector2i LifePoints = new Vector2i(1000, 1000);
-    public Vector2i StunPoints = new Vector2i(50, 50);
+    public Vector2i DizzyPoints = new Vector2i(50, 50);
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 80;
@@ -219,7 +219,7 @@ public class Character : Object_Space.Object {
     public void Reset(int start_point, int facing, String state = "Idle") {
         this.ChangeState(state);
         this.LifePoints.X = this.LifePoints.Y;
-        this.StunPoints.X = this.StunPoints.Y;
+        this.DizzyPoints.X = this.DizzyPoints.Y;
         this.Position.X = start_point;
         this.Position.Y = this.floorLine;
         this.facing = facing;
@@ -237,7 +237,7 @@ public class Character : Object_Space.Object {
             target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
         }
     }
-    public static void Damage(Character target, int damage, int stun_damage) {
+    public static void Damage(Character target, int damage, int dizzy_damage) {
 
     }
     public static void Stun(Character target, String type, int frame_amount) {
