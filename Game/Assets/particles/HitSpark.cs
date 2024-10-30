@@ -13,7 +13,7 @@ public class Hitspark : Character {
     public override void Load() {
         // Animations
         var onHit1 = new List<FrameData> { 
-            new FrameData(11, 0, 0, new List<GenericBox> {}),
+            new FrameData(11, 0, 0, new List<GenericBox> {}, "on_hit_1"),
             new FrameData(12, 0, 0, new List<GenericBox> {}),
             new FrameData(13, 0, 0, new List<GenericBox> {}),
             new FrameData(14, 0, 0, new List<GenericBox> {}),
@@ -26,7 +26,7 @@ public class Hitspark : Character {
         };
 
         var onHit2 = new List<FrameData> { 
-            new FrameData(21, 0, 0, new List<GenericBox> {}),
+            new FrameData(21, 0, 0, new List<GenericBox> {}, "on_hit_2"),
             new FrameData(22, 0, 0, new List<GenericBox> {}),
             new FrameData(23, 0, 0, new List<GenericBox> {}),
             new FrameData(24, 0, 0, new List<GenericBox> {}),
@@ -39,7 +39,7 @@ public class Hitspark : Character {
         };
 
         var onHit3 = new List<FrameData> { 
-            new FrameData(41, 0, 0, new List<GenericBox> {}),
+            new FrameData(41, 0, 0, new List<GenericBox> {}, "on_hit_3"),
             new FrameData(42, 0, 0, new List<GenericBox> {}),
             new FrameData(43, 0, 0, new List<GenericBox> {}),
             new FrameData(44, 0, 0, new List<GenericBox> {}),
@@ -51,8 +51,8 @@ public class Hitspark : Character {
             new FrameData(410, 0, 0, new List<GenericBox> {}),
         };
 
-        var onBlock1 = new List<FrameData> {
-            new FrameData(31, 0, 0, new List<GenericBox> {}),
+        var onBlock = new List<FrameData> {
+            new FrameData(31, 0, 0, new List<GenericBox> {}, "on_block"),
             new FrameData(32, 0, 0, new List<GenericBox> {}),
             new FrameData(33, 0, 0, new List<GenericBox> {}),
             new FrameData(34, 0, 0, new List<GenericBox> {}),
@@ -65,7 +65,7 @@ public class Hitspark : Character {
             {"OnHit1", new Animation(onHit1, "OnHit1", 60)},
             {"OnHit2", new Animation(onHit2, "OnHit2", 60)},
             {"OnHit3", new Animation(onHit3, "OnHit3", 60)},
-            {"OnBlock1", new Animation(onBlock1, "OnBlock1", 30)},
+            {"OnBlock", new Animation(onBlock, "OnBlock", 60)},
         };
 
         this.animations = animations;

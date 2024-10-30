@@ -105,7 +105,8 @@ public class Character : Object_Space.Object {
 
         // Play sounds
         if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
-            if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
+            // if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
+            this.characterSounds[this.CurrentSound].Play();
         }
         
         // Draw Hitboxes
@@ -168,7 +169,6 @@ public class Character : Object_Space.Object {
         if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
             this.ChangeState(this.CurrentAnimation.post_state);
         }
-        // if (CurrentAnimation.AdvanceFrame()) this.hasHit = false;
         CurrentAnimation.AdvanceFrame();
     }
 
@@ -234,6 +234,7 @@ public class Character : Object_Space.Object {
             target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
         }
     }
+    
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();

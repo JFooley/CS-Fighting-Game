@@ -39,7 +39,7 @@ public class Ken : Character {
             new FrameData(15572, 0, 0, new List<GenericBox> { pushbox,}),
             new FrameData(15573, 0, 0, new List<GenericBox> { pushbox,}),
             new FrameData(15574, 0, 0, new List<GenericBox> { pushbox,}),
-            new FrameData(15575, 0, 0, new List<GenericBox> { pushbox,}),
+            new FrameData(15575, 0, 0, new List<GenericBox> { pushbox,}, "ykesse"),
         };
 
         var idleFrames = new List<FrameData> {
@@ -428,6 +428,8 @@ public class Ken : Character {
     }
 
     public override void DoBehave() {
+        if (this.behave == false) return;
+
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
             physics.reset();
@@ -442,11 +444,8 @@ public class Ken : Character {
 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightHaduken");
-            stage.spawnFireball("Ken1", this.Position, this.facing, this.team, X_offset: 10);
-
         } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Right", "B"}, 10, player: this.playerIndex, facing: this.facing)) && this.notActing) {
             this.ChangeState("HeavyHaduken");
-            stage.spawnFireball("Ken2", this.Position, this.facing, this.team, X_offset: 10);
         }
 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
@@ -479,9 +478,9 @@ public class Ken : Character {
             this.ChangeState("MPAttack");
         } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("R", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("CloseHPAttack");
-        }
+        } // else if (InputManager.Instance.Key_down("R", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        //     this.ChangeState("CloseHPAttack");
+        // }
 
         // Crouching
         if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
@@ -559,7 +558,12 @@ public class Ken : Character {
         } 
         else if (this.CurrentState == "AirTatso" && this.Velocity.Z == 0) {
             this.ChangeState("Idle");
-        } 
+
+        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 2 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken1", this.Position, this.facing, this.team, X_offset: 20);
+        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 2 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken2", this.Position, this.facing, this.team, X_offset: 20);
+        }
     }
     
     public override bool ImposeBehavior(Character target) {

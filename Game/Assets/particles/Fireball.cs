@@ -60,6 +60,7 @@ public class Fireball : Character {
     }
 
     public override void DoBehave() {        
+        base.DoBehave();
         switch (this.CurrentState) {
             case "Ken1":
                 this.Position.X += 5 * this.facing;

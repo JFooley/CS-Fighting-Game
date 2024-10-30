@@ -145,7 +145,7 @@ public class Stage {
         if (hit) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
         } else {
-            hs.CurrentState = "OnBlock" + random.Next(1, 1);
+            hs.CurrentState = "OnBlock";
         }
         hs.animations = this.spark.animations;
         hs.spriteImages = this.spark.spriteImages;

@@ -20,16 +20,16 @@ namespace Object_Space {
 
         // Métodos de atualização e comportamento
         public virtual void Update() {
-            if (!active) return;
+            if (!this.active) return;
         }
         public virtual void DoBehave() {
-            if (!behave) return;
+            if (!this.behave) return;
         }
         public virtual void DoRender(RenderWindow window, bool drawHitboxes = false) {
-            if (!render) return;
+            if (!this.render) return;
         }
         public virtual void DoAnimate() {
-            if (!animate) return;
+            if (!this.animate) return;
         }
 
         public virtual void Load(string Path) {}

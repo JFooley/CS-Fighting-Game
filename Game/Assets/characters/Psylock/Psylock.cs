@@ -265,6 +265,8 @@ public class Psylock : Character {
     }
 
     public override void DoBehave() {
+        if (this.behave == false) return;
+        
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
         }
