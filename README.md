@@ -27,11 +27,11 @@ Implementado:
 - HUD de Batalha
 - Estados de intervalo entre rounds
 - Dano e stun na colisão
+- Fix: 2° controle conectado se torna o player 2 e o teclado fica como default
 
 Em desenvolvimento:
 - Fix: pushback no corner (o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner)
 - Fix: Player 2 consegue "arrastar" o player 1 quando ele chega no limite de distancia
-- Fix: 2° controle conectado se torna o player 2 e o teclado fica como default
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
