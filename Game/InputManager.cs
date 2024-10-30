@@ -151,12 +151,12 @@ public class InputManager {
 
     // Behaviour
     public void Update() {
-        if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && autoDetectDevice && JoystickInput.IsJoystickConnected(1)) {
+        if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && JoystickInput.IsJoystickConnected(1)) {
             inputDevice[0] = KEYBOARD_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = JOYSTICK_1_INPUT;
         }
-        if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
+        else if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
             inputDevice[0] = JOYSTICK_0_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = KEYBOARD_INPUT;
@@ -168,6 +168,7 @@ public class InputManager {
         }
 
         int[] currentInput =  new int[3] {0, 0, 0};
+        Console.Clear();
         for (int i = 0; i < 3; i++) {
             if (inputDevice[i] == KEYBOARD_INPUT) {
                 currentInput[i] = RawInput.ReadKeyboardState(keyMap);
@@ -280,10 +281,10 @@ public static class RawInput {
 }
 
 public class JoystickInput {
-    [DllImport("xinput1_4.dll")]
+    [DllImport("xinput1_3.dll")]
     private static extern int XInputGetState(int dwUserIndex, out XINPUT_STATE pState);
 
-    [DllImport("xinput1_4.dll")]
+    [DllImport("xinput1_3.dll")]
     private static extern int XInputSetState(int dwUserIndex, ref XINPUT_VIBRATION pVibration);
 
     private const int ERROR_DEVICE_NOT_CONNECTED = 1167;
