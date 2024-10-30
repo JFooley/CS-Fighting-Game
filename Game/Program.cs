@@ -155,7 +155,6 @@ public static class Program
             deltaTime = clock.Restart().AsSeconds();
 
             // DEBUG
-            if (InputManager.Instance.Key_down("RT")) stage.character_A.StunPoints.X -= 10;
             if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
             if (InputManager.Instance.Key_down("Select")) printInfos = !printInfos;
 
