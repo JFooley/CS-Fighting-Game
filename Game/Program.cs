@@ -36,7 +36,7 @@ public static class Program
         Console.WriteLine("Stage index: ");
         int selected_stage = int.Parse(Console.ReadLine());
         bool showBoxs = false;
-        bool printInfos = true;
+        bool printInfos = false;
 
         // Necessary infos
         int game_state = Intro;

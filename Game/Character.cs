@@ -106,6 +106,7 @@ public class Character : Object_Space.Object {
         // Play sounds
         if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
             // if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
+            this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
             this.characterSounds[this.CurrentSound].Play();
         }
         
@@ -225,6 +226,8 @@ public class Character : Object_Space.Object {
         this.physics.reset();
         this.Velocity = new Vector3f(0, 0, 0);
     }
+   
+    // Static Methods 
     public static void Pushback(Character target, string amount) {
         if (amount == "Light") {
             target.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
@@ -234,7 +237,12 @@ public class Character : Object_Space.Object {
             target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
         }
     }
-    
+    public static void Damage(Character target, int damage, int stun_damage) {
+
+    }
+    public static void Stun(Character target, String type, int frame_amount) {
+        
+    }
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();

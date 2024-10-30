@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Project FS.csproj": {}
+  },
+  "projects": {
+    "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Project FS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Project FS.csproj",
+        "projectName": "Project FS",
+        "projectPath": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\Project FS.csproj",
+        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
+        "outputPath": "D:\\GABRIEL\\Repositórios\\Fighting Game CS\\Game\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "SFML.Net": {
+              "target": "Package",
+              "version": "[2.6.0, )"
+            },
+            "System.Collections": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Runtime.InteropServices": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Windows.Forms": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

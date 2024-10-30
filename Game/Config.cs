@@ -8,9 +8,9 @@ public static class Config {
 
     // Audio
     private static float _main_volume = 50f;
-    private static float _character_volume = 100f;
-    private static float _music_volume = 80f;
-    private static float _effect_volume = 80f;
+    private static float _character_volume = 80f;
+    private static float _music_volume = 100f;
+    private static float _effect_volume = 100f;
     private static float _UI_volume = 100f;
     public static float Main_Volume
     {

@@ -241,8 +241,8 @@ public class Psylock : Character {
             // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
             { "AAttack", new Animation(AFrames, "Idle", 30)},
-            { "BAttack", new Animation(BFrames, "Idle", 20)},
-            { "CAttack", new Animation(CFrames, "Idle", 20)},
+            { "BAttack", new Animation(CFrames, "Idle", 20)},
+            { "CAttack", new Animation(BFrames, "Idle", 20)},
             { "DAttack", new Animation(DFrames, "Idle", 20)},
             { "AltDAttack", new Animation(FrontDFrames, "Idle", 20)},
             { "AltCAttack", new Animation(BackCFrames, "Idle", 20)},
