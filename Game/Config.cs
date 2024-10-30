@@ -38,6 +38,7 @@ public static class Config {
     public static int hitStopTime = 3;
 
     // Battle constants 32 38 48
+    public static int max_rounds = 3;
     public static float light_pushback = 4f;
     public static float medium_pushback = 3.8f;
     public static float heavy_pushback = 4.8f;

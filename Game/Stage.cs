@@ -3,6 +3,7 @@ using SFML.System;
 using SFML.Audio;
 using Animation_Space;
 using Character_Space;
+using UI_space;
 
 namespace Stage_Space {
 
@@ -24,6 +25,7 @@ public class Stage {
     public int round_length = Config.RoundLength;
     public DateTime round_start_time;
     public int elapsed_time => (int) (DateTime.Now - this.round_start_time).TotalSeconds;
+    public int round_time => this.round_length - this.elapsed_time;
 
     // Technical infos
     public int floorLine;
@@ -110,6 +112,8 @@ public class Stage {
         // Render chars and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
 
+        // Render UI
+        UI.Instance.DrawBattleUI(window, this);
     }
     private void DoBehavior() {
         int maxDistance = 350;
@@ -225,7 +229,7 @@ public class Stage {
         return doEnd;
     }
     public bool CheckMatchEnd() {       
-        if (this.rounds_A == 2 || this.rounds_B == 2) return true;
+        if (this.rounds_A == Config.max_rounds || this.rounds_B == Config.max_rounds) return true;
         return false;
     }
     public void ResetRoundTime() {

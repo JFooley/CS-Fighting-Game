@@ -4,6 +4,8 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 using Stage_Space;
+using UI_space;
+using System.Windows.Forms;
 
 // ----- Game States -----
 // 0 - Intro
@@ -53,13 +55,15 @@ public static class Program
         window.SetVerticalSyncEnabled(true);
         
         // Cria uma view
-        var view = new View(new FloatRect(0, 0, Config.WindowWidth, Config.WindowHeight));
+        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth, Config.WindowHeight));
         view.Zoom(0.3f);
         window.SetView(view);
 
-        // Inicializa o input e camera
+        // Inicializações
         InputManager.Initialize(autoDetectDevice: true);
         Camera camera = Camera.GetInstance(window, view);
+        BitmapFont.Load("Assets/fonts/atlas.png");
+        UI.Instance.LoadCharacterSprites(40);
 
         // Carega o Stage
         List<Stage> stages = new List<Stage>{
@@ -176,7 +180,7 @@ public static class Program
                 Console.WriteLine("Inputs Char A:  " + Convert.ToString(InputManager.Instance.buttonState[1], 2).PadLeft(14, '0'));
                 Console.WriteLine("Inputs Char B:  " + Convert.ToString(InputManager.Instance.buttonState[2], 2).PadLeft(14, '0'));
                 Console.WriteLine("-----------------------Battle-----------------------");
-                Console.WriteLine("Rounds A - " + stage.rounds_A + " | " + (stage.round_length - stage.elapsed_time) + " | " + stage.rounds_B + " - Rounds B");
+                Console.WriteLine("Rounds A - " + stage.rounds_A + " | " + stage.round_time + " | " + stage.rounds_B + " - Rounds B");
             }
             // DEBUG
         }

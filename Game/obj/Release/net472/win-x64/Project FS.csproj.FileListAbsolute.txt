@@ -1986,3 +1986,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Release\net472\win-x64\Projec
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Release\net472\win-x64\Project FS.csproj.Up2Date
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Release\net472\win-x64\Project FS.exe
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Release\net472\win-x64\Project FS.pdb
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\atlas.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\font.otf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\font0.ttf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\font1.ttf

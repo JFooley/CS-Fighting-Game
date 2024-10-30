@@ -1663,6 +1663,10 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\97.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\98.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\99.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\atlas.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font.otf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font0.ttf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font1.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\icon.ico
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\misc\background_remover.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\misc\colider_creator.py
