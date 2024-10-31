@@ -30,6 +30,7 @@ Implementado:
 - 2° controle conectado se torna o player 2 e o teclado fica como default
 
 Em desenvolvimento:
+- Feat: Mecanica de stun qunado a barra de stun fica cheia
 - Feat: pushback no corner (o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner)
 - Fix: Player 2 consegue "arrastar" o player 1 quando ele chega no limite de distancia
 - Balanceamento
