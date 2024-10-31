@@ -25,7 +25,8 @@ public class Stage {
     public int round_length = Config.RoundLength;
     public DateTime round_start_time;
     public int elapsed_time => (int) (DateTime.Now - this.round_start_time).TotalSeconds;
-    public int round_time => this.round_length - this.elapsed_time;
+    public int round_time => elapse_time ? this.round_length - this.elapsed_time : Config.RoundLength;
+    public bool elapse_time = true;
 
     // Technical infos
     public int floorLine;
@@ -33,7 +34,11 @@ public class Stage {
     public int height;
     public int start_point_A;
     public int start_point_B;
-    public Vector2f center_point => new Vector2f((length / 2), (height / 2));
+    public Vector2f center_point => new Vector2f(length / 2, height / 2);
+
+    // Aux
+    private DateTime timer;
+    private double current_time => (DateTime.Now - this.timer).TotalSeconds;
 
     // Pre-renders
     private Hitspark spark; 
@@ -234,6 +239,10 @@ public class Stage {
     }
     public void ResetRoundTime() {
         this.round_start_time = DateTime.Now;
+        this.elapse_time = true;
+    }
+    public void StopRoundTime() {
+        this.elapse_time = false;
     }
     public void ResetMatch() {
         this.rounds_A = 0;
@@ -252,7 +261,13 @@ public class Stage {
         this.character_A.behave = !this.character_A.behave;
         this.character_B.behave = !this.character_B.behave;
     }
-
+    public void ResetTimer() {
+        this.timer = DateTime.Now;
+    }
+    public bool CheckTimer(double elapsed_time) {
+        return elapsed_time <= this.current_time;
+    }
+    
     // All loads
     public void LoadSpriteImages() {
         this.spark.Load();

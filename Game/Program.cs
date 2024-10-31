@@ -29,9 +29,11 @@ public static class Program
     public const int MainScreen = 1;
     public const int SelectCharacter = 2;
     public const int Battle = 3;
+
     public const int RoundStart = 1;
     public const int Battling = 2;
     public const int RoundEnd = 3;
+    public const int MatchEnd = 4;
 
     public static void Main() {  
         // Aux
@@ -112,15 +114,21 @@ public static class Program
 
                     switch (sub_state) {
                         case Intro:
-                            stage.ResetRoundTime();
+                            stage.StopRoundTime();
+                            stage.ResetTimer();
                             if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar
                                 sub_state = RoundStart;
                             }
                             break;
 
                         case RoundStart: // Inicia a round
+                            if (stage.CheckTimer(3)) UI.Instance.DrawText(window, "Fight!", 0, -30, spacing: -25);
+                            else if (stage.CheckTimer(2)) UI.Instance.DrawText(window, "1", 0, -30, spacing: -25);
+                            else if (stage.CheckTimer(1)) UI.Instance.DrawText(window, "2", 0, -30, spacing: -25);
+                            else UI.Instance.DrawText(window, "3", 0, -30, spacing: -25);
+                            if (!stage.CheckTimer(4)) break;
+
                             stage.ResetRoundTime();
-                            stage.ResetPlayers();
                             stage.TogglePlayers();
                             sub_state = Battling;
                             break;
@@ -129,20 +137,31 @@ public static class Program
                             if (stage.CheckRoundEnd()) {
                                 sub_state = RoundEnd;
                                 stage.TogglePlayers();
-                                UI.Instance.DrawText(window, "KO", 0, -30, spacing: -25);
+                                stage.StopRoundTime();
+                                stage.ResetTimer();
                             }
                             break;
 
-                        case RoundEnd: // Finaliza do round
-                            Thread.Sleep(2000);
-                            if (stage.CheckMatchEnd()) { // Verifica se a partida terminou
-                                stage.ResetMatch();
-                                stage.ResetPlayers(force: true);
-                                sub_state = Intro;
-                                game_state = Intro;
+                        case RoundEnd: // Fim de round
+                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Draw";
+                            UI.Instance.DrawText(window, message, 0, -30, spacing: -25);
+                            if (!stage.CheckTimer(2)) break;
+
+                            stage.ResetTimer();                            
+                            if (stage.CheckMatchEnd()) {  // Verifica se a partida terminou
+                                sub_state = MatchEnd;
                             } else {
                                 sub_state = RoundStart;
+                                stage.ResetPlayers();
                             }
+                            break;
+
+                        case MatchEnd: // Fim da partida
+                            Thread.Sleep(2000);
+                            stage.ResetMatch();
+                            stage.ResetPlayers(force: true);
+                            sub_state = Intro;
+                            game_state = Intro;
                             break;
                     }
 

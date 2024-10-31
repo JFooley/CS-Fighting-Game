@@ -127,8 +127,8 @@ namespace UI_space {
             this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
 
             // Draw round indicator ≈
-            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -39 - (15 * stage.rounds_A) , -97, spacing: -25, center: false);
-            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)),  16, -97, spacing: -25, center: false);
+            this.DrawText(window, string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_A)) + string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -39 - (15 * Config.max_rounds) , -97, spacing: -25, center: false);
+            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)) + string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_B)),  16, -97, spacing: -25, center: false);
         }
     }
 
