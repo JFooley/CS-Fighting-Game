@@ -105,7 +105,6 @@ public class Character : Object_Space.Object {
 
         // Play sounds
         if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
-            // if (!(this.characterSounds[this.CurrentSound].Status == SoundStatus.Playing)) this.characterSounds[this.CurrentSound].Play();
             this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
             this.characterSounds[this.CurrentSound].Play();
         }

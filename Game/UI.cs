@@ -6,6 +6,9 @@ using System.Collections.Generic;
 namespace UI_space {
     public class UI {
         private static UI instance;
+        private Clock clock;
+        private int elapsed = 0;
+        private int counter = 0;
 
         private int graylife_A = 150;
         private int graylife_B = 150;
@@ -19,9 +22,9 @@ namespace UI_space {
 
         private Dictionary<char, Sprite> characterSprites;
 
-        private UI()
-        {
-            characterSprites = new Dictionary<char, Sprite>();
+        private UI() {
+            this.characterSprites = new Dictionary<char, Sprite>();
+            this.clock = new Clock();
         }
 
         public static UI Instance
@@ -34,6 +37,14 @@ namespace UI_space {
                 }
                 return instance;
             }
+        }
+
+        // Other
+        public void ShowFramerate(RenderWindow window) {
+            var frametime = this.clock.Restart().AsSeconds();
+            this.counter = this.counter >= 30 ? 0 : this.counter + 1;
+            this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
+            this.DrawText(window, "" + this.elapsed, -190, 70, spacing: -25, center: false);
         }
 
         // Loads
