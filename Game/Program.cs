@@ -52,8 +52,8 @@ public static class Program
         window.SetVerticalSyncEnabled(Config.Vsync);
         
         // Cria uma view
-        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth, Config.WindowHeight));
-        view.Zoom(0.3f);
+        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth * 0.3f, Config.WindowHeight* 0.3f));
+        // view.Zoom(0.3f);
         window.SetView(view);
 
         // Inicializações
@@ -136,12 +136,12 @@ public static class Program
                             break;
 
                         case RoundEnd: // Fim de round
-                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Draw";
+                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Timesup!";
                             UI.Instance.DrawText(window, message, 0, -30, spacing: -25);
                             if (!stage.CheckTimer(2)) break;
 
                             stage.ResetTimer();                            
-                            if (stage.CheckMatchEnd()) {  // Verifica se a partida terminou
+                            if (stage.CheckMatchEnd()) {  
                                 sub_state = MatchEnd;
                             } else {
                                 sub_state = RoundStart;

@@ -3,7 +3,7 @@ public static class Config {
     public const string GameTitle = "Fighting Game CS";
     public const int WindowWidth = 1280;
     public const int WindowHeight = 720;
-    public const bool Vsync = false;
+    public const bool Vsync = true;
     public const int Framerate = 60;
 
     // Audio
@@ -33,12 +33,12 @@ public static class Config {
         set { _effect_volume = value; }
     }
 
-    // Others
-    public static int RoundLength = 90;
-    public static int hitStopTime = 5;
-
     // Battle constants 32 38 48
+    public static int RoundLength = 90;
+    public static int hitStopTime = 8;
+
     public static int max_rounds = 2;
+
     public static float light_pushback = 4f;
     public static float medium_pushback = 3.8f;
     public static float heavy_pushback = 4.8f;

@@ -17,7 +17,10 @@ public class Stage {
     // Battle Info
     private int hitstopCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
+    public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
+    public List<Character> newParticles = new List<Character> {};
+
     public Character character_A;
     public Character character_B;
     public int rounds_A;
@@ -113,9 +116,11 @@ public class Stage {
             this.DoBehavior();
             foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
         }
+        foreach (Character part_object in this.OnSceneParticles) part_object.Update();
         
         // Render chars and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
+        foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, showBoxs);
 
         // Render UI
         UI.Instance.DrawBattleUI(window, this);
@@ -159,7 +164,7 @@ public class Stage {
         hs.animations = this.spark.animations;
         hs.spriteImages = this.spark.spriteImages;
         hs.characterSounds = this.spark.characterSounds;
-        this.newCharacters.Add(hs);
+        this.newParticles.Add(hs);
     }
     public void spawnFireball(string state, Vector2f position, int facing, int team, int X_offset = 10) {
         var fb = new Fireball(state, position.X + X_offset * facing, position.Y, team, facing, this);
@@ -195,7 +200,10 @@ public class Stage {
 
         this.OnSceneCharacters.RemoveAll(obj => obj.remove);
         this.OnSceneCharacters.AddRange(this.newCharacters);
+        this.OnSceneParticles.RemoveAll(obj => obj.remove);
+        this.OnSceneParticles.AddRange(this.newParticles);
         this.newCharacters.Clear();
+        this.newParticles.Clear();
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;

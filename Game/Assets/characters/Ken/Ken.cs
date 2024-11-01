@@ -407,8 +407,8 @@ public class Ken : Character {
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Idle", 20)},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 20)},
+            { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
+            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
             { "LightHaduken", new Animation(lightHadukenFrames, "Idle", 20)},
             { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
@@ -461,7 +461,7 @@ public class Ken : Character {
         // Cancels
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "MPAttack") {
+        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LPAttack") {
             this.ChangeState("CloseHPAttack");
         } 
 

@@ -104,10 +104,7 @@ public class Character : Object_Space.Object {
         window.Draw(temp_sprite);
 
         // Play sounds
-        if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
-            this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
-            this.characterSounds[this.CurrentSound].Play();
-        }
+        this.PlaySound();
         
         // Draw Hitboxes
         if (drawHitboxes) {  
@@ -129,7 +126,7 @@ public class Character : Object_Space.Object {
                 float y2 = box.getRealB(this).Y * size_ratio;
 
                 // Cria o retângulo da hitbox
-                var color = SFML.Graphics.Color.Transparent;
+                Color color;
                 switch (box.type) {
                     case 0:
                         color = SFML.Graphics.Color.Red;
@@ -145,8 +142,8 @@ public class Character : Object_Space.Object {
                 RectangleShape hitboxRect = new RectangleShape(new Vector2f(x2 - x1, y2 - y1)) {
                     Position = new Vector2f(x1, y1),
                     FillColor = SFML.Graphics.Color.Transparent,
-                    OutlineColor = color, // Cor de contorno para a hitbox
-                    OutlineThickness = 1.0f // Espessura do contorno
+                    OutlineColor = color, 
+                    OutlineThickness = 1.0f 
                 };
 
                 // Desenha o retângulo da hitbox na janela
@@ -171,7 +168,14 @@ public class Character : Object_Space.Object {
         }
         CurrentAnimation.AdvanceFrame();
     }
-
+    private void PlaySound() {
+        if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
+            if (this.characterSounds[this.CurrentSound].Status != SoundStatus.Playing) {
+                this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
+                this.characterSounds[this.CurrentSound].Play();
+            }
+        }
+    }
     // Battle methods
     public virtual bool ImposeBehavior(Character target) {
         return true;
@@ -241,8 +245,9 @@ public class Character : Object_Space.Object {
         target.DizzyPoints.X -= dizzy_damage;
     }
     public static void Stun(Character target, String type, int frame_amount) {
-        
+            
     }
+
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
