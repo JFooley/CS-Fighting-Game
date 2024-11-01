@@ -23,6 +23,8 @@ public class Stage {
 
     public Character character_A;
     public Character character_B;
+    public Vector2f last_pos_A;
+    public Vector2f last_pos_B;
     public int rounds_A;
     public int rounds_B;
     public int round_length = Config.RoundLength;
@@ -130,12 +132,19 @@ public class Stage {
         character_A.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.Position.X, this.length - character_A.push_box_width));
         character_B.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.Position.X, this.length - character_B.push_box_width));
 
-        // Keep characters close (PRECISA CORRIGIR)
-        if (this.character_A.Position.X > character_B.Position.X + Config.maxDistance) this.character_A.Position.X = character_B.Position.X + Config.maxDistance;
-        if (this.character_B.Position.X > character_A.Position.X + Config.maxDistance) this.character_B.Position.X = character_A.Position.X + Config.maxDistance;
-        if (this.character_A.Position.X < character_B.Position.X - Config.maxDistance) this.character_A.Position.X = character_B.Position.X - Config.maxDistance;
-        if (this.character_B.Position.X < character_A.Position.X - Config.maxDistance) this.character_B.Position.X = character_A.Position.X - Config.maxDistance;
-
+        // Keep characters close 
+        float deltaS = Math.Abs(character_A.Position.X - character_B.Position.X);
+        if (deltaS >= Config.maxDistance) {
+            if ((character_A.facing == 1 && character_A.Position.X < last_pos_A.X) || (character_A.facing == -1 && character_A.Position.X > last_pos_A.X)) {
+                character_A.Position.X = this.last_pos_A.X;
+            }
+            if ((character_B.facing == 1 && character_B.Position.X < last_pos_B.X) || (character_B.facing == -1 && character_B.Position.X > last_pos_B.X)) {
+                character_B.Position.X = this.last_pos_B.X;
+            }
+        }
+        this.last_pos_A = this.character_A.Position;
+        this.last_pos_B = this.character_B.Position;
+        
         // Keep characters facing each other
         if (this.character_A.Position.X < this.character_B.Position.X) {
             if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = 1;
