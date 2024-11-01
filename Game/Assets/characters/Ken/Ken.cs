@@ -714,12 +714,13 @@ public class Ken : Character {
                 break;
 
             case "CloseHPAttack":
-                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
+                    Character.Pushback(target: target, self: this, "Heavy");
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
                     target.ChangeState("OnHit");
+                    Character.Pushback(target: target, self: this, "Light");
                     target.SetVelocity(-1, 35, 25);
                     Character.Damage(target: target, self: this, 50, 170);
                 }
