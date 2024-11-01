@@ -45,7 +45,7 @@ public class Character : Object_Space.Object {
     public Vector2i DizzyPoints = new Vector2i(1000, 1000);
     public int move_speed = 0;
     public int dash_speed = 0;
-    public int jump_hight = 80;
+    public int jump_hight = 100;
     public int push_box_width = 0;
 
     // Object infos

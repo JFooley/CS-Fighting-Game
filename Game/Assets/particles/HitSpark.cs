@@ -64,7 +64,7 @@ public class Hitspark : Character {
             {"OnHit1", new Animation(onHit1, "OnHit1", 60)},
             {"OnHit2", new Animation(onHit2, "OnHit2", 60)},
             {"OnHit3", new Animation(onHit3, "OnHit3", 60)},
-            {"OnBlock", new Animation(onBlock, "OnBlock", 60)},
+            {"OnBlock", new Animation(onBlock, "OnBlock", 30)},
         };
 
         this.animations = animations;

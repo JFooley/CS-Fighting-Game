@@ -41,27 +41,6 @@ public static class Program
         int selected_stage = 0;
         bool showBoxs = false;
 
-        // Necessary infos
-        int game_state = Intro;
-        int sub_state = Intro;
-
-        // Crie uma janela
-        RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
-        window.Closed += (sender, e) => window.Close();
-        window.SetFramerateLimit(Config.Framerate);
-        window.SetVerticalSyncEnabled(Config.Vsync);
-        
-        // Cria uma view
-        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth * 0.3f, Config.WindowHeight* 0.3f));
-        // view.Zoom(0.3f);
-        window.SetView(view);
-
-        // Inicializações
-        InputManager.Initialize(autoDetectDevice: true);
-        Camera camera = Camera.GetInstance(window, view);
-        BitmapFont.Load("Assets/fonts/atlas.png");
-        UI.Instance.LoadCharacterSprites(40);
-
         // Carega o Stage
         List<Stage> stages = new List<Stage>{
             new BurningDojo(),
@@ -76,6 +55,26 @@ public static class Program
         Ken_object.Load();
         var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
         Psylock_object.Load();
+
+        // Necessary infos
+        int game_state = Intro;
+        int sub_state = Intro;
+
+        // Crie uma janela
+        RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
+        window.Closed += (sender, e) => window.Close();
+        window.SetFramerateLimit(Config.Framerate);
+        window.SetVerticalSyncEnabled(Config.Vsync);
+        
+        // Cria uma view
+        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth * 0.3f, Config.WindowHeight* 0.3f));
+        window.SetView(view);
+
+        // Inicializações
+        InputManager.Initialize(autoDetectDevice: true);
+        Camera camera = Camera.GetInstance(window, view);
+        BitmapFont.Load("Assets/fonts/atlas.png");
+        UI.Instance.LoadCharacterSprites(40);
 
         // Ultimos ajustes
         camera.SetChars(Ken_object, Psylock_object);

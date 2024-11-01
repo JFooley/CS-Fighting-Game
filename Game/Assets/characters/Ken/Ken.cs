@@ -271,6 +271,7 @@ public class Ken : Character {
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
             // Extend
             new FrameData(15350, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15351, 0, 0, new List<GenericBox> { pushbox, }),
@@ -278,6 +279,7 @@ public class Ken : Character {
             new FrameData(15353, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15354, 0, 0, new List<GenericBox> { pushbox, }),
             // Extend
+            new FrameData(15354, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15354, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15354, 0, 0, new List<GenericBox> { pushbox, }),
             // Extend
@@ -293,6 +295,8 @@ public class Ken : Character {
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
             // Extend
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, }),
             // Extend
             new FrameData(15350, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15351, 0, 0, new List<GenericBox> { pushbox, }),
@@ -300,6 +304,7 @@ public class Ken : Character {
             new FrameData(15353, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15354, 0, 0, new List<GenericBox> { pushbox, }),
             //Extend
+            new FrameData(15355, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15355, 0, 0, new List<GenericBox> { pushbox, })
         };
 
@@ -461,7 +466,7 @@ public class Ken : Character {
         // Cancels
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
             this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LPAttack") {
+        } else if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LPAttack") {
             this.ChangeState("CloseHPAttack");
         } 
 
@@ -534,13 +539,13 @@ public class Ken : Character {
         // Air Specials movement
         if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 3) {
             this.SetVelocity(
-                X: 1, 
+                X: 0.5f, 
                 Y: 43, 
                 T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 
         else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 3) {
             this.SetVelocity(
-                X: 2, 
+                X: 1, 
                 Y: 73, 
                 T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
         } 

@@ -130,10 +130,10 @@ public class Stage {
         character_A.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.Position.X, this.length - character_A.push_box_width));
         character_B.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.Position.X, this.length - character_B.push_box_width));
 
-        // Keep characters close
+        // Keep characters close (PRECISA CORRIGIR)
         if (this.character_A.Position.X > character_B.Position.X + Config.maxDistance) this.character_A.Position.X = character_B.Position.X + Config.maxDistance;
-        if (this.character_A.Position.X < character_B.Position.X - Config.maxDistance) this.character_A.Position.X = character_B.Position.X - Config.maxDistance;
         if (this.character_B.Position.X > character_A.Position.X + Config.maxDistance) this.character_B.Position.X = character_A.Position.X + Config.maxDistance;
+        if (this.character_A.Position.X < character_B.Position.X - Config.maxDistance) this.character_A.Position.X = character_B.Position.X - Config.maxDistance;
         if (this.character_B.Position.X < character_A.Position.X - Config.maxDistance) this.character_B.Position.X = character_A.Position.X - Config.maxDistance;
 
         // Keep characters facing each other
