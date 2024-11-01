@@ -32,10 +32,11 @@ Implementado:
 - Capacidade de realizar Super Arts
 - Hitstop melhorado
 - Multiplos hits por animação (com reinício definido no frame)
+- Fixed: Jogadores não podem se afastar um do outro mais do que o tamanho da tela.
 
 Em desenvolvimento:
-- Feat: Mecanica de stun qunado a barra de stun fica cheia
-- Fix: Player 2 consegue "arrastar" o player 1 quando ele chega no limite de distancia da tela
+- Feat: Mecanica de stun quando a barra de stun fica cheia
+- Feat: Hitstun e blockstun
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
