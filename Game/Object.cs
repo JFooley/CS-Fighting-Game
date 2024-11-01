@@ -9,6 +9,10 @@ namespace Object_Space {
         public int facing = 1;
         public int quadsize = 250;
 
+        // Aux
+        private DateTime timer;
+        private double current_time => (DateTime.Now - this.timer).TotalSeconds;
+
         // Estado
         public bool active = true;
         public bool animate = true;
@@ -31,6 +35,15 @@ namespace Object_Space {
         public virtual void DoAnimate() {
             if (!this.animate) return;
         }
+
+        // Metodo auxiliar
+        public void ResetTimer() {
+            this.timer = DateTime.Now;
+        }
+        public bool CheckTimer(double elapsed_time) {
+            return elapsed_time <= this.current_time;
+        }
+    
 
         public virtual void Load(string Path) {}
         public virtual void Unload() {}

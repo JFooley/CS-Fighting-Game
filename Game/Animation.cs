@@ -146,18 +146,20 @@ public class GenericBox {
 }
 
 public class FrameData {
+    public bool hasHit;
     public int Sprite_index { get; set; }
     public string Sound_index { get; set; }
     public int DeltaX { get; set; }
     public int DeltaY { get; set; }
     public List<GenericBox> Boxes { get; set; }
 
-    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes, string Sound_index = "") {
+    public FrameData(int sprite_index, int deltaX, int deltaY, List<GenericBox> boxes, string Sound_index = "", bool hasHit = true) {
         this.Sprite_index = sprite_index;
         this.DeltaX = deltaX;
         this.DeltaY = deltaY;
         this.Boxes = boxes;
         this.Sound_index = Sound_index;
+        this.hasHit = hasHit;
     }
 }
 

@@ -153,6 +153,7 @@ public class Character : Object_Space.Object {
     }
     public override void DoAnimate() {
         base.DoAnimate();
+
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
         this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
@@ -162,11 +163,12 @@ public class Character : Object_Space.Object {
         Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
         this.physics.Update(this);
 
-        // Advance to the next frame
+        // Advance to the next frame and reset hit if necessary
         if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
             this.ChangeState(this.CurrentAnimation.post_state);
         }
-        CurrentAnimation.AdvanceFrame();
+
+        if (CurrentAnimation.AdvanceFrame() && CurrentAnimation.GetCurrentFrame().hasHit == false) this.hasHit = false;
     }
     private void PlaySound() {
         if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
@@ -176,6 +178,7 @@ public class Character : Object_Space.Object {
             }
         }
     }
+    
     // Battle methods
     public virtual bool ImposeBehavior(Character target) {
         return true;
@@ -238,22 +241,22 @@ public class Character : Object_Space.Object {
     }
    
     // Static Methods 
-    public static void Pushback(Character target, Character self, string amount, bool force_push = false) {
+    public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
         if ((target.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (amount == "Light") {
-                self.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
+                self.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
             } else if (amount == "Medium") {
-                self.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
+                self.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
             } else if (amount == "Heavy"){
-                self.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+                self.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
             }
         } else {
             if (amount == "Light") {
-                target.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
+                target.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
             } else if (amount == "Medium") {
-                target.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
+                target.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
             } else if (amount == "Heavy"){
-                target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+                target.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
             }
         }
     }

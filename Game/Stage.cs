@@ -273,6 +273,9 @@ public class Stage {
     public bool CheckTimer(double elapsed_time) {
         return elapsed_time <= this.current_time;
     }
+    public void SetHitstop(int amount) {
+        this.hitstopCounter = amount;
+    }
     
     // All loads
     public void LoadSpriteImages() {
