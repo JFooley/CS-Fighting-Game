@@ -29,6 +29,9 @@ Implementado:
 - Dano e stun na colisão
 - 2° controle conectado se torna o player 2 e o teclado fica como default
 - Pushback no corner: o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner
+- Capacidade de realizar Super Arts
+- Hitstop melhorado
+- Multiplos hits por animação (com reinício definido no frame)
 
 Em desenvolvimento:
 - Feat: Mecanica de stun qunado a barra de stun fica cheia
