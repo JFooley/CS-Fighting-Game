@@ -648,10 +648,10 @@ public class Ken : Character {
         else if (this.CurrentState == "AirTatso" && this.Velocity.Z == 0) {
             this.ChangeState("Idle");
 
-        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 2 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken1", this.Position, this.facing, this.team, X_offset: 20);
-        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 2 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken2", this.Position, this.facing, this.team, X_offset: 20);
+        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken1", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
+        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken2", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
         }
     }
     

@@ -164,8 +164,8 @@ public class Stage {
         hs.characterSounds = this.spark.characterSounds;
         this.newParticles.Add(hs);
     }
-    public void spawnFireball(string state, Vector2f position, int facing, int team, int X_offset = 10) {
-        var fb = new Fireball(state, position.X + X_offset * facing, position.Y, team, facing, this);
+    public void spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10) {
+        var fb = new Fireball(state, X + X_offset * facing, Y, team, facing, this);
         fb.animations = this.fireball.animations;
         fb.spriteImages = this.fireball.spriteImages;
         fb.characterSounds = this.fireball.characterSounds;
