@@ -727,7 +727,7 @@ public class Ken : Character {
             
             case "SA1":
                 if (target.isBlocking()) {
-                    Character.Damage(target: target, self: this, 50, 170);
+                    Character.Damage(target: target, self: this, 5, 0);
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
