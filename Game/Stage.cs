@@ -126,17 +126,15 @@ public class Stage {
         UI.Instance.DrawBattleUI(window, this);
     }
     private void DoBehavior() {
-        int maxDistance = 350;
-
         // Move characters away from border
         character_A.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.Position.X, this.length - character_A.push_box_width));
         character_B.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.Position.X, this.length - character_B.push_box_width));
 
         // Keep characters close
-        if (this.character_A.Position.X > character_B.Position.X + maxDistance) this.character_A.Position.X = character_B.Position.X + maxDistance;
-        if (this.character_A.Position.X < character_B.Position.X - maxDistance) this.character_A.Position.X = character_B.Position.X - maxDistance;
-        if (this.character_B.Position.X > character_A.Position.X + maxDistance) this.character_B.Position.X = character_A.Position.X + maxDistance;
-        if (this.character_B.Position.X < character_A.Position.X - maxDistance) this.character_B.Position.X = character_A.Position.X - maxDistance;
+        if (this.character_A.Position.X > character_B.Position.X + Config.maxDistance) this.character_A.Position.X = character_B.Position.X + Config.maxDistance;
+        if (this.character_A.Position.X < character_B.Position.X - Config.maxDistance) this.character_A.Position.X = character_B.Position.X - Config.maxDistance;
+        if (this.character_B.Position.X > character_A.Position.X + Config.maxDistance) this.character_B.Position.X = character_A.Position.X + Config.maxDistance;
+        if (this.character_B.Position.X < character_A.Position.X - Config.maxDistance) this.character_B.Position.X = character_A.Position.X - Config.maxDistance;
 
         // Keep characters facing each other
         if (this.character_A.Position.X < this.character_B.Position.X) {

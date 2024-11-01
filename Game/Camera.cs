@@ -30,6 +30,17 @@ public class Camera
         this._view = view;
     }
 
+    public static Camera Instance {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new Camera(null, null, 0, 0);
+            }
+            return _instance;
+        }
+    }
+
     public static Camera GetInstance(RenderWindow window = null, View view = null, int X = 0, int Y = 0) {
         lock (_lock)
         {

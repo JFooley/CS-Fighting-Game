@@ -83,31 +83,31 @@ public class Fireball : Character {
         bool hit = false;
         switch (this.CurrentState) {
             case "Ken1":
-                Character.Pushback(target: target, "Medium");
+                Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
                     target.ChangeState("Blocking");
-                    Character.Damage(target: target, 10, 0);
+                    Character.Damage(target: target, self: this, 10, 0);
 
                 } else {
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 100, 170);
+                    Character.Damage(target: target, self: this, 100, 170);
                     hit = true;
                 }
                 break;
 
             case "Ken2":
-                Character.Pushback(target: target, "Heavy");
+                Character.Pushback(target: target, self: this, "Heavy", force_push: true);
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
                     target.ChangeState("Blocking");
-                    Character.Damage(target: target, 10, 0);
+                    Character.Damage(target: target, self: this, 10, 0);
 
                 } else {
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 150, 170);
+                    Character.Damage(target: target, self: this, 150, 170);
                     hit = true;
 
                 }

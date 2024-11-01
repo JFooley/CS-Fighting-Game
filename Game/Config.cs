@@ -5,6 +5,7 @@ public static class Config {
     public const int WindowHeight = 720;
     public const bool Vsync = true;
     public const int Framerate = 60;
+    public const int maxDistance = 350;
 
     // Audio
     private static float _main_volume = 50f;

@@ -570,78 +570,78 @@ public class Ken : Character {
         bool hit = false;
         switch (this.CurrentState) {
             case "LPAttack":
-                Character.Pushback(target: target, "Light");
+                Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 } else {
                     target.ChangeState("Blocking");
                 }
                 break;
                 
             case "LKAttack":
-                Character.Pushback(target: target, "Light");
+                Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
                 
             case "MPAttack":
-                Character.Pushback(target: target, "Medium");
+                Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
 
             case "MKAttack":
-                Character.Pushback(target: target, "Medium");
+                Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 50, 5);
+                    Character.Damage(target: target, self: this, 50, 5);
                 } else {
                     target.ChangeState("Idle");
                 }
                 break;
 
             case "BackMKAttack":
-                Character.Pushback(target: target, "Heavy");
+                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
                     target.ChangeState("OnHit");
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 }
                 break;
 
             case "CloseHPAttack":
-                Character.Pushback(target: target, "Heavy");
+                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
                     target.ChangeState("Idle");
                 } else {
                     hit = true;
                     target.ChangeState("OnHit");
                     target.SetVelocity(-2, 50, 25);
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 }
                 break;
 
             default:
-                Character.Pushback(target: target, "Medium");
+                Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = true;
                     target.ChangeState("Idle");
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
                 } else {
                     target.ChangeState("Idle");
                 }

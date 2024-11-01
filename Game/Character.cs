@@ -198,6 +198,13 @@ public class Character : Object_Space.Object {
 
         this.physics.reset();
     }
+    public void AddVelocity(float X = 0, float Y = 0, int T = 0) {
+        this.Velocity.X += X;
+        this.Velocity.Y += Y;
+        this.Velocity.Z += T;
+
+        this.physics.reset();
+    }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;
 
@@ -231,16 +238,26 @@ public class Character : Object_Space.Object {
     }
    
     // Static Methods 
-    public static void Pushback(Character target, string amount) {
-        if (amount == "Light") {
-            target.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
-        } else if (amount == "Medium") {
-            target.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
-        } else if (amount == "Heavy"){
-            target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+    public static void Pushback(Character target, Character self, string amount, bool force_push = false) {
+        if ((target.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
+            if (amount == "Light") {
+                self.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
+            } else if (amount == "Medium") {
+                self.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
+            } else if (amount == "Heavy"){
+                self.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+            }
+        } else {
+            if (amount == "Light") {
+                target.SetVelocity(-Config.light_pushback, 0, Config.light_pushback_frames);
+            } else if (amount == "Medium") {
+                target.SetVelocity(-Config.medium_pushback, 0, Config.medium_pushback_frames);
+            } else if (amount == "Heavy"){
+                target.SetVelocity(-Config.heavy_pushback, 0, Config.heavy_pushback_frames);
+            }
         }
     }
-    public static void Damage(Character target, int damage, int dizzy_damage) {
+    public static void Damage(Character target, Character self, int damage, int dizzy_damage) {
         target.LifePoints.X -= damage;
         target.DizzyPoints.X -= dizzy_damage;
     }
