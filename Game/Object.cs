@@ -7,7 +7,6 @@ namespace Object_Space {
         public Vector2f Position = new Vector2f(0, 0);
         public float size_ratio = 1.0f;
         public int facing = 1;
-        public int quadsize = 250;
 
         // Aux
         private DateTime timer;

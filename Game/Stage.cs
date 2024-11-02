@@ -48,6 +48,7 @@ public class Stage {
     // Pre-renders
     private Hitspark spark; 
     private Fireball fireball;
+    private Particle particle;
 
     // Animation infos
     public string CurrentState { get; set; }
@@ -77,6 +78,7 @@ public class Stage {
 
         this.spark = new Hitspark("Default", 0, 0, 1);
         this.fireball = new Fireball("Default", 0, 0, 0, 1, this);
+        this.particle = new Particle("Default", 0, 0, 1);
     }
 
     // Behaviour
@@ -113,12 +115,20 @@ public class Stage {
             }
         }
 
-        // Update chars and particles
+        // Update chars
         if (hitstopCounter == 0) {
             this.DoBehavior();
             foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
+            this.OnSceneCharacters.RemoveAll(obj => obj.remove);
+            this.OnSceneCharacters.AddRange(this.newCharacters);
+            this.newCharacters.Clear();
         }
+
+        // Update particles
         foreach (Character part_object in this.OnSceneParticles) part_object.Update();
+        this.OnSceneParticles.RemoveAll(obj => obj.remove);
+        this.OnSceneParticles.AddRange(this.newParticles);
+        this.newParticles.Clear();
         
         // Render chars and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
@@ -160,8 +170,15 @@ public class Stage {
     public virtual void doSpecialBehaviour() {}
 
     // Spawns
-    public void spawnHitspark(bool hit, Vector2f position, int facing, int X_offset = 0) {
-        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y, facing);
+    public void spawnParticle(String state,  float X, float Y, int facing = 1, int X_offset = 0, int Y_offset = 0) {
+        var par = new Particle(state, X + X_offset * facing, Y + Y_offset, facing);
+        par.animations = this.particle.animations;
+        par.spriteImages = this.particle.spriteImages;
+        par.characterSounds = this.particle.characterSounds;
+        this.newParticles.Add(par);
+    }
+    public void spawnHitspark(bool hit, Vector2f position, int facing, int X_offset = 0, int Y_offset = 0) {
+        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y + Y_offset, facing);
         Random random = new Random();
         if (hit) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
@@ -173,8 +190,8 @@ public class Stage {
         hs.characterSounds = this.spark.characterSounds;
         this.newParticles.Add(hs);
     }
-    public void spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10) {
-        var fb = new Fireball(state, X + X_offset * facing, Y, team, facing, this);
+    public void spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10, int Y_offset = 0) {
+        var fb = new Fireball(state, X + X_offset * facing, Y + Y_offset, team, facing, this);
         fb.animations = this.fireball.animations;
         fb.spriteImages = this.fireball.spriteImages;
         fb.characterSounds = this.fireball.characterSounds;
@@ -204,13 +221,6 @@ public class Stage {
                 }
             }
         }
-
-        this.OnSceneCharacters.RemoveAll(obj => obj.remove);
-        this.OnSceneCharacters.AddRange(this.newCharacters);
-        this.OnSceneParticles.RemoveAll(obj => obj.remove);
-        this.OnSceneParticles.AddRange(this.newParticles);
-        this.newCharacters.Clear();
-        this.newParticles.Clear();
     }
     public void setChars(Character char_A, Character char_B) {
         this.character_A = char_A;
@@ -290,6 +300,7 @@ public class Stage {
     public void LoadSpriteImages() {
         this.spark.Load();
         this.fireball.Load();
+        this.particle.Load();
 
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);

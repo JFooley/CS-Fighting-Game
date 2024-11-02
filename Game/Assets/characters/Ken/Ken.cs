@@ -263,6 +263,9 @@ public class Ken : Character {
         };
 
         var heavyShoryFrames = new List<FrameData> {
+            new FrameData(15342, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15343, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15344, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15345, 0, 0, new List<GenericBox> { pushbox, }, "shory"),
             new FrameData(15345, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15346, 0, 0, new List<GenericBox> { pushbox, }),
@@ -289,6 +292,7 @@ public class Ken : Character {
         };
 
         var lightShoryFrames = new List<FrameData> {
+            new FrameData(15344, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15345, 0, 0, new List<GenericBox> { pushbox, }, "shory"),
             new FrameData(15345, 0, 0, new List<GenericBox> { pushbox, }),
             new FrameData(15346, 0, 0, new List<GenericBox> { pushbox, }),
@@ -518,7 +522,8 @@ public class Ken : Character {
         // Super
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.CurrentState == "CloseHPAttack" && this.hasHit))) {
             this.ChangeState("SA1");
-            this.stage.SetHitstop(60);
+            this.stage.spawnParticle("SALighting", this.Position.X, this.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
+            this.stage.SetHitstop(54);
         } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 41) {
             this.SetVelocity(
                 X: 0, 
@@ -526,32 +531,66 @@ public class Ken : Character {
                 T: ( this.CurrentAnimation.Frames.Count() - 41) * (60 / this.CurrentAnimation.framerate));
         }
 
-        // Specials
+        // Shorys
         if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightShory");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 4) {
+            this.SetVelocity(
+                X: 0.5f, 
+                Y: 43, 
+                T: (this.CurrentAnimation.Frames.Count() - 4) * (60 / this.CurrentAnimation.framerate));
+        } 
+        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyShory");
-        }
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 6) {
+            this.SetVelocity(
+                X: 1, 
+                Y: 73, 
+                T: (this.CurrentAnimation.Frames.Count() - 6) * (60 / this.CurrentAnimation.framerate));
+        } 
 
+        // Haduken
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightHaduken");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken1", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
+        } 
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyHaduken");
+        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
+            stage.spawnFireball("Ken2", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
         }
 
+        // Tatso
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightTatso");
-        } else if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (this.CurrentState == "LightTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
+            this.SetVelocity(
+                X: this.tatso_speed - 1, 
+                Y: 10, 
+                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
+        } 
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
-        } else if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
+        } else if (this.CurrentState == "HeavyTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
+            this.SetVelocity(
+                X: this.tatso_speed, 
+                Y: 10, 
+                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
+        } 
+        if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
             this.ChangeState("AirTatso");
-        }
+        } else if (this.CurrentState == "AirTatso" && this.Velocity.Z == 0) {
+            this.ChangeState("Idle");
+        } 
 
         // Cancels
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
             this.ChangeState("MKAttack");
         } else if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LPAttack") {
             this.ChangeState("CloseHPAttack");
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "CloseHPAttack") {
+            this.ChangeState("LightShory");
         } 
 
         // Normals
@@ -614,45 +653,13 @@ public class Ken : Character {
         }
         else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Jump");
+        } else if (this.CurrentState == "Jump" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: 0, 
                 Y: this.jump_hight, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
-        } 
-
-        // Air Specials movement
-        if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 3) {
-            this.SetVelocity(
-                X: 0.5f, 
-                Y: 43, 
-                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
-        } 
-        else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 3) {
-            this.SetVelocity(
-                X: 1, 
-                Y: 73, 
-                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
-        } 
-        else if (this.CurrentState == "LightTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
-            this.SetVelocity(
-                X: this.tatso_speed - 1, 
-                Y: 10, 
-                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
-        } 
-        else if (this.CurrentState == "HeavyTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
-            this.SetVelocity(
-                X: this.tatso_speed, 
-                Y: 10, 
-                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
-        } 
-        else if (this.CurrentState == "AirTatso" && this.Velocity.Z == 0) {
-            this.ChangeState("Idle");
-
-        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken1", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
-        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken2", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
+                T: (this.CurrentAnimation.Frames.Count() - 2)* (60 / this.CurrentAnimation.framerate));
         }
+
     }
     
     public override bool ImposeBehavior(Character target) {

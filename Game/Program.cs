@@ -27,7 +27,7 @@ public static class Program
 {
     public const int Intro = 0;
     public const int MainScreen = 1;
-    public const int SelectCharacter = 2;
+    public const int SelectScreen = 2;
     public const int Battle = 3;
 
     public const int RoundStart = 1;
@@ -40,21 +40,6 @@ public static class Program
         // int selected_stage = int.Parse(Console.ReadLine());
         int selected_stage = 0;
         bool showBoxs = false;
-
-        // Carega o Stage
-        List<Stage> stages = new List<Stage>{
-            new BurningDojo(),
-            new MidnightDuel(),
-            new NightAlley(),
-        };
-        var stage = stages[selected_stage];
-        stage.LoadStage();
-
-        // Carrega os personagens
-        var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
-        Ken_object.Load();
-        var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
-        Psylock_object.Load();
 
         // Necessary infos
         int game_state = Intro;
@@ -76,12 +61,12 @@ public static class Program
         BitmapFont.Load("Assets/fonts/atlas.png");
         UI.Instance.LoadCharacterSprites(40);
 
-        // Ultimos ajustes
-        camera.SetChars(Ken_object, Psylock_object);
-        camera.SetLimits(stage.length, stage.height);
-        stage.setChars(Ken_object, Psylock_object);
-        stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
-        stage.TogglePlayers();
+        List<Stage> stages = new List<Stage>{
+            new BurningDojo(),
+            new MidnightDuel(),
+            new NightAlley(),
+        };
+        Stage stage = stages[0];
 
         while (window.IsOpen) {
             // First
@@ -91,13 +76,30 @@ public static class Program
             //
             switch (game_state) {
                 case Intro:
-                    game_state = Battle;
+                    game_state = SelectScreen;
                     break;
 
                 case MainScreen:
                     break;
 
-                case SelectCharacter:
+                case SelectScreen:
+                    // Carega o Stage
+                    stage = stages[selected_stage];
+                    stage.LoadStage();
+
+                    // Carrega os personagens
+                    var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
+                    Ken_object.Load();
+                    var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
+                    Psylock_object.Load();
+
+                    // Ultimos ajustes
+                    camera.SetChars(Ken_object, Psylock_object);
+                    camera.SetLimits(stage.length, stage.height);
+                    stage.setChars(Ken_object, Psylock_object);
+                    stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
+                    stage.TogglePlayers();
+                    game_state = Battle;
                     break;
 
                 case Battle:
@@ -135,7 +137,7 @@ public static class Program
                             break;
 
                         case RoundEnd: // Fim de round
-                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Timesup!";
+                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Time's up!";
                             UI.Instance.DrawText(window, message, 0, -30, spacing: -25);
                             if (!stage.CheckTimer(2)) break;
 
@@ -153,7 +155,9 @@ public static class Program
                             stage.ResetMatch();
                             stage.ResetPlayers(force: true);
                             sub_state = Intro;
-                            game_state = Intro;
+                            // game_state = SelectScreen;
+
+                            game_state = Battle; // remover dps
                             break;
                     }
 

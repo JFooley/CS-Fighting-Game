@@ -45,7 +45,7 @@ public class Character : Object_Space.Object {
     public Vector2i DizzyPoints = new Vector2i(1000, 1000);
     public int move_speed = 0;
     public int dash_speed = 0;
-    public int jump_hight = 100;
+    public int jump_hight = 80;
     public int push_box_width = 0;
 
     // Object infos
@@ -99,7 +99,7 @@ public class Character : Object_Space.Object {
         base.DoRender(window, drawHitboxes);
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = new Vector2f(this.Position.X - (this.quadsize / 2 * this.facing), this.Position.Y - this.quadsize);
+        temp_sprite.Position = new Vector2f(this.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         window.Draw(temp_sprite);
 
@@ -170,7 +170,7 @@ public class Character : Object_Space.Object {
 
         if (CurrentAnimation.AdvanceFrame() && CurrentAnimation.GetCurrentFrame().hasHit == false) this.hasHit = false;
     }
-    private void PlaySound() {
+    public void PlaySound() {
         if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
             if (this.characterSounds[this.CurrentSound].Status != SoundStatus.Playing) {
                 this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
@@ -197,7 +197,7 @@ public class Character : Object_Space.Object {
     public void SetVelocity(float X = 0, float Y = 0, int T = 0) {
         this.Velocity.X = X;
         this.Velocity.Y = Y;
-        this.Velocity.Z = T;
+        this.Velocity.Z = T - 1;
 
         this.physics.reset();
     }
