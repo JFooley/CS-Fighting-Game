@@ -46,6 +46,5 @@ namespace Object_Space {
 
         public virtual void Load(string Path) {}
         public virtual void Unload() {}
-        public virtual void Copy() {}
     }
 }

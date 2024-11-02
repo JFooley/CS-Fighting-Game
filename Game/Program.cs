@@ -37,8 +37,6 @@ public static class Program
 
     public static void Main() {  
         // Aux
-        // int selected_stage = int.Parse(Console.ReadLine());
-        int selected_stage = 0;
         bool showBoxs = false;
 
         // Necessary infos
@@ -73,7 +71,6 @@ public static class Program
             window.DispatchEvents();
             InputManager.Instance.Update();
 
-            //
             switch (game_state) {
                 case Intro:
                     game_state = SelectScreen;
@@ -83,22 +80,22 @@ public static class Program
                     break;
 
                 case SelectScreen:
-                    // Carega o Stage
+                    // Seleciona os chars e o stage
+                    int charA_selected = 0;
+                    int charB_selected = 1;
+                    int selected_stage = 0;
+
+                    // Escolhe o Stage
                     stage = stages[selected_stage];
                     stage.LoadStage();
 
-                    // Carrega os personagens
-                    var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
-                    Ken_object.Load();
-                    var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
-                    Psylock_object.Load();
+                    // Escolhe os personagens
+                    stage.LoadCharacters(charA_selected, charB_selected);
 
-                    // Ultimos ajustes
-                    camera.SetChars(Ken_object, Psylock_object);
+                    // Configura a camera
+                    camera.SetChars(stage.character_A, stage.character_B);
                     camera.SetLimits(stage.length, stage.height);
-                    stage.setChars(Ken_object, Psylock_object);
-                    stage.OnSceneCharacters = new List<Character> {Ken_object, Psylock_object};
-                    stage.TogglePlayers();
+
                     game_state = Battle;
                     break;
 

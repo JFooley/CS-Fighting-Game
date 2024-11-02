@@ -232,6 +232,14 @@ public class Stage {
         this.character_B.facing = -1;
         this.character_B.playerIndex = 2;
         this.character_B.team = 1;
+
+        this.character_A.floorLine = this.floorLine;
+        this.character_B.floorLine = this.floorLine;
+        this.character_A.stage = this;
+        this.character_B.stage = this;
+
+        this.OnSceneCharacters = new List<Character> {this.character_A, this.character_B};
+        this.TogglePlayers();
     }
     public bool CheckRoundEnd() {
         bool doEnd = false;
@@ -297,11 +305,18 @@ public class Stage {
     }
     
     // All loads
-    public void LoadSpriteImages() {
+    public void LoadCharacters(int charA_index, int charB_index) {        
+        var charA = Character.SelectCharacter(charA_index, this);
+        var charB = Character.SelectCharacter(charB_index, this);
+
+        this.setChars(charA, charB);
+
         this.spark.Load();
         this.fireball.Load();
         this.particle.Load();
-
+    }
+    
+    public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);
 
@@ -330,12 +345,12 @@ public class Stage {
             catch (SFML.LoadingFailedException)
             {
                 // Se falhar ao carregar a imagem, simplesmente ignore
-                Console.WriteLine($"Falha ao carregar o arquivo {file} como textura. Ignorando...");
+                // Console.WriteLine($"Falha ao carregar o arquivo {file} como textura. Ignorando...");
             }
             catch (FormatException)
             {
                 // Caso o nome do arquivo não seja um número, ignora
-                Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
+                // Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
             }
         }
     }
@@ -371,7 +386,7 @@ public class Stage {
                 // Adiciona no dicionário
                 this.stageSounds[fileNameWithoutExtension] = new Sound(buffer);
             } catch (SFML.LoadingFailedException ex) {
-                Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
+                // Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
             }
         }
     }

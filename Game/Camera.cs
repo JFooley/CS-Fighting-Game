@@ -52,8 +52,7 @@ public class Camera
         }
     }
 
-    public void SetChars(Character charA, Character charB)
-    {
+    public void SetChars(Character charA, Character charB) {
         this.CharA = charA;
         this.CharB = charB;
     }

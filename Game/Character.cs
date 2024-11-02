@@ -61,8 +61,11 @@ public class Character : Object_Space.Object {
     public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
     public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
     public bool hasHit = false; 
+
     private bool blockingHigh = false;
     private bool blockingLow = false;
+    private bool blocking = false;
+
 
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
@@ -187,9 +190,11 @@ public class Character : Object_Space.Object {
         return this.isBlockingHigh() || this.isBlockingLow();
     }
     public bool isBlockingHigh() {
+        if (this.blockingHigh || this.blocking) return true;
         return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
     }
     public bool isBlockingLow() {
+        if (this.blockingLow || this.blocking) return true;
         return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
 
@@ -353,15 +358,39 @@ public class Character : Object_Space.Object {
     }
 
     // General Load
+    public static Character SelectCharacter(int index, Stage stage) {
+        switch (index) {
+            case 0:
+                var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
+                Ken_object.Load();
+                return Ken_object;
+            
+            case 1:
+                var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
+                Psylock_object.Load();
+                return Psylock_object;
+
+            default:
+                var Default_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
+                Default_object.Load();
+                return Default_object;
+        }
+    }
     public virtual void Load() {}
     public override void Unload() {
         this.UnloadSounds();
         this.UnloadSpriteImages();
     }
-    public override void Copy(){
-        
+    public Character Copy(){
+        Character copy = new Character(this.name, this.CurrentState, this.Position.X, this.Position.Y, this.folderPath, this.soundFolderPath, this.stage);
+
+        copy.spriteImages = this.spriteImages;
+        copy.characterSounds = this.characterSounds;
+        copy.animations = this.animations;
+
+        return copy;
     }
-    }
+}
 
 
 }
