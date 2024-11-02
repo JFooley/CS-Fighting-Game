@@ -235,6 +235,8 @@ public class Stage {
 
         this.character_A.floorLine = this.floorLine;
         this.character_B.floorLine = this.floorLine;
+        this.character_A.Position.X = this.start_point_A;
+        this.character_B.Position.X = this.start_point_B;
         this.character_A.stage = this;
         this.character_B.stage = this;
 

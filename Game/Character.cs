@@ -361,17 +361,17 @@ public class Character : Object_Space.Object {
     public static Character SelectCharacter(int index, Stage stage) {
         switch (index) {
             case 0:
-                var Ken_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
+                var Ken_object = new Ken("Intro", 0, stage.floorLine, stage);
                 Ken_object.Load();
                 return Ken_object;
             
             case 1:
-                var Psylock_object = new Psylock("Intro", stage.start_point_B, stage.floorLine, stage);
+                var Psylock_object = new Psylock("Intro", 0, stage.floorLine, stage);
                 Psylock_object.Load();
                 return Psylock_object;
 
             default:
-                var Default_object = new Ken("Intro", stage.start_point_A, stage.floorLine, stage);
+                var Default_object = new Ken("Intro", 0, stage.floorLine, stage);
                 Default_object.Load();
                 return Default_object;
         }
