@@ -12,7 +12,7 @@ public class Particle : Character {
     public override void Load() {
         // Animations
         var SALighting = new List<FrameData> { 
-            new FrameData(11, 0, 0, new List<GenericBox> {}),
+            new FrameData(11, 0, 0, new List<GenericBox> {}, "super art"),
             new FrameData(12, 0, 0, new List<GenericBox> {}),
             new FrameData(13, 0, 0, new List<GenericBox> {}),
             new FrameData(14, 0, 0, new List<GenericBox> {}),
