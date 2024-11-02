@@ -82,7 +82,7 @@ public static class Program
                 case SelectScreen:
                     // Seleciona os chars e o stage
                     int charA_selected = 0;
-                    int charB_selected = 0;
+                    int charB_selected = 1;
                     int selected_stage = 0;
 
                     // Escolhe o Stage

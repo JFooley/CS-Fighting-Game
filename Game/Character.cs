@@ -78,6 +78,7 @@ public class Character : Object_Space.Object {
     public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
+    public int lastFrameIndex;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage) : base() {
         this.folderPath = folderPath;
@@ -166,19 +167,19 @@ public class Character : Object_Space.Object {
         Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
         this.physics.Update(this);
 
-        // Advance to the next frame and reset hit if necessary
+        // Change state, if necessary
         if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
             this.ChangeState(this.CurrentAnimation.post_state);
         }
 
+        // Advance to the next frame and reset hit if necessary
+        this.lastFrameIndex = this.CurrentFrameIndex;
         if (CurrentAnimation.AdvanceFrame() && CurrentAnimation.GetCurrentFrame().hasHit == false) this.hasHit = false;
     }
     public void PlaySound() {
-        if (this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
-            if (this.characterSounds[this.CurrentSound].Status != SoundStatus.Playing) {
-                this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
-                this.characterSounds[this.CurrentSound].Play();
-            }
+        if (this.CurrentFrameIndex != this.lastFrameIndex && this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
+            this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
+            this.characterSounds[this.CurrentSound].Play();
         }
     }
     

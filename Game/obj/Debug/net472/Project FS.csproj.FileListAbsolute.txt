@@ -2066,3 +2066,5 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\27.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\28.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\29.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sounds\Jinraikyaku.wav
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sounds\shinpu.wav
