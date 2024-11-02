@@ -33,6 +33,7 @@ Implementado:
 - Hitstop melhorado
 - Multiplos hits por animação (com reinício definido no frame)
 - Fixed: Jogadores não podem se afastar um do outro mais do que o tamanho da tela.
+- Particulas visuais independentes (Super Art, etc)
 
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
