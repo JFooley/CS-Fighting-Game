@@ -440,6 +440,7 @@ public class Ken : Character {
             new FrameData(15079, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 109, 89, 131, 107), new GenericBox(1, 92, 101, 144, 148), new GenericBox(1, 96, 148, 145, 195) }),
             new FrameData(15080, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 88, 137, 105), new GenericBox(1, 108, 100, 142, 151), new GenericBox(1, 95, 100, 153, 130), new GenericBox(1, 98, 143, 156, 195), pushbox}),
         };
+
         var SA1_tail = new List<FrameData> {
             new FrameData(15356, 0, 0, new List<GenericBox> { pushbox, }, "Jinraikyaku", hasHit: false),
             new FrameData(15357, 0, 0, new List<GenericBox> { pushbox, }),
@@ -518,7 +519,7 @@ public class Ken : Character {
         }
 
         // Super
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.CurrentState == "CloseHPAttack" && this.hasHit))) {
+        if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHPAttack" && this.hasHit))) {
             this.ChangeState("SA1");
             this.stage.spawnParticle("SALighting", this.Position.X, this.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.SetHitstop(54);

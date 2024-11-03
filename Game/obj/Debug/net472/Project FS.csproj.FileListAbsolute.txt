@@ -1990,7 +1990,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\fon
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font1.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font.otf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\atlas.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sounds\Particle\sei la.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\11.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\110.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\111.png
@@ -2068,3 +2067,4 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\29.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sounds\Jinraikyaku.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sounds\shinpu.wav
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sounds\Particle\super art.mp3
