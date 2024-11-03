@@ -463,6 +463,11 @@ public class Ken : Character {
             new FrameData(15370, 0, 0, new List<GenericBox> { pushbox, })
         };
 
+        var Shungoku = new List<FrameData> {
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),        
+        };
+
         // States
         var animations = new Dictionary<string, Animation> {
             // Normals
@@ -487,6 +492,7 @@ public class Ken : Character {
             // Super
             { "SA1", new Animation(SA1, "SA1_tail", 60)},
             { "SA1_tail", new Animation(SA1_tail, "Idle", 30)},
+            { "Shungoku", new Animation(Shungoku, "Idle", 2)},
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
@@ -527,6 +533,17 @@ public class Ken : Character {
             this.SetVelocity(
                 X: 1, 
                 Y: 60, 
+                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+        }
+
+        if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("Shungoku");
+            this.stage.spawnParticle("SABlink", this.Position.X, this.Position.Y, Y_offset: -140, facing: this.facing);
+            this.stage.SetHitstop(68);
+        } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
+            this.SetVelocity(
+                X: 8.0f, 
+                Y: 0, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         }
 
@@ -741,6 +758,17 @@ public class Ken : Character {
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 }
+                break;
+
+            case "Shungoku":
+                this.ChangeState("Idle");
+                this.SetVelocity();
+                target.ChangeState("Idle");
+                hit = true;
+                Character.Damage(target: target, self: this, 500, 0);
+
+                this.stage.spawnParticle("Shungoku", target.Position.X, target.Position.Y, Y_offset: -125, facing: this.facing);
+                this.stage.SetHitstop(40 * 4);
                 break;
 
             default:

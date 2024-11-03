@@ -14,4 +14,4 @@ prefix = input("Digite o prefixo (opcional): ")
 # Gera e imprime o resultado
 output = generate_frame_data(start, end, prefix)
 print(output)
-input()
+input("-------------FIM-------------")

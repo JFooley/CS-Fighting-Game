@@ -130,12 +130,12 @@ public class Stage {
         this.OnSceneParticles.AddRange(this.newParticles);
         this.newParticles.Clear();
         
-        // Render chars and particles
+        // Render chars, UI and particles
         foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
+        UI.Instance.DrawBattleUI(window, this);
         foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, showBoxs);
 
-        // Render UI
-        UI.Instance.DrawBattleUI(window, this);
+
     }
     private void DoBehavior() {
         // Move characters away from border
@@ -244,6 +244,8 @@ public class Stage {
         this.TogglePlayers();
     }
     public bool CheckRoundEnd() {
+        if (this.hitstopCounter != 0) return false;
+        
         bool doEnd = false;
 
         if (character_A.LifePoints.X <= 0) {

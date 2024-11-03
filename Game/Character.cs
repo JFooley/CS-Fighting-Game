@@ -222,7 +222,7 @@ public class Character : Object_Space.Object {
         }
 
         if (CurrentState != LastState || reset) {
-            this.animations[CurrentState].Reset();
+            this.animations[LastState].Reset();
             this.CurrentAnimation.currentFrameIndex = index;
         }
 

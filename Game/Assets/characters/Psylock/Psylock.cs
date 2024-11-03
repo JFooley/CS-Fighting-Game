@@ -281,11 +281,6 @@ public class Psylock : Character {
         String[] B_qcb = {"Down", "Left", "B"};
         String[] D_qcb = {"Down", "Left", "C"};
 
-        if ((InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && this.notActing) {
-            this.stage.spawnParticle("Shungoku", stage.character_A.Position.X, stage.character_A.Position.Y, Y_offset: -125, facing: this.facing);
-            this.stage.SetHitstop(40 * 4);
-        } 
-
         // Normals
         if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("AltDAttack");

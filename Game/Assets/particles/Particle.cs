@@ -12,7 +12,8 @@ public class Particle : Character {
 
     public override void Load() {
         // Animations
-        var SALighting = new List<FrameData> { 
+
+        var SAGathering = new List<FrameData> {
             new FrameData(11, 0, 0, new List<GenericBox> {}, "super art"),
             new FrameData(12, 0, 0, new List<GenericBox> {}),
             new FrameData(13, 0, 0, new List<GenericBox> {}),
@@ -45,6 +46,9 @@ public class Particle : Character {
             new FrameData(130, 0, 0, new List<GenericBox> {}),
             new FrameData(131, 0, 0, new List<GenericBox> {}),
             new FrameData(132, 0, 0, new List<GenericBox> {}),
+        };
+
+        var SALighting = new List<FrameData> { 
             new FrameData(133, 0, 0, new List<GenericBox> {}),
             new FrameData(134, 0, 0, new List<GenericBox> {}),
             new FrameData(135, 0, 0, new List<GenericBox> {}),
@@ -70,14 +74,6 @@ public class Particle : Character {
         };
 
         var SABlink = new List<FrameData> {
-            new FrameData(21, 0, 0, new List<GenericBox> {}),
-            new FrameData(22, 0, 0, new List<GenericBox> {}),
-            new FrameData(23, 0, 0, new List<GenericBox> {}),
-            new FrameData(24, 0, 0, new List<GenericBox> {}),
-            new FrameData(25, 0, 0, new List<GenericBox> {}),
-            new FrameData(26, 0, 0, new List<GenericBox> {}),
-            new FrameData(27, 0, 0, new List<GenericBox> {}),
-            new FrameData(28, 0, 0, new List<GenericBox> {}),
             new FrameData(29, 0, 0, new List<GenericBox> {}),
             new FrameData(210, 0, 0, new List<GenericBox> {}),
             new FrameData(211, 0, 0, new List<GenericBox> {}),
@@ -137,11 +133,18 @@ public class Particle : Character {
             new FrameData(326, 0, 0, new List<GenericBox> {}),
         };
 
+        var end = new List<FrameData> {
+            new FrameData(0, 0, 0, new List<GenericBox> {}),
+        };
+
         // States
         var animations = new Dictionary<string, Animation> {
-            {"SALighting", new Animation(SALighting, "Default", 60)},
-            {"SABlink", new Animation(SABlink, "Default", 30)},
-            {"Shungoku", new Animation(Shungoku, "Default", 15)},
+            {"SALighting", new Animation(SAGathering, "SALighting_tail", 60)},
+            {"SALighting_tail", new Animation(SALighting, "End", 60)},
+            {"SABlink", new Animation(SAGathering, "SABlink_tail", 60)},
+            {"SABlink_tail", new Animation(SABlink, "End", 20)},
+            {"Shungoku", new Animation(Shungoku, "End", 15)},
+            {"End", new Animation(end, "End", 1)},
         };
 
         this.animations = animations;
@@ -161,8 +164,9 @@ public class Particle : Character {
         // Play sounds
         base.PlaySound();
     }
+    
     public override void DoBehave() {        
-        if (this.CurrentAnimation.onLastFrame) {
+        if (this.CurrentState == "End") {
             this.remove = true;
             this.CurrentAnimation.Reset();
         } 
