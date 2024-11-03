@@ -38,6 +38,7 @@ Implementado:
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Hitstun e blockstun
+- Bug: Animações de particulas que não são 60 fps não reproduzem corretamente se forma consecutiva
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
