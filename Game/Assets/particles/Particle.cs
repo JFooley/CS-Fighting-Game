@@ -2,10 +2,11 @@ using Character_Space;
 using Animation_Space;
 using SFML.System;
 using SFML.Graphics;
+using Stage_Space;
 
 public class Particle : Character {
-    public Particle(string initialState, float startX, float startY, int facing)
-        : base("Particle", initialState, startX, startY, "Assets/particles/sprites/Particle", "Assets/particles/sounds/Particle", null) {
+    public Particle(string initialState, float startX, float startY, int facing, Stage stage = null)
+        : base("Particle", initialState, startX, startY, "Assets/particles/sprites/Particle", "Assets/particles/sounds/Particle", stage) {
             this.facing = facing;
         }
 
@@ -92,16 +93,62 @@ public class Particle : Character {
             new FrameData(221, 0, 0, new List<GenericBox> {}),
         };
 
+        var Shungoku = new List<FrameData> {
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+                        
+            new FrameData(30, 0, 0, new List<GenericBox> {}),
+            new FrameData(31, 0, 0, new List<GenericBox> {}),
+            new FrameData(32, 0, 0, new List<GenericBox> {}),
+            new FrameData(33, 0, 0, new List<GenericBox> {}),
+            new FrameData(34, 0, 0, new List<GenericBox> {}),
+            new FrameData(35, 0, 0, new List<GenericBox> {}),
+            new FrameData(36, 0, 0, new List<GenericBox> {}),
+            new FrameData(37, 0, 0, new List<GenericBox> {}),
+            new FrameData(38, 0, 0, new List<GenericBox> {}),
+            new FrameData(39, 0, 0, new List<GenericBox> {}),
+            new FrameData(310, 0, 0, new List<GenericBox> {}),
+            new FrameData(311, 0, 0, new List<GenericBox> {}),
+            new FrameData(312, 0, 0, new List<GenericBox> {}),
+            new FrameData(313, 0, 0, new List<GenericBox> {}),
+            new FrameData(314, 0, 0, new List<GenericBox> {}),
+            new FrameData(315, 0, 0, new List<GenericBox> {}),
+            new FrameData(316, 0, 0, new List<GenericBox> {}),
+            new FrameData(317, 0, 0, new List<GenericBox> {}),
+            new FrameData(318, 0, 0, new List<GenericBox> {}),
+            new FrameData(319, 0, 0, new List<GenericBox> {}),
+            new FrameData(320, 0, 0, new List<GenericBox> {}),
+            new FrameData(321, 0, 0, new List<GenericBox> {}),
+            new FrameData(322, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(324, 0, 0, new List<GenericBox> {}),
+            new FrameData(325, 0, 0, new List<GenericBox> {}),
+            new FrameData(326, 0, 0, new List<GenericBox> {}),
+        };
+
         // States
         var animations = new Dictionary<string, Animation> {
-            {"SALighting", new Animation(SALighting, "Default", 60, doChangeState: false)},
-            {"SABlink", new Animation(SABlink, "Default", 30, doChangeState: false)},
+            {"SALighting", new Animation(SALighting, "Default", 60)},
+            {"SABlink", new Animation(SABlink, "Default", 30)},
+            {"Shungoku", new Animation(Shungoku, "Default", 15)},
         };
 
         this.animations = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }
+    
     public override void DoRender(RenderWindow window, bool drawHitboxes = false) {
         if (!this.render) return;
         
@@ -115,6 +162,9 @@ public class Particle : Character {
         base.PlaySound();
     }
     public override void DoBehave() {        
-        if (this.CurrentAnimation.onLastFrame) this.remove = true;
+        if (this.CurrentAnimation.onLastFrame) {
+            this.remove = true;
+            this.CurrentAnimation.Reset();
+        } 
     }
 }

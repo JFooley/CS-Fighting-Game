@@ -14,6 +14,7 @@ public class Fireball : Character {
         // Animations
         var kenFB0 = new GenericBox(0, 139, 115, 163, 143);
         var kenFB1 = new GenericBox(1, 139, 115, 163, 143);
+        
         var KenFireballFrames = new List<FrameData> { 
             new FrameData(21, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
             new FrameData(22, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
@@ -51,7 +52,7 @@ public class Fireball : Character {
         var animations = new Dictionary<string, Animation> {
             {"Ken1", new Animation(KenFireballFrames, "Ken1", 20)},
             {"Ken2", new Animation(KenFireballFrames, "Ken2", 30)},
-            {"KenExit", new Animation(KenFireballFinal, "", 30, doChangeState: false)},
+            {"KenExit", new Animation(KenFireballFinal, "", 30)},
         };
 
         this.animations = animations;

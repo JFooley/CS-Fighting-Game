@@ -5,10 +5,10 @@ Q = A 	- Soco Fraco
 W = B 	- Soco Forte
 A = C 	- Chute Fraco
 S = D 	- Chute Forte
-E = RB 	- Assist Button 1
-D = RT	- Assist Button 2
-R = LB	- (depende do personagem)
-F = LT	- (depende do personagem)
+E = RB 	- Assistencia Especial
+D = RT	- (nada)
+R = LB	- (nada)
+F = LT	- (nada)
 Enter = Start - Mostra as hitboxs
 
 Controle:
@@ -17,8 +17,15 @@ A = A   - Soco Fraco
 B = B   - Soco Forte
 X = C   - Chute Fraco
 Y = D   - Chute Forte
-RB = RB	- Assist Button 1
-RT = RT	- Assist Button 2
-LB = LB - (depende do personagem)
-LT = LT - (depende do personagem)
+RB = RB	- Assistencia Especial
+RT = RT	- (nada)
+LB = LB - (nada)
+LT = LT - (nada)
 Start = Start - Mostra as hitboxs
+
+
+Comandos universais:
+Direita ou Esquerda (Oposto ao inimigo) - Defesa
+Defesa + Baixo (Oposto ao inimigo)	- Defesa baixa
+Baixo, Baixo, Assistencia Especial	- Especial
+Select					- Provocação

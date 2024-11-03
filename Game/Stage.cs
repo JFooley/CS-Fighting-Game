@@ -76,9 +76,9 @@ public class Stage {
         this.spriteImages = new Dictionary<int, Sprite>();
         this.stageSounds = new Dictionary<string, Sound>();
 
-        this.spark = new Hitspark("Default", 0, 0, 1);
+        this.spark = new Hitspark("Default", 0, 0, 1, this);
         this.fireball = new Fireball("Default", 0, 0, 0, 1, this);
-        this.particle = new Particle("Default", 0, 0, 1);
+        this.particle = new Particle("Default", 0, 0, 1, this);
     }
 
     // Behaviour

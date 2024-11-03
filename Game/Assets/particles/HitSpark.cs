@@ -1,10 +1,10 @@
 using Character_Space;
 using Animation_Space;
-using SFML.System;
+using Stage_Space;
 
 public class Hitspark : Character {
-    public Hitspark(string initialState, float startX, float startY, int facing)
-        : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", null) {
+    public Hitspark(string initialState, float startX, float startY, int facing, Stage stage = null)
+        : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", stage) {
             this.team = 0;
             this.facing = facing;
         }
@@ -73,6 +73,9 @@ public class Hitspark : Character {
     }
 
     public override void DoBehave() {        
-        if (this.CurrentAnimation.onLastFrame) this.remove = true;
+        if (this.CurrentAnimation.onLastFrame) {
+            this.remove = true;
+            this.CurrentAnimation.Reset();
+        } 
     }
 }
