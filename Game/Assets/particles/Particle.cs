@@ -90,20 +90,19 @@ public class Particle : Character {
         };
 
         var Shungoku = new List<FrameData> {
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-            new FrameData(326, 0, 0, new List<GenericBox> {}),
-                        
+            new FrameData(324, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
             new FrameData(30, 0, 0, new List<GenericBox> {}),
             new FrameData(31, 0, 0, new List<GenericBox> {}),
             new FrameData(32, 0, 0, new List<GenericBox> {}),
@@ -120,7 +119,7 @@ public class Particle : Character {
             new FrameData(313, 0, 0, new List<GenericBox> {}),
             new FrameData(314, 0, 0, new List<GenericBox> {}),
             new FrameData(315, 0, 0, new List<GenericBox> {}),
-            new FrameData(316, 0, 0, new List<GenericBox> {}),
+            new FrameData(316, 0, 0, new List<GenericBox> {}, "explosão"),
             new FrameData(317, 0, 0, new List<GenericBox> {}),
             new FrameData(318, 0, 0, new List<GenericBox> {}),
             new FrameData(319, 0, 0, new List<GenericBox> {}),
@@ -133,6 +132,24 @@ public class Particle : Character {
             new FrameData(326, 0, 0, new List<GenericBox> {}),
         };
 
+        var Shungoku_text = new List<FrameData> {
+            new FrameData(511, 0, 0, new List<GenericBox> {}),
+            new FrameData(512, 0, 0, new List<GenericBox> {}),
+            new FrameData(513, 0, 0, new List<GenericBox> {}),
+            new FrameData(514, 0, 0, new List<GenericBox> {}),
+            new FrameData(515, 0, 0, new List<GenericBox> {}),
+            new FrameData(516, 0, 0, new List<GenericBox> {}),
+            new FrameData(516, 0, 0, new List<GenericBox> {}),
+            new FrameData(516, 0, 0, new List<GenericBox> {}),
+            new FrameData(516, 0, 0, new List<GenericBox> {}),
+            new FrameData(516, 0, 0, new List<GenericBox> {}),
+            new FrameData(517, 0, 0, new List<GenericBox> {}),
+            new FrameData(518, 0, 0, new List<GenericBox> {}),
+            new FrameData(519, 0, 0, new List<GenericBox> {}),
+            new FrameData(520, 0, 0, new List<GenericBox> {}),
+            new FrameData(521, 0, 0, new List<GenericBox> {}),
+        };
+        
         var end = new List<FrameData> {
             new FrameData(0, 0, 0, new List<GenericBox> {}),
         };
@@ -144,6 +161,7 @@ public class Particle : Character {
             {"SABlink", new Animation(SAGathering, "SABlink_tail", 60)},
             {"SABlink_tail", new Animation(SABlink, "End", 20)},
             {"Shungoku", new Animation(Shungoku, "End", 15)},
+            {"Shungoku_text", new Animation(Shungoku_text, "End", 15)},
             {"End", new Animation(end, "End", 1)},
         };
 

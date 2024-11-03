@@ -352,7 +352,7 @@ public class Ken : Character {
             new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, })
         };
         
-        var OnBlockFrames = new List<FrameData> {
+        var AirbonedFrames = new List<FrameData> {
             new FrameData(14880, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 71, 90, 89, 105), new GenericBox(1, 88, 93, 158, 188) }),
             new FrameData(14881, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 66, 102, 84, 115), new GenericBox(1, 82, 99, 154, 133), new GenericBox(1, 125, 116, 172, 167) }),
             new FrameData(14882, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 67, 105, 145, 131), new GenericBox(1, 138, 112, 177, 165) }),
@@ -363,9 +363,6 @@ public class Ken : Character {
             new FrameData(14887, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 92, 99, 134, 159), new GenericBox(1, 125, 74, 174, 115) }),
             new FrameData(14888, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 79, 146, 129, 196), new GenericBox(1, 78, 102, 117, 147) }),
             new FrameData(14889, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 77, 153, 131, 197), new GenericBox(1, 47, 140, 86, 173) }),
-        };
-
-        var fallenFrames = new List<FrameData> {
             new FrameData(14890, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14891, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14892, 0, 0, new List<GenericBox> { pushbox }),
@@ -380,6 +377,10 @@ public class Ken : Character {
             new FrameData(14901, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14902, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14903, 0, 0, new List<GenericBox> { pushbox }),
+        };
+
+        var OnGroundFrames = new List<FrameData> {
+            new FrameData(14904, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14904, 0, 0, new List<GenericBox> { pushbox }),
         };
 
@@ -465,7 +466,15 @@ public class Ken : Character {
 
         var Shungoku = new List<FrameData> {
             new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
-            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),        
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),  
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),  
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),  
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),
+            new FrameData(14768, 0, 0, new List<GenericBox> { new GenericBox(0, 166, 129, 200, 173) }),          
         };
 
         // States
@@ -492,7 +501,7 @@ public class Ken : Character {
             // Super
             { "SA1", new Animation(SA1, "SA1_tail", 60)},
             { "SA1_tail", new Animation(SA1_tail, "Idle", 30)},
-            { "Shungoku", new Animation(Shungoku, "Idle", 2)},
+            { "Shungoku", new Animation(Shungoku, "Idle", 10)},
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
@@ -502,8 +511,8 @@ public class Ken : Character {
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
             { "AirTatso", new Animation(heavyTatsoFrames, "AirTatso", 30)},
             // Hit and Block
-            { "OnBlock", new Animation(OnBlockFrames, "Fallen", 15)},
-            { "Fallen", new Animation(fallenFrames, "Wakeup", 15)},
+            { "Airboned", new Animation(AirbonedFrames, "OnGround", 15)},
+            { "OnGround", new Animation(OnGroundFrames, "Wakeup", 2)},
             { "Wakeup", new Animation(wakeupFrames, "Idle", 15)},
             // Bonus
             { "Intro", new Animation(introFrames, "Idle", 10)},
@@ -536,15 +545,15 @@ public class Ken : Character {
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
             this.ChangeState("Shungoku");
             this.stage.spawnParticle("SABlink", this.Position.X, this.Position.Y, Y_offset: -140, facing: this.facing);
             this.stage.SetHitstop(68);
         } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
             this.SetVelocity(
-                X: 8.0f, 
+                X: 8f, 
                 Y: 0, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
         }
 
         // Shorys
@@ -678,16 +687,17 @@ public class Ken : Character {
 
     }
     
-    public override bool ImposeBehavior(Character target) {
-        bool hit = false;
+    public override int ImposeBehavior(Character target) {
+        int hit = -1;
         switch (this.CurrentState) {
             case "LPAttack":
                 Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Blocking");
                 }
                 break;
@@ -695,10 +705,11 @@ public class Ken : Character {
             case "LKAttack":
                 Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;
@@ -706,10 +717,11 @@ public class Ken : Character {
             case "MPAttack":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;
@@ -717,10 +729,11 @@ public class Ken : Character {
             case "MKAttack":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 5);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;
@@ -728,9 +741,10 @@ public class Ken : Character {
             case "BackMKAttack":
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
+                    hit = 0;
                     target.ChangeState("Idle");
                 } else {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 }
@@ -738,10 +752,11 @@ public class Ken : Character {
 
             case "CloseHPAttack":
                 if (target.isBlocking()) {
+                    hit = 0;
                     Character.Pushback(target: target, self: this, "Heavy");
                     target.ChangeState("Idle");
                 } else {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Pushback(target: target, self: this, "Light");
                     target.SetVelocity(-1, 35, 25);
@@ -751,33 +766,39 @@ public class Ken : Character {
             
             case "SA1":
                 if (target.isBlocking()) {
+                    hit = 0;
                     Character.Damage(target: target, self: this, 5, 0);
                     target.ChangeState("Idle");
                 } else {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 }
                 break;
 
             case "Shungoku":
+                this.stage.spawnParticle("Shungoku", target.Position.X, this.Position.Y, Y_offset: -125, facing: this.facing);
+                this.stage.spawnParticle("Shungoku_text", Camera.Instance.X, Camera.Instance.Y);
+                this.stage.SetHitstop(40 * 4);
+
                 this.ChangeState("Idle");
                 this.SetVelocity();
-                target.ChangeState("Idle");
-                hit = true;
-                Character.Damage(target: target, self: this, 500, 0);
+                this.Position.X = target.Position.X - 1 * this.facing;
 
-                this.stage.spawnParticle("Shungoku", target.Position.X, target.Position.Y, Y_offset: -125, facing: this.facing);
-                this.stage.SetHitstop(40 * 4);
+                target.ChangeState("OnGround");
+                target.SetVelocity();
+
+                Character.Damage(target: target, self: this, 400, 0);
                 break;
 
             default:
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("Idle");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;

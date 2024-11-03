@@ -80,21 +80,22 @@ public class Fireball : Character {
         }
     }
 
-    public override bool ImposeBehavior(Character target) {
-        bool hit = false;
+    public override int ImposeBehavior(Character target) {
+        int hit = -1;
         switch (this.CurrentState) {
             case "Ken1":
                 Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
+                    hit = 0;
                     target.ChangeState("Blocking");
                     Character.Damage(target: target, self: this, 10, 0);
 
                 } else {
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 100, 170);
-                    hit = true;
                 }
                 break;
 
@@ -103,14 +104,14 @@ public class Fireball : Character {
                 this.ChangeState("KenExit");
 
                 if (target.isBlocking()) {
+                    hit = 0;
                     target.ChangeState("Blocking");
                     Character.Damage(target: target, self: this, 10, 0);
 
                 } else {
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 150, 170);
-                    hit = true;
-
                 }
                 break;
 

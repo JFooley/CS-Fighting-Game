@@ -177,13 +177,15 @@ public class Stage {
         par.characterSounds = this.particle.characterSounds;
         this.newParticles.Add(par);
     }
-    public void spawnHitspark(bool hit, Vector2f position, int facing, int X_offset = 0, int Y_offset = 0) {
+    public void spawnHitspark(int hit, Vector2f position, int facing, int X_offset = 0, int Y_offset = 0) {
         var hs = new Hitspark("default", position.X + X_offset * facing, position.Y + Y_offset, facing);
         Random random = new Random();
-        if (hit) {
+        if (hit == 1) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
-        } else {
+        } else if (hit == 0){
             hs.CurrentState = "OnBlock";
+        } else {
+            return;
         }
         hs.animations = this.spark.animations;
         hs.spriteImages = this.spark.spriteImages;

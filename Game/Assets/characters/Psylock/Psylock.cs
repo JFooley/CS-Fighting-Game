@@ -344,16 +344,17 @@ public class Psylock : Character {
         } 
     }
 
-    public override bool ImposeBehavior(Character target) {
-        bool hit = false;
+    public override int ImposeBehavior(Character target) {
+        int hit = -1;
         switch (this.CurrentState) {
             case "AAttack":
                 Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;
@@ -361,10 +362,11 @@ public class Psylock : Character {
             case "BAttack":
                 Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                     
                 }
@@ -373,10 +375,11 @@ public class Psylock : Character {
             case "CAttack":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                     
                 }
@@ -385,10 +388,11 @@ public class Psylock : Character {
             case "DAttack":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("OnHit");
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                     
                 }
@@ -397,11 +401,12 @@ public class Psylock : Character {
             default:
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = true;
+                    hit = 1;
                     target.ChangeState("Idle");
                     target.SetVelocity(-2, 0, 10);
                     Character.Damage(target: target, self: this, 50, 170);
                 } else {
+                    hit = 0;
                     target.ChangeState("Idle");
                 }
                 break;

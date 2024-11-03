@@ -24,7 +24,7 @@ using Stage_Space;
 // OnBlock
 // OnBlockCrouching
 // Airboned
-// Fallen
+// OnGround
 // Wakeup
 
 namespace Character_Space {
@@ -184,8 +184,8 @@ public class Character : Object_Space.Object {
     }
     
     // Battle methods
-    public virtual bool ImposeBehavior(Character target) {
-        return true;
+    public virtual int ImposeBehavior(Character target) {
+        return -1;
     }
     public bool isBlocking() {
         return this.isBlockingHigh() || this.isBlockingLow();
