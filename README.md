@@ -36,6 +36,7 @@ Implementado:
 - Particulas visuais independentes (Super Art, etc)
 
 Em desenvolvimento:
+- Bug: Animações com 60 fps não reproduzem o audio se for no primeiro frame
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Hitstun e blockstun
 - Balanceamento
