@@ -186,7 +186,7 @@ public class Particle : Character {
     public override void DoBehave() {        
         if (this.CurrentState == "End") {
             this.remove = true;
-            this.CurrentAnimation.Reset();
+            this.CurrentAnimation.Reset(); // Causa problema no audio
         } 
     }
 }

@@ -5,6 +5,7 @@ using Animation_Space;
 using Aux_Space;
 using Input_Space;
 using Stage_Space;
+using UI_space;
 
 // ----- Default States -------
 // Intro
@@ -78,7 +79,7 @@ public class Character : Object_Space.Object {
     public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
-    public int lastFrameIndex;
+    public int lastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage) : base() {
         this.folderPath = folderPath;

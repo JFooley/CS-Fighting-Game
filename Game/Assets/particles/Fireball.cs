@@ -72,7 +72,10 @@ public class Fireball : Character {
                  break;
 
             case "KenExit":
-                if (this.CurrentAnimation.onLastFrame) this.remove = true;
+                if (this.CurrentAnimation.onLastFrame) {
+                    this.remove = true;
+                    this.CurrentAnimation.Reset();
+                }
                 break;
 
             default:

@@ -16,7 +16,7 @@ public class Camera
 
     public float camera_zoom = 0.3f;
 
-    private RenderWindow _window;
+    public RenderWindow window;
     private View _view;
 
     // Camera position
@@ -26,7 +26,7 @@ public class Camera
     private Camera(RenderWindow window, View view, int X = 0, int Y = 0) {
         this.X = X;
         this.Y = Y;
-        this._window = window;
+        this.window = window;
         this._view = view;
     }
 
@@ -79,7 +79,7 @@ public class Camera
 
         // View pos to camera pos
         this._view.Center = new Vector2f(this.X, this.Y);
-        this._window.SetView(this._view);
+        this.window.SetView(this._view);
     }
 
 }

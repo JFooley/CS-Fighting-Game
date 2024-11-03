@@ -75,7 +75,7 @@ public class Hitspark : Character {
     public override void DoBehave() {        
         if (this.CurrentAnimation.onLastFrame) {
             this.remove = true;
-            this.CurrentAnimation.Reset();
+            this.CurrentAnimation.Reset(); // Está fazendo animações de 60 fps sumirem o som dps da primeira vez
         } 
     }
 }
