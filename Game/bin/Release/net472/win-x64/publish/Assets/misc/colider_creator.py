@@ -1,4 +1,5 @@
 import os
+import re
 from PIL import Image, ImageTk
 import tkinter as tk
 
@@ -20,7 +21,6 @@ class FrameDataApp:
         # Label to show the current box type
         self.box_type_label = tk.Label(root, text=f"Box Type: {self.frame_type}")
         self.box_type_label.pack()
-
 
         # Bind mouse and keyboard events
         self.canvas.bind("<Button-1>", self.on_left_click)
@@ -108,11 +108,22 @@ class FrameDataApp:
         hitbox_str = ', '.join([f'new GenericBox({t}, {int(x1/self.scale)}, {int(y1/self.scale)}, {int(x2/self.scale)}, {int(y2/self.scale)})' for x1, y1, x2, y2, t in self.hitboxes])
         print(f'new FrameData({frame_name}, 0, 0, new List<GenericBox> {{ {hitbox_str} }}),')
 
-if __name__ == "__main__":
-    # Define the image filenames here
-    frame_numbers = input("Frame index list: ")
-    image_files = [f"{num}.png" for num in frame_numbers.split(", ")]
+def extract_frame_numbers(frame_data_text):
+    # Regular expression to extract numbers between parentheses after "new FrameData("
+    matches = re.findall(r'new FrameData\((\d+)', frame_data_text)
+    return [int(match) for match in matches]
 
+if __name__ == "__main__":
+    # Solicita a lista de objetos `FrameData` no formato dado
+    frame_data_text = input("Cole a lista de FrameData: ")
+    
+    # Extrai os números dos frames
+    frame_numbers = extract_frame_numbers(frame_data_text)
+    
+    # Cria a lista de arquivos de imagem com base nos números extraídos
+    image_files = [f"{num}.png" for num in frame_numbers]
+
+    # Inicia o aplicativo
     root = tk.Tk()
     app = FrameDataApp(root, image_files, scale=2)
     root.mainloop()
