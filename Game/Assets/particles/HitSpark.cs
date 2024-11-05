@@ -61,10 +61,11 @@ public class Hitspark : Character {
 
         // States
         var animations = new Dictionary<string, Animation> {
-            {"OnHit1", new Animation(onHit1, "OnHit1", 60)},
-            {"OnHit2", new Animation(onHit2, "OnHit2", 60)},
-            {"OnHit3", new Animation(onHit3, "OnHit3", 60)},
-            {"OnBlock", new Animation(onBlock, "OnBlock", 30)},
+            {"OnHit1", new Animation(onHit1, "Remove", 60)},
+            {"OnHit2", new Animation(onHit2, "Remove", 60)},
+            {"OnHit3", new Animation(onHit3, "Remove", 60)},
+            {"OnBlock", new Animation(onBlock, "Remove", 30)},
+            {"Remove", new Animation(onBlock, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -73,9 +74,8 @@ public class Hitspark : Character {
     }
 
     public override void DoBehave() {        
-        if (this.CurrentAnimation.onLastFrame) {
+        if (this.CurrentState == "Remove") {
             this.remove = true;
-            this.CurrentAnimation.Reset(); // Está fazendo animações de 60 fps sumirem o som dps da primeira vez
         } 
     }
 }

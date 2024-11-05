@@ -52,7 +52,8 @@ public class Fireball : Character {
         var animations = new Dictionary<string, Animation> {
             {"Ken1", new Animation(KenFireballFrames, "Ken1", 20)},
             {"Ken2", new Animation(KenFireballFrames, "Ken2", 30)},
-            {"KenExit", new Animation(KenFireballFinal, "", 30)},
+            {"KenExit", new Animation(KenFireballFinal, "Remove", 30)},
+            {"Remove", new Animation(KenFireballFinal, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -69,15 +70,12 @@ public class Fireball : Character {
 
             case "Ken2":
                 this.Position.X += 7 * this.facing;
-                 break;
-
-            case "KenExit":
-                if (this.CurrentAnimation.onLastFrame) {
-                    this.remove = true;
-                    this.CurrentAnimation.Reset();
-                }
                 break;
 
+            case "Remove":
+                this.remove = true;
+                break;
+                
             default:
                 break;
         }

@@ -150,19 +150,19 @@ public class Particle : Character {
             new FrameData(521, 0, 0, new List<GenericBox> {}),
         };
         
-        var end = new List<FrameData> {
+        var remove = new List<FrameData> {
             new FrameData(0, 0, 0, new List<GenericBox> {}),
         };
 
         // States
         var animations = new Dictionary<string, Animation> {
             {"SALighting", new Animation(SAGathering, "SALighting_tail", 60)},
-            {"SALighting_tail", new Animation(SALighting, "End", 60)},
+            {"SALighting_tail", new Animation(SALighting, "Remove", 60)},
             {"SABlink", new Animation(SAGathering, "SABlink_tail", 60)},
-            {"SABlink_tail", new Animation(SABlink, "End", 20)},
-            {"Shungoku", new Animation(Shungoku, "End", 15)},
-            {"Shungoku_text", new Animation(Shungoku_text, "End", 15)},
-            {"End", new Animation(end, "End", 1)},
+            {"SABlink_tail", new Animation(SABlink, "Remove", 20)},
+            {"Shungoku", new Animation(Shungoku, "Remove", 15)},
+            {"Shungoku_text", new Animation(Shungoku_text, "Remove", 15)},
+            {"Remove", new Animation(remove, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -184,7 +184,7 @@ public class Particle : Character {
     }
     
     public override void DoBehave() {        
-        if (this.CurrentState == "End") {
+        if (this.CurrentState == "Remove") {
             this.remove = true;
             this.CurrentAnimation.Reset(); // Causa problema no audio
         } 
