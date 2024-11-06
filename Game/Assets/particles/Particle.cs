@@ -90,7 +90,7 @@ public class Particle : Character {
         };
 
         var Shungoku = new List<FrameData> {
-            new FrameData(324, 0, 0, new List<GenericBox> {}),
+            new FrameData(323, 0, 0, new List<GenericBox> {}),
             new FrameData(323, 0, 0, new List<GenericBox> {}),
             new FrameData(323, 0, 0, new List<GenericBox> {}),
             new FrameData(323, 0, 0, new List<GenericBox> {}),

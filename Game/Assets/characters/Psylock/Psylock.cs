@@ -238,8 +238,10 @@ public class Psylock : Character {
 
         // States
         var animations = new Dictionary<string, Animation> {
-            // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
+            { "OnHit", new Animation(idleFrames, "Idle", 20)},
+            { "Blocking", new Animation(idleFrames, "Idle", 20)},
+            // Normals
             { "AAttack", new Animation(AFrames, "Idle", 30)},
             { "BAttack", new Animation(CFrames, "Idle", 20)},
             { "CAttack", new Animation(BFrames, "Idle", 20)},
@@ -266,6 +268,13 @@ public class Psylock : Character {
 
     public override void DoBehave() {
         if (this.behave == false) return;
+        
+        if (this.StunFrames > 0) {
+            this.StunFrames -= 1;
+            if (this.StunFrames == 0) this.ChangeState("Idle");
+            return;
+        }
+
 
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
         
@@ -351,24 +360,25 @@ public class Psylock : Character {
                 Character.Pushback(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.ChangeState("OnHit");
-                    Character.Damage(target: target, self: this, 50, 170);
+                    target.HitStun(this, 3);
+                    Character.Damage(target: target, 50, 170);
+
                 } else {
                     hit = 0;
-                    target.ChangeState("Idle");
+                    target.BlockStun(this, 3);
                 }
                 break;
                 
             case "BAttack":
-                Character.Pushback(target: target, self: this, "Light");
+                Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.ChangeState("OnHit");
-                    Character.Damage(target: target, self: this, 50, 170);
+                    target.HitStun(this, 4);
+                    Character.Damage(target: target, 50, 170);
+
                 } else {
                     hit = 0;
-                    target.ChangeState("Idle");
-                    
+                    target.BlockStun(this, 4);
                 }
                 break;
                 
@@ -376,39 +386,29 @@ public class Psylock : Character {
                 Character.Pushback(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.ChangeState("OnHit");
-                    Character.Damage(target: target, self: this, 50, 170);
+                    target.HitStun(this, 2);
+                    Character.Damage(target: target, 50, 170);
+
                 } else {
                     hit = 0;
-                    target.ChangeState("Idle");
-                    
+                    target.BlockStun(this, 2);
                 }
                 break;
 
             case "DAttack":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Pushback(target: target, self: this, "Heavy");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.ChangeState("OnHit");
-                    Character.Damage(target: target, self: this, 50, 170);
+                    target.HitStun(this, 0);
+                    Character.Damage(target: target, 50, 170);
+
                 } else {
                     hit = 0;
-                    target.ChangeState("Idle");
-                    
+                    target.BlockStun(this, -4);
                 }
                 break;
             
             default:
-                Character.Pushback(target: target, self: this, "Medium");
-                if (!target.isBlocking()) {
-                    hit = 1;
-                    target.ChangeState("Idle");
-                    target.SetVelocity(-2, 0, 10);
-                    Character.Damage(target: target, self: this, 50, 170);
-                } else {
-                    hit = 0;
-                    target.ChangeState("Idle");
-                }
                 break;
         }
         return hit;

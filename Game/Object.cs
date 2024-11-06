@@ -27,6 +27,7 @@ namespace Object_Space {
         }
         public virtual void DoBehave() {
             if (!this.behave) return;
+
         }
         public virtual void DoRender(RenderWindow window, bool drawHitboxes = false) {
             if (!this.render) return;

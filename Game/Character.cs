@@ -6,6 +6,7 @@ using Aux_Space;
 using Input_Space;
 using Stage_Space;
 using UI_space;
+using System.Security.Cryptography.X509Certificates;
 
 // ----- Default States -------
 // Intro
@@ -21,9 +22,9 @@ using UI_space;
 // Crouching
 // CrouchingOut
 // OnHit
-// OnHitCrouching
+// OnHitLow
 // OnBlock
-// OnBlockCrouching
+// OnBlockLow
 // Airboned
 // OnGround
 // Wakeup
@@ -44,6 +45,7 @@ public class Character : Object_Space.Object {
     // Statistics 
     public Vector2i LifePoints = new Vector2i(1000, 1000);
     public Vector2i DizzyPoints = new Vector2i(1000, 1000);
+    public int StunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 80;
@@ -59,8 +61,7 @@ public class Character : Object_Space.Object {
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
-    public bool onHitStun => this.CurrentState == "OnHit" || this.CurrentState == "OnHitCrouching" || this.CurrentState == "Airboned";
-    public bool onBlockStun => this.CurrentState == "OnBlock" || this.CurrentState == "OnBlockCrouching";
+    public bool isCrounching = false;
     public bool hasHit = false; 
 
     private bool blockingHigh = false;
@@ -193,11 +194,91 @@ public class Character : Object_Space.Object {
     }
     public bool isBlockingHigh() {
         if (this.blockingHigh || this.blocking) return true;
-        return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
+        return (this.notActing || this.CurrentState == "OnBlock") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
     }
     public bool isBlockingLow() {
         if (this.blockingLow || this.blocking) return true;
-        return this.notActing && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
+        return (this.notActing || this.CurrentState == "OnBlockCrouching") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
+    }
+    public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
+        if (airbone || this.LifePoints.X <= 0) {
+            this.ChangeState("Airboned", reset: true);
+            this.SetVelocity(
+                X: -5, 
+                Y: airbone_height, 
+                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+            this.StunFrames = 0;
+            return;
+        }
+        else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
+        else this.ChangeState("OnHit", reset: true);
+
+        if (force) {
+            this.StunFrames = Math.Max(advantage, 1);
+        } else {
+            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
+        }
+    }
+    public void BlockStun(Character enemy, int advantage, bool force = false) {
+        if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
+        else this.ChangeState("OnBlock", reset: true);
+
+        if (force) {
+            this.StunFrames = Math.Max(advantage, 0);
+        } else {
+            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
+        }
+    }
+
+    // Static Methods 
+    public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
+        if ((target.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
+            if (amount == "Light") {
+                self.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
+            } else if (amount == "Medium") {
+                self.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
+            } else if (amount == "Heavy"){
+                self.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
+            }
+        } else {
+            if (amount == "Light") {
+                target.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
+            } else if (amount == "Medium") {
+                target.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
+            } else if (amount == "Heavy"){
+                target.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
+            }
+        }
+    }
+    public static void Damage(Character target, int damage, int dizzy_damage) {
+        target.LifePoints.X -= damage;
+        target.DizzyPoints.X -= dizzy_damage;
+    }
+    public void Stun(Character enemy, bool hit, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
+        if (hit) {
+            if (airbone || this.LifePoints.X <= 0) {
+                this.ChangeState("Airboned", reset: true);
+                this.SetVelocity(
+                    X: -5, 
+                    Y: airbone_height, 
+                    T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                this.StunFrames = 0;
+                return;
+            }
+            else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
+            else this.ChangeState("OnHit", reset: true);
+            
+        } else {
+            if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
+            else this.ChangeState("OnBlock", reset: true);
+        }
+
+        if (force) {
+            this.StunFrames = Math.Max(advantage, 1);
+        } else {
+            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
+        }
+
     }
 
     // Auxiliar methods
@@ -220,6 +301,7 @@ public class Character : Object_Space.Object {
 
         if (animations.ContainsKey(newState)) {
             this.CurrentState = newState;
+            
         }
 
         if (CurrentState != LastState || reset) {
@@ -228,6 +310,12 @@ public class Character : Object_Space.Object {
         }
 
         this.hasHit = false;
+
+        if (this.CurrentState == "Crouching" || this.CurrentState.Contains("Low")) {
+            this.isCrounching = true;
+        } else {
+            this.isCrounching = false;
+        }
     }
     public Sprite GetCurrentSpriteImage() {
         if (spriteImages.ContainsKey(this.CurrentSprite))
@@ -247,34 +335,6 @@ public class Character : Object_Space.Object {
         this.Velocity = new Vector3f(0, 0, 0);
     }
    
-    // Static Methods 
-    public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
-        if ((target.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
-            if (amount == "Light") {
-                self.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
-            } else if (amount == "Medium") {
-                self.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
-            } else if (amount == "Heavy"){
-                self.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
-            }
-        } else {
-            if (amount == "Light") {
-                target.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
-            } else if (amount == "Medium") {
-                target.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
-            } else if (amount == "Heavy"){
-                target.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
-            }
-        }
-    }
-    public static void Damage(Character target, Character self, int damage, int dizzy_damage) {
-        target.LifePoints.X -= damage;
-        target.DizzyPoints.X -= dizzy_damage;
-    }
-    public static void Stun(Character target, String type, int frame_amount) {
-            
-    }
-
     // Visuals load
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
@@ -393,6 +453,5 @@ public class Character : Object_Space.Object {
         return copy;
     }
 }
-
 
 }
