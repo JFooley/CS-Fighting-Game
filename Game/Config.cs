@@ -35,7 +35,7 @@ public static class Config {
 
     // Battle constants 32 38 48
     public static int RoundLength = 90;
-    public static int hitStopTime = 8;
+    public static int hitStopTime = 10;
 
     public static int max_rounds = 2;
 
