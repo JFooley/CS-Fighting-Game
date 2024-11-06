@@ -108,17 +108,23 @@ class FrameDataApp:
         hitbox_str = ', '.join([f'new GenericBox({t}, {int(x1/self.scale)}, {int(y1/self.scale)}, {int(x2/self.scale)}, {int(y2/self.scale)})' for x1, y1, x2, y2, t in self.hitboxes])
         print(f'new FrameData({frame_name}, 0, 0, new List<GenericBox> {{ {hitbox_str} }}),')
 
-def extract_frame_numbers(frame_data_text):
-    # Regular expression to extract numbers between parentheses after "new FrameData("
+def extract_frame_numbers(file_path):
+    # Read the file and extract frame numbers from each "new FrameData" line
+    if not os.path.exists(file_path):
+        with open(file_name, 'w') as file:
+            file.write("")
+            
+    with open(file_path, 'r') as file:
+        frame_data_text = file.read()
     matches = re.findall(r'new FrameData\((\d+)', frame_data_text)
     return [int(match) for match in matches]
 
 if __name__ == "__main__":
-    # Solicita a lista de objetos `FrameData` no formato dado
-    frame_data_text = input("Cole a lista de FrameData: ")
-    
+    # Especifica o caminho do arquivo
+    file_path = "sprites.txt"
+
     # Extrai os números dos frames
-    frame_numbers = extract_frame_numbers(frame_data_text)
+    frame_numbers = extract_frame_numbers(file_path)
     
     # Cria a lista de arquivos de imagem com base nos números extraídos
     image_files = [f"{num}.png" for num in frame_numbers]

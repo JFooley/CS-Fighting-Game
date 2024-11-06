@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
     if not os.path.exists(file_name):
         with open(file_name, 'w') as file:
-            file.write("new FrameData(1, 0, 0)\n")
+            file.write("")
 
     with open(file_name, 'r') as file:
         linhas = file.readlines()
