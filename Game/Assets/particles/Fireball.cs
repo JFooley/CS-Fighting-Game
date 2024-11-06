@@ -95,7 +95,7 @@ public class Fireball : Character {
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 100, 170);
+                    Character.Damage(target: target, 63, 48);
                     target.HitStun(this, -4);
                 }
                 break;
@@ -111,7 +111,7 @@ public class Fireball : Character {
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 150, 170);
+                    Character.Damage(target: target, 125, 78);
                     target.HitStun(this, -4);
                 }
                 break;

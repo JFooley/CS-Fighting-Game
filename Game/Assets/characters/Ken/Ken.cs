@@ -796,7 +796,7 @@ public class Ken : Character {
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 88, 25);
+                    Character.Damage(target: target, 56, 94);
                     target.HitStun(this, 2);
                 }
                 break;
