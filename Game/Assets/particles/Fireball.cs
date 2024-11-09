@@ -65,11 +65,13 @@ public class Fireball : Character {
         base.DoBehave();
         switch (this.CurrentState) {
             case "Ken1":
-                this.Position.X += 5 * this.facing;
-                 break;
+                if (this.LifePoints.X == -1) this.ChangeState("KenExit");
+                this.SetVelocity(X: 5, T: 2);
+                break;
 
             case "Ken2":
-                this.Position.X += 7 * this.facing;
+                if (this.LifePoints.X == -1) this.ChangeState("KenExit");
+                this.SetVelocity(X: 7, T: 2);
                 break;
 
             case "Remove":
@@ -83,6 +85,12 @@ public class Fireball : Character {
 
     public override int ImposeBehavior(Character target) {
         int hit = -1;
+
+        if (target.name == "Fireball") {
+            target.LifePoints.X = -1;
+            return hit;
+        };
+
         switch (this.CurrentState) {
             case "Ken1":
                 Character.Pushback(target: target, self: this, "Medium", force_push: true);
