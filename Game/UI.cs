@@ -114,7 +114,7 @@ namespace UI_space {
             // Draw lifebar A
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
             var lifeA = Math.Max(Math.Min(lifeA_scale, 150), 0);
-            this.graylife_A = lifeA > this.graylife_A ? this.graylife_A = lifeA : (int) (this.graylife_A + (lifeA - this.graylife_A) * 0.01);
+            if (stage.comboCounter == 0) this.graylife_A = lifeA > this.graylife_A ? this.graylife_A = lifeA : (int) (this.graylife_A + (lifeA - this.graylife_A) * 0.01);
             this.DrawRectangle(window, -181, -96, 152, 12, this.bar_outline);
             this.DrawRectangle(window, -180, -95, 150, 8, this.bar_background);
             this.DrawRectangle(window, -180 + (150 - this.graylife_A), -95, this.graylife_A, 8, this.bar_graylife);
@@ -129,7 +129,7 @@ namespace UI_space {
             // Draw lifebar B
             var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;
             var lifeB = Math.Max(Math.Min(lifeB_scale, 150), 0);
-            this.graylife_B = lifeB > this.graylife_B ? this.graylife_B = lifeB : (int) (this.graylife_B + (lifeB - this.graylife_B) * 0.01);
+            if (stage.comboCounter == 0) this.graylife_B = lifeB > this.graylife_B ? this.graylife_B = lifeB : (int) (this.graylife_B + (lifeB - this.graylife_B) * 0.01);
             this.DrawRectangle(window, 29, -96, 152, 12, this.bar_outline);
             this.DrawRectangle(window, 30, -95, 150, 8, this.bar_background);
             this.DrawRectangle(window, 30, -95, this.graylife_B, 8, this.bar_graylife);
