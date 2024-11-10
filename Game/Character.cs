@@ -62,6 +62,7 @@ public class Character : Object_Space.Object {
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool isCrounching = false;
+    public bool onAir => this.Position.Y < this.floorLine ? true : false;
     public bool hasHit = false; 
 
     private bool blockingHigh = false;
@@ -201,7 +202,7 @@ public class Character : Object_Space.Object {
         return (this.notActing || this.CurrentState == "OnBlockCrouching") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
     public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
-        if (airbone || this.LifePoints.X <= 0) {
+        if (airbone || this.LifePoints.X <= 0 || this.onAir) {
             this.ChangeState("Airboned", reset: true);
             this.SetVelocity(
                 X: -5, 

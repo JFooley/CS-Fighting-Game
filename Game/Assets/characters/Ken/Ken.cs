@@ -546,7 +546,7 @@ public class Ken : Character {
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
-            { "LightHaduken", new Animation(lightHadukenFrames, "Idle", 20)},
+            { "LightHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
             { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
