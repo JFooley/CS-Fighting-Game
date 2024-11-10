@@ -134,8 +134,8 @@ public static class Program
                             break;
 
                         case RoundEnd: // Fim de round
-                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "KO" : "Time's up!";
-                            UI.Instance.DrawText(window, message, 0, -30, spacing: -25);
+                            string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "Æ" : "Time's up!";
+                            UI.Instance.DrawText(window, message, 0, -30, spacing: -25, size: 2);
                             if (!stage.CheckTimer(3)) break;
 
                             stage.ResetTimer();                            

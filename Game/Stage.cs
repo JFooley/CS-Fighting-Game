@@ -16,6 +16,7 @@ public class Stage {
 
     // Battle Info
     private int hitstopCounter = 0;
+    public int comboCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
@@ -86,6 +87,9 @@ public class Stage {
         if (hitstopCounter > 0) {
             hitstopCounter--;
         }
+        if (!this.character_A.onHit && !this.character_B.onHit) {
+            this.comboCounter = 0;
+        }
 
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
@@ -134,8 +138,6 @@ public class Stage {
         foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
         UI.Instance.DrawBattleUI(window, this);
         foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, showBoxs);
-
-
     }
     private void DoBehavior() {
         // Move characters away from border
@@ -217,7 +219,7 @@ public class Stage {
                             charA.hasHit = true;
                             var hit = charA.ImposeBehavior(charB);
                             this.spawnHitspark(hit, charB.Position, charA.facing, -10);
-
+                            this.comboCounter += hit == 1 ? 1 : 0;
                         }
                     }
                 }

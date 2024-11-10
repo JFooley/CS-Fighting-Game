@@ -61,15 +61,19 @@ namespace UI_space {
         }
 
         // Simple Draw Calls
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 20, bool center = true) {
+        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, bool center = true) {
             float totalWidth = 0;
+            List<Sprite> text_sprites = new List<Sprite> {};
 
             // Calcular a largura total do texto
             foreach (char c in text)
             {
-                if (characterSprites.TryGetValue(c, out Sprite sprite))
+                if (characterSprites.TryGetValue(c, out Sprite letter))
                 {
+                    var sprite = new Sprite(letter);
+                    if (size > 0) sprite.Scale = new Vector2f(size, size);
                     totalWidth += sprite.GetGlobalBounds().Width + spacing;
+                    text_sprites.Add(sprite);
                 }
             }
             
@@ -77,19 +81,14 @@ namespace UI_space {
             totalWidth -= spacing;
 
             // Ajustar posição se centralizado
-            if (center)
-            {
-                X -= totalWidth / 2; // Centraliza X
+            if (center) {
+                X -= totalWidth / 2; 
             }
 
-            foreach (char c in text)
-            {
-                if (characterSprites.TryGetValue(c, out Sprite sprite))
-                {
-                    sprite.Position = new Vector2f(Camera.GetInstance().X + X, Camera.GetInstance().Y + Y);
-                    window.Draw(sprite);
-                    X += sprite.GetGlobalBounds().Width + spacing;
-                }
+            foreach (Sprite sprite in text_sprites) {   
+                sprite.Position = new Vector2f(Camera.GetInstance().X + X, Camera.GetInstance().Y + Y);
+                window.Draw(sprite);
+                X += sprite.GetGlobalBounds().Width + spacing;
             }
         }
         public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, Color color) {
@@ -107,8 +106,13 @@ namespace UI_space {
             // Draw time
             this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -110, center: true, spacing: -25);
 
+            // Draw Combo text
+            if (stage.comboCounter > 1) {
+                this.DrawText(window, "Combo " + stage.comboCounter, 0, 70, spacing: -15, center: true, size: 0.8f);
+            }
+
             // Draw lifebar A
-            var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;;
+            var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
             var lifeA = Math.Max(Math.Min(lifeA_scale, 150), 0);
             this.graylife_A = lifeA > this.graylife_A ? this.graylife_A = lifeA : (int) (this.graylife_A + (lifeA - this.graylife_A) * 0.01);
             this.DrawRectangle(window, -181, -96, 152, 12, this.bar_outline);
@@ -123,7 +127,7 @@ namespace UI_space {
             this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
             
             // Draw lifebar B
-            var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;;
+            var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;
             var lifeB = Math.Max(Math.Min(lifeB_scale, 150), 0);
             this.graylife_B = lifeB > this.graylife_B ? this.graylife_B = lifeB : (int) (this.graylife_B + (lifeB - this.graylife_B) * 0.01);
             this.DrawRectangle(window, 29, -96, 152, 12, this.bar_outline);
@@ -157,7 +161,7 @@ namespace UI_space {
             'è','ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ', 'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 
             'Ö', 'Ü', '¢', '£', '¥', 'ƒ', 'á', 'í', 'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', 
             '¿', '⌐', '¬', '½', '¼', '¡', '«', '»', 'π', 'µ', '±', '≥', '≤', '÷', 
-            '≈', '°', '·', '√'
+            '≈', '°', '·', '√', ' '
         };
 
         private const int CellSize = 32; // Tamanho de cada célula

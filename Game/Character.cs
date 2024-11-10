@@ -64,11 +64,11 @@ public class Character : Object_Space.Object {
     public bool isCrounching = false;
     public bool onAir => this.Position.Y < this.floorLine ? true : false;
     public bool hasHit = false; 
+    public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
 
     private bool blockingHigh = false;
     private bool blockingLow = false;
     private bool blocking = false;
-
 
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
