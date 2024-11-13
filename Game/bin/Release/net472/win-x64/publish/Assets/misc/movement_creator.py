@@ -4,11 +4,13 @@ from PIL import Image, ImageTk
 import tkinter as tk
 
 class FrameMovementApp:
-    def __init__(self, root, data, scale=2):
+    def __init__(self, root, data, repeticao, scale=2):
         self.root = root
         self.data = data
         self.current_frame = 0
         self.scale = scale
+
+        self.repeticao = repeticao;
 
         # Define the size of the window
         self.window_width = 800
@@ -139,7 +141,7 @@ class FrameMovementApp:
         self.redraw()
 
     def print_frame_data(self):
-        new_string = f"new FrameData({self.data[self.current_frame][1]}, {self.data[self.current_frame][2]}, {self.data[self.current_frame][3]}{self.data[self.current_frame][4]}),"
+        new_string = f"new FrameData({self.data[self.current_frame][1]}, {self.data[self.current_frame][2]/self.repeticao}f, {self.data[self.current_frame][3]/self.repeticao}f{self.data[self.current_frame][4]}),"
         print(new_string)
 
 if __name__ == "__main__":
@@ -151,6 +153,8 @@ if __name__ == "__main__":
 
     with open(file_name, 'r') as file:
         linhas = file.readlines()
+
+    rep = int(input("Digite o framerate: "))
 
     data = []
     pattern = r'new FrameData\((\d+),\s*(-?\d+),\s*(-?\d+)(.*)\)'
@@ -166,6 +170,7 @@ if __name__ == "__main__":
             data.append([f"{img_name}.png", img_name, x_offset, y_offset, string_sufix])
 
     root = tk.Tk()
-    app = FrameMovementApp(root, data, scale=2)
+    app = FrameMovementApp(root, data, 60/rep, scale=2)
     root.mainloop()
     input("------------- Finalizado -------------")
+    input()

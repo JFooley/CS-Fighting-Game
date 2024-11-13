@@ -1668,6 +1668,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\97.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\98.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\99.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\movement_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\sprites.txt
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\atlas.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font.otf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font0.ttf

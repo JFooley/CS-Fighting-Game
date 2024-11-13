@@ -2127,3 +2127,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Ken\sprites\colider_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Ken\sprites\framedata_list_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Ken\sprites\sprites.txt
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Psylock\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Psylock\sprites\movement_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\characters\Psylock\sprites\sprites.txt
