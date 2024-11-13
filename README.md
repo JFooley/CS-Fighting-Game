@@ -35,10 +35,12 @@ Implementado:
 - Fixed: Jogadores não podem se afastar um do outro mais do que o tamanho da tela.
 - Particulas visuais independentes (Super Art, etc)
 - Hitstun e blockstun
+- Combo e indicação individual
+- Damage scaling
 
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
-- Feat: Limitadores de combo (combo scaling e limite de juggle)
+- Feat: Limite de juggle
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
