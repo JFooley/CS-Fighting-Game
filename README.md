@@ -39,7 +39,6 @@ Implementado:
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Limitadores de combo (combo scaling e limite de juggle)
-- Bug: Projéteis não desaparecem quando se atingem
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
