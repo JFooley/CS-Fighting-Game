@@ -198,16 +198,16 @@ public class Psylock : Character {
         };
 
         var dashBackwardFrames = new List<FrameData> {
-            new FrameData(122, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 91, 95, 133, 160), new GenericBox(1, 67, 129, 90, 159), new GenericBox(1, 132, 152, 153, 189) }),
-            new FrameData(123, -0, 0, new List<GenericBox> { new GenericBox(1, 124, 126, 174, 144), new GenericBox(1, 87, 112, 126, 158), new GenericBox(1, 74, 90, 109, 122) }),
-            new FrameData(124, -0, 0, new List<GenericBox> { new GenericBox(1, 68, 91, 90, 131), new GenericBox(1, 90, 112, 125, 154), new GenericBox(1, 120, 138, 138, 157), new GenericBox(1, 123, 100, 149, 126), new GenericBox(1, 146, 91, 162, 111) }),
-            new FrameData(125, -0, 0, new List<GenericBox> { new GenericBox(1, 65, 110, 97, 139), new GenericBox(1, 94, 114, 126, 157), new GenericBox(1, 125, 142, 141, 158), new GenericBox(1, 107, 87, 137, 115) }),
-            new FrameData(126, -0, 0, new List<GenericBox> { new GenericBox(1, 89, 124, 132, 154), new GenericBox(1, 126, 140, 144, 157), new GenericBox(1, 88, 81, 114, 129), new GenericBox(1, 66, 139, 89, 157), new GenericBox(1, 101, 153, 116, 172) }),
-            new FrameData(127, -0, 0, new List<GenericBox> { new GenericBox(1, 52, 100, 75, 120), new GenericBox(1, 72, 111, 106, 140), new GenericBox(1, 72, 150, 101, 180), new GenericBox(1, 85, 128, 133, 162), new GenericBox(1, 133, 141, 148, 157) }),
-            new FrameData(128, -0, 0, new List<GenericBox> { new GenericBox(1, 106, 104, 153, 137), new GenericBox(1, 86, 117, 121, 152), new GenericBox(1, 106, 151, 127, 190), new GenericBox(1, 57, 137, 85, 170) }),
-            new FrameData(129, 0, 0, new List<GenericBox> { new GenericBox(1, 120, 95, 138, 111), new GenericBox(1, 104, 110, 147, 127), new GenericBox(1, 94, 124, 127, 148), new GenericBox(1, 79, 148, 153, 194) }),
-            new FrameData(130, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 96, 118, 123, 146), new GenericBox(1, 122, 118, 142, 134), new GenericBox(1, 104, 104, 122, 118), new GenericBox(1, 86, 146, 155, 193), }),
-            new FrameData(131, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 104, 109, 120, 123), new GenericBox(1, 93, 123, 123, 163), new GenericBox(1, 121, 126, 138, 142), new GenericBox(1, 86, 149, 151, 194) }),
+            new FrameData(121, 0.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(122, -1.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(123, -2.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(124, -1.5f, 0.0f, new List<GenericBox> {}),
+            new FrameData(125, -2.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(126, -2.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(127, -2.5f, 0.0f, new List<GenericBox> {}),
+            new FrameData(128, -2.0f, 0.0f, new List<GenericBox> {}),
+            new FrameData(129, -1.5f, 0.0f, new List<GenericBox> {}),
+            new FrameData(130, -0.5f, 0.0f, new List<GenericBox> {}),
         };
 
         var crouchingFrames = new List<FrameData> {
