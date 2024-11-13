@@ -361,7 +361,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = 1;
                     target.HitStun(this, 3);
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
                     hit = 0;
@@ -374,7 +374,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = 1;
                     target.HitStun(this, 4);
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
                     hit = 0;
@@ -387,7 +387,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = 1;
                     target.HitStun(this, 2);
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
                     hit = 0;
@@ -400,7 +400,7 @@ public class Psylock : Character {
                 if (!target.isBlocking()) {
                     hit = 1;
                     target.HitStun(this, 0);
-                    Character.Damage(target: target, 50, 170);
+                    Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
                     hit = 0;

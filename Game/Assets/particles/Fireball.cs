@@ -98,12 +98,12 @@ public class Fireball : Character {
 
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Damage(target: target, 10, 0);
+                    Character.Damage(target: target, self: this, 10, 0);
                     target.BlockStun(this, -5);
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 63, 48);
+                    Character.Damage(target: target, self: this, 63, 48);
                     target.HitStun(this, -4);
                 }
                 break;
@@ -114,12 +114,12 @@ public class Fireball : Character {
 
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Damage(target: target, 10, 0);
+                    Character.Damage(target: target, self: this, 10, 0);
                     target.BlockStun(this, -5);
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 125, 78);
+                    Character.Damage(target: target, self: this, 125, 78);
                     target.HitStun(this, -4);
                 }
                 break;

@@ -747,7 +747,7 @@ public class Ken : Character {
                     target.BlockStun(this, 3);
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 13, 50);
+                    Character.Damage(target: target, self: this, 13, 50);
                     target.HitStun(this, 4);
                 }
                 break;
@@ -759,7 +759,7 @@ public class Ken : Character {
                     target.BlockStun(this, 2);
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 44, 50);
+                    Character.Damage(target: target, self: this, 44, 50);
                     target.HitStun(this, 2);
                 }
                 break;
@@ -771,7 +771,7 @@ public class Ken : Character {
                     target.BlockStun(this, 3);
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 100, 172);
+                    Character.Damage(target: target, self: this, 100, 172);
                     target.BlockStun(this, 4);
                 }
                 break;
@@ -783,7 +783,7 @@ public class Ken : Character {
                     target.BlockStun(this, -6);
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 120, 235);
+                    Character.Damage(target: target, self: this, 120, 235);
                     target.HitStun(this, -2);
                 }
                 break;
@@ -796,7 +796,7 @@ public class Ken : Character {
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 56, 94);
+                    Character.Damage(target: target, self: this, 56, 94);
                     target.HitStun(this, 2);
                 }
                 break;
@@ -810,7 +810,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Pushback(target: target, self: this, "Light");
-                    Character.Damage(target: target, 107, 110);
+                    Character.Damage(target: target, self: this, 107, 110);
                     target.HitStun(this, 0);
                 }
                 break;
@@ -824,7 +824,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Pushback(target: target, self: this, "Heavy");
-                    Character.Damage(target: target, 163, 170);
+                    Character.Damage(target: target, self: this, 163, 170);
                     target.HitStun(this, 0, airbone: true, airbone_height: 100);
                 }
                 break;
@@ -838,7 +838,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Pushback(target: target, self: this, "Heavy");
-                    Character.Damage(target: target, 200, 170);
+                    Character.Damage(target: target, self: this, 200, 170);
                     target.HitStun(this, 0, airbone: true, airbone_height: 120);
                 }
                 break;
@@ -846,12 +846,12 @@ public class Ken : Character {
             case "SA1":
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Damage(target: target, 5, 0);
+                    Character.Damage(target: target, self: this, 5, 0);
                     Character.Pushback(target: target, self: this, "Heavy");
                     target.BlockStun(this, 30, force: true);
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, 45, 35);
+                    Character.Damage(target: target, self: this, 45, 35);
                     target.HitStun(this, 1);
                 }
                 break;
@@ -868,7 +868,7 @@ public class Ken : Character {
                 target.SetVelocity();
                 target.ChangeState("OnGround");
 
-                Character.Damage(target: target, 400, 0);
+                Character.Damage(target: target, self: this, 400, 0);
                 break;
 
             default:

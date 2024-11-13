@@ -16,7 +16,6 @@ public class Stage {
 
     // Battle Info
     private int hitstopCounter = 0;
-    public int comboCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
@@ -87,8 +86,11 @@ public class Stage {
         if (hitstopCounter > 0) {
             hitstopCounter--;
         }
-        if (!this.character_A.onHit && !this.character_B.onHit) {
-            this.comboCounter = 0;
+        if (!this.character_A.onHit) {
+            this.character_B.comboCounter = 0;
+        }
+        if (!this.character_B.onHit) {
+            this.character_A.comboCounter = 0;
         }
 
         // Update Current Sprite
@@ -216,10 +218,10 @@ public class Stage {
 
                         } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
                             this.hitstopCounter = Config.hitStopTime;
-                            charA.hasHit = true;
                             var hit = charA.ImposeBehavior(charB);
+                            charA.hasHit = true;
+                            charA.comboCounter += hit == 1 ? 1 : 0;
                             this.spawnHitspark(hit, charB.Position, charA.facing, -10);
-                            this.comboCounter += hit == 1 ? 1 : 0;
                         }
                     }
                 }

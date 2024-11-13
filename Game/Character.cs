@@ -70,6 +70,9 @@ public class Character : Object_Space.Object {
     private bool blockingLow = false;
     private bool blocking = false;
 
+    public int comboCounter = 0;
+    public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
+
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
     public Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
@@ -251,9 +254,9 @@ public class Character : Object_Space.Object {
             }
         }
     }
-    public static void Damage(Character target, int damage, int dizzy_damage) {
-        target.LifePoints.X -= damage;
-        target.DizzyPoints.X -= dizzy_damage;
+    public static void Damage(Character target, Character self, int damage, int dizzy_damage) {
+        target.LifePoints.X -= (int) (damage * self.damageScaling);
+        target.DizzyPoints.X -= (int) (dizzy_damage * self.damageScaling);
     }
     public void Stun(Character enemy, bool hit, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
         if (hit) {
