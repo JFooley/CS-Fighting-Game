@@ -772,7 +772,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 100, 172);
-                    target.BlockStun(this, 4);
+                    target.HitStun(this, 4);
                 }
                 break;
 

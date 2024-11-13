@@ -2131,3 +2131,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Asse
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\particles\sprites\Particle\519.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\particles\sprites\Particle\520.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\particles\sprites\Particle\521.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Ken\sprites\colider_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Ken\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Ken\sprites\sprites.txt
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Psylock\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Psylock\sprites\movement_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\Assets\characters\Psylock\sprites\sprites.txt

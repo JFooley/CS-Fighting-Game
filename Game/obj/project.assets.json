@@ -866,15 +866,22 @@
         }
       }
     },
-    ".NETFramework,Version=v4.7.2/win-x64": {
+    ".NETFramework,Version=v4.7.2/linux-x64": {
       "CSFML/2.6.1": {
         "type": "package",
         "native": {
-          "runtimes/win-x64/native/csfml-audio.dll": {},
-          "runtimes/win-x64/native/csfml-graphics.dll": {},
-          "runtimes/win-x64/native/csfml-system.dll": {},
-          "runtimes/win-x64/native/csfml-window.dll": {},
-          "runtimes/win-x64/native/openal32.dll": {}
+          "runtimes/linux-x64/native/libcsfml-audio.so": {},
+          "runtimes/linux-x64/native/libcsfml-audio.so.2.6": {},
+          "runtimes/linux-x64/native/libcsfml-graphics.so": {},
+          "runtimes/linux-x64/native/libcsfml-graphics.so.2.6": {},
+          "runtimes/linux-x64/native/libcsfml-system.so": {},
+          "runtimes/linux-x64/native/libcsfml-system.so.2.6": {},
+          "runtimes/linux-x64/native/libcsfml-window.so": {},
+          "runtimes/linux-x64/native/libcsfml-window.so.2.6": {},
+          "runtimes/linux-x64/native/libsfml-audio.so.2.6": {},
+          "runtimes/linux-x64/native/libsfml-graphics.so.2.6": {},
+          "runtimes/linux-x64/native/libsfml-system.so.2.6": {},
+          "runtimes/linux-x64/native/libsfml-window.so.2.6": {}
         },
         "build": {
           "build/netframework/_._": {}
@@ -2027,7 +2034,7 @@
       }
     },
     "runtimes": {
-      "win-x64": {
+      "linux-x64": {
         "#import": []
       }
     }

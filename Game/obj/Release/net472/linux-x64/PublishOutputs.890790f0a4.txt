@@ -726,6 +726,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publ
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\15686.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\15687.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\15688.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\colider_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Ken\sprites\sprites.txt
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sounds\dash.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sounds\golpe_2.mp3
@@ -1665,6 +1668,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publ
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\97.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\98.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\99.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\framedata_list_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\movement_creator.py
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\characters\Psylock\sprites\sprites.txt
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\fonts\atlas.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\fonts\font.otf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\linux-x64\publish\Assets\fonts\font0.ttf
