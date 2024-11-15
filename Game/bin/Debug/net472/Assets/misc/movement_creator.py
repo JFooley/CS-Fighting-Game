@@ -10,7 +10,7 @@ class FrameMovementApp:
         self.current_frame = 0
         self.scale = scale
 
-        self.repeticao = repeticao;
+        self.repeticao = repeticao
 
         # Define the size of the window
         self.window_width = 800

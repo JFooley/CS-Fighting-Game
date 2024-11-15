@@ -2124,9 +2124,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\519.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\520.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\521.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sprites\colider_creator.py
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sprites\framedata_list_creator.py
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sprites\sprites.txt
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\framedata_list_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\movement_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\sprites.txt
+d:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sprites\anim_maker.py
