@@ -4,9 +4,9 @@ using SFML.System;
 public class RigidBody {
     public Vector2f LastPosition;
     public Vector2f Position;
-    public Vector2f Velocity;
-    public float gravidade = Config.Gravity; // Aceleração gravitacional
-    public float atrito => gravidade * 0.5F;
+    private Vector2f Velocity;
+    private float gravidade = Config.Gravity;
+    private float atrito => gravidade * 0.5F;
 
     public RigidBody(float X = 0, float Y = 0) {
         this.Position = new Vector2f(X, Y);
@@ -27,7 +27,7 @@ public class RigidBody {
         } else {
             this.Velocity.Y = 0;
             this.Position.Y = player.floorLine;
-            if (this.LastPosition.Y > player.floorLine && this.Position.Y == player.floorLine) this.Velocity.X = 0;
+            if (this.LastPosition.Y < player.floorLine && this.Position.Y == player.floorLine) this.Velocity.X = 0;
         }
     }
 
