@@ -41,6 +41,9 @@ Implementado:
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Limite de juggle
+- Fix: Física correta
+- Fix: Pushback usando push boxes ao invés de valores fixos
+- Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
 - Balanceamento
 - Lógica do jogo mais robusta
 - Menu de seleção de personagem e stage
