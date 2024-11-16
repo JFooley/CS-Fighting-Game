@@ -50,7 +50,6 @@ public class Character : Object_Space.Object {
 
     // Object infos
     public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
-    public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
 
@@ -166,10 +165,9 @@ public class Character : Object_Space.Object {
         this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
         // Update body.Position
+        this.body.Update(this);
         this.body.Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
         this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
-        // this.physics.Update(this);
-        this.body.Update(this);
 
         // Change state, if necessary
         if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
@@ -324,8 +322,8 @@ public class Character : Object_Space.Object {
         this.DizzyPoints.X = this.DizzyPoints.Y;
         this.body.Position.X = start_point;
         this.body.Position.Y = this.floorLine;
+        this.body.SetVelocity(this, 0, 0, raw_set: true);
         this.facing = facing;
-        this.Velocity = new Vector3f(0, 0, 0);
     }
    
     // Visuals load

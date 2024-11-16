@@ -4,7 +4,7 @@ using SFML.System;
 public class RigidBody {
     public Vector2f LastPosition;
     public Vector2f Position;
-    private Vector2f Velocity;
+    public Vector2f Velocity;
     private float gravidade = Config.Gravity;
     private float atrito => gravidade * 0.5F;
 

@@ -161,11 +161,11 @@ public class Stage {
         
         // Keep characters facing each other
         if (this.character_A.body.Position.X < this.character_B.body.Position.X) {
-            if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = 1;
-            if (this.character_B.CurrentAnimation.currentFrameIndex == 0 || this.character_B.notActing) this.character_B.facing = -1;
+            if ((this.character_A.CurrentAnimation.currentFrameIndex == 0 && !this.character_A.onAir) || this.character_A.notActing) this.character_A.facing = 1;
+            if ((this.character_B.CurrentAnimation.currentFrameIndex == 0 && !this.character_B.onAir) || this.character_B.notActing) this.character_B.facing = -1;
         } else {
-            if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = -1;
-            if (this.character_B.CurrentAnimation.currentFrameIndex == 0 || this.character_B.notActing) this.character_B.facing = 1;
+            if ((this.character_A.CurrentAnimation.currentFrameIndex == 0 && !this.character_A.onAir) || this.character_A.notActing) this.character_A.facing = -1;
+            if ((this.character_B.CurrentAnimation.currentFrameIndex == 0 && !this.character_B.onAir) || this.character_B.notActing) this.character_B.facing = 1;
         }
 
         this.checkColisions();

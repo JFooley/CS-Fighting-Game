@@ -2,7 +2,6 @@ using SFML.System;
 using Character_Space;
 using Animation_Space;
 using Input_Space;
-using Aux_Space;
 using Stage_Space;
 
 public class Psylock : Character {
@@ -230,11 +229,12 @@ public class Psylock : Character {
             new FrameData(140, 0, 0, new List<GenericBox> { new GenericBox(1, 104, 102, 148, 147), new GenericBox(1, 138, 97, 155, 115) }),
             new FrameData(141, 0, 0, new List<GenericBox> { new GenericBox(1, 133, 90, 149, 107), new GenericBox(1, 99, 99, 147, 153), new GenericBox(1, 99, 152, 125, 171), new GenericBox(1, 147, 101, 170, 116) }),
             new FrameData(142, 0, 0, new List<GenericBox> { new GenericBox(1, 99, 97, 141, 163), new GenericBox(1, 111, 81, 152, 102), new GenericBox(1, 98, 159, 116, 177) }),
-            new FrameData(143, 0, 0, new List<GenericBox> { new GenericBox(1, 103, 66, 135, 195) }),
-            new FrameData(144, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 66, 137, 195) }),
-            new FrameData(145, 0, 0, new List<GenericBox> { new GenericBox(1, 108, 108, 124, 123), new GenericBox(1, 98, 123, 131, 166), new GenericBox(1, 130, 126, 141, 140), new GenericBox(1, 93, 151, 152, 195) }),
         };
 
+        var jumpFallingFrames = new List<FrameData> {
+            new FrameData(143, 0, 0, new List<GenericBox> { new GenericBox(1, 103, 66, 135, 195) }),
+            new FrameData(144, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 66, 137, 195) }),
+        };
 
         // States
         var animations = new Dictionary<string, Animation> {
@@ -254,9 +254,10 @@ public class Psylock : Character {
             { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
-            { "Jump", new Animation(jumpFrames, "Idle", 20)},
-            { "JumpForward", new Animation(jumpFrames, "Idle", 20)},
-            { "JumpBackward", new Animation(jumpFrames, "Idle", 20)},
+            { "Jump", new Animation(jumpFrames, "JumpFalling", 20)},
+            { "JumpForward", new Animation(jumpFrames, "JumpFalling", 20)},
+            { "JumpBackward", new Animation(jumpFrames, "JumpFalling", 20)},
+            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, doChangeState: false)},
             // Bonus
             { "Intro", new Animation(introFrames, "Idle", 10)},
         };
@@ -275,10 +276,9 @@ public class Psylock : Character {
             return;
         }
 
-
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
         
-        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
+        if (((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) || (this.CurrentState == "JumpFalling" && this.body.Position.Y == this.floorLine)) {
             this.ChangeState("Idle");
         }
 
@@ -339,6 +339,7 @@ public class Psylock : Character {
 
         } else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpForward");
+        } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: this.move_speed + 1, 
                 Y: this.jump_hight, 
@@ -346,6 +347,7 @@ public class Psylock : Character {
 
         } else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpBackward");
+        } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight, 

@@ -2,7 +2,6 @@ using SFML.System;
 using Character_Space;
 using Animation_Space;
 using Input_Space;
-using Aux_Space;
 using System.IO.Compression;
 using Stage_Space;
 
@@ -231,9 +230,12 @@ public class Ken : Character {
             new FrameData(14739, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 84, 91, 136, 141), new GenericBox(1, 136, 107, 162, 168) }),
             new FrameData(14740, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 135, 99), new GenericBox(1, 93, 90, 137, 125), new GenericBox(1, 107, 115, 155, 144), new GenericBox(1, 120, 143, 152, 191) }),
             new FrameData(14741, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 119, 80, 138, 98), new GenericBox(1, 93, 94, 140, 124), new GenericBox(1, 107, 123, 149, 185) }),
-            new FrameData(14742, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 79, 137, 95), new GenericBox(1, 95, 89, 138, 122), new GenericBox(1, 107, 122, 155, 149), new GenericBox(1, 106, 149, 139, 193) }),
-            new FrameData(14743, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 119, 78, 137, 93), new GenericBox(1, 95, 89, 142, 125), new GenericBox(1, 109, 126, 152, 158), new GenericBox(1, 109, 159, 138, 194) }),
+        };
+
+        var jumpFallingFrames = new List<FrameData> {
             new FrameData(14744, 0, 0, new List<GenericBox> {pushbox, new GenericBox(1, 121, 80, 141, 96), new GenericBox(1, 100, 89, 142, 124), new GenericBox(1, 106, 123, 154, 161), new GenericBox(1, 105, 160, 138, 192) }),
+            new FrameData(14743, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 79, 137, 95), new GenericBox(1, 95, 89, 138, 122), new GenericBox(1, 107, 122, 155, 149), new GenericBox(1, 106, 149, 139, 193) }),
+            new FrameData(14742, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 119, 78, 137, 93), new GenericBox(1, 95, 89, 142, 125), new GenericBox(1, 109, 126, 152, 158), new GenericBox(1, 109, 159, 138, 194) }),
         };
 
         var JumpBackward = new List<FrameData>(jumpForward);
@@ -320,41 +322,41 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { pushbox, }, "tatso", hasHit: false),
-            new FrameData(15357, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15358, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15359, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15366, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15367, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15368, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15370, 0, 0, new List<GenericBox> { pushbox, })
+            new FrameData(15356, this.tatso_speed, 0, new List<GenericBox> { pushbox, }, "tatso", hasHit: false),
+            new FrameData(15357, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15358, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15359, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15366, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15367, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15368, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15369, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15370, this.tatso_speed, 0, new List<GenericBox> { pushbox, })
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0, 0, new List<GenericBox> { pushbox, }, "tatso"),
-            new FrameData(15357, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15358, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15359, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15366, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15367, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15368, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, })
+            new FrameData(15356, this.tatso_speed, 0, new List<GenericBox> { pushbox, }, "tatso"),
+            new FrameData(15357, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15358, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15359, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15366, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15367, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15368, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15369, this.tatso_speed, 0, new List<GenericBox> { pushbox, })
         };
         
         var AirbonedFrames = new List<FrameData> {
@@ -504,13 +506,14 @@ public class Ken : Character {
             { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
             { "Jump", new Animation(jumpFrames, "Idle", 20)},
-            { "JumpForward", new Animation(jumpForward, "Idle", 20)},
-            { "JumpBackward", new Animation(JumpBackward, "Idle", 20)},
+            { "JumpForward", new Animation(jumpForward, "JumpFalling", 20)}, 
+            { "JumpBackward", new Animation(JumpBackward, "JumpFalling", 20)},
+            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, doChangeState: false)},
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
             { "SA1", new Animation(SA1, "SA1_tail", 60)},
-            { "SA1_tail", new Animation(SA1_tail, "Idle", 30)},
+            { "SA1_tail", new Animation(SA1_tail, "JumpFalling", 30)},
             { "Shungoku", new Animation(Shungoku, "Idle", 10)},
             { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
             // Specials
@@ -546,7 +549,7 @@ public class Ken : Character {
 
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
 
-        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
+        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) || ((this.CurrentState == "JumpFalling" || this.CurrentState == "AirTatso") && this.body.Position.Y == this.floorLine)) {
             this.ChangeState("Idle");
         }
 
@@ -558,7 +561,7 @@ public class Ken : Character {
         } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: 1, 
-                Y: 60, 
+                Y: 150, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
         }
 
@@ -606,25 +609,13 @@ public class Ken : Character {
         // Tatso
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightTatso");
-        } else if (this.CurrentState == "LightTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
-            this.SetVelocity(
-                X: this.tatso_speed - 1, 
-                Y: 10, 
-                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
         } 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
-        } else if (this.CurrentState == "HeavyTatso" && this.CurrentAnimation.currentFrameIndex == 2) {
-            this.SetVelocity(
-                X: this.tatso_speed, 
-                Y: 10, 
-                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
         } 
         if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
             this.ChangeState("AirTatso");
-        } else if (this.CurrentState == "AirTatso" && this.Velocity.Z == 0) {
-            this.ChangeState("Idle");
-        } 
+        }
 
         // Cancels
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
@@ -836,10 +827,7 @@ public class Ken : Character {
                     hit = 1;
                     Character.Damage(target: target, self: this, 45, 35);
                     target.HitStun(this, 5);
-                    target.SetVelocity(
-                        X: -1, 
-                        Y: 60, 
-                        T: target.CurrentAnimation.Frames.Count() * (60 / target.CurrentAnimation.framerate));
+                    if (this.CurrentFrameIndex < 6) target.SetVelocity(X: -1, Y: 150);
                 }
                 break;
                 

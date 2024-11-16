@@ -828,7 +828,7 @@
         "type": "package",
         "frameworkAssemblies": [
           "System",
-          "System.ComponentModel.Combody.Position",
+          "System.ComponentModel.Composition",
           "System.Core",
           "mscorlib"
         ],
@@ -866,7 +866,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.7.2/win7-x64": {
+    ".NETFramework,Version=v4.7.2/win-x64": {
       "CSFML/2.6.1": {
         "type": "package",
         "native": {
@@ -986,7 +986,7 @@
         "type": "package",
         "frameworkAssemblies": [
           "System",
-          "System.ComponentModel.Combody.Position",
+          "System.ComponentModel.Composition",
           "System.Core",
           "mscorlib"
         ],
@@ -2027,7 +2027,7 @@
       }
     },
     "runtimes": {
-      "win7-x64": {
+      "win-x64": {
         "#import": []
       }
     }
