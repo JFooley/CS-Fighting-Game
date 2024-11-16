@@ -45,7 +45,7 @@ public class Character : Object_Space.Object {
     public int StunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;
-    public int jump_hight = 80;
+    public int jump_hight = 70;
     public int push_box_width = 0;
 
     // Object infos
@@ -285,20 +285,10 @@ public class Character : Object_Space.Object {
 
     // Auxiliar methods
     public void SetVelocity(float X = 0, float Y = 0, int T = 0) {
-        // this.Velocity.X = X;
-        // this.Velocity.Y = Y;
-        // this.Velocity.Z = T - 1;
-        // this.physics.reset();
-        
-        this.body.SetVelocity(X, Y);
+        this.body.SetVelocity(this, X, Y);
     }
     public void AddVelocity(float X = 0, float Y = 0, int T = 0) {
-        // this.Velocity.X += X;
-        // this.Velocity.Y += Y;
-        // this.Velocity.Z += T;
-        // this.physics.reset();
-
-        this.body.AddVelocity(X, Y);
+        this.body.AddVelocity(this, X, Y);
     }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;

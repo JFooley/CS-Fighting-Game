@@ -33,7 +33,7 @@ public static class Config {
         set { _effect_volume = value; }
     }
 
-    public static float Gravity = 2800f / (Framerate*Framerate);
+    public static float Gravity = 2450f / (Framerate*Framerate);
 
     // Battle constants 32 38 48
     public static int RoundLength = 90;

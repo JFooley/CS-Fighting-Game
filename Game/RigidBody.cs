@@ -14,7 +14,7 @@ public class RigidBody {
 
     public void Update(Character player) {
         this.LastPosition = Position;
-        this.Position.X += this.Velocity.X * player.facing;
+        this.Position.X += this.Velocity.X;
         this.Position.Y += this.Velocity.Y;
 
         this.CheckGravity(player);
@@ -27,7 +27,6 @@ public class RigidBody {
         } else {
             this.Velocity.Y = 0;
             this.Position.Y = player.floorLine;
-            if (this.LastPosition.Y < player.floorLine && this.Position.Y == player.floorLine) this.Velocity.X = 0;
         }
     }
 
@@ -37,13 +36,13 @@ public class RigidBody {
         } 
     }
 
-    public void SetVelocity(float X = 0, float Y = 0, bool raw_set = false) {
+    public void SetVelocity(Character player, float X = 0, float Y = 0, bool raw_set = false) {
         if (raw_set) this.Velocity = new Vector2f(X, -Y);
-        else this.Velocity = new Vector2f(X, -this.CalcularForcaY(Y));
+        else this.Velocity = new Vector2f(X * player.facing, -this.CalcularForcaY(Y));
     }
 
-    public void AddVelocity(float X = 0, float Y = 0) {
-        this.Velocity += new Vector2f(X, Y);
+    public void AddVelocity(Character player, float X = 0, float Y = 0) {
+        this.Velocity += new Vector2f(X * player.facing, Y);
     }
 
     private float CalcularForcaY(float deltaY) {
