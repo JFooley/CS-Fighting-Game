@@ -7,7 +7,6 @@ Implementado:
 - Animações
 - Camera dinâmica
 - Janela de tamanho dinamico
-- Física simples
 - Sistema genérico personalizável de estados
 - Stages animados com behaviour próprio
 - Hitboxes e sistema para criar hitboxes
@@ -37,11 +36,14 @@ Implementado:
 - Hitstun e blockstun
 - Combo e indicação individual
 - Damage scaling
+- Física complexa
+
+Deprecated:
+- Física simples
 
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Limite de juggle
-- Fix: Física correta
 - Fix: Pushback usando push boxes ao invés de valores fixos
 - Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
 - Balanceamento
