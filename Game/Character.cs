@@ -2,11 +2,8 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Audio;
 using Animation_Space;
-using Aux_Space;
 using Input_Space;
 using Stage_Space;
-using UI_space;
-using System.Security.Cryptography.X509Certificates;
 
 // ----- Default States -------
 // Intro
@@ -52,8 +49,7 @@ public class Character : Object_Space.Object {
     public int push_box_width = 0;
 
     // Object infos
-    public Physics physics = new Physics();
-    public Vector2f VisualPosition => new Vector2f(this.Position.X - 125, this.Position.Y - 250);
+    public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
     public Vector3f Velocity = new Vector3f(0, 0, 0);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
@@ -62,7 +58,7 @@ public class Character : Object_Space.Object {
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool isCrounching = false;
-    public bool onAir => this.Position.Y < this.floorLine ? true : false;
+    public bool onAir => this.body.Position.Y < this.floorLine ? true : false;
     public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
 
@@ -93,7 +89,8 @@ public class Character : Object_Space.Object {
         this.CurrentState = initialState;
         this.LastState = initialState;
         this.stage = stage;
-        this.Position = new Vector2f(startX, startY);
+        base.body.Position.X = startX; 
+        base.body.Position.Y = startY;
         this.floorLine = startY;
         this.spriteImages = new Dictionary<int, Sprite>();
         this.characterSounds = new Dictionary<string, Sound>();
@@ -109,7 +106,7 @@ public class Character : Object_Space.Object {
         base.DoRender(window, drawHitboxes);
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = new Vector2f(this.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.Position.Y - temp_sprite.GetLocalBounds().Height);
+        temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         window.Draw(temp_sprite);
 
@@ -120,7 +117,7 @@ public class Character : Object_Space.Object {
         if (drawHitboxes) {  
             // Desenha o ponto central
             RectangleShape anchor = new RectangleShape(new Vector2f(1, 10)) {
-                Position = new Vector2f(this.Position.X, this.Position.Y - 55),
+                Position = new Vector2f(this.body.Position.X, this.body.Position.Y - 55),
                 FillColor = SFML.Graphics.Color.Transparent,
                 OutlineColor = Color.White, 
                 OutlineThickness = 1.0f 
@@ -168,10 +165,11 @@ public class Character : Object_Space.Object {
         this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
         this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
-        // Update position
-        Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
-        Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
-        this.physics.Update(this);
+        // Update body.Position
+        this.body.Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
+        this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
+        // this.physics.Update(this);
+        this.body.Update(this);
 
         // Change state, if necessary
         if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
@@ -236,7 +234,7 @@ public class Character : Object_Space.Object {
 
     // Static Methods 
     public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
-        if ((target.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
+        if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (amount == "Light") {
                 self.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
             } else if (amount == "Medium") {
@@ -287,18 +285,20 @@ public class Character : Object_Space.Object {
 
     // Auxiliar methods
     public void SetVelocity(float X = 0, float Y = 0, int T = 0) {
-        this.Velocity.X = X;
-        this.Velocity.Y = Y;
-        this.Velocity.Z = T - 1;
-
-        this.physics.reset();
+        // this.Velocity.X = X;
+        // this.Velocity.Y = Y;
+        // this.Velocity.Z = T - 1;
+        // this.physics.reset();
+        
+        this.body.SetVelocity(X, Y);
     }
     public void AddVelocity(float X = 0, float Y = 0, int T = 0) {
-        this.Velocity.X += X;
-        this.Velocity.Y += Y;
-        this.Velocity.Z += T;
+        // this.Velocity.X += X;
+        // this.Velocity.Y += Y;
+        // this.Velocity.Z += T;
+        // this.physics.reset();
 
-        this.physics.reset();
+        this.body.AddVelocity(X, Y);
     }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;
@@ -332,10 +332,9 @@ public class Character : Object_Space.Object {
         this.ChangeState(state);
         this.LifePoints.X = this.LifePoints.Y;
         this.DizzyPoints.X = this.DizzyPoints.Y;
-        this.Position.X = start_point;
-        this.Position.Y = this.floorLine;
+        this.body.Position.X = start_point;
+        this.body.Position.Y = this.floorLine;
         this.facing = facing;
-        this.physics.reset();
         this.Velocity = new Vector3f(0, 0, 0);
     }
    
@@ -446,15 +445,6 @@ public class Character : Object_Space.Object {
     public override void Unload() {
         this.UnloadSounds();
         this.UnloadSpriteImages();
-    }
-    public Character Copy(){
-        Character copy = new Character(this.name, this.CurrentState, this.Position.X, this.Position.Y, this.folderPath, this.soundFolderPath, this.stage);
-
-        copy.spriteImages = this.spriteImages;
-        copy.characterSounds = this.characterSounds;
-        copy.animations = this.animations;
-
-        return copy;
     }
 }
 

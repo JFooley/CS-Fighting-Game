@@ -25,8 +25,8 @@ class FrameMovementApp:
         self.indicate_origin()
 
         # Texto de posição
-        self.position_label = tk.Label(root, text=f"Movimento X: {self.data[self.current_frame][2]} Y: {self.data[self.current_frame][3]}")
-        self.position_label.pack()
+        self.body.Position_label = tk.Label(root, text=f"Movimento X: {self.data[self.current_frame][2]} Y: {self.data[self.current_frame][3]}")
+        self.body.Position_label.pack()
 
         # Bind mouse and keyboard events
         self.root.bind("<Return>", self.next_frame)
@@ -40,7 +40,7 @@ class FrameMovementApp:
         self.data[self.current_frame][3] = 0  # Centralizar em (0,0)
         self.previous_image = None  # Store the previous image
 
-        # Initialize current position
+        # Initialize current body.Position
         self.current_x = 0
         self.current_y = 0
         self.last_x = 0
@@ -78,11 +78,11 @@ class FrameMovementApp:
         if self.previous_image:
             self.draw_previous_image(center_x + self.last_x * self.scale, center_y + self.last_y * self.scale)
 
-        # Draw the current image centered based on the current position
+        # Draw the current image centered based on the current body.Position
         self.canvas.create_image(center_x + self.current_x * self.scale, 
                                   center_y + self.current_y * self.scale, 
                                   anchor=tk.CENTER, image=self.photo, tags="sprite")
-        self.position_label.config(text=f"Movimento X: {self.data[self.current_frame][2]} Y: {self.data[self.current_frame][3]}")
+        self.body.Position_label.config(text=f"Movimento X: {self.data[self.current_frame][2]} Y: {self.data[self.current_frame][3]}")
 
     def draw_previous_image(self, center_x, center_y):
         transparent_image = self.previous_image.copy()
@@ -113,7 +113,7 @@ class FrameMovementApp:
         self.redraw()
 
     def update_offsets(self):
-        # Update the offsets based on the current and last positions
+        # Update the offsets based on the current and last body.Positions
         self.data[self.current_frame][2] = self.current_x - self.last_x
         self.data[self.current_frame][3] = self.current_y - self.last_y
 
@@ -121,10 +121,10 @@ class FrameMovementApp:
         self.print_frame_data()
         self.current_frame += 1
         if self.current_frame < len(self.data):
-            # Update the previous image reference and set the current position
+            # Update the previous image reference and set the current body.Position
             self.previous_image = self.image if self.current_frame > 0 else None
             
-            # Save the current position as the last position before loading the next image
+            # Save the current body.Position as the last body.Position before loading the next image
             self.last_x = self.current_x
             self.last_y = self.current_y
 

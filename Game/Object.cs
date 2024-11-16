@@ -1,10 +1,9 @@
 using SFML.Graphics;
-using SFML.System;
 
 namespace Object_Space {
     public class Object {
         // Informações básicas
-        public Vector2f Position = new Vector2f(0, 0);
+        public RigidBody body = new RigidBody();
         public float size_ratio = 1.0f;
         public int facing = 1;
 

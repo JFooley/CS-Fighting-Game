@@ -548,13 +548,12 @@ public class Ken : Character {
 
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
-            physics.reset();
         }
 
         // Super
         if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHPAttack" && this.hasHit))) {
             this.ChangeState("SA1");
-            this.stage.spawnParticle("SALighting", this.Position.X, this.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
+            this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.SetHitstop(54);
         } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
@@ -565,7 +564,7 @@ public class Ken : Character {
 
         if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
             this.ChangeState("Shungoku");
-            this.stage.spawnParticle("SABlink", this.Position.X, this.Position.Y, Y_offset: -140, facing: this.facing);
+            this.stage.spawnParticle("SABlink", this.body.Position.X, this.body.Position.Y, Y_offset: -140, facing: this.facing);
             this.stage.SetHitstop(68);
         } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
             this.SetVelocity(
@@ -596,12 +595,12 @@ public class Ken : Character {
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken1", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
+            stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         } 
         if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken2", this.Position.X, this.Position.Y - 5, this.facing, this.team, X_offset: 25);
+            stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         }
 
         // Tatso
@@ -684,6 +683,7 @@ public class Ken : Character {
         // Jumps
         if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpForward");
+        } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: this.move_speed + 1, 
                 Y: this.jump_hight, 
@@ -691,6 +691,7 @@ public class Ken : Character {
         } 
         else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpBackward");
+        } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight, 
@@ -836,20 +837,20 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 45, 35);
                     target.HitStun(this, 5);
                     target.SetVelocity(
-                        X: 1, 
+                        X: -1, 
                         Y: 60, 
                         T: target.CurrentAnimation.Frames.Count() * (60 / target.CurrentAnimation.framerate));
                 }
                 break;
                 
             case "Shungoku":
-                this.stage.spawnParticle("Shungoku", target.Position.X, this.Position.Y, Y_offset: -125, facing: this.facing);
+                this.stage.spawnParticle("Shungoku", target.body.Position.X, this.body.Position.Y, Y_offset: -125, facing: this.facing);
                 this.stage.spawnParticle("Shungoku_text", Camera.Instance.X, Camera.Instance.Y);
                 this.stage.SetHitstop(40 * 4);
 
                 this.ChangeState("Shungoku_End");
                 this.SetVelocity();
-                this.Position.X = target.Position.X - 1 * this.facing;
+                this.body.Position.X = target.body.Position.X - 1 * this.facing;
 
                 target.SetVelocity();
                 target.ChangeState("OnGround");

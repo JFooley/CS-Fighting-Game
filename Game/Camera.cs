@@ -19,7 +19,7 @@ public class Camera
     public RenderWindow window;
     private View _view;
 
-    // Camera position
+    // Camera Position
     public float X { get; private set; }
     public float Y { get; private set; }
 
@@ -67,8 +67,8 @@ public class Camera
         // Camera to center between players
         if (CharA != null && CharB != null)
         {
-            this.X = (this.CharA.Position.X + this.CharB.Position.X) / 2;
-            this.Y = ((this.CharA.Position.Y + this.CharB.Position.Y) / 2) - 125;
+            this.X = (this.CharA.body.Position.X + this.CharB.body.Position.X) / 2;
+            this.Y = ((this.CharA.body.Position.Y + this.CharB.body.Position.Y) / 2) - 125;
         }
 
         // Limit camera pos

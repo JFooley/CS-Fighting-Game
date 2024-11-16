@@ -175,7 +175,7 @@ public class Particle : Character {
         
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
-        temp_sprite.Position = new Vector2f(this.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.Position.Y - temp_sprite.GetLocalBounds().Height / 2);
+        temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height / 2);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         window.Draw(temp_sprite);
 

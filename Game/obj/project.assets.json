@@ -828,7 +828,7 @@
         "type": "package",
         "frameworkAssemblies": [
           "System",
-          "System.ComponentModel.Composition",
+          "System.ComponentModel.Combody.Position",
           "System.Core",
           "mscorlib"
         ],
@@ -986,7 +986,7 @@
         "type": "package",
         "frameworkAssemblies": [
           "System",
-          "System.ComponentModel.Composition",
+          "System.ComponentModel.Combody.Position",
           "System.Core",
           "mscorlib"
         ],
@@ -1411,10 +1411,10 @@
         "build/.NETFramework/v4.7.2/System.AddIn.Contract.xml",
         "build/.NETFramework/v4.7.2/System.AddIn.dll",
         "build/.NETFramework/v4.7.2/System.AddIn.xml",
-        "build/.NETFramework/v4.7.2/System.ComponentModel.Composition.Registration.dll",
-        "build/.NETFramework/v4.7.2/System.ComponentModel.Composition.Registration.xml",
-        "build/.NETFramework/v4.7.2/System.ComponentModel.Composition.dll",
-        "build/.NETFramework/v4.7.2/System.ComponentModel.Composition.xml",
+        "build/.NETFramework/v4.7.2/System.ComponentModel.Combody.Position.Registration.dll",
+        "build/.NETFramework/v4.7.2/System.ComponentModel.Combody.Position.Registration.xml",
+        "build/.NETFramework/v4.7.2/System.ComponentModel.Combody.Position.dll",
+        "build/.NETFramework/v4.7.2/System.ComponentModel.Combody.Position.xml",
         "build/.NETFramework/v4.7.2/System.ComponentModel.DataAnnotations.dll",
         "build/.NETFramework/v4.7.2/System.ComponentModel.DataAnnotations.xml",
         "build/.NETFramework/v4.7.2/System.Configuration.Install.dll",

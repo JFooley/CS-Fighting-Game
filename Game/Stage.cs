@@ -143,24 +143,24 @@ public class Stage {
     }
     private void DoBehavior() {
         // Move characters away from border
-        character_A.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.Position.X, this.length - character_A.push_box_width));
-        character_B.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.Position.X, this.length - character_B.push_box_width));
+        character_A.body.Position.X = Math.Max(character_A.push_box_width, Math.Min(character_A.body.Position.X, this.length - character_A.push_box_width));
+        character_B.body.Position.X = Math.Max(character_B.push_box_width, Math.Min(character_B.body.Position.X, this.length - character_B.push_box_width));
 
         // Keep characters close 
-        float deltaS = Math.Abs(character_A.Position.X - character_B.Position.X);
+        float deltaS = Math.Abs(character_A.body.Position.X - character_B.body.Position.X);
         if (deltaS >= Config.maxDistance) {
-            if ((character_A.facing == 1 && character_A.Position.X < last_pos_A.X) || (character_A.facing == -1 && character_A.Position.X > last_pos_A.X)) {
-                character_A.Position.X = this.last_pos_A.X;
+            if ((character_A.facing == 1 && character_A.body.Position.X < last_pos_A.X) || (character_A.facing == -1 && character_A.body.Position.X > last_pos_A.X)) {
+                character_A.body.Position.X = this.last_pos_A.X;
             }
-            if ((character_B.facing == 1 && character_B.Position.X < last_pos_B.X) || (character_B.facing == -1 && character_B.Position.X > last_pos_B.X)) {
-                character_B.Position.X = this.last_pos_B.X;
+            if ((character_B.facing == 1 && character_B.body.Position.X < last_pos_B.X) || (character_B.facing == -1 && character_B.body.Position.X > last_pos_B.X)) {
+                character_B.body.Position.X = this.last_pos_B.X;
             }
         }
-        this.last_pos_A = this.character_A.Position;
-        this.last_pos_B = this.character_B.Position;
+        this.last_pos_A = this.character_A.body.Position;
+        this.last_pos_B = this.character_B.body.Position;
         
         // Keep characters facing each other
-        if (this.character_A.Position.X < this.character_B.Position.X) {
+        if (this.character_A.body.Position.X < this.character_B.body.Position.X) {
             if (this.character_A.CurrentAnimation.currentFrameIndex == 0 || this.character_A.notActing) this.character_A.facing = 1;
             if (this.character_B.CurrentAnimation.currentFrameIndex == 0 || this.character_B.notActing) this.character_B.facing = -1;
         } else {
@@ -174,15 +174,15 @@ public class Stage {
     public virtual void doSpecialBehaviour() {}
 
     // Spawns
-    public void spawnParticle(String state,  float X, float Y, int facing = 1, int X_offset = 0, int Y_offset = 0) {
+    public void spawnParticle(String state, float X, float Y, int facing = 1, int X_offset = 0, int Y_offset = 0) {
         var par = new Particle(state, X + X_offset * facing, Y + Y_offset, facing);
         par.animations = this.particle.animations;
         par.spriteImages = this.particle.spriteImages;
         par.characterSounds = this.particle.characterSounds;
         this.newParticles.Add(par);
     }
-    public void spawnHitspark(int hit, Vector2f position, int facing, int X_offset = 0, int Y_offset = 0) {
-        var hs = new Hitspark("default", position.X + X_offset * facing, position.Y + Y_offset, facing);
+    public void spawnHitspark(int hit, float X, float Y, int facing, int X_offset = 0, int Y_offset = 0) {
+        var hs = new Hitspark("default", X + X_offset * facing, Y + Y_offset, facing);
         Random random = new Random();
         if (hit == 1) {
             hs.CurrentState = "OnHit" + random.Next(1, 4);
@@ -221,7 +221,7 @@ public class Stage {
                             var hit = charA.ImposeBehavior(charB);
                             charA.hasHit = true;
                             charA.comboCounter += hit == 1 ? 1 : 0;
-                            this.spawnHitspark(hit, charB.Position, charA.facing, -10);
+                            this.spawnHitspark(hit, charB.body.Position.X, charB.body.Position.Y, charA.facing, -10);
                         }
                     }
                 }
@@ -241,8 +241,8 @@ public class Stage {
 
         this.character_A.floorLine = this.floorLine;
         this.character_B.floorLine = this.floorLine;
-        this.character_A.Position.X = this.start_point_A;
-        this.character_B.Position.X = this.start_point_B;
+        this.character_A.body.Position.X = this.start_point_A;
+        this.character_B.body.Position.X = this.start_point_B;
         this.character_A.stage = this;
         this.character_B.stage = this;
 
