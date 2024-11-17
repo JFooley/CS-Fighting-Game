@@ -256,8 +256,8 @@ public class Character : Object_Space.Object {
     }
 
     // Auxiliar methods
-    public void SetVelocity(float X = 0, float Y = 0, int T = 0) {
-        this.body.SetVelocity(this, X, Y);
+    public void SetVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
+        this.body.SetVelocity(this, X, Y, raw_set: raw_set);
     }
     public void AddVelocity(float X = 0, float Y = 0, int T = 0) {
         this.body.AddVelocity(this, X, Y);

@@ -42,7 +42,7 @@ public class RigidBody {
     }
 
     public void AddVelocity(Character player, float X = 0, float Y = 0) {
-        this.Velocity += new Vector2f(X * player.facing, Y);
+        this.Velocity += new Vector2f(X * player.facing, -Y);
     }
 
     private float CalcularForcaY(float deltaY) {

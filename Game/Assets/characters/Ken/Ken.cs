@@ -6,7 +6,7 @@ using System.IO.Compression;
 using Stage_Space;
 
 public class Ken : Character {
-    private int tatso_speed = 5;
+    private int tatso_speed = 4;
 
     public Ken(string initialState, int startX, int startY, Stage stage)
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
@@ -256,19 +256,26 @@ public class Ken : Character {
         };
 
         // Specials
-        var heavyHadukenFrames = new List<FrameData> {
-            new FrameData(15328, 0, 0, new List<GenericBox> { pushbox, }, "haduken"),
-            new FrameData(15329, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15330, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15331, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15332, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15333, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15334, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15335, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15336, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15337, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15338, 0, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15339, 0, 0, new List<GenericBox> { pushbox, })
+        var hadukenFrames = new List<FrameData> {
+            new FrameData(15328, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 128, 95, 146, 109), new GenericBox(1, 103, 103, 153, 125), new GenericBox(1, 102, 126, 152, 151), new GenericBox(1, 89, 153, 173, 195) }),
+            new FrameData(15329, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 134, 105, 149, 119), new GenericBox(1, 106, 108, 145, 134), new GenericBox(1, 99, 134, 149, 159), new GenericBox(1, 77, 158, 170, 195) }),
+            new FrameData(15330, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 137, 106, 152, 121), new GenericBox(1, 107, 107, 153, 131), new GenericBox(1, 104, 132, 142, 157), new GenericBox(1, 76, 156, 164, 195) }),
+            new FrameData(15331, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 139, 110, 155, 123), new GenericBox(1, 108, 114, 175, 137), new GenericBox(1, 105, 137, 149, 163), new GenericBox(1, 73, 163, 164, 195) }),
+            new FrameData(15332, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 134, 109, 156, 127), new GenericBox(1, 109, 113, 182, 139), new GenericBox(1, 100, 139, 150, 162), new GenericBox(1, 71, 162, 159, 195) }),
+            new FrameData(15333, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 135, 109, 152, 123), new GenericBox(1, 106, 112, 177, 139), new GenericBox(1, 101, 139, 162, 159), new GenericBox(1, 70, 159, 163, 196) }),
+            new FrameData(15334, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 134, 103, 151, 120), new GenericBox(1, 107, 115, 176, 134), new GenericBox(1, 107, 134, 163, 161), new GenericBox(1, 71, 161, 163, 195) }),
+            new FrameData(15335, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 129, 101, 152, 122), new GenericBox(1, 111, 114, 174, 137), new GenericBox(1, 102, 136, 167, 162), new GenericBox(1, 70, 161, 167, 196) }),
+            new FrameData(15336, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 129, 102, 151, 121), new GenericBox(1, 112, 113, 172, 135), new GenericBox(1, 107, 134, 166, 162), new GenericBox(1, 71, 161, 167, 195) }),
+
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+            new FrameData(15337, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 105, 150, 119), new GenericBox(1, 111, 115, 174, 134), new GenericBox(1, 108, 135, 166, 162), new GenericBox(1, 71, 161, 166, 195) }),
+
+            new FrameData(15338, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 131, 102, 150, 118), new GenericBox(1, 107, 108, 152, 129), new GenericBox(1, 102, 129, 146, 158), new GenericBox(1, 72, 160, 167, 195) }),
+            new FrameData(15339, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 130, 92, 147, 108), new GenericBox(1, 105, 99, 153, 119), new GenericBox(1, 105, 119, 144, 153), new GenericBox(1, 91, 154, 155, 195) }),
         };
 
         var heavyShoryFrames = new List<FrameData> {
@@ -322,41 +329,49 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, this.tatso_speed, 0, new List<GenericBox> { pushbox, }, "tatso", hasHit: false),
-            new FrameData(15357, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15358, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15359, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15366, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15367, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15368, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15369, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15370, this.tatso_speed, 0, new List<GenericBox> { pushbox, })
+            new FrameData(15356, 0, 0, new List<GenericBox> { pushbox, }, "tatso", hasHit: false),
+            new FrameData(15357, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15358, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15359, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15366, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15367, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15368, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15370, 0, 0, new List<GenericBox> { pushbox, })
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, this.tatso_speed, 0, new List<GenericBox> { pushbox, }, "tatso"),
-            new FrameData(15357, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15358, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15359, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15457, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15458, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15459, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15460, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15461, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15366, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15367, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15368, this.tatso_speed, 0, new List<GenericBox> { pushbox, }),
-            new FrameData(15369, this.tatso_speed, 0, new List<GenericBox> { pushbox, })
+            new FrameData(15356, 0, 0, new List<GenericBox> { pushbox, }, "tatso"),
+            new FrameData(15357, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15358, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15359, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15366, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15367, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15368, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15369, 0, 0, new List<GenericBox> { pushbox, })
+        };
+
+        var tatsoFrames = new List<FrameData> {
+            new FrameData(15457, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15458, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15459, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15460, 0, 0, new List<GenericBox> { pushbox, }),
+            new FrameData(15461, 0, 0, new List<GenericBox> { pushbox, }),
         };
         
         var AirbonedFrames = new List<FrameData> {
@@ -519,11 +534,11 @@ public class Ken : Character {
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
-            { "LightHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
-            { "HeavyHaduken", new Animation(heavyHadukenFrames, "Idle", 20)},
+            { "LightHaduken", new Animation(hadukenFrames, "Idle", 20)},
+            { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
-            { "AirTatso", new Animation(heavyTatsoFrames, "AirTatso", 30)},
+            { "AirTatso", new Animation(tatsoFrames, "AirTatso", 30)},
             // Hit and Block
             { "Airboned", new Animation(AirbonedFrames, "Falling", 15)},
             { "Falling", new Animation(fallingFrames, "OnGround", 15)},
@@ -561,8 +576,7 @@ public class Ken : Character {
         } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: 1, 
-                Y: 150, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: 150);
         }
 
         if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
@@ -572,8 +586,7 @@ public class Ken : Character {
         } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
             this.SetVelocity(
                 X: 8f, 
-                Y: 0, 
-                T: (this.CurrentAnimation.Frames.Count() - 2) * (60 / this.CurrentAnimation.framerate));
+                Y: 0);
         }
 
         // Shorys
@@ -582,16 +595,14 @@ public class Ken : Character {
         } else if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 4) {
             this.SetVelocity(
                 X: 1.6f, 
-                Y: 43, 
-                T: (this.CurrentAnimation.Frames.Count() - 4) * (60 / this.CurrentAnimation.framerate));
+                Y: 43);
         } 
         if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyShory");
         } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 6) {
             this.SetVelocity(
                 X: 2.4f, 
-                Y: 73, 
-                T: (this.CurrentAnimation.Frames.Count() - 6) * (60 / this.CurrentAnimation.framerate));
+                Y: 73);
         } 
 
         // Haduken
@@ -609,13 +620,22 @@ public class Ken : Character {
         // Tatso
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightTatso");
-        } 
+            this.SetVelocity(X: this.tatso_speed, Y: 5);
+        } else if (this.CurrentState == "LightTatso") {
+            this.AddVelocity(Y: 0.5f);
+        }
+        
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
-        } 
+            this.SetVelocity(X: this.tatso_speed, Y: 5);
+        } else if (this.CurrentState == "HeavyTatso") {
+            this.AddVelocity(Y: 0.5f);
+        }
+        
         if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10)) && this.notActingAir) {
             this.ChangeState("AirTatso");
-        }
+            this.SetVelocity(X: this.body.Velocity.X, Y: this.body.Velocity.Y);
+        } 
 
         // Cancels
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
@@ -677,24 +697,21 @@ public class Ken : Character {
         } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: this.move_speed + 1, 
-                Y: this.jump_hight, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
         } 
         else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpBackward");
         } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
-                Y: this.jump_hight, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
         }
         else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Jump");
         } else if (this.CurrentState == "Jump" && this.CurrentFrameIndex == 1) {
             this.SetVelocity(
                 X: 0, 
-                Y: this.jump_hight, 
-                T: (this.CurrentAnimation.Frames.Count() - 2)* (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
         }
 
     }
@@ -777,42 +794,39 @@ public class Ken : Character {
                 break;
 
             case "CloseHPAttack":
+                Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Pushback(target: target, self: this, "Light");
                     target.BlockStun(this, -2);
 
                 } else {
                     hit = 1;
-                    Character.Pushback(target: target, self: this, "Light");
                     Character.Damage(target: target, self: this, 107, 110);
                     target.HitStun(this, 0);
                 }
                 break;
             
             case "LightShory":
+                Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Pushback(target: target, self: this, "Heavy");
                     target.BlockStun(this, -17);
 
                 } else {
                     hit = 1;
-                    Character.Pushback(target: target, self: this, "Heavy");
                     Character.Damage(target: target, self: this, 163, 170);
                     target.HitStun(this, 0, airbone: true, airbone_height: 100);
                 }
                 break;
 
             case "HeavyShory":
+                Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Pushback(target: target, self: this, "Heavy");
                     target.BlockStun(this, -31);
 
                 } else {
                     hit = 1;
-                    Character.Pushback(target: target, self: this, "Heavy");
                     Character.Damage(target: target, self: this, 200, 170);
                     target.HitStun(this, 0, airbone: true, airbone_height: 120);
                 }
