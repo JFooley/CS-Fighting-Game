@@ -146,6 +146,7 @@ namespace UI_space {
             this.DrawText(window, string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_A)) + string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -16, -97, spacing: -25, alignment: "right");
             this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)) + string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_B)),  16, -97, spacing: -25, alignment: "left");
         }
+        
     }
 
     public static class BitmapFont {

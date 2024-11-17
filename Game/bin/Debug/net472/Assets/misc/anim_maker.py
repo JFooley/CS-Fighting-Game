@@ -152,7 +152,7 @@ class FrameMovementApp:
             return "white"
 
     def save_data(self):
-        frame_name = os.path.splitext(self.files[self.current_frame])[-1]
+        frame_name = os.path.splitext(self.files[self.current_frame])[-2]
         hitbox_str = ', '.join([f'new GenericBox({t}, {int(x1)}, {int(y1)}, {int(x2)}, {int(y2)})' for x1, y1, x2, y2, t in self.hitboxes])
         print(f'new FrameData({frame_name}, {(self.X // self.scale) / self.repeticao}f, {(self.Y // self.scale) / self.repeticao}f, new List<GenericBox> {{ {hitbox_str} }}),')
     

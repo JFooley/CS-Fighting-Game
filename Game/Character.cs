@@ -30,6 +30,7 @@ namespace Character_Space {
 public class Character : Object_Space.Object {
     // Infos
     public string name;
+    public int type;
     public string folderPath;
     public string soundFolderPath;
     public float floorLine;
@@ -81,10 +82,11 @@ public class Character : Object_Space.Object {
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
     public int lastFrameIndex = -1;
 
-    public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage) : base() {
+    public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
         this.folderPath = folderPath;
         this.soundFolderPath = soundFolderPath;
         this.name = name;
+        this.type = type;
         this.CurrentState = initialState;
         this.LastState = initialState;
         this.stage = stage;
@@ -200,11 +202,11 @@ public class Character : Object_Space.Object {
         if (this.blockingLow || this.blocking) return true;
         return (this.notActing || this.CurrentState == "OnBlockCrouching") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
-    public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
+    public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, int airbone_X = 5, bool force = false) {
         if (airbone || this.LifePoints.X <= 0 || this.onAir) {
             this.ChangeState("Airboned", reset: true);
             this.SetVelocity(
-                X: 5 * (enemy.facing * this.facing), 
+                X: airbone_X * (enemy.facing * this.facing), 
                 Y: airbone_height, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
             this.StunFrames = 0;

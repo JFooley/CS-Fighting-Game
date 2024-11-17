@@ -216,7 +216,7 @@ public class Stage {
                         if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) { // Push A e Push B
                             GenericBox.Colide(boxA, boxB, charA, charB);
 
-                        } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
+                        } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && charA.type >= charB.type && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
                             this.hitstopCounter = Config.hitStopTime;
                             var hit = charA.ImposeBehavior(charB);
                             charA.hasHit = true;

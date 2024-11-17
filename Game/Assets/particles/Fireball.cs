@@ -5,7 +5,7 @@ using Stage_Space;
 
 public class Fireball : Character {
     public Fireball(string initialState, float startX, float startY, int team, int facing, Stage stage)
-        : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage) {
+        : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage, 1) {
             this.team = team;
             this.facing = facing;
             this.LifePoints = new Vector2i(1, 1);
@@ -65,13 +65,21 @@ public class Fireball : Character {
         base.DoBehave();
         switch (this.CurrentState) {
             case "Ken1":
-                if (this.LifePoints.X == -1) this.ChangeState("KenExit");
-                this.SetVelocity(X: 5, T: 2);
+                if (this.LifePoints.X == -1) {
+                    this.ChangeState("KenExit");
+                    this.SetVelocity();
+                    break;
+                }
+                this.SetVelocity(X: 5);
                 break;
 
             case "Ken2":
-                if (this.LifePoints.X == -1) this.ChangeState("KenExit");
-                this.SetVelocity(X: 7, T: 2);
+                if (this.LifePoints.X == -1) {
+                    this.ChangeState("KenExit");
+                    this.SetVelocity();
+                    break;
+                }
+                this.SetVelocity(X: 7);
                 break;
 
             case "Remove":
