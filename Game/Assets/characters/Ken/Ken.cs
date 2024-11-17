@@ -819,7 +819,7 @@ public class Ken : Character {
                 break;
             
             case "LightShory":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -17);
@@ -832,7 +832,7 @@ public class Ken : Character {
                 break;
 
             case "HeavyShory":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -31);
