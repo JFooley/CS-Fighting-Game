@@ -33,10 +33,10 @@ class FrameMovementApp:
         self.box_start = None
 
         # Texto de posição
-        self.body.Position_label = tk.Label(root, text=f"Movimento X: {self.X} Y: {self.Y}")
+        self.Position_label = tk.Label(root, text=f"Movimento X: {self.X} Y: {self.Y}")
         self.box_type_label = tk.Label(root, text=f"Box Type: {self.box_type}")
         self.mouse_pos_label = tk.Label(root, text=f"{0},{0}")
-        self.body.Position_label.pack()
+        self.Position_label.pack()
         self.box_type_label.pack()
         self.mouse_pos_label.pack()
 
@@ -123,7 +123,7 @@ class FrameMovementApp:
             self.canvas.create_rectangle(img_top_left_x + x1 * self.scale, img_top_left_y + y1 * self.scale, img_top_left_x + x2 * self.scale, img_top_left_y + y2 * self.scale, outline=self.get_box_color(box_type))
 
         # Draw labels
-        self.body.Position_label.config(text=f"Movimento X: {self.X // self.scale} Y: {self.Y // self.scale}")
+        self.Position_label.config(text=f"Movimento X: {self.X // self.scale} Y: {self.Y // self.scale}")
         self.box_type_label.config(text=f"Box Type: {self.box_type}")
 
     def create_grid(self):
@@ -152,9 +152,9 @@ class FrameMovementApp:
             return "white"
 
     def save_data(self):
-        frame_name = os.path.splitext(self.files[self.current_frame])[0]
+        frame_name = os.path.splitext(self.files[self.current_frame])[-2]
         hitbox_str = ', '.join([f'new GenericBox({t}, {int(x1)}, {int(y1)}, {int(x2)}, {int(y2)})' for x1, y1, x2, y2, t in self.hitboxes])
-        print(f'new FrameData({frame_name}, {(self.X // self.scale) / self.repeticao}, {(self.Y // self.scale) / self.repeticao}, new List<GenericBox> {{ {hitbox_str} }}),')
+        print(f'new FrameData({frame_name}, {(self.X // self.scale) / self.repeticao}f, {(self.Y // self.scale) / self.repeticao}f, new List<GenericBox> {{ {hitbox_str} }}),')
     
     # Eventos
     def move_left(self, event):

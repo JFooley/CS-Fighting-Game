@@ -827,7 +827,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 163, 170);
-                    target.HitStun(this, 0, airbone: true, airbone_height: 100);
+                    target.HitStun(this, 0, airbone: true, airbone_height: 80);
                 }
                 break;
 
@@ -840,7 +840,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 200, 170);
-                    target.HitStun(this, 0, airbone: true, airbone_height: 120);
+                    target.HitStun(this, 0, airbone: true, airbone_height: 100);
                 }
                 break;
             
