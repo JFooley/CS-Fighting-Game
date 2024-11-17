@@ -763,6 +763,19 @@ public class Ken : Character {
                 }
                 break;
 
+            case "BackMPAttack":
+                Character.Pushback(target: target, self: this, "Heavy");
+                if (target.isBlockingHigh()) {
+                    hit = 0;
+                    target.BlockStun(this, 1);
+
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 56, 94);
+                    target.HitStun(this, 10);
+                }
+                break;
+
             case "CloseHPAttack":
                 if (target.isBlocking()) {
                     hit = 0;

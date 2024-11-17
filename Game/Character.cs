@@ -204,7 +204,7 @@ public class Character : Object_Space.Object {
         if (airbone || this.LifePoints.X <= 0 || this.onAir) {
             this.ChangeState("Airboned", reset: true);
             this.SetVelocity(
-                X: -5, 
+                X: 5 * (enemy.facing * this.facing), 
                 Y: airbone_height, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
             this.StunFrames = 0;
@@ -253,32 +253,6 @@ public class Character : Object_Space.Object {
     public static void Damage(Character target, Character self, int damage, int dizzy_damage) {
         target.LifePoints.X -= (int) (damage * self.damageScaling);
         target.DizzyPoints.X -= (int) (dizzy_damage * self.damageScaling);
-    }
-    public void Stun(Character enemy, bool hit, int advantage, bool airbone = false, int airbone_height = 50, bool force = false) {
-        if (hit) {
-            if (airbone || this.LifePoints.X <= 0) {
-                this.ChangeState("Airboned", reset: true);
-                this.SetVelocity(
-                    X: -5, 
-                    Y: airbone_height, 
-                    T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
-                this.StunFrames = 0;
-                return;
-            }
-            else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
-            else this.ChangeState("OnHit", reset: true);
-            
-        } else {
-            if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
-            else this.ChangeState("OnBlock", reset: true);
-        }
-
-        if (force) {
-            this.StunFrames = Math.Max(advantage, 1);
-        } else {
-            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
-        }
-
     }
 
     // Auxiliar methods
