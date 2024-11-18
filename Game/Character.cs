@@ -62,9 +62,9 @@ public class Character : Object_Space.Object {
     public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
 
-    private bool blockingHigh = false;
-    private bool blockingLow = false;
-    private bool blocking = false;
+    public bool blockingHigh = false;
+    public bool blockingLow = false;
+    public bool blocking = false;
 
     public int comboCounter = 0;
     public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
@@ -195,11 +195,11 @@ public class Character : Object_Space.Object {
         return this.isBlockingHigh() || this.isBlockingLow();
     }
     public bool isBlockingHigh() {
-        if (this.blockingHigh || this.blocking) return true;
+        if ((this.notActing || this.CurrentState == "OnBlock") && (this.blockingHigh || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlock") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
     }
     public bool isBlockingLow() {
-        if (this.blockingLow || this.blocking) return true;
+        if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlockCrouching") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
     public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, int airbone_X = 5, bool force = false) {

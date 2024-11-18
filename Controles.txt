@@ -1,28 +1,27 @@
 Controles
 Teclado:
 Setas - Movimentação
-Q = A 	- Soco Fraco
-W = B 	- Soco Forte
-A = C 	- Chute Fraco
-S = D 	- Chute Forte
-E = RB 	- Assistencia Especial
-D = RT	- (nada)
-R = LB	- (nada)
-F = LT	- (nada)
-Enter = Start - Mostra as hitboxs
+Q   - Soco Fraco
+W   - Soco Forte
+A   - Chute Fraco
+S   - Chute Forte
+E   - Assistencia Especial
+D   - (nada)
+R   - (nada)
+F   - (nada)
+Space - Training mode
 
 Controle:
 Setas - Movimentação
-A = A   - Soco Fraco
-B = B   - Soco Forte
-X = C   - Chute Fraco
-Y = D   - Chute Forte
-RB = RB	- Assistencia Especial
-RT = RT	- (nada)
-LB = LB - (nada)
-LT = LT - (nada)
-Start = Start - Mostra as hitboxs
-
+A   - Soco Fraco
+B   - Soco Forte
+X   - Chute Fraco
+Y   - Chute Forte
+RB  - Assistencia Especial
+RT  - (nada)
+LB  - (nada)
+LT  - (nada)
+Select - Training mode
 
 Comandos universais:
 Direita ou Esquerda (Oposto ao inimigo) - Defesa

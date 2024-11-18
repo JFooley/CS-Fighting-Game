@@ -120,6 +120,16 @@ public class Ken : Character {
             new FrameData(15066, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 120, 92, 135, 105), new GenericBox(1, 100, 102, 144, 151), new GenericBox(1, 93, 146, 153, 195) }),
         };
 
+        var LKFrames = new List<FrameData> {
+            new FrameData(15104, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 124, 91, 145, 109), new GenericBox(1, 104, 96, 141, 155), new GenericBox(1, 139, 114, 156, 131), new GenericBox(1, 93, 144, 155, 195), pushbox}, "golpe_1"),
+            new FrameData(15105, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 127, 92, 149, 107), new GenericBox(1, 105, 100, 153, 153), new GenericBox(1, 124, 152, 161, 193), new GenericBox(1, 149, 129, 171, 155) }),
+            new FrameData(15106, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 125, 91, 149, 105), new GenericBox(1, 107, 100, 153, 147), new GenericBox(1, 121, 147, 157, 194), new GenericBox(1, 153, 129, 172, 157), pushbox, new GenericBox(0, 186, 154, 207, 181), new GenericBox(0, 171, 139, 187, 169) }),
+            new FrameData(15107, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 126, 91, 149, 105), new GenericBox(1, 104, 97, 155, 146), new GenericBox(1, 123, 140, 157, 193), new GenericBox(1, 151, 129, 174, 160) }),
+            new FrameData(15108, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 128, 91, 148, 109), new GenericBox(1, 104, 99, 154, 150), new GenericBox(1, 127, 130, 163, 194), pushbox}),
+            new FrameData(15109, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 128, 90, 148, 106), new GenericBox(1, 107, 99, 156, 154), new GenericBox(1, 108, 153, 159, 193) }),
+            new FrameData(15110, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 90, 141, 107), new GenericBox(1, 100, 97, 139, 153), new GenericBox(1, 137, 105, 156, 132), new GenericBox(1, 97, 143, 155, 195), pushbox}),
+        };
+
         var MKFrames = new List<FrameData> {
             new FrameData(15072, 8, 0, new List<GenericBox> { pushbox, new GenericBox(1, 96, 102, 143, 150), new GenericBox(1, 82, 107, 100, 132), new GenericBox(1, 138, 124, 170, 150), new GenericBox(1, 114, 143, 148, 193), new GenericBox(1, 106, 92, 131, 106), pushbox},  "golpe_3"),
             new FrameData(15073, 2, 0, new List<GenericBox> { pushbox, new GenericBox(0, 176, 89, 210, 117), new GenericBox(0, 158, 105, 184, 126), new GenericBox(0, 139, 118, 166, 142), new GenericBox(1, 90, 93, 141, 146), new GenericBox(1, 110, 137, 137, 194), new GenericBox(1, 69, 114, 90, 136), pushbox}, "golpe_grito_4"),
@@ -144,16 +154,6 @@ public class Ken : Character {
             new FrameData(15126, -3, 0, new List<GenericBox> { pushbox, new GenericBox(0, 165, 149, 191, 190), new GenericBox(1, 109, 95, 163, 152), new GenericBox(1, 79, 112, 109, 150), new GenericBox(1, 131, 150, 163, 193), pushbox}, hasHit: false),
             new FrameData(15127, -4, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 98, 148, 148), new GenericBox(1, 122, 91, 148, 109), new GenericBox(1, 140, 101, 164, 126), new GenericBox(1, 86, 102, 115, 142), new GenericBox(1, 111, 136, 160, 194) }),
             new FrameData(15128, -3, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 99, 147, 156), new GenericBox(1, 120, 89, 144, 107), new GenericBox(1, 94, 101, 163, 133), new GenericBox(1, 93, 145, 160, 194) }),
-        };
-
-        var LKFrames = new List<FrameData> {
-            new FrameData(15104, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 124, 91, 145, 109), new GenericBox(1, 104, 96, 141, 155), new GenericBox(1, 139, 114, 156, 131), new GenericBox(1, 93, 144, 155, 195), pushbox}, "golpe_1"),
-            new FrameData(15105, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 127, 92, 149, 107), new GenericBox(1, 105, 100, 153, 153), new GenericBox(1, 124, 152, 161, 193), new GenericBox(1, 149, 129, 171, 155) }),
-            new FrameData(15106, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 125, 91, 149, 105), new GenericBox(1, 107, 100, 153, 147), new GenericBox(1, 121, 147, 157, 194), new GenericBox(1, 153, 129, 172, 157), pushbox, new GenericBox(0, 186, 154, 207, 181), new GenericBox(0, 171, 139, 187, 169) }),
-            new FrameData(15107, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 126, 91, 149, 105), new GenericBox(1, 104, 97, 155, 146), new GenericBox(1, 123, 140, 157, 193), new GenericBox(1, 151, 129, 174, 160) }),
-            new FrameData(15108, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 128, 91, 148, 109), new GenericBox(1, 104, 99, 154, 150), new GenericBox(1, 127, 130, 163, 194), pushbox}),
-            new FrameData(15109, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 128, 90, 148, 106), new GenericBox(1, 107, 99, 156, 154), new GenericBox(1, 108, 153, 159, 193) }),
-            new FrameData(15110, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 90, 141, 107), new GenericBox(1, 100, 97, 139, 153), new GenericBox(1, 137, 105, 156, 132), new GenericBox(1, 97, 143, 155, 195), pushbox}),
         };
 
         // Movement
@@ -520,13 +520,13 @@ public class Ken : Character {
             { "OnBlockLow", new Animation(OnBlockFrames, "OnBlockLow", 20, doChangeState: false)}, 
             { "OnHitLow", new Animation(OnHit3Frames, "OnHitLow", 20, doChangeState: false)},
             // Normals
-            { "LPAttack", new Animation(LPFrames, "Idle", 30)},
-            { "LKAttack", new Animation(LKFrames, "Idle", 30)},
-            { "MPAttack", new Animation(MPFrames, "Idle", 20)},
-            { "MKAttack", new Animation(MKFrames, "Idle", 20)},
-            { "BackMKAttack", new Animation(BackMKFrames, "Idle", 20)},
-            { "BackMPAttack", new Animation(HPFrames, "Idle", 20)},
-            { "CloseHPAttack", new Animation(cl_HPFrames, "Idle", 30)},
+            { "LP", new Animation(LPFrames, "Idle", 30)},
+            { "LK", new Animation(LKFrames, "Idle", 30)},
+            { "MP", new Animation(MPFrames, "Idle", 20)},
+            { "MK", new Animation(MKFrames, "Idle", 20)},
+            { "BackMK", new Animation(BackMKFrames, "Idle", 20)},
+            { "BackMP", new Animation(HPFrames, "Idle", 20)},
+            { "CloseHP", new Animation(cl_HPFrames, "Idle", 30)},
             // Movment
             { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 20)},
             { "WalkingBackward", new Animation(walkingBackwardFrames, "WalkingBackward", 20)},
@@ -581,7 +581,7 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHPAttack" && this.hasHit))) {
+        if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHP" && this.hasHit) || (this.CurrentState.Contains("Shory") && this.hasHit))) {
             this.ChangeState("SA1");
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.SetHitstop(54);
@@ -601,6 +601,18 @@ public class Ken : Character {
                 Y: 0);
         }
 
+        // Cancels
+        // if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LK") {
+        //     this.ChangeState("MK");
+        // }
+        if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
+            this.SetVelocity();
+            this.ChangeState("CloseHP");
+        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP")) {
+            this.SetVelocity();
+            this.ChangeState("LightShory", index: 1);
+        } 
+
         // Shorys
         if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightShory");
@@ -618,7 +630,7 @@ public class Ken : Character {
         } 
 
         // Haduken
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
             stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
@@ -649,32 +661,21 @@ public class Ken : Character {
             this.SetVelocity(X: this.body.Velocity.X * this.facing, Y: this.body.Velocity.Y);
         } 
 
-        // Cancels
-        if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LKAttack") {
-            this.ChangeState("MKAttack");
-        } else if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LPAttack") {
-            this.SetVelocity();
-            this.ChangeState("CloseHPAttack");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "CloseHPAttack") {
-            this.SetVelocity();
-            this.ChangeState("LightShory", index: 1);
-        } 
-
         // Normals
         if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("BackMKAttack");
+            this.ChangeState("BackMK");
         } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("BackMPAttack");
+            this.ChangeState("BackMP");
         }
 
         if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("LPAttack");
+            this.ChangeState("LP");
         } else if (InputManager.Instance.Key_down("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("LKAttack");
+            this.ChangeState("LK");
         } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("MPAttack");
+            this.ChangeState("MP");
         } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
-            this.ChangeState("MKAttack");
+            this.ChangeState("MK");
         } 
         
         // Crouching
@@ -731,7 +732,7 @@ public class Ken : Character {
     public override int ImposeBehavior(Character target) {
         int hit = -1;
         switch (this.CurrentState) {
-            case "LPAttack":
+            case "LP":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -743,7 +744,7 @@ public class Ken : Character {
                 }
                 break;
                 
-            case "LKAttack":
+            case "LK":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -755,7 +756,7 @@ public class Ken : Character {
                 }
                 break;
                 
-            case "MPAttack":
+            case "MP":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -767,7 +768,7 @@ public class Ken : Character {
                 }
                 break;
 
-            case "MKAttack":
+            case "MK":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -779,7 +780,7 @@ public class Ken : Character {
                 }
                 break;
 
-            case "BackMKAttack":
+            case "BackMK":
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -792,7 +793,7 @@ public class Ken : Character {
                 }
                 break;
 
-            case "BackMPAttack":
+            case "BackMP":
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -805,7 +806,7 @@ public class Ken : Character {
                 }
                 break;
 
-            case "CloseHPAttack":
+            case "CloseHP":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;

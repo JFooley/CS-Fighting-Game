@@ -36,9 +36,6 @@ public static class Program
     public const int MatchEnd = 4;
 
     public static void Main() {  
-        // Aux
-        bool showBoxs = false;
-
         // Necessary infos
         int game_state = Intro;
         int sub_state = Intro;
@@ -101,7 +98,7 @@ public static class Program
 
                 case Battle:
                     camera.Update();
-                    stage.Update(window, showBoxs);
+                    stage.Update(window);
 
                     switch (sub_state) {
                         case Intro:
@@ -127,7 +124,6 @@ public static class Program
                         case Battling: // Durante a batalha
                             if (stage.CheckRoundEnd()) {
                                 sub_state = RoundEnd;
-                                stage.TogglePlayers();
                                 stage.StopRoundTime();
                                 stage.ResetTimer();
                             }
@@ -137,6 +133,7 @@ public static class Program
                             string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "Æ" : "Time's up!";
                             UI.Instance.DrawText(window, message, 0, -30, spacing: -25, size: message == "Æ" ? 2 : 1.3f);
                             if (!stage.CheckTimer(3)) break;
+                            stage.TogglePlayers();
 
                             stage.ResetTimer();                            
                             if (stage.CheckMatchEnd()) {  
@@ -162,12 +159,8 @@ public static class Program
             }
 
             // Finally
-            if (showBoxs) UI.Instance.ShowFramerate(window);
             window.Display();
-
-            // DEBUG
-            if (InputManager.Instance.Key_down("Start")) showBoxs = !showBoxs;
-            // DEBUG
+            if (InputManager.Instance.Key_down("Select")) stage.debug_mode = !stage.debug_mode;
         }
     }
 }

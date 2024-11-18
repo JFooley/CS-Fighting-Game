@@ -4,6 +4,7 @@ using SFML.Audio;
 using Animation_Space;
 using Character_Space;
 using UI_space;
+using Input_Space;
 
 namespace Stage_Space {
 
@@ -13,6 +14,12 @@ public class Stage {
     public float size_ratio = 1.0f;
     public string spritesFolderPath;
     public string soundFolderPath;
+
+    // Debug infos
+    public bool debug_mode = false;
+    public bool showBoxs = false;
+    public bool block_after_hit = false;
+    public int reset_frames = 0;
 
     // Battle Info
     private int hitstopCounter = 0;
@@ -82,7 +89,7 @@ public class Stage {
     }
 
     // Behaviour
-    public void Update(RenderWindow window, bool showBoxs) {
+    public void Update(RenderWindow window) {
         if (hitstopCounter > 0) {
             hitstopCounter--;
         }
@@ -137,9 +144,11 @@ public class Stage {
         this.newParticles.Clear();
         
         // Render chars, UI and particles
-        foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, showBoxs);
+        foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, this.showBoxs);
         UI.Instance.DrawBattleUI(window, this);
-        foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, showBoxs);
+        foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, this.showBoxs);
+
+        if (debug_mode) this.DebugMode(window);
     }
     private void DoBehavior() {
         // Move characters away from border
@@ -172,6 +181,42 @@ public class Stage {
         this.doSpecialBehaviour();
     }
     public virtual void doSpecialBehaviour() {}
+    public void DebugMode(RenderWindow window) {
+        UI.Instance.ShowFramerate(window);
+        UI.Instance.DrawText(window, "training mode", 0, 85, spacing: -10, size: 0.5f);
+        UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "Left");
+        UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "Left");
+        UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "Left");
+        UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "Left");
+
+        this.ResetRoundTime();
+        if (InputManager.Instance.Key_down("Start")) this.showBoxs = !this.showBoxs;
+        if (InputManager.Instance.Key_down("LB")) this.block_after_hit = !this.block_after_hit;
+
+        // Block after hit
+        if (this.character_B.StunFrames > 0) {
+            this.character_B.blocking = true;
+            this.reset_frames = 0;
+        } else if (this.character_A.StunFrames > 0) {
+            this.character_A.blocking = true;
+            this.reset_frames = 0;
+        } else this.reset_frames += 1;
+
+        // Reset chars life
+        if (this.reset_frames >= Config.resetFrames) {
+            if (this.character_B.notActing) {
+                this.character_B.blocking = false;
+                this.character_B.LifePoints.X = this.character_B.LifePoints.Y;
+                this.character_B.DizzyPoints.X = this.character_B.DizzyPoints.Y;
+            }
+            if (this.character_A.notActing) {
+                this.character_A.blocking = false;
+                this.character_A.LifePoints.X = this.character_A.LifePoints.Y;
+                this.character_A.DizzyPoints.X = this.character_A.DizzyPoints.Y;
+            }
+            this.reset_frames = Config.resetFrames;
+        }
+    }
 
     // Spawns
     public void spawnParticle(String state, float X, float Y, int facing = 1, int X_offset = 0, int Y_offset = 0) {

@@ -39,14 +39,6 @@ namespace UI_space {
             }
         }
 
-        // Other
-        public void ShowFramerate(RenderWindow window) {
-            var frametime = this.clock.Restart().AsSeconds();
-            this.counter = this.counter >= 30 ? 0 : this.counter + 1;
-            this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, "" + this.elapsed, -190, 70, spacing: -25, alignment: "left");
-        }
-
         // Loads
         public void LoadCharacterSprites(float size)
         {
@@ -61,6 +53,12 @@ namespace UI_space {
         }
 
         // Simple Draw Calls
+        public void ShowFramerate(RenderWindow window) {
+            var frametime = this.clock.Restart().AsSeconds();
+            this.counter = this.counter >= 30 ? 0 : this.counter + 1;
+            this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
+            this.DrawText(window, "" + this.elapsed, -190, 80, spacing: -19, alignment: "left", size: 0.8f);
+        }
         public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center") {
             float totalWidth = 0;
             List<Sprite> text_sprites = new List<Sprite> {};

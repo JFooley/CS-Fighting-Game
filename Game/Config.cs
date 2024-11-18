@@ -6,6 +6,7 @@ public static class Config {
     public const bool Vsync = true;
     public const int Framerate = 60;
     public const int maxDistance = 350;
+    public const int resetFrames = 20;
 
     // Audio
     private static float _main_volume = 50f;
