@@ -59,8 +59,11 @@ namespace UI_space {
             this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
             this.DrawText(window, "" + this.elapsed, -190, 80, spacing: -19, alignment: "left", size: 0.8f);
         }
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center") {
+        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center", bool absolutePosition = false) {
             float totalWidth = 0;
+            float pos_X;
+            float pos_Y;
+            float offset_X = X;
             List<Sprite> text_sprites = new List<Sprite> {};
 
             // Calcular a largura total do texto
@@ -80,15 +83,23 @@ namespace UI_space {
 
             // Ajustar posição se centralizado
             if (alignment == "center") {
-                X -= totalWidth / 2; 
+                offset_X -= totalWidth / 2; 
             } else if (alignment == "right") {
-                X -= totalWidth; 
+                offset_X -= totalWidth; 
             }
 
+            if (absolutePosition) {
+                pos_X = X;
+                pos_Y = Y;
+                offset_X = 0;
+            } else {
+                pos_X = Camera.GetInstance().X;
+                pos_Y = Camera.GetInstance().Y;
+            }
             foreach (Sprite sprite in text_sprites) {   
-                sprite.Position = new Vector2f(Camera.GetInstance().X + X, Camera.GetInstance().Y + Y);
+                sprite.Position = new Vector2f(pos_X + offset_X, pos_Y + Y);
                 window.Draw(sprite);
-                X += sprite.GetGlobalBounds().Width + spacing;
+                offset_X += sprite.GetGlobalBounds().Width + spacing;
             }
         }
         public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, Color color) {

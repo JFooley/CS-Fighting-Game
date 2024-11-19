@@ -186,10 +186,10 @@ public class Stage {
     public void DebugMode(RenderWindow window) {
         UI.Instance.ShowFramerate(window);
         UI.Instance.DrawText(window, "training mode", 0, 85, spacing: -10, size: 0.5f);
-        UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "Left");
-        UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "Left");
-        UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "Left");
-        UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "Left");
+        UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "left");
+        UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "left");
+        UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "left");
+        UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "left");
 
         this.ResetRoundTime();
         if (InputManager.Instance.Key_down("Start")) this.showBoxs = !this.showBoxs;

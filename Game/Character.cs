@@ -4,6 +4,7 @@ using SFML.Audio;
 using Animation_Space;
 using Input_Space;
 using Stage_Space;
+using UI_space;
 
 // ----- Default States -------
 // Intro
@@ -115,14 +116,21 @@ public class Character : Object_Space.Object {
         // Draw Hitboxes
         if (drawHitboxes) {  
             // Desenha o ponto central
-            RectangleShape anchor = new RectangleShape(new Vector2f(1, 10)) {
-                Position = new Vector2f(this.body.Position.X, this.body.Position.Y - 55),
+            RectangleShape anchorY = new RectangleShape(new Vector2f(0, 10)) {
+                Position = new Vector2f(this.body.Position.X, this.body.Position.Y - 60),
+                FillColor = SFML.Graphics.Color.Transparent,
+                OutlineColor = Color.White, 
+                OutlineThickness = 1.0f
+            };
+            RectangleShape anchorX = new RectangleShape(new Vector2f(10, 0)) {
+                Position = new Vector2f(this.body.Position.X - 5, this.body.Position.Y - 55),
                 FillColor = SFML.Graphics.Color.Transparent,
                 OutlineColor = Color.White, 
                 OutlineThickness = 1.0f 
             };
             
-            window.Draw(anchor);
+            window.Draw(anchorX);
+            window.Draw(anchorY);
 
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
@@ -155,6 +163,8 @@ public class Character : Object_Space.Object {
                 // Desenha o retângulo da hitbox na janela
                 window.Draw(hitboxRect);
             }
+
+            UI.Instance.DrawText(window, this.CurrentState, this.body.Position.X, this.body.Position.Y, spacing: -10, size: 0.5f, alignment: "center", absolutePosition: true);
         }
     }
     public override void DoAnimate() {
@@ -245,19 +255,19 @@ public class Character : Object_Space.Object {
     public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (amount == "Light") {
-                self.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
+                self.SetVelocity(-Config.light_pushback, Y_amount);
             } else if (amount == "Medium") {
-                self.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
+                self.SetVelocity(-Config.medium_pushback, Y_amount);
             } else if (amount == "Heavy"){
-                self.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
+                self.SetVelocity(-Config.heavy_pushback, Y_amount);
             }
         } else {
             if (amount == "Light") {
-                target.SetVelocity(-Config.light_pushback, Y_amount, Config.light_pushback_frames);
+                target.SetVelocity(-Config.light_pushback, Y_amount);
             } else if (amount == "Medium") {
-                target.SetVelocity(-Config.medium_pushback, Y_amount, Config.medium_pushback_frames);
+                target.SetVelocity(-Config.medium_pushback, Y_amount);
             } else if (amount == "Heavy"){
-                target.SetVelocity(-Config.heavy_pushback, Y_amount, Config.heavy_pushback_frames);
+                target.SetVelocity(-Config.heavy_pushback, Y_amount);
             }
         }
     }

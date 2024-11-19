@@ -15,11 +15,12 @@ public class Animation {
     public bool doRun;
     public bool changeOnLastframe;
     public bool changeOnGround;
+    public bool loop;
     public int framerate;
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool changeOnLastframe = true, bool changeOnGround = false) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.doRun = true;
@@ -27,6 +28,7 @@ public class Animation {
         this.post_state = post_state;
         this.changeOnLastframe = changeOnLastframe;
         this.changeOnGround = changeOnGround;
+        this.loop = loop;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
@@ -39,6 +41,7 @@ public class Animation {
         this.animSize = SimpleFrames.Count() - 1;
         this.post_state = post_state;
         this.changeOnLastframe = true;
+        this.loop = true;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
@@ -72,12 +75,13 @@ public class Animation {
                 this.onLastFrame = false;
             } else if (currentFrameIndex == animSize) {
                 this.onLastFrame = true;
-            } else if (this.changeOnLastframe) {
-                this.Reset();
             } else {
-                this.currentFrameIndex -= 1;
+                if (this.loop) {
+                    this.Reset();
+                } else {
+                    this.currentFrameIndex -= 1;
+                }
             }
-
             return true; // do frame change
         }
 

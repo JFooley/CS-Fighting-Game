@@ -531,10 +531,10 @@ public class Ken : Character {
         var animations = new Dictionary<string, Animation> {
             // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
-            { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, changeOnLastframe: false)}, 
-            { "OnHit", new Animation(OnHit3Frames, "OnHit", 20, changeOnLastframe: false)},
-            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false)}, 
-            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 20, changeOnLastframe: false)},
+            { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, changeOnLastframe: false, loop: false)}, 
+            { "OnHit", new Animation(OnHit3Frames, "OnHit", 20, changeOnLastframe: false, loop: false)},
+            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false, loop: false)}, 
+            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 20, changeOnLastframe: false, loop: false)},
             // Normals
             { "LP", new Animation(LPFrames, "Idle", 30)},
             { "LK", new Animation(LKFrames, "Idle", 30)},
@@ -551,7 +551,7 @@ public class Ken : Character {
             { "Jump", new Animation(jumpFrames, "Idle", 20)},
             { "JumpForward", new Animation(jumpForward, "JumpFalling", 20)}, 
             { "JumpBackward", new Animation(JumpBackward, "JumpFalling", 20)},
-            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true)},
+            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
@@ -560,13 +560,13 @@ public class Ken : Character {
             { "Shungoku", new Animation(Shungoku, "Idle", 10)},
             { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true)},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true)},
+            { "LightShory", new Animation(lightShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "LightHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Idle", 30)},
-            { "AirTatso", new Animation(tatsoFrames, "AirTatso", 30)},
+            { "AirTatso", new Animation(tatsoFrames, "Idle", 30, changeOnGround: true, changeOnLastframe: false)},
             // Hit and Block
             { "Airboned", new Animation(AirbonedFrames, "Falling", 15)},
             { "Falling", new Animation(fallingFrames, "OnGround", 15)},
