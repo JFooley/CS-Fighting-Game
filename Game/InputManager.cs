@@ -212,8 +212,8 @@ public class InputManager {
     public bool Key_change(String key, int player = DEFAULT, int facing = 1) {
         return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != (buttonLastState[player] & (1 << keysTranslationMap[facing][key]));
     }
-    public bool Was_down(String[] rawSequence, int maxFrames, bool flexEntry = true, int player = DEFAULT, int facing = 1) {
-        int[] sequence = rawSequence.Select(key => keysTranslationMap[facing][key]).ToArray();
+    public bool Was_down(String rawSequenceString, int maxFrames, bool flexEntry = true, int player = DEFAULT, int facing = 1) {
+        int[] sequence = rawSequenceString.Split(' ').Select(key => keysTranslationMap[facing][key]).ToArray();
 
         int frameCount = inputBuffer.Count;
         int sequenceLength = sequence.Length;

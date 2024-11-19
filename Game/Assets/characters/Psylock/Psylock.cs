@@ -283,12 +283,14 @@ public class Psylock : Character {
         }
 
         // Specials
-        String[] A_dp = {"Right", "Down", "Right", "A"};
-        String[] B_dp = {"Right", "Down", "Right", "C"};
-        String[] A_qcf = {"Down", "Right", "A"};
-        String[] C_qcf = {"Down", "Right", "C"};
-        String[] B_qcb = {"Down", "Left", "B"};
-        String[] D_qcb = {"Down", "Left", "C"};
+        String A_dp = "Right Down Right A";
+        String B_dp = "Right Down Right C";
+        String A_qcf = "Down Right A";
+        String C_qcf = "Down Right C";
+        String B_qcb = "Down Left B";
+        String D_qcb = "Down Left C";
+        String F_dash = "Right Right";
+        String B_dash = "Left Left";
 
         // Normals
         if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
@@ -315,9 +317,9 @@ public class Psylock : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down(F_dash, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
-        } else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        } else if (InputManager.Instance.Was_down(B_dash, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 

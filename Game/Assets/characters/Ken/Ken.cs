@@ -593,7 +593,7 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down(new string[] {"Down", "Right", "Down", "Right", "A"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Down", "RB"}, 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHP" && this.hasHit) || (this.CurrentState.Contains("Shory") && this.hasHit))) {
+        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.CurrentState == "CloseHP" && this.hasHit) || (this.CurrentState.Contains("Shory") && this.hasHit))) {
             this.ChangeState("SA1");
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.SetHitstop(54);
@@ -603,7 +603,7 @@ public class Ken : Character {
                 Y: 150);
         }
 
-        if (InputManager.Instance.Was_down(new string[] {"C", "C", "Right", "A", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
+        if (InputManager.Instance.Was_down("C C Right A D", 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
             this.ChangeState("Shungoku");
             this.stage.spawnParticle("SABlink", this.body.Position.X, this.body.Position.Y, Y_offset: -140, facing: this.facing);
             this.stage.SetHitstop(68);
@@ -614,23 +614,23 @@ public class Ken : Character {
         }
 
         // Cancels
-        if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
+        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
             this.SetVelocity();
             this.ChangeState("CloseHP");
-        } else if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP")) {
+        } else if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP")) {
             this.SetVelocity();
             this.ChangeState("LightShory", index: 1);
         } 
 
         // Shorys
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightShory");
         } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyShory");
         } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
@@ -639,33 +639,33 @@ public class Ken : Character {
         } 
 
         // Haduken
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP")))) {
+        if (InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
             stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         } 
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
             stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         }
 
         // Tatso
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightTatso");
             this.SetVelocity(X: this.tatso_speed, Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
         }
         
-        if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(X: this.tatso_speed, Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
         }
         
-        if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
+        if ((InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
             this.ChangeState("AirTatso");
             this.SetVelocity(X: this.body.Velocity.X * this.facing, Y: this.body.Velocity.Y);
         } 
@@ -699,10 +699,10 @@ public class Ken : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(new string[] {"Right", "Right"}, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("DashForward");
         } 
-        else if (InputManager.Instance.Was_down(new string[] {"Left", "Left"}, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        else if (InputManager.Instance.Was_down("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("DashBackward");
         }
 
@@ -913,6 +913,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 45, 35);
                     target.HitStun(this, 5);
                     if (this.CurrentFrameIndex < 6) target.SetVelocity(X: -1, Y: 150);
+                    if (this.CurrentFrameIndex >= 14) Character.Pushback(target: target, self: this, "Heavy");
                 }
                 break;
                 

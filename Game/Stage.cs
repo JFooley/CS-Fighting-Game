@@ -195,14 +195,18 @@ public class Stage {
         if (InputManager.Instance.Key_down("Start")) this.showBoxs = !this.showBoxs;
         if (InputManager.Instance.Key_down("LB")) this.block_after_hit = !this.block_after_hit;
 
-        // Block after hit
-        if (this.character_B.StunFrames > 0) {
-            this.character_B.blocking = true;
-            this.reset_frames = 0;
-        } else if (this.character_A.StunFrames > 0) {
-            this.character_A.blocking = true;
-            this.reset_frames = 0;
-        } else this.reset_frames += 1;
+        this.reset_frames += 1;
+
+        if (this.block_after_hit) {
+            // Block after hit
+            if (this.character_B.StunFrames > 0) {
+                this.character_B.blocking = true;
+                this.reset_frames = 0;
+            } else if (this.character_A.StunFrames > 0) {
+                this.character_A.blocking = true;
+                this.reset_frames = 0;
+            }
+        }
 
         // Reset chars life
         if (this.reset_frames >= Config.resetFrames) {
