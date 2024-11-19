@@ -37,6 +37,7 @@ Implementado:
 - Combo e indicação individual
 - Damage scaling
 - Física complexa
+- Modo treino (apertando select)
 
 Deprecated:
 - Física simples
