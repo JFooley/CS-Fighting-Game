@@ -57,7 +57,7 @@ public class Character : Object_Space.Object {
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
     public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
     public bool isCrounching = false;
-    public bool onAir => this.body.Position.Y < this.floorLine ? true : false;
+    public bool onAir => this.body.Position.Y < this.floorLine;
     public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
 
@@ -280,8 +280,8 @@ public class Character : Object_Space.Object {
     public void SetVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
         this.body.SetVelocity(this, X, Y, raw_set: raw_set);
     }
-    public void AddVelocity(float X = 0, float Y = 0, int T = 0) {
-        this.body.AddVelocity(this, X, Y);
+    public void AddVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
+        this.body.AddVelocity(this, X, Y, raw_set: raw_set);
     }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;

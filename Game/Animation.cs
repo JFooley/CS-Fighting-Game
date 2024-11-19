@@ -8,11 +8,11 @@ public class Animation {
     public List<int> SimpleFrames { get; private set; }
     public int currentFrameIndex;
     public bool onLastFrame;
+    public bool hasFrameChange => this.frameCounter == 0; 
     public string post_state; 
     public int animSize;
     public int realAnimSize => animSize * (60 / this.framerate);
 
-    public bool doRun;
     public bool changeOnLastframe;
     public bool changeOnGround;
     public bool loop;
@@ -23,7 +23,6 @@ public class Animation {
     public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
-        this.doRun = true;
         this.animSize = Frames.Count() - 1;
         this.post_state = post_state;
         this.changeOnLastframe = changeOnLastframe;
@@ -37,7 +36,6 @@ public class Animation {
     public Animation(List<int> SimpleFrames, string post_state, int framerate = 24, int screenFramerate = 60) {
         this.SimpleFrames = SimpleFrames;
         this.currentFrameIndex = 0;
-        this.doRun = true;
         this.animSize = SimpleFrames.Count() - 1;
         this.post_state = post_state;
         this.changeOnLastframe = true;
@@ -58,8 +56,6 @@ public class Animation {
     }
 
     public bool AdvanceFrame() {
-        if (!doRun) return false;
-
         // Calcula o número de frames de tela por frame de animação
         float framesPerAnimFrame = screenFramerate / framerate;
 

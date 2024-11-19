@@ -625,15 +625,15 @@ public class Ken : Character {
         // Shorys
         if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "C"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightShory");
-        } else if (this.CurrentState == "LightShory" && this.CurrentAnimation.currentFrameIndex == 4) {
-            this.SetVelocity(
+        } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
+            this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
         if (InputManager.Instance.Was_down(new string[] {"Right", "Down", "Right", "D"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyShory");
-        } else if (this.CurrentState == "HeavyShory" && this.CurrentAnimation.currentFrameIndex == 6) {
-            this.SetVelocity(
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
+            this.AddVelocity(
                 X: 2.4f, 
                 Y: 73);
         } 
@@ -655,14 +655,14 @@ public class Ken : Character {
             this.ChangeState("LightTatso");
             this.SetVelocity(X: this.tatso_speed, Y: 5);
         } else if (this.CurrentState == "LightTatso") {
-            this.AddVelocity(Y: 0.5f);
+            this.AddVelocity(Y: 0.5f, raw_set: true);
         }
         
         if (InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(X: this.tatso_speed, Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
-            this.AddVelocity(Y: 0.55f);
+            this.AddVelocity(Y: 0.55f, raw_set: true);
         }
         
         if ((InputManager.Instance.Was_down(new string[] {"Down", "Left", "B"}, 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down(new string[] {"Down", "Left", "A"}, 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
@@ -829,7 +829,7 @@ public class Ken : Character {
                 break;
             
             case "LightShory":
-                Character.Pushback(target: target, self: this, "Heavy");
+                Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -17);

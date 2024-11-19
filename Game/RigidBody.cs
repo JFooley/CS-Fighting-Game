@@ -41,8 +41,9 @@ public class RigidBody {
         else this.Velocity = new Vector2f(X * player.facing, -this.CalcularForcaY(Y));
     }
 
-    public void AddVelocity(Character player, float X = 0, float Y = 0) {
-        this.Velocity += new Vector2f(X * player.facing, -Y);
+    public void AddVelocity(Character player, float X = 0, float Y = 0, bool raw_set = false) {
+        if (raw_set) this.Velocity += new Vector2f(X, -Y);
+        else this.Velocity += new Vector2f(X * player.facing, -this.CalcularForcaY(Y));
     }
 
     private float CalcularForcaY(float deltaY) {
