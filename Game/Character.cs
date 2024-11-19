@@ -200,7 +200,7 @@ public class Character : Object_Space.Object {
     }
     public bool isBlockingLow() {
         if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
-        return (this.notActing || this.CurrentState == "OnBlockCrouching") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
+        return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
     public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, int airbone_X = 5, bool force = false) {
         if (airbone || this.LifePoints.X <= 0 || this.onAir) {
@@ -229,6 +229,15 @@ public class Character : Object_Space.Object {
             this.StunFrames = Math.Max(advantage, 0);
         } else {
             this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
+        }
+    }
+    public void CheckStun() {
+        if (this.StunFrames > 0) {
+            this.StunFrames -= 1;
+            if (this.StunFrames == 0) {
+                if (this.isCrounching) this.ChangeState("Crouching");
+                else this.ChangeState("Idle");
+            }
         }
     }
 

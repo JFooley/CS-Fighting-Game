@@ -61,6 +61,14 @@ public class Ken : Character {
             new FrameData(14754, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 112, 91, 127, 106), new GenericBox(1, 94, 103, 139, 127), new GenericBox(1, 90, 128, 136, 151), new GenericBox(1, 89, 152, 152, 195) }),
         };
 
+        var OnBlockLowFrames = new List<FrameData> {
+            new FrameData(14755, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 116, 124, 137, 139), new GenericBox(1, 96, 133, 142, 152), new GenericBox(1, 98, 153, 157, 174), new GenericBox(1, 84, 174, 169, 196) }),
+            new FrameData(14756, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 123, 132, 140), new GenericBox(1, 97, 132, 144, 151), new GenericBox(1, 100, 151, 154, 171), new GenericBox(1, 89, 170, 164, 195) }),
+            new FrameData(14757, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 125, 127, 139), new GenericBox(1, 95, 132, 143, 155), new GenericBox(1, 98, 155, 166, 177), new GenericBox(1, 86, 176, 167, 195) }),
+            new FrameData(14758, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 123, 125, 139), new GenericBox(1, 92, 133, 141, 154), new GenericBox(1, 98, 155, 161, 175), new GenericBox(1, 87, 175, 166, 196) }),
+            new FrameData(14759, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 123, 125, 139), new GenericBox(1, 94, 133, 140, 149), new GenericBox(1, 97, 149, 154, 171), new GenericBox(1, 87, 171, 165, 195) }),
+        };
+
         var OnHit3Frames = new List<FrameData> {
             new FrameData(14807, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 111, 92, 127, 105), new GenericBox(1, 89, 107, 140, 135), new GenericBox(1, 92, 135, 141, 161), new GenericBox(1, 98, 161, 152, 194) }),
             new FrameData(14808, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 95, 93, 112, 107), new GenericBox(1, 85, 105, 139, 134), new GenericBox(1, 93, 134, 149, 162), new GenericBox(1, 93, 163, 158, 196) }),
@@ -70,6 +78,14 @@ public class Ken : Character {
             new FrameData(14812, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 100, 113, 116, 130), new GenericBox(1, 87, 117, 129, 157), new GenericBox(1, 128, 123, 154, 140), new GenericBox(1, 92, 147, 174, 195) }),
             new FrameData(14813, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 109, 101, 127, 118), new GenericBox(1, 89, 116, 142, 144), new GenericBox(1, 90, 144, 154, 165), new GenericBox(1, 88, 164, 157, 195) }),
             new FrameData(14814, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 115, 96, 135, 113), new GenericBox(1, 96, 107, 147, 139), new GenericBox(1, 95, 140, 146, 159), new GenericBox(1, 90, 158, 154, 194) }),
+        };
+        
+        var OnHitLowFrames = new List<FrameData> {
+            new FrameData(14860, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 117, 122, 135, 138), new GenericBox(1, 89, 135, 139, 151), new GenericBox(1, 92, 152, 147, 174), new GenericBox(1, 78, 174, 156, 196) }),
+            new FrameData(14861, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 84, 123, 103, 137), new GenericBox(1, 67, 135, 123, 154), new GenericBox(1, 85, 155, 149, 176), new GenericBox(1, 84, 176, 166, 195) }),
+            new FrameData(14862, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 69, 127, 95, 145), new GenericBox(1, 68, 140, 115, 159), new GenericBox(1, 85, 158, 141, 178), new GenericBox(1, 85, 178, 162, 195) }),
+            new FrameData(14863, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 58, 139, 78, 155), new GenericBox(1, 65, 141, 112, 162), new GenericBox(1, 89, 163, 132, 178), new GenericBox(1, 82, 179, 162, 194) }),
+            new FrameData(14864, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 85, 128, 102, 140), new GenericBox(1, 86, 132, 130, 152), new GenericBox(1, 82, 153, 132, 171), new GenericBox(1, 82, 170, 156, 194) }),
         };
 
         // Normals
@@ -517,8 +533,8 @@ public class Ken : Character {
             { "Idle", new Animation(idleFrames, "Idle", 20)},
             { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, doChangeState: false)}, 
             { "OnHit", new Animation(OnHit3Frames, "OnHit", 20, doChangeState: false)},
-            { "OnBlockLow", new Animation(OnBlockFrames, "OnBlockLow", 20, doChangeState: false)}, 
-            { "OnHitLow", new Animation(OnHit3Frames, "OnHitLow", 20, doChangeState: false)},
+            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, doChangeState: false)}, 
+            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 20, doChangeState: false)},
             // Normals
             { "LP", new Animation(LPFrames, "Idle", 30)},
             { "LK", new Animation(LKFrames, "Idle", 30)},
@@ -568,11 +584,7 @@ public class Ken : Character {
     public override void DoBehave() {
         if (this.behave == false) return;
 
-        if (this.StunFrames > 0) {
-            this.StunFrames -= 1;
-            if (this.StunFrames == 0) this.ChangeState("Idle");
-            return;
-        }
+        this.CheckStun();
 
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
 

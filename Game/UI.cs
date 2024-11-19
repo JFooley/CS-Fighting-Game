@@ -111,6 +111,7 @@ namespace UI_space {
             if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 185, -80, spacing: -15, alignment: "right", size: 0.8f);
 
             // Draw lifebar A
+            UI.Instance.DrawText(window, stage.character_A.name, -185, -110, spacing: -10, size: 0.5f, alignment: "left");
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
             var lifeA = Math.Max(Math.Min(lifeA_scale, 150), 0);
             if (stage.character_B.comboCounter == 0) this.graylife_A = lifeA > this.graylife_A ? this.graylife_A = lifeA : (int) (this.graylife_A + (lifeA - this.graylife_A) * 0.01);
@@ -126,6 +127,7 @@ namespace UI_space {
             this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
             
             // Draw lifebar B
+            UI.Instance.DrawText(window, stage.character_B.name, 185, -110, spacing: -10, size: 0.5f, alignment: "right");
             var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;
             var lifeB = Math.Max(Math.Min(lifeB_scale, 150), 0);
             if (stage.character_A.comboCounter == 0) this.graylife_B = lifeB > this.graylife_B ? this.graylife_B = lifeB : (int) (this.graylife_B + (lifeB - this.graylife_B) * 0.01);
@@ -151,17 +153,17 @@ namespace UI_space {
         private static Texture texture;
         public static char[] characters = 
         {
-            '≈', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.',
-            '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', 
-            '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 
-            'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', 
-            '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 
-            'z', '{', '¦', '}', '~', 'Ç', 'ü', 'é', 'â', 'ä', 'à', 'å', 'ç', 'ê', 'ë',
-            'è','ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ', 'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 
-            'Ö', 'Ü', '¢', '£', '¥', 'ƒ', 'á', 'í', 'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', 
-            '¿', '⌐', '¬', '½', '¼', '¡', '«', '»', 'π', 'µ', '±', '≥', '≤', '÷', 
-            '≈', '°', '·', '√', ' '
+            '≈',  '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.',
+            '/',  '0', '1', '2', '3', '4', '5', '6',  '7', '8', '9', ':', ';', '<', '=', 
+            '>',  '?', '@', 'A', 'B', 'C', 'D', 'E',  'F', 'G', 'H', 'I', 'J', 'K', 'L', 
+            'M',  'N', 'O', 'P', 'Q', 'R', 'S', 'T',  'U', 'V', 'W', 'X', 'Y', 'Z', '[', 
+            '\\', ']', '^', '_', '`', 'a', 'b', 'c',  'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k',  'l', 'm', 'n', 'o', 'p', 'q', 'r',  's', 't', 'u', 'v', 'w', 'x', 'y', 
+            'z',  '{', '¦', '}', '~', 'Ç', 'ü', 'é',  'â', 'ä', 'à', 'å', 'ç', 'ê', 'ë',
+            'è',  'ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ',  'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 
+            'Ö',  'Ü', '¢', '£', '¥', 'ƒ', 'á', 'í',  'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', 
+            '¿',  '⌐', '¬', '½', '¼', '¡', '«', '»',  'π', 'µ', '±', '≥', '≤', '÷', 
+            '≈',  '°', '·', '√', ' '
         };
 
         private const int CellSize = 32; // Tamanho de cada célula

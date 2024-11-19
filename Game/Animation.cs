@@ -70,8 +70,10 @@ public class Animation {
                 this.onLastFrame = false;
             } else if (currentFrameIndex == animSize) {
                 this.onLastFrame = true;
-            } else {
+            } else if (this.doChangeState) {
                 this.Reset();
+            } else {
+                this.currentFrameIndex -= 1;
             }
 
             return true; // do frame change
