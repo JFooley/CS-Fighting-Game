@@ -13,18 +13,20 @@ public class Animation {
     public int realAnimSize => animSize * (60 / this.framerate);
 
     public bool doRun;
-    public bool doChangeState;
+    public bool changeOnLastframe;
+    public bool changeOnGround;
     public int framerate;
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool doChangeState = true) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool changeOnLastframe = true, bool changeOnGround = false) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.doRun = true;
         this.animSize = Frames.Count() - 1;
         this.post_state = post_state;
-        this.doChangeState = doChangeState;
+        this.changeOnLastframe = changeOnLastframe;
+        this.changeOnGround = changeOnGround;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
@@ -36,7 +38,7 @@ public class Animation {
         this.doRun = true;
         this.animSize = SimpleFrames.Count() - 1;
         this.post_state = post_state;
-        this.doChangeState = true;
+        this.changeOnLastframe = true;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
@@ -70,7 +72,7 @@ public class Animation {
                 this.onLastFrame = false;
             } else if (currentFrameIndex == animSize) {
                 this.onLastFrame = true;
-            } else if (this.doChangeState) {
+            } else if (this.changeOnLastframe) {
                 this.Reset();
             } else {
                 this.currentFrameIndex -= 1;

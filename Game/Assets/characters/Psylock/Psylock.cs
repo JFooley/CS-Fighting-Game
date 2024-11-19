@@ -257,7 +257,7 @@ public class Psylock : Character {
             { "Jump", new Animation(jumpFrames, "JumpFalling", 20)},
             { "JumpForward", new Animation(jumpFrames, "JumpFalling", 20)},
             { "JumpBackward", new Animation(jumpFrames, "JumpFalling", 20)},
-            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, doChangeState: false)},
+            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, changeOnLastframe: false)},
             // Bonus
             { "Intro", new Animation(introFrames, "Idle", 10)},
         };

@@ -5,6 +5,7 @@ using Animation_Space;
 using Character_Space;
 using UI_space;
 using Input_Space;
+using System.Data.SqlClient;
 
 namespace Stage_Space {
 
@@ -23,6 +24,7 @@ public class Stage {
 
     // Battle Info
     private int hitstopCounter = 0;
+    public bool onHitstop => hitstopCounter > 0 ? true : false;
     public List<Character> OnSceneCharacters = new List<Character> {};
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
@@ -120,7 +122,7 @@ public class Stage {
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
-            if (CurrentAnimation.doChangeState) {
+            if (CurrentAnimation.changeOnLastframe) {
                 if (animations.ContainsKey(this.CurrentAnimation.post_state)) {
                     this.LastState = this.CurrentState;
                     this.CurrentState = this.CurrentAnimation.post_state;

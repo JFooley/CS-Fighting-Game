@@ -10,19 +10,17 @@ using Stage_Space;
 // Idle
 // WalkingForward
 // WalkingBackward
-// DashForward
-// DashBackward
 // JumpForward
 // Jump
 // JumpBackward
-// CrouchingIn
+// JumpFalling
 // Crouching
-// CrouchingOut
 // OnHit
 // OnHitLow
 // OnBlock
 // OnBlockLow
 // Airboned
+// Falling
 // OnGround
 // Wakeup
 
@@ -172,7 +170,9 @@ public class Character : Object_Space.Object {
         this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
 
         // Change state, if necessary
-        if (this.CurrentAnimation.onLastFrame && CurrentAnimation.doChangeState) {
+        if (CurrentAnimation.changeOnLastframe && this.CurrentAnimation.onLastFrame) {
+            this.ChangeState(this.CurrentAnimation.post_state);
+        } else if (CurrentAnimation.changeOnGround && this.body.Position.Y >= this.floorLine && this.body.LastPosition.Y < this.floorLine) {
             this.ChangeState(this.CurrentAnimation.post_state);
         }
 

@@ -531,10 +531,10 @@ public class Ken : Character {
         var animations = new Dictionary<string, Animation> {
             // Normals
             { "Idle", new Animation(idleFrames, "Idle", 20)},
-            { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, doChangeState: false)}, 
-            { "OnHit", new Animation(OnHit3Frames, "OnHit", 20, doChangeState: false)},
-            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, doChangeState: false)}, 
-            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 20, doChangeState: false)},
+            { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, changeOnLastframe: false)}, 
+            { "OnHit", new Animation(OnHit3Frames, "OnHit", 20, changeOnLastframe: false)},
+            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false)}, 
+            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 20, changeOnLastframe: false)},
             // Normals
             { "LP", new Animation(LPFrames, "Idle", 30)},
             { "LK", new Animation(LKFrames, "Idle", 30)},
@@ -551,7 +551,7 @@ public class Ken : Character {
             { "Jump", new Animation(jumpFrames, "Idle", 20)},
             { "JumpForward", new Animation(jumpForward, "JumpFalling", 20)}, 
             { "JumpBackward", new Animation(JumpBackward, "JumpFalling", 20)},
-            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, doChangeState: false)},
+            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true)},
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
@@ -560,8 +560,8 @@ public class Ken : Character {
             { "Shungoku", new Animation(Shungoku, "Idle", 10)},
             { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Idle", 30)},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30)},
+            { "LightShory", new Animation(lightShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true)},
+            { "HeavyShory", new Animation(heavyShoryFrames, "Idle", 30, changeOnLastframe: false, changeOnGround: true)},
             { "LightHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Idle", 30)},
@@ -588,7 +588,7 @@ public class Ken : Character {
 
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
 
-        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) || ((this.CurrentState == "JumpFalling" || this.CurrentState == "AirTatso") && this.body.Position.Y == this.floorLine)) {
+        if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
         }
 
@@ -614,9 +614,6 @@ public class Ken : Character {
         }
 
         // Cancels
-        // if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LK") {
-        //     this.ChangeState("MK");
-        // }
         if (InputManager.Instance.Was_down(new string[] {"D"}, Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
             this.SetVelocity();
             this.ChangeState("CloseHP");
