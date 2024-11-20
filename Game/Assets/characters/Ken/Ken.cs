@@ -599,7 +599,7 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory"))))) {
+        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory"))))) {
             this.ChangeState("SA1");
             this.SA_flag = false;
         } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.hasFrameChange) {

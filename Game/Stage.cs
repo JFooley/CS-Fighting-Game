@@ -195,7 +195,7 @@ public class Stage {
         if (InputManager.Instance.Key_down("Start")) this.showBoxs = !this.showBoxs;
         if (InputManager.Instance.Key_down("LB")) this.block_after_hit = !this.block_after_hit;
 
-        this.reset_frames += 1;
+        if(hitstopCounter == 0) this.reset_frames += 1;
 
         // Block after hit
         if (this.character_B.StunFrames > 0) {
