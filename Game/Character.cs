@@ -45,7 +45,7 @@ public class Character : Object_Space.Object {
     public int StunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;
-    public int jump_hight = 70;
+    public int jump_hight = 79;
     public int push_box_width = 0;
 
     // Object infos
@@ -79,6 +79,7 @@ public class Character : Object_Space.Object {
     public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
+    public bool hasFrameChange => animations[CurrentState].hasFrameChange;
     public int lastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
@@ -212,8 +213,8 @@ public class Character : Object_Space.Object {
         if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
-    public void HitStun(Character enemy, int advantage, bool airbone = false, int airbone_height = 50, int airbone_X = 5, bool force = false) {
-        if (airbone || this.LifePoints.X <= 0 || this.onAir) {
+    public void HitStun(Character enemy, int advantage, bool airbone = false, float airbone_height = 0, float airbone_X = 5, bool force = false) {
+        if (airbone || this.LifePoints.X <= 0 || (this.onAir && airbone_height > 0)) {
             this.ChangeState("Airboned", reset: true);
             this.SetVelocity(
                 X: airbone_X * (enemy.facing * this.facing), 
@@ -238,7 +239,7 @@ public class Character : Object_Space.Object {
         if (force) {
             this.StunFrames = Math.Max(advantage, 0);
         } else {
-            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
+            this.StunFrames = Math.Max((60 / enemy.CurrentAnimation.framerate) * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
         }
     }
     public void CheckStun() {
@@ -252,22 +253,26 @@ public class Character : Object_Space.Object {
     }
 
     // Static Methods 
-    public static void Pushback(Character target, Character self, string amount, float Y_amount = 0, bool force_push = false) {
+    public static void Pushback(Character target, Character self, string amount, float X_amount = 0, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
-            if (amount == "Light") {
-                self.SetVelocity(-Config.light_pushback, Y_amount);
+            if (X_amount != 0) {
+                self.SetVelocity(X: -X_amount, Y: -self.body.Velocity.Y, raw_set: true);
+            } else if (amount == "Light") {
+                self.SetVelocity(X: -Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                self.SetVelocity(-Config.medium_pushback, Y_amount);
+                self.SetVelocity(X: -Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                self.SetVelocity(-Config.heavy_pushback, Y_amount);
+                self.SetVelocity(X: -Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             }
         } else {
-            if (amount == "Light") {
-                target.SetVelocity(-Config.light_pushback, Y_amount);
+            if (X_amount != 0) {
+                target.SetVelocity(X: -X_amount, Y: -target.body.Velocity.Y, raw_set: true);
+            } else if (amount == "Light") {
+                target.SetVelocity(X: -Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                target.SetVelocity(-Config.medium_pushback, Y_amount);
+                target.SetVelocity(X: -Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                target.SetVelocity(-Config.heavy_pushback, Y_amount);
+                target.SetVelocity(X: -Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             }
         }
     }

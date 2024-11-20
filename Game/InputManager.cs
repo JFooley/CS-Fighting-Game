@@ -215,15 +215,12 @@ public class InputManager {
     public bool Was_down(String rawSequenceString, int maxFrames, bool flexEntry = true, int player = DEFAULT, int facing = 1) {
         int[] sequence = rawSequenceString.Split(' ').Select(key => keysTranslationMap[facing][key]).ToArray();
 
-        int frameCount = inputBuffer.Count;
-        int sequenceLength = sequence.Length;
-
         // Converter a fila para uma lista temporária para acesso por índice
         List<int> bufferList = buffers[player].ToList();
 
         // Começa a verificar a sequência de trás para frente
-        int currentIndex = sequenceLength - 1;
-        int currentFrame = frameCount - 1;
+        int currentIndex = sequence.Length - 1;
+        int currentFrame = inputBuffer.Count - 1;
 
         for (int i = currentIndex; i >= 0; i--) {
             bool found = false;
@@ -256,8 +253,16 @@ public class InputManager {
 
         return true;
     }
+    public bool Key_press(String key, int player = DEFAULT, int facing = 1) {
+        List<int> bufferList = buffers[player].ToList();
+        for (int i = bufferList.Count() - 1; i > (bufferList.Count() - Config.inputWindowTime); i--) {
+            if ((bufferList[i] & (1 << keysTranslationMap[facing][key])) != 0 && (bufferList[i-1] & (1 << keysTranslationMap[facing][key])) == 0) {
+                return true;
+            };
+        }
+        return false;
+    }
 
-}
 
 public static class RawInput {
     [DllImport("user32.dll")]
@@ -346,4 +351,5 @@ public class JoystickInput {
     }
 }
 
+}
 }

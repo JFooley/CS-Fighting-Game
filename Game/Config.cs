@@ -5,8 +5,11 @@ public static class Config {
     public const int WindowHeight = 720;
     public const bool Vsync = true;
     public const int Framerate = 60;
+
+
     public const int maxDistance = 350;
     public const int resetFrames = 20;
+    public const int inputWindowTime = 4;
 
     // Audio
     private static float _main_volume = 50f;
@@ -41,11 +44,7 @@ public static class Config {
     public static int hitStopTime = 10;
     public static int max_rounds = 2;
 
-    public static float light_pushback = 4f;
+    public static float light_pushback = 2.5f;
     public static float medium_pushback = 3.8f;
     public static float heavy_pushback = 4.8f;
-
-    public static int light_pushback_frames = 8;
-    public static int medium_pushback_frames = 10;
-    public static int heavy_pushback_frames = 10;
 }

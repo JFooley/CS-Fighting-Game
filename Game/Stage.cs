@@ -172,11 +172,11 @@ public class Stage {
         
         // Keep characters facing each other
         if (this.character_A.body.Position.X < this.character_B.body.Position.X) {
-            if ((this.character_A.CurrentAnimation.currentFrameIndex == 0 && !this.character_A.onAir) || this.character_A.notActing) this.character_A.facing = 1;
-            if ((this.character_B.CurrentAnimation.currentFrameIndex == 0 && !this.character_B.onAir) || this.character_B.notActing) this.character_B.facing = -1;
+            if (this.character_A.notActing) this.character_A.facing = 1;
+            if (this.character_B.notActing) this.character_B.facing = -1;
         } else {
-            if ((this.character_A.CurrentAnimation.currentFrameIndex == 0 && !this.character_A.onAir) || this.character_A.notActing) this.character_A.facing = -1;
-            if ((this.character_B.CurrentAnimation.currentFrameIndex == 0 && !this.character_B.onAir) || this.character_B.notActing) this.character_B.facing = 1;
+            if (this.character_A.notActing) this.character_A.facing = -1;
+            if (this.character_B.notActing) this.character_B.facing = 1;
         }
 
         this.checkColisions();
@@ -197,26 +197,24 @@ public class Stage {
 
         this.reset_frames += 1;
 
-        if (this.block_after_hit) {
-            // Block after hit
-            if (this.character_B.StunFrames > 0) {
-                this.character_B.blocking = true;
-                this.reset_frames = 0;
-            } else if (this.character_A.StunFrames > 0) {
-                this.character_A.blocking = true;
-                this.reset_frames = 0;
-            }
+        // Block after hit
+        if (this.character_B.StunFrames > 0) {
+            if (this.block_after_hit) this.character_B.blocking = true;
+            this.reset_frames = 0;
+        } else if (this.character_A.StunFrames > 0) {
+            if (this.block_after_hit) this.character_A.blocking = true;
+            this.reset_frames = 0;
         }
 
         // Reset chars life
         if (this.reset_frames >= Config.resetFrames) {
             if (this.character_B.notActing) {
-                this.character_B.blocking = false;
+                if (this.block_after_hit) this.character_B.blocking = false;
                 this.character_B.LifePoints.X = this.character_B.LifePoints.Y;
                 this.character_B.DizzyPoints.X = this.character_B.DizzyPoints.Y;
             }
             if (this.character_A.notActing) {
-                this.character_A.blocking = false;
+                if (this.block_after_hit) this.character_A.blocking = false;
                 this.character_A.LifePoints.X = this.character_A.LifePoints.Y;
                 this.character_A.DizzyPoints.X = this.character_A.DizzyPoints.Y;
             }
