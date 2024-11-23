@@ -44,7 +44,7 @@ public static class Config {
     public static int hitStopTime = 10;
     public static int max_rounds = 2;
 
-    public static float light_pushback = 2.5f;
-    public static float medium_pushback = 3.8f;
-    public static float heavy_pushback = 4.8f;
+    public static float light_pushback = 3f;
+    public static float medium_pushback = 4f;
+    public static float heavy_pushback = 5.5f;
 }

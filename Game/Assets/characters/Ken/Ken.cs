@@ -681,19 +681,19 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("BackMK");
-        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("BackMP");
         }
 
-        if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LP");
-        } else if (InputManager.Instance.Key_down("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LK");
-        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("MP");
-        } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
+        } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
             this.ChangeState("MK");
         } 
         
@@ -854,7 +854,7 @@ public class Ken : Character {
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
                     hit = 0;
-                    target.BlockStun(this, -31);
+                    target.BlockStun(this, -10);
 
                 } else {
                     hit = 1;
