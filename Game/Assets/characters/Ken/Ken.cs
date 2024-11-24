@@ -335,8 +335,8 @@ public class Ken : Character {
         var lightShoryFrames = new List<FrameData> {
             new FrameData(15344, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 144, 122, 161, 140), new GenericBox(1, 107, 130, 151, 167), new GenericBox(1, 107, 155, 162, 193) }),
             new FrameData(15345, 5.0f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 139, 116, 160, 136), new GenericBox(1, 107, 120, 155, 164), new GenericBox(1, 98, 164, 155, 195) }, "shory"),
-            new FrameData(15346, 6.5f, 0, new List<GenericBox> { pushbox, new GenericBox(0, 154, 115, 187, 153), new GenericBox(0, 153, 153, 170, 171), new GenericBox(1, 109, 108, 151, 152), new GenericBox(1, 109, 153, 152, 172), new GenericBox(1, 97, 171, 151, 195) }, hasHit: false),
-            new FrameData(15347, 8.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 109, 74, 127, 90), new GenericBox(1, 102, 83, 141, 102), new GenericBox(1, 109, 103, 144, 127), new GenericBox(1, 113, 128, 133, 161), new GenericBox(0, 134, 35, 151, 72), new GenericBox(0, 144, 97, 173, 145)}),
+            new FrameData(15346, 5.5f, 0, new List<GenericBox> { pushbox, new GenericBox(0, 154, 115, 187, 153), new GenericBox(0, 153, 153, 170, 171), new GenericBox(1, 109, 108, 151, 152), new GenericBox(1, 109, 153, 152, 172), new GenericBox(1, 97, 171, 151, 195) }, hasHit: false),
+            new FrameData(15347, 6.0f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 109, 74, 127, 90), new GenericBox(1, 102, 83, 141, 102), new GenericBox(1, 109, 103, 144, 127), new GenericBox(1, 113, 128, 133, 161), new GenericBox(0, 134, 35, 151, 72), new GenericBox(0, 144, 97, 173, 145)}),
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 108, 83, 127, 97), new GenericBox(1, 101, 97, 145, 130), new GenericBox(1, 111, 124, 151, 152), new GenericBox(1, 110, 152, 133, 187) }),
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 108, 83, 127, 97), new GenericBox(1, 101, 97, 145, 130), new GenericBox(1, 111, 124, 151, 152), new GenericBox(1, 110, 152, 133, 187) }),
             new FrameData(15349, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 108, 83, 127, 97), new GenericBox(1, 101, 97, 145, 130), new GenericBox(1, 111, 124, 151, 152), new GenericBox(1, 110, 152, 133, 187) }),
@@ -351,46 +351,46 @@ public class Ken : Character {
         };
 
         var heavyTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
-            new FrameData(15357, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
-            new FrameData(15358, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
-            new FrameData(15359, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
+            new FrameData(15356, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
+            new FrameData(15357, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
+            new FrameData(15358, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
+            new FrameData(15359, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
 
-            new FrameData(15456, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
-            new FrameData(15457, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
-            new FrameData(15458, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
-            new FrameData(15459, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
-            new FrameData(15460, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
-            new FrameData(15461, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
 
-            new FrameData(15456, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
-            new FrameData(15457, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
-            new FrameData(15458, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
-            new FrameData(15459, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
-            new FrameData(15460, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
-            new FrameData(15461, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
 
-            new FrameData(15366, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
-            new FrameData(15367, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
-            new FrameData(15368, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
+            new FrameData(15366, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
+            new FrameData(15367, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
+            new FrameData(15368, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
         };
 
         var lightTatsoFrames = new List<FrameData> {
-            new FrameData(15356, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
-            new FrameData(15357, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
-            new FrameData(15358, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
-            new FrameData(15359, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
+            new FrameData(15356, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
+            new FrameData(15357, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
+            new FrameData(15358, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
+            new FrameData(15359, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
 
-            new FrameData(15456, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
-            new FrameData(15457, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
-            new FrameData(15458, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
-            new FrameData(15459, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
-            new FrameData(15460, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
-            new FrameData(15461, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
 
-            new FrameData(15366, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
-            new FrameData(15367, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
-            new FrameData(15368, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
+            new FrameData(15366, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
+            new FrameData(15367, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
+            new FrameData(15368, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
         };
 
         var tatsoFrames = new List<FrameData> {
@@ -408,9 +408,9 @@ public class Ken : Character {
             new FrameData(14882, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 67, 105, 145, 131), new GenericBox(1, 138, 112, 177, 165) }),
             new FrameData(14883, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 67, 106, 187, 142) }),
             new FrameData(14884, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 69, 108, 189, 140) }),
-            new FrameData(14885, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 69, 109, 192, 141) }),
-            new FrameData(14886, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 76, 101, 185, 148) }),
-            new FrameData(14887, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 92, 99, 134, 159), new GenericBox(1, 125, 74, 174, 115) }),
+            new FrameData(14885, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 81, 108, 184, 142) }),
+            new FrameData(14886, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 83, 115, 128, 157), new GenericBox(1, 127, 111, 184, 140) }),
+            new FrameData(14887, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 96, 136, 138, 180), new GenericBox(1, 120, 104, 164, 148) }),
         };
 
         var fallingFrames = new List<FrameData> {
@@ -574,7 +574,7 @@ public class Ken : Character {
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30)},
             { "AirTatso", new Animation(tatsoFrames, "Landing", 30, changeOnGround: true, changeOnLastframe: false)},
             // Hit and Block
-            { "Airboned", new Animation(AirbonedFrames, "Falling", 15)},
+            { "Airboned", new Animation(AirbonedFrames, "Falling", 15, changeOnGround: true, changeOnLastframe: false, loop: false)},
             { "Falling", new Animation(fallingFrames, "OnGround", 15)},
             { "OnGround", new Animation(OnGroundFrames, "Wakeup", 2)},
             { "Wakeup", new Animation(wakeupFrames, "Idle", 15)},
@@ -663,14 +663,14 @@ public class Ken : Character {
         // Tatso
         if (InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("LightTatso");
-            this.SetVelocity(X: this.tatso_speed, Y: 5);
+            this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
         }
         
         if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
-            this.SetVelocity(X: this.tatso_speed, Y: 5);
+            this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
         }
@@ -758,7 +758,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 13, 50);
-                    target.HitStun(this, 4);
+                    target.HitStun(this, 5);
                 }
                 break;
                 
@@ -838,7 +838,6 @@ public class Ken : Character {
                 break;
             
             case "LightShory":
-                Character.Pushback(target: target, self: this, "Medium", X_amount: 4.1f);
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -17);
@@ -848,10 +847,10 @@ public class Ken : Character {
                     target.HitStun(this, 0, airbone: true, airbone_height: 110, airbone_X: Config.light_pushback);
                     
                 }
+                Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f);
                 break;
 
             case "HeavyShory":
-                Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -10);
@@ -862,6 +861,7 @@ public class Ken : Character {
                     if (this.CurrentFrameIndex >= 6) target.HitStun(this, 0, airbone: true, airbone_height: 120, airbone_X: Config.medium_pushback);
                     else target.HitStun(this, 0);
                 }
+                Character.Pushback(target: target, self: this, "Heavy");
                 break;
             
             case "LightTatso":
@@ -873,6 +873,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 66, 203);
                     target.HitStun(this, -3, airbone_height: 40);
                 }
+                Character.Pushback(target: target, self: this, "Light");
                 break;
             
             case "HeavyTatso":
@@ -884,6 +885,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 54, 234);
                     target.HitStun(this, -3, airbone_height: 40);
                 }
+                Character.Pushback(target: target, self: this, "Light");
                 break;
             
             case "AirTatso":
