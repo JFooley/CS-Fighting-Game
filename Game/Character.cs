@@ -165,7 +165,7 @@ public class Character : Object_Space.Object {
                 window.Draw(hitboxRect);
             }
 
-            UI.Instance.DrawText(window, this.CurrentState, this.body.Position.X, this.body.Position.Y, spacing: -10, size: 0.5f, alignment: "center", absolutePosition: true);
+            UI.Instance.DrawText(window, this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 50, spacing: -10, size: 0.5f, alignment: "center");
         }
     }
     public override void DoAnimate() {

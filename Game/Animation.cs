@@ -99,6 +99,9 @@ public class GenericBox {
     public Vector2f pA;
     public Vector2f pB;
 
+    public float width;
+    public float height;
+
     public int type;
     public int quadsize = 250;
 
@@ -108,6 +111,8 @@ public class GenericBox {
         this.pB.X = x2;
         this.pA.Y = y1;
         this.pB.Y = y2;
+        this.width = x2 - x1;
+        this.height = y2 - y1;
     }
 
     public static bool Intersects(GenericBox boxA, GenericBox boxB, Character charA, Character charB) {
@@ -145,8 +150,7 @@ public class GenericBox {
         float Y = charA.VisualPosition.Y + this.pB.Y;
 
         return new Vector2f(X, Y);
-    }
-
+    } 
 }
 
 public class FrameData {
