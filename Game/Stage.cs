@@ -444,7 +444,7 @@ public class Stage {
 
                 // Adiciona no dicionário
                 this.stageSounds[fileNameWithoutExtension] = new Sound(buffer);
-            } catch (SFML.LoadingFailedException ex) {
+            } catch {
                 // Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
             }
         }

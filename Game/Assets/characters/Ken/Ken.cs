@@ -394,7 +394,7 @@ public class Ken : Character {
         };
 
         var tatsoFrames = new List<FrameData> {
-            new FrameData(15456, 3.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 114, 79, 130, 92), new GenericBox(1, 98, 92, 138, 109), new GenericBox(1, 97, 110, 135, 136) }, "tatso"),
+            new FrameData(15456, 3.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 114, 79, 130, 92), new GenericBox(1, 98, 92, 138, 109), new GenericBox(1, 97, 110, 135, 136) }),
             new FrameData(15457, 3.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 115, 80, 132, 94), new GenericBox(1, 103, 90, 138, 106), new GenericBox(1, 104, 107, 141, 135), new GenericBox(0, 157, 111, 196, 137) }),
             new FrameData(15458, 3.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 108, 80, 127, 94), new GenericBox(1, 95, 90, 139, 113), new GenericBox(1, 102, 113, 139, 138), new GenericBox(0, 157, 115, 194, 136) }),
             new FrameData(15459, 3.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 105, 80, 127, 94), new GenericBox(1, 94, 91, 136, 112), new GenericBox(1, 102, 113, 142, 135) }),
@@ -568,7 +568,7 @@ public class Ken : Character {
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "LightHaduken", new Animation(hadukenFrames, "Idle", 20)},
+            { "LightHaduken", new Animation(hadukenFrames, "Idle", 30)},
             { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
             { "LightTatso", new Animation(lightTatsoFrames, "Landing", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30)},
@@ -778,11 +778,11 @@ public class Ken : Character {
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
-                    target.BlockStun(this, 3);
+                    target.BlockStun(this, -2);
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 100, 172);
-                    target.HitStun(this, 4);
+                    target.HitStun(this, 0);
                 }
                 break;
 
