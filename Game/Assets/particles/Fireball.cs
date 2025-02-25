@@ -65,21 +65,21 @@ public class Fireball : Character {
         base.DoBehave();
         switch (this.CurrentState) {
             case "Ken1":
+                this.SetVelocity(X: 4);
                 if (this.LifePoints.X == -1) {
                     this.ChangeState("KenExit");
-                    this.SetVelocity();
+                    this.SetVelocity(raw_set: true);
                     break;
                 }
-                this.SetVelocity(X: 5);
                 break;
 
             case "Ken2":
+                this.SetVelocity(X: 5);
                 if (this.LifePoints.X == -1) {
                     this.ChangeState("KenExit");
-                    this.SetVelocity();
+                    this.SetVelocity(raw_set: true);
                     break;
                 }
-                this.SetVelocity(X: 7);
                 break;
 
             case "Remove":
@@ -103,6 +103,7 @@ public class Fireball : Character {
             case "Ken1":
                 Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 this.ChangeState("KenExit");
+                this.SetVelocity(raw_set: true);
 
                 if (target.isBlocking()) {
                     hit = 0;
@@ -119,6 +120,7 @@ public class Fireball : Character {
             case "Ken2":
                 Character.Pushback(target: target, self: this, "Heavy", force_push: true);
                 this.ChangeState("KenExit");
+                this.SetVelocity(raw_set: true);
 
                 if (target.isBlocking()) {
                     hit = 0;

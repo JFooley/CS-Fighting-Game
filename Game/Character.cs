@@ -55,7 +55,7 @@ public class Character : Object_Space.Object {
 
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
-    public bool notActingAir => this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward";
+    public bool notActingAir => (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward") && this.body.Position.Y < this.floorLine;
     public bool isCrounching = false;
     public bool onAir => this.body.Position.Y < this.floorLine;
     public bool hasHit = false; 
@@ -307,6 +307,10 @@ public class Character : Object_Space.Object {
             this.isCrounching = true;
         } else {
             this.isCrounching = false;
+        }
+
+        if (this.CurrentState.Contains("Falling")) {
+            this.StunFrames = 0;
         }
     }
     public Sprite GetCurrentSpriteImage() {

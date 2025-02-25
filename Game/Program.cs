@@ -86,7 +86,7 @@ public static class Program
 
                 case SelectScreen:
                     UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2, spacing: -20, size: 0.9f);
-                    UI.Instance.DrawText(window, "¿ ¢ ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f);
+                    UI.Instance.DrawText(window, "¿ ¥ ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f);
 
                     if (InputManager.Instance.Key_down("Left") && stage_index > 0) {
                         stage_index -= 1;
