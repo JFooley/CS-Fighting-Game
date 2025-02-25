@@ -98,6 +98,17 @@ public class Ken : Character {
             new FrameData(15012, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 120, 88, 142, 108), new GenericBox(1, 105, 98, 143, 153), new GenericBox(1, 139, 101, 160, 128), new GenericBox(1, 93, 99, 126, 122), new GenericBox(1, 88, 147, 155, 196), pushbox}),
         };
         
+        var lowLPFrames = new List<FrameData> {
+            new FrameData(15152, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 124, 126, 143, 143), new GenericBox(1, 99, 132, 152, 152), new GenericBox(1, 98, 153, 156, 170), new GenericBox(1, 87, 169, 160, 196) }),
+            new FrameData(15153, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 128, 126, 143, 144), new GenericBox(1, 99, 130, 149, 150), new GenericBox(1, 99, 151, 159, 172), new GenericBox(1, 90, 172, 164, 196), new GenericBox(1, 150, 135, 180, 149), new GenericBox(0, 165, 132, 200, 151) }),
+            new FrameData(15154, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 126, 126, 145, 142), new GenericBox(1, 100, 130, 173, 150), new GenericBox(1, 101, 150, 158, 168), new GenericBox(1, 89, 166, 165, 196), new GenericBox(0, 171, 132, 201, 153) }),
+            new FrameData(15155, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 125, 126, 144, 144), new GenericBox(1, 98, 132, 154, 151), new GenericBox(1, 101, 152, 157, 173), new GenericBox(1, 90, 174, 161, 196) }),
+        };
+
+        var airLPFrames = new List<FrameData> {
+            
+        };
+
         var MPFrames = new List<FrameData> {
             new FrameData(15013, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 100, 100, 146, 153), new GenericBox(1, 119, 89, 140, 106), new GenericBox(1, 85, 102, 111, 126), new GenericBox(1, 137, 102, 162, 129), new GenericBox(1, 91, 143, 154, 195), pushbox}, "golpe_2"),
             new FrameData(15014, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 121, 90, 142, 108), new GenericBox(1, 105, 98, 147, 153), new GenericBox(1, 143, 116, 164, 134), new GenericBox(1, 84, 100, 110, 115), new GenericBox(1, 92, 139, 157, 195), pushbox}),
@@ -106,6 +117,22 @@ public class Ken : Character {
             new FrameData(15017, 0, 0, new List<GenericBox> { pushbox, new GenericBox(0, 163, 110, 204, 124), new GenericBox(1, 110, 103, 150, 161), new GenericBox(1, 129, 95, 152, 110), new GenericBox(1, 142, 107, 201, 122), new GenericBox(1, 91, 148, 160, 195), pushbox}),
             new FrameData(15018, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 102, 145, 158), new GenericBox(1, 137, 105, 173, 128), new GenericBox(1, 123, 92, 146, 109), new GenericBox(1, 92, 144, 157, 195) }),
             new FrameData(15019, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 99, 142, 156), new GenericBox(1, 96, 102, 156, 130), new GenericBox(1, 123, 90, 146, 106), new GenericBox(1, 89, 144, 160, 195), pushbox}),
+        };
+
+        var lowMPFrames = new List<FrameData> {
+            new FrameData(15164, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 133, 120, 150, 139), new GenericBox(1, 109, 124, 156, 146), new GenericBox(1, 106, 146, 163, 169), new GenericBox(1, 91, 169, 164, 196) }),
+            new FrameData(15165, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 131, 117, 151, 133), new GenericBox(1, 106, 124, 153, 147), new GenericBox(1, 105, 148, 158, 171), new GenericBox(1, 95, 171, 162, 195) }),
+            new FrameData(15166, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 129, 107, 150, 125), new GenericBox(1, 104, 112, 154, 137), new GenericBox(1, 104, 138, 156, 166), new GenericBox(1, 96, 166, 158, 195), new GenericBox(0, 151, 125, 179, 155), new GenericBox(0, 143, 155, 169, 181) }),
+            new FrameData(15167, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 154, 83, 170, 111), new GenericBox(0, 170, 111, 185, 141), new GenericBox(0, 124, 61, 148, 83), new GenericBox(1, 107, 96, 131, 112), new GenericBox(1, 100, 104, 143, 126), new GenericBox(1, 107, 127, 144, 154), new GenericBox(1, 95, 153, 162, 195) }, hasHit: false),
+            new FrameData(15168, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 99, 128, 112), new GenericBox(1, 101, 106, 143, 131), new GenericBox(1, 109, 131, 147, 159), new GenericBox(1, 97, 157, 160, 195), new GenericBox(0, 130, 70, 151, 94) }),
+            new FrameData(15169, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 109, 97, 131, 114), new GenericBox(1, 98, 111, 145, 130), new GenericBox(1, 104, 129, 145, 159), new GenericBox(1, 93, 159, 161, 195), new GenericBox(0, 131, 72, 153, 91) }),
+            new FrameData(15170, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 113, 98, 134, 116), new GenericBox(1, 99, 110, 149, 137), new GenericBox(1, 102, 135, 155, 167), new GenericBox(1, 91, 166, 164, 197) }),
+            new FrameData(15171, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 113, 106, 135, 122), new GenericBox(1, 103, 117, 149, 139), new GenericBox(1, 104, 138, 157, 167), new GenericBox(1, 91, 167, 161, 195) }),
+            new FrameData(15172, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 111, 132, 125), new GenericBox(1, 97, 121, 147, 150), new GenericBox(1, 99, 149, 156, 174), new GenericBox(1, 87, 173, 163, 196) }),
+        };
+
+        var airMPFrames = new List<FrameData> {
+
         };
 
         var HPFrames = new List<FrameData> {
@@ -147,6 +174,22 @@ public class Ken : Character {
             new FrameData(15110, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 122, 90, 141, 107), new GenericBox(1, 100, 97, 139, 153), new GenericBox(1, 137, 105, 156, 132), new GenericBox(1, 97, 143, 155, 195), pushbox}),
         };
 
+        var lowLKFrames = new List<FrameData> {
+            new FrameData(15189, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 120, 124, 138, 141), new GenericBox(1, 97, 132, 151, 152), new GenericBox(1, 98, 153, 157, 175), new GenericBox(1, 85, 175, 164, 197) }),
+            new FrameData(15190, 2.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 119, 122, 138, 139), new GenericBox(1, 98, 129, 155, 151), new GenericBox(1, 101, 151, 164, 175), new GenericBox(1, 76, 174, 163, 195) }),
+            new FrameData(15191, 2.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 109, 125, 130, 142), new GenericBox(1, 97, 134, 156, 157), new GenericBox(1, 96, 157, 169, 176), new GenericBox(1, 87, 176, 169, 191) }),
+            new FrameData(15192, 0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 137, 129, 148), new GenericBox(1, 89, 146, 140, 168), new GenericBox(1, 102, 168, 160, 191), new GenericBox(1, 161, 178, 199, 192), new GenericBox(0, 193, 167, 227, 197) }),
+            new FrameData(15193, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 134, 125, 149), new GenericBox(1, 88, 143, 147, 168), new GenericBox(1, 101, 168, 162, 193), new GenericBox(1, 161, 176, 189, 193), new GenericBox(0, 188, 169, 215, 196) }),
+            new FrameData(15194, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 103, 134, 126, 150), new GenericBox(1, 87, 143, 156, 169), new GenericBox(1, 102, 169, 167, 193), new GenericBox(1, 166, 178, 197, 195) }),
+            new FrameData(15195, -0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 127, 130, 145), new GenericBox(1, 93, 137, 141, 160), new GenericBox(1, 103, 159, 166, 179), new GenericBox(1, 100, 178, 167, 195) }),
+            new FrameData(15190, -2.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 119, 122, 138, 139), new GenericBox(1, 98, 129, 155, 151), new GenericBox(1, 101, 151, 164, 175), new GenericBox(1, 76, 174, 163, 195) }),
+            new FrameData(15205, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 117, 117, 140, 134), new GenericBox(1, 95, 126, 154, 151), new GenericBox(1, 81, 150, 165, 173), new GenericBox(1, 71, 173, 163, 197) }),
+        };
+
+        var airLKFrames = new List<FrameData> {
+
+        };
+
         var MKFrames = new List<FrameData> {
             new FrameData(15136, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 92, 137, 109), new GenericBox(1, 103, 102, 141, 123), new GenericBox(1, 106, 123, 142, 152), new GenericBox(1, 89, 151, 153, 195) }),
             new FrameData(15137, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 118, 93, 137, 106), new GenericBox(1, 104, 103, 142, 118), new GenericBox(1, 108, 117, 140, 144), new GenericBox(1, 83, 145, 157, 195) }),
@@ -160,6 +203,23 @@ public class Ken : Character {
             new FrameData(15078, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 102, 88, 124, 106), new GenericBox(1, 90, 100, 150, 132), new GenericBox(1, 100, 133, 141, 194), pushbox}),
             new FrameData(15079, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 109, 89, 131, 107), new GenericBox(1, 92, 101, 144, 148), new GenericBox(1, 96, 148, 145, 195) }),
             new FrameData(15080, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 88, 137, 105), new GenericBox(1, 108, 100, 142, 151), new GenericBox(1, 95, 100, 153, 130), new GenericBox(1, 98, 143, 156, 195), pushbox}),
+        };
+
+        var lowMKFrames = new List<FrameData> {
+            new FrameData(15196, 6.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 113, 119, 137, 135), new GenericBox(1, 102, 129, 152, 153), new GenericBox(1, 100, 154, 159, 177), new GenericBox(1, 61, 175, 161, 196) }),
+            new FrameData(15197, 0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 119, 122, 138, 135), new GenericBox(1, 104, 130, 150, 155), new GenericBox(1, 105, 156, 159, 175), new GenericBox(1, 105, 175, 160, 193) }),
+            new FrameData(15198, 0.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 123, 136, 137), new GenericBox(1, 102, 134, 147, 155), new GenericBox(1, 103, 155, 154, 173), new GenericBox(1, 97, 173, 170, 193), new GenericBox(0, 159, 171, 215, 193) }),
+            new FrameData(15199, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 125, 133, 139), new GenericBox(1, 100, 134, 141, 153), new GenericBox(1, 103, 154, 147, 170), new GenericBox(1, 100, 170, 169, 193) }),
+            new FrameData(15200, 1.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 121, 132, 138), new GenericBox(1, 97, 131, 149, 153), new GenericBox(1, 96, 152, 175, 177), new GenericBox(1, 102, 176, 152, 195) }),
+            new FrameData(15201, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 120, 130, 146, 149), new GenericBox(1, 102, 136, 153, 160), new GenericBox(1, 98, 159, 168, 179), new GenericBox(1, 101, 178, 141, 195) }),
+            new FrameData(15202, -0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 124, 134, 143, 151), new GenericBox(1, 101, 137, 157, 159), new GenericBox(1, 99, 159, 171, 178), new GenericBox(1, 101, 178, 153, 196) }),
+            new FrameData(15203, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 105, 123, 130, 141), new GenericBox(1, 93, 131, 155, 153), new GenericBox(1, 96, 153, 160, 173), new GenericBox(1, 104, 174, 152, 195) }),
+            new FrameData(15204, -2.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 119, 133, 137), new GenericBox(1, 93, 128, 158, 154), new GenericBox(1, 97, 154, 163, 175), new GenericBox(1, 101, 174, 157, 193) }),
+            new FrameData(15205, -2.5f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 118, 117, 140, 135), new GenericBox(1, 101, 125, 149, 148), new GenericBox(1, 90, 147, 163, 171), new GenericBox(1, 75, 169, 161, 197) }),
+        };
+
+        var airMKFrames = new List<FrameData> {
+
         };
 
         var BackMKFrames = new List<FrameData> {
@@ -542,11 +602,19 @@ public class Ken : Character {
             { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 30, changeOnLastframe: false, loop: false)},
             // Normals
             { "LP", new Animation(LPFrames, "Idle", 30)},
+            { "LowLP", new Animation(lowLPFrames, "Crouching", 30)},
+            { "AirLP", new Animation(airLPFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "LK", new Animation(LKFrames, "Idle", 30)},
+            { "LowLK", new Animation(lowLKFrames, "Crouching", 20)},
+            { "AirLK", new Animation(airLKFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "MP", new Animation(MPFrames, "Idle", 20)},
-            { "MK", new Animation(MKFrames, "Idle", 20)},
-            { "BackMK", new Animation(BackMKFrames, "Idle", 20)},
+            { "LowMP", new Animation(lowMPFrames, "Crouching", 20)},
+            { "AirMP", new Animation(airMPFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "BackMP", new Animation(HPFrames, "Idle", 20)},
+            { "MK", new Animation(MKFrames, "Idle", 20)},
+            { "LowMK", new Animation(lowMKFrames, "Crouching", 20)},
+            { "AirMK", new Animation(airMKFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "BackMK", new Animation(BackMKFrames, "Idle", 20)},
             { "CloseHP", new Animation(cl_HPFrames, "Idle", 30)},
             // Movement
             { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 20)},
@@ -681,22 +749,29 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
             this.ChangeState("BackMK");
-        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
             this.ChangeState("BackMP");
+        } 
+
+        if (this.notActing && this.isCrounching) {
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLP");
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLK");
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMP");
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMK");
+        } else if (this.notActing) {
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LP");     
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LK");     
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("MP");     
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) ) this.ChangeState("MK");
+        } else if (this.notActingAir) {
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLP");
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLK");
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMP");
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMK");
         }
 
-        if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("LP");
-        } else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("LK");
-        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("MP");
-        } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && this.notActing ) {
-            this.ChangeState("MK");
-        } 
-        
         // Crouching
         if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("CrouchingIn");
@@ -762,6 +837,30 @@ public class Ken : Character {
                 }
                 break;
                 
+            case "LowLP":
+                Character.Pushback(target: target, self: this, "Light");
+                if (target.isBlocking()) {
+                    hit = 0;
+                    target.BlockStun(this, 3);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 13, 50);
+                    target.HitStun(this, 5);
+                }
+                break;
+
+            case "AirLP":
+                Character.Pushback(target: target, self: this, "Light");
+                if (target.isBlockingHigh()) {
+                    hit = 0;
+                    target.BlockStun(this, 7);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 50, 100);
+                    target.HitStun(this, 7);
+                }
+                break;
+
             case "LK":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
@@ -774,6 +873,30 @@ public class Ken : Character {
                 }
                 break;
                 
+            case "LowLK":
+                Character.Pushback(target: target, self: this, "Light");
+                if (target.isBlockingLow()) {
+                    hit = 0;
+                    target.BlockStun(this, -4);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 85, 50);
+                    target.HitStun(this, -3);
+                }
+                break;
+            
+            case "AirLK":
+                Character.Pushback(target: target, self: this, "Light");
+                if (target.isBlockingHigh()) {
+                    hit = 0;
+                    target.BlockStun(this, 10);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 90, 150);
+                    target.HitStun(this, 10);
+                }
+                break;
+
             case "MP":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
@@ -786,6 +909,30 @@ public class Ken : Character {
                 }
                 break;
 
+            case "LowMP":
+                Character.Pushback(target: target, self: this, "Medium");
+                if (target.isBlocking()) {
+                    hit = 0;
+                    target.BlockStun(this, 3);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 90, 100);
+                    target.HitStun(this, 4);
+                }
+                break;
+
+            case "AirMP":
+                Character.Pushback(target: target, self: this, "Medium");
+                if (target.isBlockingHigh()) {
+                    hit = 0;
+                    target.BlockStun(this, 10);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 100, 180);
+                    target.HitStun(this, 10);
+                }
+                break;
+
             case "MK":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
@@ -794,7 +941,31 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 120, 235);
-                    target.HitStun(this, -2, airbone_height: 10);
+                    target.HitStun(this, -2);
+                }
+                break;
+
+            case "LowMK":
+                Character.Pushback(target: target, self: this, "Medium");
+                if (target.isBlockingLow()) {
+                    hit = 0;
+                    target.BlockStun(this, -14);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 130, 235);
+                    target.ChangeState("Falling");
+                }
+                break;
+
+            case "AirMK":
+                Character.Pushback(target: target, self: this, "Medium");
+                if (target.isBlockingHigh()) {
+                    hit = 0;
+                    target.BlockStun(this, 13);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 125, 235);
+                    target.HitStun(this, 13);
                 }
                 break;
 

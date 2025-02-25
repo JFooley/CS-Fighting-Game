@@ -303,7 +303,7 @@ public class Character : Object_Space.Object {
 
         this.hasHit = false;
 
-        if (this.CurrentState == "Crouching" || this.CurrentState.Contains("Low")) {
+        if (this.CurrentState.Contains("Crouching") || this.CurrentState.Contains("Low")) {
             this.isCrounching = true;
         } else {
             this.isCrounching = false;
