@@ -63,6 +63,9 @@ public static class Program
         };
         Stage stage = stages[0];
 
+        // temp
+        int stage_index = 0;
+
         while (window.IsOpen) {
             // First
             window.DispatchEvents();
@@ -70,30 +73,43 @@ public static class Program
 
             switch (game_state) {
                 case Intro:
-                    game_state = SelectScreen;
+                    game_state = MainScreen;
                     break;
 
                 case MainScreen:
+                    UI.Instance.DrawText(window, "press start", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -20, size: 0.9f);
+
+                    if (InputManager.Instance.Key_down("Start")) {
+                        game_state = SelectScreen;
+                    }
                     break;
 
                 case SelectScreen:
-                    // Seleciona os chars e o stage
-                    int charA_selected = 0;
-                    int charB_selected = 0;
-                    int selected_stage = 0;
+                    UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2, spacing: -20, size: 0.9f);
+                    UI.Instance.DrawText(window, "¿ ¢ ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f);
 
-                    // Escolhe o Stage
-                    stage = stages[selected_stage];
-                    stage.LoadStage();
+                    if (InputManager.Instance.Key_down("Left") && stage_index > 0) {
+                        stage_index -= 1;
+                    } else if (InputManager.Instance.Key_down("Right") && stage_index < stages.Count - 1) {
+                        stage_index += 1;
+                    } else if (InputManager.Instance.Key_down("A")) {
+                        // Seleciona os chars e o stage
+                        int charA_selected = 0;
+                        int charB_selected = 0;
+                        stage = stages[stage_index];
+                        
+                        // Escolhe o Stage
+                        stage.LoadStage();
 
-                    // Escolhe os personagens
-                    stage.LoadCharacters(charA_selected, charB_selected);
+                        // Escolhe os personagens
+                        stage.LoadCharacters(charA_selected, charB_selected);
 
-                    // Configura a camera
-                    camera.SetChars(stage.character_A, stage.character_B);
-                    camera.SetLimits(stage.length, stage.height);
+                        // Configura a camera
+                        camera.SetChars(stage.character_A, stage.character_B);
+                        camera.SetLimits(stage.length, stage.height);
 
-                    game_state = Battle;
+                        game_state = Battle;
+                    } 
                     break;
 
                 case Battle:
@@ -160,6 +176,7 @@ public static class Program
 
             // Finally
             window.Display();
+            window.Clear();
             if (InputManager.Instance.Key_down("Select")) stage.debug_mode = !stage.debug_mode;
         }
     }

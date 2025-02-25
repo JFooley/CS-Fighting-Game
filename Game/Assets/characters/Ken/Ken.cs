@@ -106,7 +106,12 @@ public class Ken : Character {
         };
 
         var airLPFrames = new List<FrameData> {
-            
+            new FrameData(15216, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 140, 84, 162, 103), new GenericBox(1, 119, 90, 158, 124), new GenericBox(1, 89, 119, 142, 159) }),
+            new FrameData(15217, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 138, 74, 170, 106), new GenericBox(1, 115, 92, 155, 128), new GenericBox(1, 90, 115, 137, 157) }),
+            new FrameData(15218, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 142, 94, 160, 112), new GenericBox(1, 119, 92, 158, 126), new GenericBox(1, 92, 112, 139, 157), new GenericBox(0, 150, 104, 174, 135) }),
+            new FrameData(15219, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 155, 103, 175, 133), new GenericBox(1, 117, 91, 153, 128), new GenericBox(1, 96, 114, 138, 149) }),
+            new FrameData(15220, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 96, 112, 139, 149), new GenericBox(1, 118, 91, 153, 123), new GenericBox(0, 153, 102, 176, 134) }),
+            new FrameData(15221, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 151, 101, 175, 133), new GenericBox(1, 116, 92, 152, 127), new GenericBox(1, 96, 114, 137, 152) }),
         };
 
         var MPFrames = new List<FrameData> {
@@ -132,7 +137,14 @@ public class Ken : Character {
         };
 
         var airMPFrames = new List<FrameData> {
-
+            new FrameData(15222, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 116, 78, 136, 92), new GenericBox(1, 97, 91, 150, 119), new GenericBox(1, 97, 119, 152, 164) }),
+            new FrameData(15233, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 121, 81, 139, 95), new GenericBox(1, 100, 90, 151, 124), new GenericBox(1, 96, 123, 152, 159) }),
+            new FrameData(15234, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 130, 83, 147, 100), new GenericBox(1, 106, 92, 144, 123), new GenericBox(1, 90, 123, 151, 161) }),
+            new FrameData(15235, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 135, 86, 155, 105), new GenericBox(1, 115, 88, 150, 126), new GenericBox(1, 91, 124, 150, 156) }),
+            new FrameData(15236, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 163, 110, 202, 142), new GenericBox(1, 116, 87, 156, 124), new GenericBox(1, 89, 123, 154, 155) }),
+            new FrameData(15237, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 116, 89, 156, 123), new GenericBox(1, 87, 122, 154, 154), new GenericBox(0, 163, 110, 199, 141) }),
+            new FrameData(15238, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 126, 82, 144, 99), new GenericBox(1, 109, 88, 151, 122), new GenericBox(1, 93, 122, 156, 159) }),
+            new FrameData(15239, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 77, 144, 96), new GenericBox(1, 106, 88, 146, 131), new GenericBox(1, 100, 130, 155, 171) }),
         };
 
         var HPFrames = new List<FrameData> {
@@ -187,7 +199,13 @@ public class Ken : Character {
         };
 
         var airLKFrames = new List<FrameData> {
-
+            new FrameData(15269, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 119, 83, 142, 101), new GenericBox(1, 100, 90, 155, 153) }),
+            new FrameData(15270, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 121, 85, 143, 101), new GenericBox(1, 102, 91, 156, 150) }),
+            new FrameData(15271, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 127, 86, 147, 105), new GenericBox(1, 100, 89, 144, 146), new GenericBox(1, 145, 98, 173, 143), new GenericBox(0, 168, 104, 215, 154) }),
+            new FrameData(15272, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 165, 105, 210, 153), new GenericBox(1, 137, 96, 169, 142), new GenericBox(1, 95, 89, 142, 143) }),
+            new FrameData(15273, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 95, 86, 142, 143), new GenericBox(1, 139, 94, 170, 143), new GenericBox(0, 166, 105, 208, 149) }),
+            new FrameData(15274, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 168, 105, 208, 150), new GenericBox(1, 138, 96, 169, 146), new GenericBox(1, 94, 87, 147, 144) }),
+            new FrameData(15275, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 86, 161, 122), new GenericBox(1, 105, 122, 184, 162) }),
         };
 
         var MKFrames = new List<FrameData> {
@@ -219,7 +237,13 @@ public class Ken : Character {
         };
 
         var airMKFrames = new List<FrameData> {
-
+            new FrameData(15276, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 83, 142, 99), new GenericBox(1, 101, 92, 146, 124), new GenericBox(1, 104, 124, 154, 174) }),
+            new FrameData(15277, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 117, 81, 136, 96), new GenericBox(1, 102, 89, 160, 122), new GenericBox(1, 103, 121, 170, 156) }),
+            new FrameData(15278, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 109, 78, 130, 94), new GenericBox(1, 101, 89, 140, 122), new GenericBox(1, 101, 118, 204, 148) }),
+            new FrameData(15279, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 78, 130, 94), new GenericBox(1, 100, 89, 136, 123), new GenericBox(1, 102, 115, 184, 147), new GenericBox(0, 181, 112, 224, 151) }),
+            new FrameData(15280, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(0, 182, 112, 225, 148), new GenericBox(1, 111, 78, 132, 95), new GenericBox(1, 101, 89, 139, 121), new GenericBox(1, 102, 116, 183, 144) }),
+            new FrameData(15281, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 79, 131, 95), new GenericBox(1, 102, 90, 138, 119), new GenericBox(1, 105, 114, 168, 147) }),
+            new FrameData(15282, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 118, 80, 136, 98), new GenericBox(1, 100, 92, 142, 123), new GenericBox(1, 106, 121, 165, 163) }),
         };
 
         var BackMKFrames = new List<FrameData> {
