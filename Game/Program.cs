@@ -28,7 +28,8 @@ public static class Program
     public const int Intro = 0;
     public const int MainScreen = 1;
     public const int SelectScreen = 2;
-    public const int Battle = 3;
+    public const int LoadScreen = 3;
+    public const int Battle = 4;
 
     public const int RoundStart = 1;
     public const int Battling = 2;
@@ -53,8 +54,10 @@ public static class Program
         // Inicializações
         InputManager.Initialize(autoDetectDevice: true);
         Camera camera = Camera.GetInstance(window, view);
-        BitmapFont.Load("Assets/fonts/atlas.png");
-        UI.Instance.LoadCharacterSprites(40);
+
+        // Carregamento de texturas
+        BitmapFont.Load("default", "Assets/fonts/default.png");
+        UI.Instance.LoadCharacterSprites(40, "default");
 
         List<Stage> stages = new List<Stage>{
             new BurningDojo(),
@@ -62,8 +65,6 @@ public static class Program
             new NightAlley(),
         };
         Stage stage = stages[0];
-
-        // temp
         int stage_index = 0;
 
         while (window.IsOpen) {
@@ -93,23 +94,27 @@ public static class Program
                     } else if (InputManager.Instance.Key_down("Right") && stage_index < stages.Count - 1) {
                         stage_index += 1;
                     } else if (InputManager.Instance.Key_down("A")) {
-                        // Seleciona os chars e o stage
-                        int charA_selected = 0;
-                        int charB_selected = 0;
-                        stage = stages[stage_index];
-                        
-                        // Escolhe o Stage
-                        stage.LoadStage();
-
-                        // Escolhe os personagens
-                        stage.LoadCharacters(charA_selected, charB_selected);
-
-                        // Configura a camera
-                        camera.SetChars(stage.character_A, stage.character_B);
-                        camera.SetLimits(stage.length, stage.height);
-
-                        game_state = Battle;
+                        game_state = LoadScreen;
                     } 
+                    break;
+                
+                case LoadScreen:
+                    // Seleciona os chars e o stage
+                    int charA_selected = 0;
+                    int charB_selected = 0;
+                    stage = stages[stage_index];
+                    
+                    // Da load no Stage
+                    stage.LoadStage();
+
+                    // Da load nos personagens
+                    stage.LoadCharacters(charA_selected, charB_selected);
+
+                    // Configura a camera
+                    camera.SetChars(stage.character_A, stage.character_B);
+                    camera.SetLimits(stage.length, stage.height);
+                    
+                    game_state = Battle;
                     break;
 
                 case Battle:

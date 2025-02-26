@@ -364,7 +364,7 @@ public class Ken : Character {
 
         // Specials
         var hadukenFrames = new List<FrameData> {
-            new FrameData(15328, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 128, 95, 146, 109), new GenericBox(1, 103, 103, 153, 125), new GenericBox(1, 102, 126, 152, 151), new GenericBox(1, 89, 153, 173, 195) }),
+            new FrameData(15328, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 128, 95, 146, 109), new GenericBox(1, 103, 103, 153, 125), new GenericBox(1, 102, 126, 152, 151), new GenericBox(1, 89, 153, 173, 195) }, "haduken"),
             new FrameData(15329, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 134, 105, 149, 119), new GenericBox(1, 106, 108, 145, 134), new GenericBox(1, 99, 134, 149, 159), new GenericBox(1, 77, 158, 170, 195) }),
             new FrameData(15330, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 137, 106, 152, 121), new GenericBox(1, 107, 107, 153, 131), new GenericBox(1, 104, 132, 142, 157), new GenericBox(1, 76, 156, 164, 195) }),
             new FrameData(15331, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 139, 110, 155, 123), new GenericBox(1, 108, 114, 175, 137), new GenericBox(1, 105, 137, 149, 163), new GenericBox(1, 73, 163, 164, 195) }),
@@ -691,7 +691,7 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory"))))) {
+        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK")))) {
             this.ChangeState("SA1");
             this.SA_flag = false;
         } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.hasFrameChange) {
@@ -874,7 +874,7 @@ public class Ken : Character {
                 break;
 
             case "AirLP":
-                Character.Pushback(target: target, self: this, "Light");
+                Character.Pushback(target: target, self: this, "Light", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
                     target.BlockStun(this, 7);
@@ -910,7 +910,7 @@ public class Ken : Character {
                 break;
             
             case "AirLK":
-                Character.Pushback(target: target, self: this, "Light");
+                Character.Pushback(target: target, self: this, "Light", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
                     target.BlockStun(this, 10);
@@ -946,7 +946,7 @@ public class Ken : Character {
                 break;
 
             case "AirMP":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
                     target.BlockStun(this, 10);
@@ -982,7 +982,7 @@ public class Ken : Character {
                 break;
 
             case "AirMK":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
                     target.BlockStun(this, 13);

@@ -40,11 +40,11 @@ namespace UI_space {
         }
 
         // Loads
-        public void LoadCharacterSprites(float size)
+        public void LoadCharacterSprites(float size, string textureName)
         {
             foreach (char c in BitmapFont.characters)
             {
-                Sprite sprite = BitmapFont.GetCharacterSprite(c, size);
+                Sprite sprite = BitmapFont.GetCharacterSprite(c, size, textureName);
                 if (sprite != null)
                 {
                     characterSprites[c] = sprite;
@@ -53,13 +53,14 @@ namespace UI_space {
         }
 
         // Simple Draw Calls
-        public void ShowFramerate(RenderWindow window) {
+        public void ShowFramerate(RenderWindow window, string textureName) {
             var frametime = this.clock.Restart().AsSeconds();
             this.counter = this.counter >= 30 ? 0 : this.counter + 1;
             this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, "" + this.elapsed, -190, 80, spacing: -19, alignment: "left", size: 0.8f);
+            this.DrawText(window, "" + this.elapsed, -190, 80, spacing: -19, alignment: "left", size: 0.8f, textureName: textureName);
         }
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center", bool absolutePosition = false) {
+
+        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center", bool absolutePosition = false, string textureName = "default") {
             float totalWidth = 0;
             float pos_X;
             float pos_Y;
@@ -102,6 +103,7 @@ namespace UI_space {
                 offset_X += sprite.GetGlobalBounds().Width + spacing;
             }
         }
+
         public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, Color color) {
             RectangleShape rectangle = new RectangleShape(new Vector2f(width, height))
             {
@@ -161,7 +163,7 @@ namespace UI_space {
     }
 
     public static class BitmapFont {
-        private static Texture texture;
+        private static Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
         public static char[] characters = 
         {
             '≈',  '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.',
@@ -175,23 +177,29 @@ namespace UI_space {
             'Ö',  'Ü', '¢', '£', '¥', 'ƒ', 'á', 'í',  'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', 
             '¿',  '⌐', '¬', '½', '¼', '¡', '«', '»',  'π', 'µ', '±', '≥', '≤', '÷', 
             '≈',  '°', '·', '√', ' '
-
-            // 'Æ' = KO
-            // '¢', '£', '¥', 'ƒ' = LP, HP, LK, HK
         };
 
         private const int CellSize = 32; // Tamanho de cada célula
         private const int Columns = 16;    // Número de colunas
         private const int Rows = 16;       // Número de linhas
 
-        public static void Load(string textureFile)
+        public static void Load(string textureName, string textureFile)
         {
-            // Carrega a textura do atlas
-            texture = new Texture(textureFile);
+            // Carrega a textura do atlas e a associa a um nome
+            Texture texture = new Texture(textureFile);
+            textures[textureName] = texture;
         }
 
-        public static Sprite GetCharacterSprite(char character, float size)
+        public static Sprite GetCharacterSprite(char character, float size, string textureName)
         {
+            // Verifica se a textura existe
+            if (!textures.ContainsKey(textureName))
+            {
+                return null; // Retorna null se a textura não for encontrada
+            }
+
+            Texture texture = textures[textureName];
+
             // Encontra o índice do caractere no array
             int index = Array.IndexOf(characters, character);
             if (index == -1 || index >= Columns * Rows - 8) // Ignora as últimas 8 células

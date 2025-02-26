@@ -184,7 +184,7 @@ public class Stage {
     }
     public virtual void doSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
-        UI.Instance.ShowFramerate(window);
+        UI.Instance.ShowFramerate(window, "default");
         UI.Instance.DrawText(window, "training mode", 0, 85, spacing: -10, size: 0.5f);
         UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "left");
         UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "left");
