@@ -303,11 +303,11 @@ public class Stage {
         
         bool doEnd = false;
 
-        if (character_A.LifePoints.X <= 0) {
+        if (character_A.LifePoints.X <= 0 && character_A.CurrentState == "OnGround") {
             this.rounds_B += 1;
             doEnd = true;
         }
-        if (character_B.LifePoints.X <= 0) {
+        if (character_B.LifePoints.X <= 0 && character_B.CurrentState == "OnGround") {
             this.rounds_A += 1;
             doEnd = true;
         }

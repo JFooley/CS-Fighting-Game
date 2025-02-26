@@ -58,6 +58,8 @@ public static class Program
         // Carregamento de texturas
         BitmapFont.Load("default", "Assets/fonts/default.png");
         UI.Instance.LoadCharacterSprites(40, "default");
+        BitmapFont.Load("1", "Assets/fonts/font1.png");
+        UI.Instance.LoadCharacterSprites(40, "1");
 
         List<Stage> stages = new List<Stage>{
             new BurningDojo(),
@@ -86,14 +88,14 @@ public static class Program
                     break;
 
                 case SelectScreen:
-                    UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2, spacing: -20, size: 0.9f);
-                    UI.Instance.DrawText(window, "¿ ¥ ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f);
+                    UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2, spacing: -18, size: 0.9f, textureName: "1");
+                    UI.Instance.DrawText(window, "¿   ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f, textureName: "1");
 
                     if (InputManager.Instance.Key_down("Left") && stage_index > 0) {
                         stage_index -= 1;
                     } else if (InputManager.Instance.Key_down("Right") && stage_index < stages.Count - 1) {
                         stage_index += 1;
-                    } else if (InputManager.Instance.Key_down("A")) {
+                    } else if (InputManager.Instance.Key_down("A") || InputManager.Instance.Key_down("B") || InputManager.Instance.Key_down("C") || InputManager.Instance.Key_down("D")) {
                         game_state = LoadScreen;
                     } 
                     break;
@@ -131,10 +133,10 @@ public static class Program
                             break;
 
                         case RoundStart: // Inicia a round
-                            if (stage.CheckTimer(3)) UI.Instance.DrawText(window, "Fight!", 0, -30, spacing: -25);
-                            else if (stage.CheckTimer(2)) UI.Instance.DrawText(window, "1", 0, -30, spacing: -25);
-                            else if (stage.CheckTimer(1)) UI.Instance.DrawText(window, "2", 0, -30, spacing: -25);
-                            else UI.Instance.DrawText(window, "3", 0, -30, spacing: -25);
+                            if (stage.CheckTimer(3)) UI.Instance.DrawText(window, "Fight!", 0, -30, size: 2, spacing: -40, textureName: "1");
+                            else if (stage.CheckTimer(2)) UI.Instance.DrawText(window, "1", 0, -30, size: 2, spacing: -25, textureName: "1");
+                            else if (stage.CheckTimer(1)) UI.Instance.DrawText(window, "2", 0, -30, size: 2, spacing: -25, textureName: "1");
+                            else UI.Instance.DrawText(window, "3", 0, -30, size: 2, spacing: -25, textureName: "1");
                             if (!stage.CheckTimer(4)) break;
 
                             stage.ResetRoundTime();
@@ -152,7 +154,7 @@ public static class Program
 
                         case RoundEnd: // Fim de round
                             string message = stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0 ? "Æ" : "Time's up!";
-                            UI.Instance.DrawText(window, message, 0, -30, spacing: -25, size: message == "Æ" ? 2 : 1.3f);
+                            UI.Instance.DrawText(window, message, 0, -30, spacing: -25, size: message == "Æ" ? 2.5f : 1.3f, textureName: "1");
                             if (!stage.CheckTimer(3)) break;
                             stage.TogglePlayers();
 

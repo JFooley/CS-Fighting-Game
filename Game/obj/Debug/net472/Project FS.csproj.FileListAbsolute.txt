@@ -1988,8 +1988,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Debug\net472\Project FS.exe
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\obj\Debug\net472\Project FS.pdb
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font0.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font1.ttf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font.otf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\atlas.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\11.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\110.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\111.png
@@ -2632,3 +2630,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Terry\sprites\Terry Bogard_97.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Terry\sprites\Terry Bogard_98.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Terry\sprites\Terry Bogard_99.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font1.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font2.otf

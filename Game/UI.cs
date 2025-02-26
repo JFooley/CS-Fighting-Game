@@ -13,17 +13,17 @@ namespace UI_space {
         private int graylife_A = 150;
         private int graylife_B = 150;
 
-        private Color bar_background = new Color(50, 50, 50);
+        private Color bar_background = new Color(35, 31, 34);
         private Color bar_outline = new Color(255, 255, 255);
         private Color bar_graylife = new Color(200, 0, 0);
-        private Color bar_fulllife = new Color(7, 209, 0);
-        private Color bar_life = new Color(240, 240, 0);
+        private Color bar_fulllife = new Color(50, 190, 60);
+        private Color bar_life = new Color(240, 220, 20);
         private Color dizzybar_background = new Color(150, 150, 150);
 
-        private Dictionary<char, Sprite> characterSprites;
+        private Dictionary<string, Dictionary<char, Sprite>> font_textures;
 
         private UI() {
-            this.characterSprites = new Dictionary<char, Sprite>();
+            this.font_textures = new Dictionary<string, Dictionary<char, Sprite>>();
             this.clock = new Clock();
         }
 
@@ -40,16 +40,16 @@ namespace UI_space {
         }
 
         // Loads
-        public void LoadCharacterSprites(float size, string textureName)
-        {
-            foreach (char c in BitmapFont.characters)
-            {
+        public void LoadCharacterSprites(float size, string textureName) {
+            Dictionary<char, Sprite> characterSprites = new Dictionary<char, Sprite>(); // Cria grupo de sprites
+            foreach (char c in BitmapFont.characters) {
                 Sprite sprite = BitmapFont.GetCharacterSprite(c, size, textureName);
                 if (sprite != null)
                 {
                     characterSprites[c] = sprite;
                 }
             }
+            this.font_textures[textureName] = characterSprites;
         }
 
         // Simple Draw Calls
@@ -68,9 +68,10 @@ namespace UI_space {
             List<Sprite> text_sprites = new List<Sprite> {};
 
             // Calcular a largura total do texto
+
             foreach (char c in text)
             {
-                if (characterSprites.TryGetValue(c, out Sprite letter))
+                if (font_textures[textureName].TryGetValue(c, out Sprite letter))
                 {
                     var sprite = new Sprite(letter);
                     if (size > 0) sprite.Scale = new Vector2f(size, size);
@@ -117,7 +118,7 @@ namespace UI_space {
         // Battle UI
         public void DrawBattleUI(RenderWindow window, Stage stage) {
             // Draw time
-            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -110, alignment: "center", spacing: -25);
+            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -110, alignment: "center", spacing: -20, textureName: "1");
 
             // Draw Combo text
             if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -185, -80, spacing: -15, alignment: "left", size: 0.8f);
@@ -156,8 +157,8 @@ namespace UI_space {
             this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
 
             // Draw round indicator ≈
-            this.DrawText(window, string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_A)) + string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -16, -97, spacing: -25, alignment: "right");
-            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)) + string.Concat(Enumerable.Repeat("-", Config.max_rounds - stage.rounds_B)),  16, -97, spacing: -25, alignment: "left");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("·", Config.max_rounds - stage.rounds_A)) + string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -16, -97, spacing: -25, alignment: "right", textureName: "1");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_B)) + string.Concat(Enumerable.Repeat("·", Config.max_rounds - stage.rounds_B)),  16, -97, spacing: -25, alignment: "left", textureName: "1");
         }
         
     }
