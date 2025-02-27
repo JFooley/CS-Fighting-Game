@@ -66,6 +66,10 @@ public static class Program
             new MidnightDuel(),
             new NightAlley(),
             new NYCSubway(),
+            new TheSavana(),
+            new DivineSaloon(),
+            new JapanFields(),
+            new MakotoDojo(),
         };
         Stage stage = stages[0];
         int stage_index = 0;

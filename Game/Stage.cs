@@ -114,7 +114,7 @@ public class Stage {
         }
 
         // Play background music
-        if (this.stageSounds["music"].Status == SoundStatus.Stopped){
+        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Stopped){
             this.stageSounds["music"].Volume = Config.Music_Volume;
             this.stageSounds["music"].Play();
         }
