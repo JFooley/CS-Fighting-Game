@@ -60,7 +60,7 @@ namespace UI_space {
             var frametime = this.clock.Restart().AsSeconds();
             this.counter = this.counter >= 30 ? 0 : this.counter + 1;
             this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, "" + this.elapsed, -190, 80, spacing: -19, alignment: "left", size: 0.8f, textureName: textureName);
+            this.DrawText(window, "" + this.elapsed, -190, 75, spacing: -19, alignment: "left", size: 0.8f, textureName: textureName);
         }
 
         public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center", bool absolutePosition = false, string textureName = "default") {

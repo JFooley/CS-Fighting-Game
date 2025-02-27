@@ -185,7 +185,7 @@ public class Stage {
     public virtual void doSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
         UI.Instance.ShowFramerate(window, "default");
-        UI.Instance.DrawText(window, "training mode", 0, 85, spacing: -10, size: 0.5f);
+        UI.Instance.DrawText(window, "training mode", 0, 80, spacing: -10, size: 0.5f);
         UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "left");
         UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "left");
         UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "left");
@@ -206,17 +206,19 @@ public class Stage {
             this.reset_frames = 0;
         }
 
-        // Reset chars life
+        // Reset chars life, stun and super bar
         if (this.reset_frames >= Config.resetFrames) {
             if (this.character_B.notActing) {
                 if (this.block_after_hit) this.character_B.blocking = false;
                 this.character_B.LifePoints.X = this.character_B.LifePoints.Y;
                 this.character_B.DizzyPoints.X = this.character_B.DizzyPoints.Y;
+                this.character_B.SuperPoints.X = this.character_B.SuperPoints.Y;
             }
             if (this.character_A.notActing) {
                 if (this.block_after_hit) this.character_A.blocking = false;
                 this.character_A.LifePoints.X = this.character_A.LifePoints.Y;
                 this.character_A.DizzyPoints.X = this.character_A.DizzyPoints.Y;
+                this.character_A.SuperPoints.X = this.character_A.SuperPoints.Y;
             }
             this.reset_frames = Config.resetFrames;
         }

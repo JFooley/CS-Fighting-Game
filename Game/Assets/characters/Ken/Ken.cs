@@ -14,7 +14,7 @@ public class Ken : Character {
     {
         this.LifePoints = new Vector2i(1000, 1000);
         this.DizzyPoints = new Vector2i(500, 500);
-        this.SuperPoints = new Vector2i(100, 100);
+        this.SuperPoints = new Vector2i(0, 100);
 
         this.dash_speed = 8;
         this.move_speed = 3;
@@ -692,8 +692,9 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK")))) {
+        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK"))) && this.SuperPoints.X == this.SuperPoints.Y) {
             this.ChangeState("SA1");
+            this.SuperPoints.X = 0;
             this.SA_flag = false;
         } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.hasFrameChange) {
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
