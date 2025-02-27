@@ -65,6 +65,7 @@ public static class Program
             new BurningDojo(),
             new MidnightDuel(),
             new NightAlley(),
+            new NYCSubway(),
         };
         Stage stage = stages[0];
         int stage_index = 0;
