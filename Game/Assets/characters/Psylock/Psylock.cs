@@ -9,7 +9,7 @@ public class Psylock : Character {
         : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
-        this.DizzyPoints = new Vector2i(1000, 1000);
+        this.DizzyPoints = new Vector2i(500, 500);
 
         this.dash_speed = 8;
         this.move_speed = 3;

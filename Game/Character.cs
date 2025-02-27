@@ -41,7 +41,8 @@ public class Character : Object_Space.Object {
 
     // Statistics 
     public Vector2i LifePoints = new Vector2i(1000, 1000);
-    public Vector2i DizzyPoints = new Vector2i(1000, 1000);
+    public Vector2i DizzyPoints = new Vector2i(500, 500);
+    public Vector2i SuperPoints = new Vector2i(0, 100);
     public int StunFrames = 0;
     public int move_speed = 0;
     public int dash_speed = 0;

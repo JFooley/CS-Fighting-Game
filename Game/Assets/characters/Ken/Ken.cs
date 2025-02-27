@@ -13,7 +13,8 @@ public class Ken : Character {
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
     {
         this.LifePoints = new Vector2i(1000, 1000);
-        this.DizzyPoints = new Vector2i(1000, 1000);
+        this.DizzyPoints = new Vector2i(500, 500);
+        this.SuperPoints = new Vector2i(100, 100);
 
         this.dash_speed = 8;
         this.move_speed = 3;

@@ -55,12 +55,23 @@ public static class Program
         InputManager.Initialize(autoDetectDevice: true);
         Camera camera = Camera.GetInstance(window, view);
 
-        // Carregamento de texturas
+        // Carregamento de texturas de fontes
         BitmapFont.Load("default", "Assets/fonts/default.png");
-        UI.Instance.LoadCharacterSprites(40, "default");
+        BitmapFont.Load("default yellow", "Assets/fonts/yellow.png");
+        BitmapFont.Load("default red", "Assets/fonts/red.png");
+        BitmapFont.Load("default grad", "Assets/fonts/grad.png");
+        BitmapFont.Load("default black", "Assets/fonts/black.png");
+        BitmapFont.Load("default white", "Assets/fonts/white.png");
         BitmapFont.Load("1", "Assets/fonts/font1.png");
-        UI.Instance.LoadCharacterSprites(40, "1");
+        UI.Instance.LoadCharacterSprites(32, "default");
+        UI.Instance.LoadCharacterSprites(32, "default yellow");
+        UI.Instance.LoadCharacterSprites(32, "default red");
+        UI.Instance.LoadCharacterSprites(32, "default grad");
+        UI.Instance.LoadCharacterSprites(32, "default black");
+        UI.Instance.LoadCharacterSprites(32, "default white");
+        UI.Instance.LoadCharacterSprites(32, "1");
 
+        // Instanciamento do stages
         List<Stage> stages = new List<Stage>{
             new BurningDojo(),
             new MidnightDuel(),
@@ -69,7 +80,6 @@ public static class Program
             new TheSavana(),
             new DivineSaloon(),
             new JapanFields(),
-            new MakotoDojo(),
         };
         Stage stage = stages[0];
         int stage_index = 0;
