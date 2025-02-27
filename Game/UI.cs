@@ -20,7 +20,7 @@ namespace UI_space {
         private Color bar_life = new Color(240, 220, 20);
         private Color dizzybar_background = new Color(150, 150, 150);
         private Color bar_super = new Color(41, 168, 195);
-        private Color bar_super_full = new Color(0, 210, 255);
+        private Color bar_super_full = new Color(0, 255, 255);
 
 
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
@@ -142,7 +142,7 @@ namespace UI_space {
             var superA = Math.Max(Math.Min(superA_scale, 119), 0);
             this.DrawRectangle(window, -181, 96, 121, 6, this.bar_outline);
             this.DrawRectangle(window, -180, 97, 119, 4, this.bar_background);
-            this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y ? this.bar_super_full : this.bar_super);
+            this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y ? this.bar_super_full : this.bar_super);
             if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && stage.round_time % 2 == 0) {
                 this.DrawText(window, "Ready!", -62, 92, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
             }

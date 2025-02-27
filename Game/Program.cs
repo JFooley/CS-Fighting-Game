@@ -185,7 +185,7 @@ public static class Program
                         case MatchEnd: // Fim da partida
                             Thread.Sleep(2000);
                             stage.ResetMatch();
-                            stage.ResetPlayers(force: true);
+                            stage.ResetPlayers(force: true, total_reset: true);
                             sub_state = Intro;
                             // game_state = SelectScreen;
 

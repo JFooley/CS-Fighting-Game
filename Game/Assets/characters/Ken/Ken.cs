@@ -861,6 +861,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 13, 50);
                     target.HitStun(this, 5);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
                 
             case "LowLP":
@@ -873,6 +874,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 13, 50);
                     target.HitStun(this, 5);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
 
             case "AirLP":
@@ -885,6 +887,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 50, 100);
                     target.HitStun(this, 7);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
 
             case "LK":
@@ -897,6 +900,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 44, 50);
                     target.HitStun(this, 2);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
                 
             case "LowLK":
@@ -909,6 +913,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 85, 50);
                     target.HitStun(this, -3);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
             
             case "AirLK":
@@ -921,6 +926,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 90, 150);
                     target.HitStun(this, 10);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
 
             case "MP":
@@ -933,6 +939,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 100, 172);
                     target.HitStun(this, 0);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "LowMP":
@@ -945,6 +952,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 90, 100);
                     target.HitStun(this, 4);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "AirMP":
@@ -957,6 +965,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 100, 180);
                     target.HitStun(this, 10);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "MK":
@@ -969,6 +978,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 120, 235);
                     target.HitStun(this, -2);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "LowMK":
@@ -981,6 +991,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 130, 235);
                     target.ChangeState("Falling");
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "AirMK":
@@ -993,6 +1004,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 125, 235);
                     target.HitStun(this, 13);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "BackMK":
@@ -1006,6 +1018,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 56, 94);
                     target.HitStun(this, 10, airbone_height: 10);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 6);
                 break;
 
             case "BackMP":
@@ -1019,6 +1032,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 56, 94);
                     target.HitStun(this, 10);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
 
             case "CloseHP":
@@ -1032,6 +1046,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 107, 110);
                     target.HitStun(this, 0);
                 }
+                Character.GetSuper(target, this, hit);
                 break;
             
             case "LightShory":
@@ -1045,6 +1060,7 @@ public class Ken : Character {
                     
                 }
                 Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f);
+                Character.GetSuper(target, this, hit);
                 break;
 
             case "HeavyShory":
@@ -1059,6 +1075,7 @@ public class Ken : Character {
                     else target.HitStun(this, 0);
                 }
                 Character.Pushback(target: target, self: this, "Heavy");
+                Character.GetSuper(target, this, hit, self_amount: 16);
                 break;
             
             case "LightTatso":
@@ -1071,6 +1088,7 @@ public class Ken : Character {
                     target.HitStun(this, -3, airbone_height: 40);
                 }
                 Character.Pushback(target: target, self: this, "Light");
+                Character.GetSuper(target, this, hit);
                 break;
             
             case "HeavyTatso":
@@ -1083,6 +1101,7 @@ public class Ken : Character {
                     target.HitStun(this, -3, airbone_height: 40);
                 }
                 Character.Pushback(target: target, self: this, "Light");
+                Character.GetSuper(target, this, hit, self_amount: 8);
                 break;
             
             case "AirTatso":
@@ -1095,6 +1114,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 80, 140);
                     target.HitStun(this, -6, airbone: true, airbone_height: 50, airbone_X: 2f);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 14);
                 break;
 
             case "SA1":
@@ -1109,6 +1129,7 @@ public class Ken : Character {
                     target.HitStun(this, 10, airbone_height: 50);
                     this.SA_flag = true;
                 }
+                Character.GetSuper(target, this, hit, self_amount: 4);
                 break;
                 
             case "SA1_tail":
@@ -1128,6 +1149,7 @@ public class Ken : Character {
 
                     } else target.HitStun(this, 5);
                 }
+                Character.GetSuper(target, this, hit, self_amount: 2);
                 break;
                 
             case "Shungoku":
@@ -1143,6 +1165,7 @@ public class Ken : Character {
                 target.ChangeState("OnGround");
 
                 Character.Damage(target: target, self: this, 400, 0);
+                Character.GetSuper(target, this, hit, self_amount: 0, target_amount: 30);
                 break;
 
             default:

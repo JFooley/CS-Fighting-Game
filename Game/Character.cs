@@ -216,7 +216,7 @@ public class Character : Object_Space.Object {
     }
     public void HitStun(Character enemy, int advantage, bool airbone = false, float airbone_height = 0, float airbone_X = 5, bool force = false) {
         this.facing = -enemy.facing;
-        
+
         if (airbone || this.LifePoints.X <= 0 || this.onAir && airbone_height > 0) {
             if (airbone_height == 0) airbone_height = 10;
             this.ChangeState("Airboned", reset: true);
@@ -284,7 +284,11 @@ public class Character : Object_Space.Object {
         target.LifePoints.X -= (int) (damage * self.damageScaling);
         target.DizzyPoints.X -= (int) (dizzy_damage * self.damageScaling);
     }
-
+    public static void GetSuper(Character target, Character self, int hit , int target_amount = 5, int self_amount = 10) {
+        target.SuperPoints.X = (int) Math.Min(target.SuperPoints.Y, target.SuperPoints.X + target_amount);
+        self.SuperPoints.X = (int) Math.Min(self.SuperPoints.Y, hit == 1 ? self.SuperPoints.X + self_amount : self.SuperPoints.X + (self_amount / 3));
+    }
+    
     // Auxiliar methods
     public void SetVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
         this.body.SetVelocity(this, X, Y, raw_set: raw_set);
@@ -324,10 +328,11 @@ public class Character : Object_Space.Object {
         }
         return new Sprite(); 
     }
-    public void Reset(int start_point, int facing, String state = "Idle") {
+    public void Reset(int start_point, int facing, String state = "Idle", bool total_reset = false) {
         this.ChangeState(state);
         this.LifePoints.X = this.LifePoints.Y;
         this.DizzyPoints.X = this.DizzyPoints.Y;
+        this.SuperPoints.X = total_reset ? 0 : this.SuperPoints.X;
         this.body.Position.X = start_point;
         this.body.Position.Y = this.floorLine;
         this.body.SetVelocity(this, 0, 0, raw_set: true);

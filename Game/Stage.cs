@@ -342,13 +342,13 @@ public class Stage {
         this.rounds_A = 0;
         this.rounds_B = 0;
     }
-    public void ResetPlayers(bool force = false) {
+    public void ResetPlayers(bool force = false, bool total_reset = false) {
         if (force) {
-            this.character_A.Reset(this.start_point_A, facing: 1, state: "Intro");
-            this.character_B.Reset(this.start_point_B, facing: -1, state: "Intro");
+            this.character_A.Reset(this.start_point_A, facing: 1, state: "Intro", total_reset: total_reset);
+            this.character_B.Reset(this.start_point_B, facing: -1, state: "Intro", total_reset: total_reset);
         } else {
-            this.character_A.Reset(this.start_point_A, facing: 1);
-            this.character_B.Reset(this.start_point_B, facing: -1);
+            this.character_A.Reset(this.start_point_A, facing: 1, total_reset: total_reset);
+            this.character_B.Reset(this.start_point_B, facing: -1, total_reset: total_reset);
         }
     }
     public void TogglePlayers() {
