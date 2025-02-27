@@ -215,17 +215,19 @@ public class Character : Object_Space.Object {
         return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
     public void HitStun(Character enemy, int advantage, bool airbone = false, float airbone_height = 0, float airbone_X = 5, bool force = false) {
+        this.facing = -enemy.facing;
+        
         if (airbone || this.LifePoints.X <= 0 || this.onAir && airbone_height > 0) {
             if (airbone_height == 0) airbone_height = 10;
             this.ChangeState("Airboned", reset: true);
+            this.facing = -enemy.facing;
             this.SetVelocity(
                 X: airbone_X * (enemy.facing * this.facing), 
                 Y: airbone_height, 
                 T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
             this.StunFrames = 0;
             return;
-        }
-        else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
+        } else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
         else this.ChangeState("OnHit", reset: true);
 
         if (force) {
