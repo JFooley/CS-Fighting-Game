@@ -10,7 +10,7 @@ def extract_frames(nome_gif, nome_base_output):
         gif.seek(i)
         
         # Cria um nome único para o arquivo PNG
-        nome_output = f"{nome_base_output}-{i}.png"
+        nome_output = f"{nome_base_output}{i}.png"
         
         # Salva o frame atual como um arquivo PNG
         gif.save(nome_output)
