@@ -88,7 +88,7 @@ public static class Program
         Stage stage = stages[0];
         int stage_index = 0;
 
-        // Carregamento de intro, menu e icones de stage
+        // Menu e SelectScreen visuals
         Sprite main_screen = new Sprite(new Texture("Assets/Menu/title.png"));
         Sprite frame = new Sprite(new Texture("Assets/Menu/frame.png"));
 

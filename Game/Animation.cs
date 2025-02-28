@@ -5,7 +5,7 @@ namespace Animation_Space {
 
 public class Animation {
     public List<FrameData> Frames { get; private set; }
-    public List<int> SimpleFrames { get; private set; }
+    public List<string> SimpleFrames { get; private set; }
     public int currentFrameIndex;
     public bool onLastFrame;
     public bool hasFrameChange => this.frameCounter == 0; 
@@ -33,7 +33,7 @@ public class Animation {
         this.frameCounter = 0;
     }
 
-    public Animation(List<int> SimpleFrames, string post_state, int framerate = 24, int screenFramerate = 60) {
+    public Animation(List<string> SimpleFrames, string post_state, int framerate = 24, int screenFramerate = 60) {
         this.SimpleFrames = SimpleFrames;
         this.currentFrameIndex = 0;
         this.animSize = SimpleFrames.Count() - 1;
@@ -50,7 +50,7 @@ public class Animation {
         return this.Frames[currentFrameIndex];
     }
 
-    public int GetCurrentSimpleFrame()
+    public string GetCurrentSimpleFrame()
     {
         return this.SimpleFrames[currentFrameIndex];
     }
@@ -155,14 +155,14 @@ public class GenericBox {
 
 public class FrameData {
     public bool hasHit;
-    public int Sprite_index { get; set; }
+    public string Sprite_index { get; set; }
     public string Sound_index { get; set; }
     public float DeltaX { get; set; }
     public float DeltaY { get; set; }
     public List<GenericBox> Boxes { get; set; }
 
     public FrameData(int sprite_index, float deltaX, float deltaY, List<GenericBox> boxes, string Sound_index = "", bool hasHit = true) {
-        this.Sprite_index = sprite_index;
+        this.Sprite_index = sprite_index.ToString();
         this.DeltaX = deltaX;
         this.DeltaY = deltaY;
         this.Boxes = boxes;

@@ -11,9 +11,10 @@ public class JapanFields : Stage {
 
     public override void LoadStage() {
         var defaultFrames = new List<int> {0};
+        List<string> frames = defaultFrames.Select(i => i.ToString()).ToList();
 
         var animations = new Dictionary<string, Animation> {
-            { "Default", new Animation(defaultFrames, "Default", 1)},
+            { "Default", new Animation(frames, "Default", 1)},
         };
 
         this.animations = animations;

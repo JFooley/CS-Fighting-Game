@@ -64,10 +64,10 @@ public class Stage {
     public string CurrentState { get; set; }
     public string LastState { get; set; }
     public Dictionary<string, Animation> animations;
-    private Dictionary<int, Sprite> spriteImages;
+    private Dictionary<string, Sprite> spriteImages;
     private Dictionary<string, Sound> stageSounds;
-    public int CurrentSprite;
-    public string CurrentSound;
+    public string CurrentSprite = "";
+    public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
@@ -83,7 +83,7 @@ public class Stage {
         this.rounds_A = 0;
         this.rounds_B = 0;
         this.CurrentState = "Default";
-        this.spriteImages = new Dictionary<int, Sprite>();
+        this.spriteImages = new Dictionary<string, Sprite>();
         this.stageSounds = new Dictionary<string, Sound>();
 
         this.spark = new Hitspark("Default", 0, 0, 1, this);
@@ -425,7 +425,7 @@ public class Stage {
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                this.spriteImages[int.Parse(fileNameWithoutExtension)] = sprite;
+                this.spriteImages[fileNameWithoutExtension] = sprite;
             }
             catch (SFML.LoadingFailedException)
             {

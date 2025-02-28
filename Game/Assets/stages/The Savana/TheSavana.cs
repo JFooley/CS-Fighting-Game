@@ -11,9 +11,10 @@ public class TheSavana : Stage {
 
     public override void LoadStage() {
         var defaultFrames = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        List<string> frames = defaultFrames.Select(i => i.ToString()).ToList();
 
         var animations = new Dictionary<string, Animation> {
-            { "Default", new Animation(defaultFrames, "Default", 15)},
+            { "Default", new Animation(frames, "Default", 15)},
         };
 
         this.animations = animations;

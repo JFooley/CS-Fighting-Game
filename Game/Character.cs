@@ -71,12 +71,12 @@ public class Character : Object_Space.Object {
 
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
-    public Dictionary<int, Sprite> spriteImages = new Dictionary<int, Sprite>{};
+    public Dictionary<string, Sprite> spriteImages = new Dictionary<string, Sprite>{};
     public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
     // Gets
-    public int CurrentSprite;
+    public string CurrentSprite = "";
     public string CurrentSound = "";
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
@@ -94,7 +94,7 @@ public class Character : Object_Space.Object {
         base.body.Position.X = startX; 
         base.body.Position.Y = startY;
         this.floorLine = startY;
-        this.spriteImages = new Dictionary<int, Sprite>();
+        this.spriteImages = new Dictionary<string, Sprite>();
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
@@ -364,7 +364,7 @@ public class Character : Object_Space.Object {
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                spriteImages[int.Parse(fileNameWithoutExtension)] = sprite;
+                spriteImages[fileNameWithoutExtension] = sprite;
             }
             catch (SFML.LoadingFailedException)
             {
