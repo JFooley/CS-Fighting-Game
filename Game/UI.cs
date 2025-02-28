@@ -20,8 +20,7 @@ namespace UI_space {
         private Color bar_life = new Color(240, 220, 20);
         private Color dizzybar_background = new Color(150, 150, 150);
         private Color bar_super = new Color(41, 168, 195);
-        private Color bar_super_full = new Color(0, 255, 255);
-
+        private Color bar_super_full = new Color(165, 240, 255);
 
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
 
@@ -140,11 +139,13 @@ namespace UI_space {
             // Draw Super bar A
             var superA_scale = stage.character_A.SuperPoints.X * 119 / stage.character_A.SuperPoints.Y;
             var superA = Math.Max(Math.Min(superA_scale, 119), 0);
-            this.DrawRectangle(window, -181, 96, 121, 6, this.bar_outline);
+            this.DrawRectangle(window, -182, 95, 123, 8, this.bar_outline);
+            this.DrawRectangle(window, -181, 96, 121, 6, this.bar_background);
             this.DrawRectangle(window, -180, 97, 119, 4, this.bar_background);
-            this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y ? this.bar_super_full : this.bar_super);
-            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && stage.round_time % 2 == 0) {
-                this.DrawText(window, "Ready!", -62, 92, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
+            this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super);
+            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y) {
+                this.DrawText(window, "MAX!", -62, 92.5f, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
+                if (stage.round_time % 2 == 0) this.DrawRectangle(window, -180, 97, 119, 4, this.bar_super_full);
             }
 
             // Draw Stun bar A
@@ -166,11 +167,13 @@ namespace UI_space {
             // Draw Super bar B
             var superB_scale = stage.character_B.SuperPoints.X * 119 / stage.character_B.SuperPoints.Y;
             var superB = Math.Max(Math.Min(superB_scale, 119), 0);
-            this.DrawRectangle(window, 60, 96, 121, 6, this.bar_outline);
+            this.DrawRectangle(window, 59, 95, 123, 8, this.bar_outline);
+            this.DrawRectangle(window, 60, 96, 121, 6, this.bar_background);
             this.DrawRectangle(window, 61, 97, 119, 4, this.bar_background);
-            this.DrawRectangle(window, 61, 97, superB, 4, stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y ? this.bar_super_full : this.bar_super);
-            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && stage.round_time % 2 == 0) {
-                this.DrawText(window, "Ready!", 64, 92, spacing: -8, alignment: "right", size: 0.4f, textureName: "default");
+            this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super);
+            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y) {
+                this.DrawText(window, "MAX!", 64, 92.5f, spacing: -8, alignment: "right", size: 0.4f, textureName: "default");
+                if (stage.round_time % 2 == 0) this.DrawRectangle(window, 61, 97, 119, 4, this.bar_super_full);
             }
 
             // Draw Stun bar B

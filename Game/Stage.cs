@@ -272,7 +272,13 @@ public class Stage {
                             var hit = charA.ImposeBehavior(charB);
                             charA.hasHit = true;
                             charA.comboCounter += hit == 1 ? 1 : 0;
-                            this.spawnHitspark(hit, charB.body.Position.X, charB.body.Position.Y, charA.facing, -10);
+
+                            // spawna a particula de hit
+                            float x1 = boxA.getRealA(charA).X;
+                            float y1 = boxA.getRealA(charA).Y;
+                            float x2 = boxA.getRealB(charA).X;
+                            float y2 = boxA.getRealB(charA).Y;
+                            this.spawnHitspark(hit, (x1 + x2) / 2, (y1 + y2) / 2 + 125, charA.facing);
                         }
                     }
                 }
