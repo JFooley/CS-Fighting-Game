@@ -36,10 +36,15 @@ public static class Program
     public const int RoundEnd = 3;
     public const int MatchEnd = 4;
 
+    public static int game_state;
+    public static int sub_state;
+    public static Camera camera;
+    public static SFML.Graphics.View view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth * 0.3f, Config.WindowHeight* 0.3f));
+
     public static void Main() {  
         // Necessary infos
-        int game_state = Intro;
-        int sub_state = Intro;
+        game_state = Intro;
+        sub_state = Intro;
 
         // Crie uma janela
         RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
@@ -48,12 +53,11 @@ public static class Program
         window.SetVerticalSyncEnabled(Config.Vsync);
         
         // Cria uma view
-        var view = new SFML.Graphics.View(new FloatRect(0, 0, Config.WindowWidth * 0.3f, Config.WindowHeight* 0.3f));
         window.SetView(view);
 
         // Inicializações
         InputManager.Initialize(autoDetectDevice: true);
-        Camera camera = Camera.GetInstance(window, view);
+        camera = Camera.GetInstance(window);
 
         // Carregamento de texturas de fontes
         BitmapFont.Load("default", "Assets/fonts/default.png");
@@ -84,10 +88,14 @@ public static class Program
         Stage stage = stages[0];
         int stage_index = 0;
 
+        // Carregamento de intro, menu e icones de stage
+        Sprite main_screen = new Sprite(new Texture("Assets/Menu/title.png"));
+        Sprite frame = new Sprite(new Texture("Assets/Menu/frame.png"));
+
         while (window.IsOpen) {
-            // First
             window.DispatchEvents();
             InputManager.Instance.Update();
+            camera.Update();
 
             switch (game_state) {
                 case Intro:
@@ -95,7 +103,8 @@ public static class Program
                     break;
 
                 case MainScreen:
-                    UI.Instance.DrawText(window, "press start", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -20, size: 0.9f);
+                    window.Draw(main_screen);
+                    UI.Instance.DrawText(window, "press start", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 50, spacing: -20, size: 0.9f);
 
                     if (InputManager.Instance.Key_down("Start")) {
                         game_state = SelectScreen;
@@ -103,8 +112,9 @@ public static class Program
                     break;
 
                 case SelectScreen:
-                    UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2, spacing: -18, size: 0.9f, textureName: "1");
-                    UI.Instance.DrawText(window, "¿   ª", Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 + 30, spacing: -10, size: 0.9f, textureName: "1");
+                    window.Draw(stages[stage_index].thumb);
+                    window.Draw(frame);
+                    UI.Instance.DrawText(window, stages[stage_index].name, Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2 -80, spacing: -17, size: 0.9f, textureName: "default grad");
 
                     if (InputManager.Instance.Key_down("Left") && stage_index > 0) {
                         stage_index -= 1;
@@ -135,11 +145,11 @@ public static class Program
                     break;
 
                 case Battle:
-                    camera.Update();
                     stage.Update(window);
-
+                    
                     switch (sub_state) {
                         case Intro:
+                            stage.PlayMusic();
                             stage.StopRoundTime();
                             stage.ResetTimer();
                             if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar
@@ -183,23 +193,21 @@ public static class Program
                             break;
 
                         case MatchEnd: // Fim da partida
-                            Thread.Sleep(2000);
+                            camera.Reset();
+                            stage.StopMusic();
                             stage.ResetMatch();
                             stage.ResetPlayers(force: true, total_reset: true);
-                            sub_state = Intro;
-                            // game_state = SelectScreen;
 
-                            game_state = Battle; // remover dps
+                            sub_state = Intro;
+                            game_state = MainScreen;
                             break;
                     }
-
                     break;
             }
 
             // Finally
             window.Display();
             window.Clear();
-            if (InputManager.Instance.Key_down("Select")) stage.debug_mode = !stage.debug_mode;
         }
     }
 }

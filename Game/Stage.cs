@@ -15,6 +15,7 @@ public class Stage {
     public float size_ratio = 1.0f;
     public string spritesFolderPath;
     public string soundFolderPath;
+    public Sprite thumb;
 
     // Debug infos
     public bool debug_mode = false;
@@ -70,7 +71,7 @@ public class Stage {
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
-    public Stage(string name, int floorLine, int length, int height, string spritesFolderPath, string soundFolderPath) {
+    public Stage(string name, int floorLine, int length, int height, string spritesFolderPath, string soundFolderPath, string thumbPath) {
         this.name = name;
         this.floorLine = floorLine;
         this.length = length;
@@ -88,6 +89,8 @@ public class Stage {
         this.spark = new Hitspark("Default", 0, 0, 1, this);
         this.fireball = new Fireball("Default", 0, 0, 0, 1, this);
         this.particle = new Particle("Default", 0, 0, 1, this);
+
+        this.thumb = new Sprite(new Texture(thumbPath));
     }
 
     // Behaviour
@@ -111,12 +114,6 @@ public class Stage {
             temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
             temp_sprite.Position = new Vector2f (0, 0);
             window.Draw(temp_sprite);
-        }
-
-        // Play background music
-        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Stopped){
-            this.stageSounds["music"].Volume = Config.Music_Volume;
-            this.stageSounds["music"].Play();
         }
 
         // Advance to the next frame
@@ -150,6 +147,7 @@ public class Stage {
         UI.Instance.DrawBattleUI(window, this);
         foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, this.showBoxs);
 
+        if (InputManager.Instance.Key_down("Start")) this.debug_mode = !this.debug_mode;
         if (debug_mode) this.DebugMode(window);
     }
     private void DoBehavior() {
@@ -185,16 +183,22 @@ public class Stage {
     public virtual void doSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
         UI.Instance.ShowFramerate(window, "default");
-        UI.Instance.DrawText(window, "training mode", 0, 80, spacing: -10, size: 0.5f);
-        UI.Instance.DrawText(window, "Start:", -180, -60, spacing: -10, size: 0.5f, alignment: "left");
-        UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "left");
-        UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "left");
-        UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "left");
+        UI.Instance.DrawText(window, "training mode", 0, 70, spacing: -10, size: 0.5f, textureName: "default white");
+        UI.Instance.DrawText(window, "LT:", -180, -60, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, "Show hitboxes", -180, -50, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, "Select:", -180, -10, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, "Back to main menu", -180, 0, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
 
         this.ResetRoundTime();
-        if (InputManager.Instance.Key_down("Start")) this.showBoxs = !this.showBoxs;
+        if (InputManager.Instance.Key_down("LT")) this.showBoxs = !this.showBoxs;
         if (InputManager.Instance.Key_down("LB")) this.block_after_hit = !this.block_after_hit;
-
+        if (InputManager.Instance.Key_down("Select")) {
+            Program.sub_state = Program.MatchEnd;
+            this.debug_mode = false;
+        } 
+        
         if(hitstopCounter == 0) this.reset_frames += 1;
 
         // Block after hit
@@ -334,7 +338,7 @@ public class Stage {
         return doEnd;
     }
     public bool CheckMatchEnd() {       
-        if (this.rounds_A == Config.max_rounds || this.rounds_B == Config.max_rounds) return true;
+        if (this.rounds_A >= Config.max_rounds || this.rounds_B >= Config.max_rounds) return true;
         return false;
     }
     public void ResetRoundTime() {
@@ -369,6 +373,20 @@ public class Stage {
     }
     public void SetHitstop(int amount) {
         this.hitstopCounter = amount;
+    }
+    public void StopMusic() {
+        // Play background music
+        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Playing){
+            this.stageSounds["music"].Volume = Config.Music_Volume;
+            this.stageSounds["music"].Stop();
+        }
+    }
+    public void PlayMusic() {
+        // Play background music
+        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Stopped){
+            this.stageSounds["music"].Volume = Config.Music_Volume;
+            this.stageSounds["music"].Play();
+        }
     }
     
     // All loads
@@ -458,6 +476,7 @@ public class Stage {
         }
     }
     public void UnloadSounds() {
+        this.StopMusic();
         foreach (var sound in this.stageSounds.Values)
         {
             sound.Dispose(); // Free the memory used by the image
@@ -466,7 +485,14 @@ public class Stage {
     }
 
     public virtual void LoadStage() {}
-    public virtual void UnloadStage() {}
+    public void UnloadStage() {
+        this.ResetMatch();
+        this.ResetRoundTime();
+        this.ResetPlayers();
+        this.ResetTimer();
+        this.UnloadSounds();
+        this.UnloadSpriteImages();
+    }
 
 }
 

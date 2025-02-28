@@ -2122,51 +2122,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\misc\anim_maker.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\font1.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\10.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\11.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\12.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\13.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\14.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\15.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\16.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\17.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\18.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\19.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sound\music.mp3
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\110.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\111.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\112.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\113.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\114.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\115.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\116.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\117.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\118.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\119.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\120.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\121.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\122.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\123.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\124.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\125.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\126.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\127.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\128.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\129.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\130.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\131.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\132.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\133.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\134.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\135.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\136.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\137.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\138.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\139.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\140.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\141.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\142.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\143.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\sprites\0.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\sprites\10.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\sprites\11.png
@@ -2230,3 +2186,58 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\fil
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font1.TTF
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font2.otf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\white.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font3.ttf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font4.ttf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\Menu\title.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Burning Dojo\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Japan Fields\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Night Alley\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Midnight Duel\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Savana\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\Menu\frame.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\10.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\11.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\110.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\111.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\112.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\113.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\114.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\115.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\116.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\117.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\118.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\119.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\12.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\120.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\121.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\122.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\123.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\124.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\125.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\126.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\127.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\128.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\129.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\13.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\130.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\131.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\132.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\133.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\134.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\135.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\136.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\137.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\138.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\139.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\14.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\140.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\141.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\142.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\143.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\15.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\16.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\17.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\18.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\19.png

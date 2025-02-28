@@ -4,7 +4,7 @@ using Animation_Space;
 
 public class TheSavana : Stage {
     public TheSavana()
-        : base("The Savana", 530, 512, 512, "Assets/stages/The Savana/sprites", "Assets/stages/The Savana/sound")
+        : base("The Savana", 530, 512, 512, "Assets/stages/The Savana/sprites", "Assets/stages/The Savana/sound", "Assets/stages/The Savana/thumb.png")
     {
 
     }

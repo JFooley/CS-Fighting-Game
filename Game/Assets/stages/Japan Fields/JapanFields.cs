@@ -4,7 +4,7 @@ using Animation_Space;
 
 public class JapanFields : Stage {
     public JapanFields()
-        : base("Japan Fields", 540, 896, 511, "Assets/stages/Japan Fields/sprites", "Assets/stages/Japan Fields/sound")
+        : base("Japan Fields", 540, 896, 511, "Assets/stages/Japan Fields/sprites", "Assets/stages/Japan Fields/sound", "Assets/stages/Japan Fields/thumb.png")
     {
 
     }

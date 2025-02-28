@@ -4,7 +4,7 @@ using Animation_Space;
 
 public class DivineSaloon : Stage {
     public DivineSaloon()
-        : base("Divine Saloon", 530, 896, 496, "Assets/stages/Divine Saloon/sprites", "Assets/stages/Divine Saloon/sound")
+        : base("Divine Saloon", 530, 896, 496, "Assets/stages/Divine Saloon/sprites", "Assets/stages/Divine Saloon/sound", "Assets/stages/Divine Saloon/thumb.png")
     {
 
     }
