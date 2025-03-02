@@ -61,15 +61,11 @@ public static class Program
 
         // Carregamento de texturas de fontes
         BitmapFont.Load("default", "Assets/fonts/default.png");
-        BitmapFont.Load("default yellow", "Assets/fonts/yellow.png");
-        BitmapFont.Load("default red", "Assets/fonts/red.png");
-        BitmapFont.Load("default grad", "Assets/fonts/grad.png");
-        BitmapFont.Load("default black", "Assets/fonts/black.png");
-        BitmapFont.Load("default white", "Assets/fonts/white.png");
+        BitmapFont.Load("default grad", "Assets/fonts/default grad.png");
+        BitmapFont.Load("default black", "Assets/fonts/default black.png");
+        BitmapFont.Load("default white", "Assets/fonts/default white.png");
         BitmapFont.Load("1", "Assets/fonts/font1.png");
         UI.Instance.LoadCharacterSprites(32, "default");
-        UI.Instance.LoadCharacterSprites(32, "default yellow");
-        UI.Instance.LoadCharacterSprites(32, "default red");
         UI.Instance.LoadCharacterSprites(32, "default grad");
         UI.Instance.LoadCharacterSprites(32, "default black");
         UI.Instance.LoadCharacterSprites(32, "default white");
@@ -89,8 +85,8 @@ public static class Program
         int stage_index = 0;
 
         // Menu e SelectScreen visuals
-        Sprite main_screen = new Sprite(new Texture("Assets/Menu/title.png"));
-        Sprite frame = new Sprite(new Texture("Assets/Menu/frame.png"));
+        Sprite main_screen = new Sprite(new Texture("Assets/ui/title.png"));
+        Sprite frame = new Sprite(new Texture("Assets/ui/frame.png"));
 
         while (window.IsOpen) {
             window.DispatchEvents();
@@ -197,6 +193,7 @@ public static class Program
                             stage.StopMusic();
                             stage.ResetMatch();
                             stage.ResetPlayers(force: true, total_reset: true);
+                            stage.UnloadStage();
 
                             sub_state = Intro;
                             game_state = MainScreen;

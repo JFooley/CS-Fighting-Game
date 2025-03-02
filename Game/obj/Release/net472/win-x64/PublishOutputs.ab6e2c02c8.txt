@@ -1668,7 +1668,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\framedata_list_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\movement_creator.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\sprites.txt
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\black.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default black.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default grad.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default white.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\files\font0.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\files\font1.TTF
@@ -1677,12 +1679,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\files\font4.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\font1.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\grad.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\red.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\white.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\fonts\yellow.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\icon.ico
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\Menu\frame.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\Menu\title.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\misc\anim_maker.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\misc\background_remover.py
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\misc\colider_creator.py
@@ -2219,6 +2216,10 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\8.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\9.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\frame.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\hud.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\hud.xcf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\title.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Project FS.exe
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Project FS.exe.config
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Project FS.pdb

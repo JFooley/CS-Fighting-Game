@@ -375,14 +375,11 @@ public class Stage {
         this.hitstopCounter = amount;
     }
     public void StopMusic() {
-        // Play background music
-        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Playing){
-            this.stageSounds["music"].Volume = Config.Music_Volume;
+        if (this.stageSounds.Keys.Contains("music")) {
             this.stageSounds["music"].Stop();
         }
     }
     public void PlayMusic() {
-        // Play background music
         if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Stopped){
             this.stageSounds["music"].Volume = Config.Music_Volume;
             this.stageSounds["music"].Play();
@@ -400,7 +397,14 @@ public class Stage {
         this.fireball.Load();
         this.particle.Load();
     }
-    
+    public void UnloadCharacters() {
+        this.character_A.Unload();
+        this.character_B.Unload();
+
+        this.spark.Unload();
+        this.fireball.Unload();
+        this.particle.Unload();
+    }
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);
@@ -492,6 +496,8 @@ public class Stage {
         this.ResetTimer();
         this.UnloadSounds();
         this.UnloadSpriteImages();
+        this.UnloadCharacters();
+
     }
 
 }

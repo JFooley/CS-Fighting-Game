@@ -152,7 +152,7 @@ public class InputManager {
     // Behaviour
     public void Update() {
         if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && JoystickInput.IsJoystickConnected(1)) {
-            inputDevice[0] = KEYBOARD_INPUT;
+            inputDevice[0] = JOYSTICK_0_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = JOYSTICK_1_INPUT;
         }

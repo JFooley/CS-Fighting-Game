@@ -2178,17 +2178,12 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Th
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Savana\sprites\9.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\sound\dash.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Japan Fields\sprites\0.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\yellow.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\red.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\grad.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\black.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font0.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font1.TTF
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font2.otf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\white.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font3.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\files\font4.ttf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\Menu\title.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Burning Dojo\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Divine Saloon\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Japan Fields\thumb.png
@@ -2196,7 +2191,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Ni
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Midnight Duel\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Savana\thumb.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\Menu\frame.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\10.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\11.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\110.png
@@ -2241,3 +2235,10 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NY
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\17.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\18.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\19.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\frame.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\title.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\hud.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default black.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default grad.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default white.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\hud.xcf

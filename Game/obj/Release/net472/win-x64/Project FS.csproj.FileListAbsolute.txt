@@ -2222,18 +2222,12 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\The Savana\sprites\7.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\The Savana\sprites\8.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\The Savana\sprites\9.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\black.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font0.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font1.TTF
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font2.otf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\grad.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\red.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\white.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\yellow.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font3.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font4.ttf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\Menu\frame.png
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\Menu\title.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\Burning Dojo\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\Divine Saloon\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\Japan Fields\thumb.png
@@ -2241,3 +2235,10 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\NYC Subway\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\The Midnight Duel\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\The Savana\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default black.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default grad.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default white.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\frame.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\hud.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\hud.xcf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\title.png

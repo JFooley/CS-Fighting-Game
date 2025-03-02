@@ -217,7 +217,7 @@ public class Character : Object_Space.Object {
     public void HitStun(Character enemy, int advantage, bool airbone = false, float airbone_height = 0, float airbone_X = 5, bool force = false) {
         this.facing = -enemy.facing;
 
-        if (airbone || this.LifePoints.X <= 0 || this.onAir && airbone_height > 0) {
+        if (airbone || this.LifePoints.X <= 0 || this.onAir && airbone_height > 0 || enemy.CurrentState == "Airboned") {
             if (airbone_height == 0) airbone_height = 10;
             this.ChangeState("Airboned", reset: true);
             this.facing = -enemy.facing;
