@@ -866,7 +866,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.7.2/win-x64": {
+    ".NETFramework,Version=v4.7.2/win7-x64": {
       "CSFML/2.6.1": {
         "type": "package",
         "native": {
@@ -2027,17 +2027,9 @@
       }
     },
     "runtimes": {
-      "win-x64": {
+      "win7-x64": {
         "#import": []
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ocorreu um erro ao obter os dados de vulnerabilidade do pacote: Não é possível carregar o índice de serviço para a origem https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

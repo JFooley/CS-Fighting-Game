@@ -147,7 +147,7 @@ public class Stage {
         UI.Instance.DrawBattleUI(window, this);
         foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, this.showBoxs);
 
-        if (InputManager.Instance.Key_down("Start")) this.debug_mode = !this.debug_mode;
+        if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) this.debug_mode = !this.debug_mode;
         if (debug_mode) this.DebugMode(window);
     }
     private void DoBehavior() {
@@ -189,12 +189,14 @@ public class Stage {
         UI.Instance.DrawText(window, "LB:", -180, -35, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
         UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", -180, -25, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
         UI.Instance.DrawText(window, "Select:", -180, -10, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
-        UI.Instance.DrawText(window, "Back to main menu", -180, 0, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
+        UI.Instance.DrawText(window, "End match", -180, 0, spacing: -10, size: 0.5f, alignment: "left", textureName: "default white");
 
         this.ResetRoundTime();
         if (InputManager.Instance.Key_down("LT")) this.showBoxs = !this.showBoxs;
         if (InputManager.Instance.Key_down("LB")) this.block_after_hit = !this.block_after_hit;
         if (InputManager.Instance.Key_down("Select")) {
+            this.TogglePlayers();
+            Program.winner = Program.Drawn;
             Program.sub_state = Program.MatchEnd;
             this.debug_mode = false;
         } 
@@ -238,9 +240,8 @@ public class Stage {
     }
     public void spawnHitspark(int hit, float X, float Y, int facing, int X_offset = 0, int Y_offset = 0) {
         var hs = new Hitspark("default", X + X_offset * facing, Y + Y_offset, facing);
-        Random random = new Random();
         if (hit == 1) {
-            hs.CurrentState = "OnHit" + random.Next(1, 4);
+            hs.CurrentState = "OnHit" + Program.random.Next(1, 4);
         } else if (hit == 0){
             hs.CurrentState = "OnBlock";
         } else {
@@ -338,7 +339,21 @@ public class Stage {
         return doEnd;
     }
     public bool CheckMatchEnd() {       
-        if (this.rounds_A >= Config.max_rounds || this.rounds_B >= Config.max_rounds) return true;
+        if (this.rounds_A == this.rounds_B && this.rounds_A >= Config.max_rounds) {
+            Program.winner = Program.Drawn;
+            return true;
+        }
+        else if (this.rounds_A >= Config.max_rounds) {
+            Program.winner = Program.Player1;
+            Program.player1_wins += 1;
+            return true;
+        }
+        else if (this.rounds_B >= Config.max_rounds) {
+            Program.winner = Program.Player2;
+            Program.player2_wins += 1;
+            return true;
+        }
+        
         return false;
     }
     public void ResetRoundTime() {

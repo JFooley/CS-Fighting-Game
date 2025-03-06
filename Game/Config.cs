@@ -3,6 +3,9 @@ public static class Config {
     public const string GameTitle = "Fighting Game CS";
     public const int WindowWidth = 1280;
     public const int WindowHeight = 720;
+    public const int RenderWidth = 384;
+    public const int RenderHeight = 216;
+
     public const bool Vsync = true;
     public const int Framerate = 60;
 

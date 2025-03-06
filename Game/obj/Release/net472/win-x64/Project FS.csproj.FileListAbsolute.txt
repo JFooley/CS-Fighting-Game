@@ -2225,7 +2225,6 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font0.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font1.TTF
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font2.otf
-D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\grad.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font3.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\font4.ttf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\Burning Dojo\thumb.png
@@ -2242,3 +2241,13 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\hud.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\hud.xcf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\title.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\stages\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default cyan.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default green.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\default purple.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\icons.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\90fade.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\fight.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\ko.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\ui\timesup.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\Assets\fonts\files\Mostwasted.ttf

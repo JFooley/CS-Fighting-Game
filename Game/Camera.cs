@@ -22,7 +22,7 @@ public class Camera
     public float X { get; private set; }
     public float Y { get; private set; }
 
-    private Camera(RenderWindow window, int X = 0, int Y = 0) {
+    private Camera(RenderWindow window, int X = Config.RenderWidth/2, int Y = Config.RenderHeight/2) {
         this.X = X;
         this.Y = Y;
         this.window = window;
@@ -39,7 +39,7 @@ public class Camera
         }
     }
 
-    public static Camera GetInstance(RenderWindow window = null, int X = 0, int Y = 0) {
+    public static Camera GetInstance(RenderWindow window = null, int X = Config.RenderWidth/2, int Y = Config.RenderHeight/2) {
         lock (_lock)
         {
             if (_instance == null)
@@ -84,8 +84,8 @@ public class Camera
     public void Reset() {
         this.CharA = null;
         this.CharB = null;
-        this.X = 0;
-        this.Y = 0;
+        this.X = Config.RenderWidth/2;
+        this.Y = Config.RenderHeight/2;
         this.X_stage_limits = 0;
         this.Y_stage_limits = 0;
     }

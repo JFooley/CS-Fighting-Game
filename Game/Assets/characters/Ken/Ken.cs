@@ -651,7 +651,7 @@ public class Ken : Character {
             { "JumpBackward", new Animation(JumpBackward, "JumpFalling", 20)},
             { "JumpFalling", new Animation(jumpFallingFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "Landing", new Animation(landingFrames, "Idle", 20)},
-            { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 20)},
+            { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 60)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
             { "SA1", new Animation(SA1, "MK", 60)},

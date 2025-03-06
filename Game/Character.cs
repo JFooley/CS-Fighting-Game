@@ -249,7 +249,7 @@ public class Character : Object_Space.Object {
     public void CheckStun() {
         if (this.StunFrames > 0) {
             this.StunFrames -= 1;
-            if (this.StunFrames == 0) {
+            if (this.StunFrames == 0 && this.CurrentState != "Airboned") {
                 if (this.isCrounching) this.ChangeState("Crouching");
                 else this.ChangeState("Idle");
             }

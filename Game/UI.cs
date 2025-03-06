@@ -13,14 +13,14 @@ namespace UI_space {
         private int graylife_A = 150;
         private int graylife_B = 150;
 
+        private Color dizzybar_background = new Color(150, 150, 150);
         private Color bar_background = new Color(35, 31, 34);
         private Color bar_outline = new Color(255, 255, 255);
         private Color bar_graylife = new Color(200, 0, 0);
         private Color bar_fulllife = new Color(50, 190, 60);
         private Color bar_life = new Color(240, 220, 20);
-        private Color dizzybar_background = new Color(150, 150, 150);
         private Color bar_super = new Color(5, 175, 205);
-        private Color bar_super_full = new Color(100, 230, 255);
+        private Color bar_super_full = new Color(170, 230, 255);
         
         Sprite hud = new Sprite(new Texture("Assets/ui/hud.png"));
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
@@ -136,7 +136,7 @@ namespace UI_space {
             var superA = Math.Max(Math.Min(superA_scale, 119), 0);
             this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super);
             if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y) {
-                this.DrawText(window, "MAX!", -59, 92.5f, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
+                // this.DrawText(window, "MAX!", -59, 92.5f, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
                 if (stage.round_time % 2 == 0) this.DrawRectangle(window, -180, 97, 119, 4, this.bar_super_full);
             }
 
@@ -157,7 +157,7 @@ namespace UI_space {
             var superB = Math.Max(Math.Min(superB_scale, 119), 0);
             this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super);
             if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y) {
-                this.DrawText(window, "MAX!", 59, 92.5f, spacing: -8, alignment: "right", size: 0.4f, textureName: "default");
+                // this.DrawText(window, "MAX!", 59, 92.5f, spacing: -8, alignment: "right", size: 0.4f, textureName: "default");
                 if (stage.round_time % 2 == 0) this.DrawRectangle(window, 61, 97, 119, 4, this.bar_super_full);
             }
 
@@ -171,15 +171,15 @@ namespace UI_space {
             UI.Instance.DrawText(window, stage.character_B.name, 183, -99, spacing: -10, size: 0.5f, alignment: "right", textureName: "default");
 
             // Draw Combo text
-            if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -185, -80, spacing: -14, alignment: "left", size: 0.75f, textureName: "default grad");
-            if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 185, -80, spacing: -14, alignment: "right", size: 0.75f, textureName: "default grad");
+            if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -185, -80, spacing: -14, alignment: "left", size: 0.75f, textureName: "default green");
+            if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 185, -80, spacing: -14, alignment: "right", size: 0.75f, textureName: "default green");
 
             // Draw time
             this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -113, alignment: "center", spacing: -25, size: 1.4375f, textureName: "1");
 
             // Draw round indicator ≈
-            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "1");
-            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "1");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "icons");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
         }
         
     }
