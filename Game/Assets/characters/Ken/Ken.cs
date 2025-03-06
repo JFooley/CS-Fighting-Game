@@ -734,7 +734,7 @@ public class Ken : Character {
         } 
 
         // Haduken
-        if (InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP")))) {
+        if (InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "LowLK")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
             stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
