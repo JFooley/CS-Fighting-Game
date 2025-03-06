@@ -717,17 +717,8 @@ public class Ken : Character {
                 Y: 0);
         }
 
-        // Cancels
-        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
-            this.SetVelocity();
-            this.ChangeState("CloseHP");
-        } else if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP")) {
-            this.SetVelocity();
-            this.ChangeState("LightShory", index: 1);
-        } 
-
         // Shorys
-        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP" || this.CurrentState == "LowLK"))) {
             this.ChangeState("LightShory");
         } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
@@ -775,9 +766,12 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
+        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
+            this.SetVelocity();
+            this.ChangeState("CloseHP");
+        } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
             this.ChangeState("BackMK");
-        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !this.isCrounching && (this.notActing || (this.hasHit && this.CurrentState == "CloseHP"))) {
             this.ChangeState("BackMP");
         } 
 
