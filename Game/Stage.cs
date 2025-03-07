@@ -125,10 +125,13 @@ public class Stage {
         } else if (this.pause_pointer == 2 && this.debug_mode && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
             this.block_after_hit = !this.block_after_hit;
         } else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
-            this.TogglePlayers();
+            this.Pause();
             Program.winner = Program.Drawn;
             Program.sub_state = Program.MatchEnd;
+            this.showBoxs = false;
             this.debug_mode = false;
+            this.block_after_hit = false;
+            this.pause_pointer = 0;
         }
     }
     public void Update(RenderWindow window) {
