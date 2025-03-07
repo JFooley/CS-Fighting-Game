@@ -170,7 +170,9 @@ public class Character : Object_Space.Object {
         }
     }
     public override void DoAnimate() {
-        base.DoAnimate();
+        if (!this.animate) return;
+
+        this.CheckStun();
 
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;

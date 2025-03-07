@@ -13,14 +13,14 @@ namespace UI_space {
         private int graylife_A = 150;
         private int graylife_B = 150;
 
-        private Color dizzybar_background = new Color(150, 150, 150);
-        private Color bar_background = new Color(35, 31, 34);
-        private Color bar_outline = new Color(255, 255, 255);
-        private Color bar_graylife = new Color(200, 0, 0);
-        private Color bar_fulllife = new Color(50, 190, 60);
-        private Color bar_life = new Color(240, 220, 20);
-        private Color bar_super = new Color(5, 175, 205);
-        private Color bar_super_full = new Color(170, 230, 255);
+        public Color light_background = new Color(150, 150, 150);
+        public Color background = new Color(35, 31, 34);
+        public Color outline = new Color(255, 255, 255);
+        public Color bar_graylife = new Color(200, 0, 0);
+        public Color bar_fulllife = new Color(50, 190, 60);
+        public Color bar_life = new Color(240, 220, 20);
+        public Color bar_super = new Color(5, 175, 205);
+        public Color bar_super_full = new Color(170, 230, 255);
         
         Sprite hud = new Sprite(new Texture("Assets/ui/hud.png"));
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
@@ -63,7 +63,7 @@ namespace UI_space {
             this.DrawText(window, "" + this.elapsed, -190, 75, spacing: -19, alignment: "left", size: 0.8f, textureName: textureName);
         }
 
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 0, string alignment = "center", bool absolutePosition = false, string textureName = "default") {
+        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default") {
             float totalWidth = 0;
             float pos_X;
             float pos_Y;

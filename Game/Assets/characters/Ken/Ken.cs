@@ -683,8 +683,6 @@ public class Ken : Character {
     public override void DoBehave() {
         if (this.behave == false) return;
 
-        this.CheckStun();
-
         this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
 
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {

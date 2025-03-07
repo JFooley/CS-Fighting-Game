@@ -201,6 +201,7 @@ public static class Program
                             if (!stage.CheckTimer(4)) break;
 
                             stage.ResetRoundTime();
+                            stage.StartRoundTime();
                             stage.TogglePlayers();
                             sub_state = Battling;
                             break;
@@ -259,7 +260,7 @@ public static class Program
                     UI.Instance.DrawText(window, winner_text, 0, -100, spacing: -32, size: 1.5f, textureName: "default");
                     UI.Instance.DrawText(window, "Rematch", 0, 0, spacing: -22, size: 1f, textureName: pointer == 0 ? "default black" : "default");
                     UI.Instance.DrawText(window, "Menu", 0, 20, spacing: -22, size: 1f, textureName: pointer == 1 ? "default black" : "default");
-                    UI.Instance.DrawText(window, "Exit", 0, 40, spacing: -22, size: 1f, textureName: pointer == 2 ? "default black" : "default");
+                    UI.Instance.DrawText(window, "Exit", 0, 40, spacing: -22, size: 1f, textureName: pointer == 2 ? "default purple" : "default");
 
                     // Change option
                     if (InputManager.Instance.Key_down("Up") && pointer > 0) {
