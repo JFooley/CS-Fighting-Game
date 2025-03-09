@@ -152,23 +152,23 @@ public class InputManager {
     // Behaviour
     public void Update() {
         if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && JoystickInput.IsJoystickConnected(1)) {
-            inputDevice[0] = JOYSTICK_0_INPUT;
+            inputDevice[0] = NONE_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = JOYSTICK_1_INPUT;
         }
         else if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
-            inputDevice[0] = JOYSTICK_0_INPUT;
+            inputDevice[0] = NONE_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
             inputDevice[2] = KEYBOARD_INPUT;
         }
         else {
-            inputDevice[0] = KEYBOARD_INPUT;
+            inputDevice[0] = NONE_INPUT;
             inputDevice[1] = KEYBOARD_INPUT;
             inputDevice[2] = NONE_INPUT;
         }
 
         int[] currentInput =  new int[3] {0, 0, 0};
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i < 3; i++) {
             if (inputDevice[i] == KEYBOARD_INPUT) {
                 currentInput[i] = RawInput.ReadKeyboardState(keyMap);
             }
@@ -180,12 +180,17 @@ public class InputManager {
             }
         }
 
-        for (int j = 0; j < 3; j++) {
+
+        for (int j = 2; j >= 0; j--) {
             buttonLastState[j] = buttonState[j];
             buttonState[j] = 0;
-            for (int i = 0; i < this.maxButtonIndex; i++) {
-                if ((currentInput[j] & (1 << i)) != 0) {
-                    buttonState[j] |= (1 << i);
+
+            if (j == 0) buttonState[0] = buttonState[1] | buttonState[2];
+            else {
+                for (int i = 0; i < this.maxButtonIndex; i++) {
+                    if ((currentInput[j] & (1 << i)) != 0) {
+                        buttonState[j] |= (1 << i);
+                    }
                 }
             }
 
