@@ -283,12 +283,6 @@ public class Psylock : Character {
         }
 
         // Specials
-        String A_dp = "Right Down Right A";
-        String B_dp = "Right Down Right C";
-        String A_qcf = "Down Right A";
-        String C_qcf = "Down Right C";
-        String B_qcb = "Down Left B";
-        String D_qcb = "Down Left C";
         String F_dash = "Right Right";
         String B_dash = "Left Left";
 
@@ -336,24 +330,21 @@ public class Psylock : Character {
         } else if (this.CurrentState == "Jump" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: 0, 
-                Y: this.jump_hight, 
-                T: (this.CurrentAnimation.Frames.Count() - 3) * (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
 
         } else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpForward");
         } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: this.move_speed + 1, 
-                Y: this.jump_hight, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
 
         } else if (this.notActing && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("JumpBackward");
         } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 2) {
             this.SetVelocity(
                 X: -(this.move_speed + 1), 
-                Y: this.jump_hight, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: this.jump_hight);
         } 
     }
 

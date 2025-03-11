@@ -53,6 +53,7 @@ public class Character : Object_Space.Object {
     public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
+    
 
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
@@ -225,8 +226,7 @@ public class Character : Object_Space.Object {
             this.facing = -enemy.facing;
             this.SetVelocity(
                 X: airbone_X * (enemy.facing * this.facing), 
-                Y: airbone_height, 
-                T: this.CurrentAnimation.Frames.Count() * (60 / this.CurrentAnimation.framerate));
+                Y: airbone_height);
             this.StunFrames = 0;
             return;
         } else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
@@ -292,11 +292,17 @@ public class Character : Object_Space.Object {
     }
     
     // Auxiliar methods
-    public void SetVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
+    public void SetVelocity(float X = 0, float Y = 0, bool raw_set = false) {
         this.body.SetVelocity(this, X, Y, raw_set: raw_set);
     }
-    public void AddVelocity(float X = 0, float Y = 0, int T = 0, bool raw_set = false) {
+    public void AddVelocity(float X = 0, float Y = 0, bool raw_set = false) {
         this.body.AddVelocity(this, X, Y, raw_set: raw_set);
+    }
+    public void AddForce(float X = 0, float Y = 0, int T = 0) {
+        this.body.AddForce(this, X, Y, T);
+    }
+    public void SetForce(float X = 0, float Y = 0, int T = 0) {
+        this.body.SetForce(this, X, Y, T);
     }
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;
