@@ -190,7 +190,7 @@ public static class Program
                     
                     switch (sub_state) {
                         case Intro:
-                            stage.PlayMusic();
+                            // stage.PlayMusic();
                             stage.StopRoundTime();
                             stage.ResetTimer();
                             if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar

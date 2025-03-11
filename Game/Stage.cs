@@ -121,6 +121,9 @@ public class Stage {
             window.Draw(temp_sprite);
         }
 
+        // Keep music playing
+        this.PlayMusic();
+
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
@@ -186,10 +189,10 @@ public class Stage {
             if (this.character_B.notActing) this.character_B.facing = 1;
         }
 
-        this.checkColisions();
-        this.doSpecialBehaviour();
+        this.CheckColisions();
+        this.DoSpecialBehaviour();
     }
-    public virtual void doSpecialBehaviour() {}
+    public virtual void DoSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
         UI.Instance.ShowFramerate(window, "default small white");
         UI.Instance.DrawText(window, "training mode", 0, 70, spacing: Config.spacing_small, size: 1f, textureName: "default small white");
@@ -291,7 +294,7 @@ public class Stage {
     }
 
     // Auxiliary
-    public void checkColisions() {
+    public void CheckColisions() {
         for (int i = 0; i < this.OnSceneCharacters.Count(); i++) {
             for (int j = 0; j < this.OnSceneCharacters.Count(); j++) {
                 if (i == j) continue;
@@ -320,7 +323,7 @@ public class Stage {
             }
         }
     }
-    public void setChars(Character char_A, Character char_B) {
+    public void SetChars(Character char_A, Character char_B) {
         this.character_A = char_A;
         this.character_A.facing = 1;
         this.character_A.playerIndex = 1;
@@ -457,7 +460,7 @@ public class Stage {
         var charA = Character.SelectCharacter(charA_index, this);
         var charB = Character.SelectCharacter(charB_index, this);
 
-        this.setChars(charA, charB);
+        this.SetChars(charA, charB);
 
         this.spark.Load();
         this.fireball.Load();

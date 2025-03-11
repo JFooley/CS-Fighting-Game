@@ -692,6 +692,54 @@ public class Ken : Character {
             this.ChangeState("Idle");
         }
 
+        // Crouching
+        if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+            this.ChangeState("CrouchingIn");
+        }
+        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing)) {
+            this.ChangeState("Idle");
+        }
+        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
+            this.ChangeState("Crouching");
+        }
+
+        // Dashing
+        if (InputManager.Instance.Was_down("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("DashForward");
+        } 
+        else if (InputManager.Instance.Was_down("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("DashBackward");
+        }
+
+        // Walking
+        if (InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+            this.ChangeState("WalkingBackward");
+        } else if (InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
+            this.ChangeState("WalkingForward");
+        }
+
+        // Jumps
+        if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
+            this.ChangeState("JumpForward");
+        } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 1) {
+            this.SetVelocity(
+                X: this.move_speed + 1, 
+                Y: this.jump_hight);
+        } 
+        else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
+            this.ChangeState("JumpBackward");
+        } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 1) {
+            this.SetVelocity(
+                X: -(this.move_speed + 1), 
+                Y: this.jump_hight);
+        }
+        else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
+            this.ChangeState("Jump");
+            this.SetVelocity(
+                X: 0, 
+                Y: this.jump_hight);
+        }
+
         // Super
         if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK"))) && this.SuperPoints.X == this.SuperPoints.Y) {
             this.ChangeState("SA1");
@@ -719,14 +767,14 @@ public class Ken : Character {
         }
 
         // Shorys
-        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP" || this.CurrentState == "LowLK"))) {
+        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP" || this.CurrentState == "LowLK" || this.CurrentState == "LowMP"))) {
             this.ChangeState("LightShory");
         } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
-        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMP" )) {
             this.ChangeState("HeavyShory");
         } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
@@ -792,55 +840,6 @@ public class Ken : Character {
             else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMP");
             else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMK");
         }
-
-        // Crouching
-        if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
-            this.ChangeState("CrouchingIn");
-        }
-        if (this.CurrentState == "Crouching" && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing)) {
-            this.ChangeState("Idle");
-        }
-        if (this.CurrentState == "CrouchingOut" && InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
-            this.ChangeState("Crouching");
-        }
-
-        // Dashing
-        if (InputManager.Instance.Was_down("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("DashForward");
-        } 
-        else if (InputManager.Instance.Was_down("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("DashBackward");
-        }
-
-        // Walking
-        if (InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
-            this.ChangeState("WalkingBackward");
-        } else if (InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingBackward" || this.CurrentState == "WalkingForward")) {
-            this.ChangeState("WalkingForward");
-        }
-
-        // Jumps
-        if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
-            this.ChangeState("JumpForward");
-        } else if (this.CurrentState == "JumpForward" && this.CurrentFrameIndex == 1) {
-            this.SetVelocity(
-                X: this.move_speed + 1, 
-                Y: this.jump_hight);
-        } 
-        else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
-            this.ChangeState("JumpBackward");
-        } else if (this.CurrentState == "JumpBackward" && this.CurrentFrameIndex == 1) {
-            this.SetVelocity(
-                X: -(this.move_speed + 1), 
-                Y: this.jump_hight);
-        }
-        else if (this.notActing && this.CurrentFrameIndex > 0 && InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing)) {
-            this.ChangeState("Jump");
-            this.SetVelocity(
-                X: 0, 
-                Y: this.jump_hight);
-        }
-
     }
     
     public override int ImposeBehavior(Character target) {
