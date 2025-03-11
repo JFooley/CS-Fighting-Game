@@ -199,18 +199,16 @@ public static class Program
                             break;
 
                         case RoundStart: // Inicia a round
-                            if (stage.CheckTimer(3)) {
+                            if (stage.CheckTimer(2)) {
+                                stage.ResetRoundTime();
+                                stage.StartRoundTime();
+                                stage.TogglePlayers();
+                                sub_state = Battling;
+                            } else if (stage.CheckTimer(1)) {
                                 fight_logo.Position = new Vector2f(Program.camera.X - 89, Program.camera.Y - 54);
                                 window.Draw(fight_logo);
-                            } else if (stage.CheckTimer(2)) UI.Instance.DrawText(window, "1", 0, -30, size: 2, spacing: -25, textureName: "1");
-                            else if (stage.CheckTimer(1)) UI.Instance.DrawText(window, "2", 0, -30, size: 2, spacing: -25, textureName: "1");
-                            else UI.Instance.DrawText(window, "3", 0, -30, size: 2, spacing: -25, textureName: "1");
-                            if (!stage.CheckTimer(4)) break;
+                            } else UI.Instance.DrawText(window, "Ready?", 0, -30, size: 2, spacing: Config.spacing_medium * 2, textureName: "default medium");
 
-                            stage.ResetRoundTime();
-                            stage.StartRoundTime();
-                            stage.TogglePlayers();
-                            sub_state = Battling;
                             break;
 
                         case Battling: // Durante a batalha
@@ -222,23 +220,24 @@ public static class Program
                             break;
 
                         case RoundEnd: // Fim de round
-                            if (stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0) {
-                                KO_logo.Position = new Vector2f(Program.camera.X - 75, Program.camera.Y - 54);
-                                window.Draw(KO_logo);
-                            } else {
-                                timesup_logo.Position = new Vector2f(Program.camera.X - 131, Program.camera.Y - 55);
-                                window.Draw(timesup_logo);
-                            }
-
-                            if (!stage.CheckTimer(3)) break;
-                            stage.TogglePlayers();
-
-                            stage.ResetTimer();                            
-                            if (stage.CheckMatchEnd()) {
-                                sub_state = MatchEnd;
-                            } else {
-                                sub_state = RoundStart;
-                                stage.ResetPlayers();
+                            if (stage.GetTimer() < 3) {
+                                if (stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0) {
+                                    KO_logo.Position = new Vector2f(Program.camera.X - 75, Program.camera.Y - 54);
+                                    window.Draw(KO_logo);
+                                } else {
+                                    timesup_logo.Position = new Vector2f(Program.camera.X - 131, Program.camera.Y - 55);
+                                    window.Draw(timesup_logo);
+                                }
+                            } 
+                            if (stage.CheckTimer(4)) {
+                                stage.TogglePlayers();
+                                stage.ResetTimer();                            
+                                if (stage.CheckMatchEnd()) {
+                                    sub_state = MatchEnd;
+                                } else {
+                                    sub_state = RoundStart;
+                                    stage.ResetPlayers();
+                                }
                             }
                             break;
 

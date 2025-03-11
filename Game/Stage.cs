@@ -434,11 +434,14 @@ public class Stage {
         this.timer.Restart();
     }
     public bool CheckTimer(double elapsed_time) {
-        return elapsed_time <= this.timer.Elapsed.Seconds;
+        return elapsed_time <= this.timer.Elapsed.TotalMilliseconds/1000;
     }
     public void PauseTimer() {
         if (this.timer.IsRunning) this.timer.Stop();
         else this.timer.Start();
+    }
+    public double GetTimer() {
+        return this.timer.Elapsed.TotalMilliseconds/1000;
     }
     public void SetHitstop(int amount) {
         this.hitstopCounter = amount;
