@@ -232,9 +232,12 @@ public class Ken : Character {
             new FrameData(15200, 1.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 121, 132, 138), new GenericBox(1, 97, 131, 149, 153), new GenericBox(1, 96, 152, 175, 177), new GenericBox(1, 102, 176, 152, 195) }),
             new FrameData(15201, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 120, 130, 146, 149), new GenericBox(1, 102, 136, 153, 160), new GenericBox(1, 98, 159, 168, 179), new GenericBox(1, 101, 178, 141, 195) }),
             new FrameData(15202, -0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 124, 134, 143, 151), new GenericBox(1, 101, 137, 157, 159), new GenericBox(1, 99, 159, 171, 178), new GenericBox(1, 101, 178, 153, 196) }),
+            new FrameData(15202, -0.75f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 124, 134, 143, 151), new GenericBox(1, 101, 137, 157, 159), new GenericBox(1, 99, 159, 171, 178), new GenericBox(1, 101, 178, 153, 196) }),
             new FrameData(15203, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 105, 123, 130, 141), new GenericBox(1, 93, 131, 155, 153), new GenericBox(1, 96, 153, 160, 173), new GenericBox(1, 104, 174, 152, 195) }),
-            new FrameData(15204, -2.25f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 119, 133, 137), new GenericBox(1, 93, 128, 158, 154), new GenericBox(1, 97, 154, 163, 175), new GenericBox(1, 101, 174, 157, 193) }),
-            new FrameData(15205, -2.5f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 118, 117, 140, 135), new GenericBox(1, 101, 125, 149, 148), new GenericBox(1, 90, 147, 163, 171), new GenericBox(1, 75, 169, 161, 197) }),
+            new FrameData(15203, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 105, 123, 130, 141), new GenericBox(1, 93, 131, 155, 153), new GenericBox(1, 96, 153, 160, 173), new GenericBox(1, 104, 174, 152, 195) }),
+            new FrameData(15204, -2.5f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 119, 133, 137), new GenericBox(1, 93, 128, 158, 154), new GenericBox(1, 97, 154, 163, 175), new GenericBox(1, 101, 174, 157, 193) }),
+            new FrameData(15204, -2.5f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 119, 133, 137), new GenericBox(1, 93, 128, 158, 154), new GenericBox(1, 97, 154, 163, 175), new GenericBox(1, 101, 174, 157, 193) }),
+            new FrameData(15205, -5f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 118, 117, 140, 135), new GenericBox(1, 101, 125, 149, 148), new GenericBox(1, 90, 147, 163, 171), new GenericBox(1, 75, 169, 161, 197) }),
         };
 
         var airMKFrames = new List<FrameData> {

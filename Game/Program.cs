@@ -36,6 +36,7 @@ public static class Program
     public const int LoadScreen = 4;
     public const int Battle = 5;
     public const int PostBattle = 6;
+    public const int ConfigScreen = 7;
 
     public const int RoundStart = 1;
     public const int Battling = 2;
@@ -72,24 +73,30 @@ public static class Program
         camera = Camera.GetInstance(window);
 
         // Carregamento de texturas de fontes
-        BitmapFont.Load("default", "Assets/fonts/default.png");
-        BitmapFont.Load("default grad", "Assets/fonts/default grad.png");
-        BitmapFont.Load("default purple", "Assets/fonts/default purple.png");
-        BitmapFont.Load("default cyan", "Assets/fonts/default cyan.png");
-        BitmapFont.Load("default green", "Assets/fonts/default green.png");
-        BitmapFont.Load("default black", "Assets/fonts/default black.png");
-        BitmapFont.Load("default white", "Assets/fonts/default white.png");
+        BitmapFont.Load("default medium", "Assets/fonts/default medium.png");
+        BitmapFont.Load("default medium grad", "Assets/fonts/default medium grad.png");
+        BitmapFont.Load("default medium white", "Assets/fonts/default medium white.png");
+        BitmapFont.Load("default medium red", "Assets/fonts/default medium red.png");
+        BitmapFont.Load("default medium click", "Assets/fonts/default medium click.png");
+        BitmapFont.Load("default small", "Assets/fonts/default small.png");
+        BitmapFont.Load("default small grad", "Assets/fonts/default small grad.png");
+        BitmapFont.Load("default small white", "Assets/fonts/default small white.png");
+        BitmapFont.Load("default small red", "Assets/fonts/default small red.png");
+        BitmapFont.Load("default small click", "Assets/fonts/default small click.png");
         BitmapFont.Load("1", "Assets/fonts/font1.png");
         BitmapFont.Load("icons", "Assets/fonts/icons.png");
-        UI.Instance.LoadCharacterSprites(32, "default");
-        UI.Instance.LoadCharacterSprites(32, "default grad");
-        UI.Instance.LoadCharacterSprites(32, "default purple");
-        UI.Instance.LoadCharacterSprites(32, "default cyan");
-        UI.Instance.LoadCharacterSprites(32, "default green");
-        UI.Instance.LoadCharacterSprites(32, "default black");
-        UI.Instance.LoadCharacterSprites(32, "default white");
-        UI.Instance.LoadCharacterSprites(32, "icons");
+        UI.Instance.LoadCharacterSprites(32, "default medium");
+        UI.Instance.LoadCharacterSprites(32, "default medium grad");
+        UI.Instance.LoadCharacterSprites(32, "default medium white");
+        UI.Instance.LoadCharacterSprites(32, "default medium red");
+        UI.Instance.LoadCharacterSprites(32, "default medium click");
+        UI.Instance.LoadCharacterSprites(32, "default small");
+        UI.Instance.LoadCharacterSprites(32, "default small grad");
+        UI.Instance.LoadCharacterSprites(32, "default small white");
+        UI.Instance.LoadCharacterSprites(32, "default small red");
+        UI.Instance.LoadCharacterSprites(32, "default small click");
         UI.Instance.LoadCharacterSprites(32, "1");
+        UI.Instance.LoadCharacterSprites(32, "icons");
 
         // Instanciamento do stages
         List<Stage> stages = new List<Stage>{
@@ -128,7 +135,7 @@ public static class Program
 
                 case MainMenu:
                     window.Draw(main_screen);
-                    UI.Instance.DrawText(window, "press start", 0, 50, spacing: -20, size: 0.9f, textureName: InputManager.Instance.Key_hold("Start") ? "default black" : "default purple");
+                    UI.Instance.DrawText(window, "press start", 0, 50, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("Start") ? "default medium click" : "default medium white");
 
                     if (InputManager.Instance.Key_up("Start")) {
                         game_state = SelectStage;
@@ -139,10 +146,10 @@ public static class Program
                 case SelectStage:
                     window.Draw(stages[pointer].thumb);
                     window.Draw(frame);
-                    UI.Instance.DrawText(window, stages[pointer].name, 0, -80, spacing: -17, size: 0.9f, textureName: InputManager.Instance.Key_hold("A") || InputManager.Instance.Key_hold("B") || InputManager.Instance.Key_hold("C") || InputManager.Instance.Key_hold("D") ? "default black" : "default white");
+                    UI.Instance.DrawText(window, stages[pointer].name, 0, -80, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("A") || InputManager.Instance.Key_hold("B") || InputManager.Instance.Key_hold("C") || InputManager.Instance.Key_hold("D") ? "default medium click" : "default medium white");
 
-                    UI.Instance.DrawText(window, Program.player1_wins.ToString(), -Config.RenderWidth/2, -Config.RenderHeight/2, spacing: -17, size: 1f, textureName: "default", alignment: "left");
-                    UI.Instance.DrawText(window, Program.player2_wins.ToString(), Config.RenderWidth/2, -Config.RenderHeight/2, spacing: -17, size: 1f, textureName: "default", alignment: "right");
+                    UI.Instance.DrawText(window, Program.player1_wins.ToString(), -Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, size: 1f, textureName: "default medium", alignment: "left");
+                    UI.Instance.DrawText(window, Program.player2_wins.ToString(), Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, size: 1f, textureName: "default medium", alignment: "right");
 
                     if (InputManager.Instance.Key_down("Left") && pointer > 0) {
                         pointer -= 1;
@@ -257,10 +264,10 @@ public static class Program
                     if (winner == Program.Drawn) winner_text = "Drawn";
                     else winner_text = "Player " + winner + " wins";
 
-                    UI.Instance.DrawText(window, winner_text, 0, -100, spacing: -32, size: 1.5f, textureName: "default");
-                    UI.Instance.DrawText(window, "Rematch", 0, 0, spacing: -22, size: 1f, textureName: pointer == 0 ? "default black" : "default");
-                    UI.Instance.DrawText(window, "Menu", 0, 20, spacing: -22, size: 1f, textureName: pointer == 1 ? "default black" : "default");
-                    UI.Instance.DrawText(window, "Exit", 0, 40, spacing: -22, size: 1f, textureName: pointer == 2 ? "default purple" : "default");
+                    UI.Instance.DrawText(window, winner_text, 0, -100, spacing: Config.spacing_medium, size: 1f, textureName: "default medium");
+                    UI.Instance.DrawText(window, "Rematch", 0, 0, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 0 ? "default medium click" : "default medium");
+                    UI.Instance.DrawText(window, "Menu", 0, 20, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 1 ? "default medium click" : "default medium");
+                    UI.Instance.DrawText(window, "Exit", 0, 40, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 2 ? "default medium red" : "default medium");
 
                     // Change option
                     if (InputManager.Instance.Key_down("Up") && pointer > 0) {
@@ -282,6 +289,10 @@ public static class Program
                         window.Close();
                     }
 
+                    break;
+                
+                case ConfigScreen:
+                    
                     break;
             }
 

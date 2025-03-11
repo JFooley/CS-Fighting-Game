@@ -60,10 +60,10 @@ namespace UI_space {
             var frametime = this.clock.Restart().AsSeconds();
             this.counter = this.counter >= 30 ? 0 : this.counter + 1;
             this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, "" + this.elapsed, -190, 75, spacing: -19, alignment: "left", size: 0.8f, textureName: textureName);
+            this.DrawText(window, "" + this.elapsed, 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
         }
 
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default") {
+        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default medium") {
             float totalWidth = 0;
             float pos_X;
             float pos_Y;
@@ -167,43 +167,42 @@ namespace UI_space {
             this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
             
             // Draw names
-            UI.Instance.DrawText(window, stage.character_A.name, -183, -99, spacing: -10, size: 0.5f, alignment: "left", textureName: "default");
-            UI.Instance.DrawText(window, stage.character_B.name, 183, -99, spacing: -10, size: 0.5f, alignment: "right", textureName: "default");
+            UI.Instance.DrawText(window, stage.character_A.name, -194, -95, spacing: Config.spacing_small, size: 1f, alignment: "left", textureName: "default small white");
+            UI.Instance.DrawText(window, stage.character_B.name, 194, -95, spacing: Config.spacing_small, size: 1f, alignment: "right", textureName: "default small white");
 
             // Draw Combo text
-            if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -185, -80, spacing: -14, alignment: "left", size: 0.75f, textureName: "default green");
-            if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 185, -80, spacing: -14, alignment: "right", size: 0.75f, textureName: "default green");
+            if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -190, -80, spacing: -23, alignment: "left", size: 1f, textureName: "default medium white");
+            if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 190, -80, spacing: -23, alignment: "right", size: 1f, textureName: "default medium white");
 
             // Draw time
-            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -113, alignment: "center", spacing: -25, size: 1.4375f, textureName: "1");
+            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -106, alignment: "center", spacing: -8, size: 1f, textureName: "1");
 
             // Draw round indicator ≈
-            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "icons");
-            this.DrawText(window, string.Concat(Enumerable.Repeat("≈", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "icons");
+            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
         }
         
     }
 
     public static class BitmapFont {
         private static Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
-        public static char[] characters = 
-        {
-            '≈',  '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.',
-            '/',  '0', '1', '2', '3', '4', '5', '6',  '7', '8', '9', ':', ';', '<', '=', 
-            '>',  '?', '@', 'A', 'B', 'C', 'D', 'E',  'F', 'G', 'H', 'I', 'J', 'K', 'L', 
-            'M',  'N', 'O', 'P', 'Q', 'R', 'S', 'T',  'U', 'V', 'W', 'X', 'Y', 'Z', '[', 
-            '\\', ']', '^', '_', '`', 'a', 'b', 'c',  'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k',  'l', 'm', 'n', 'o', 'p', 'q', 'r',  's', 't', 'u', 'v', 'w', 'x', 'y', 
-            'z',  '{', '¦', '}', '~', 'Ç', 'ü', 'é',  'â', 'ä', 'à', 'å', 'ç', 'ê', 'ë',
-            'è',  'ï', 'î', 'ì', 'Ä', 'Å', 'É', 'æ',  'Æ', 'ô', 'ö', 'ò', 'û', 'ù', 'ÿ', 
-            'Ö',  'Ü', '¢', '£', '¥', 'ƒ', 'á', 'í',  'ó', 'ú', 'ñ', 'Ñ', 'ª', 'º', 
-            '¿',  '⌐', '¬', '½', '¼', '¡', '«', '»',  'π', 'µ', '±', '≥', '≤', '÷', 
-            '≈',  '°', '·', '√', ' '
+
+        public static char[] characters = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd',
+            'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+            'y', 'z', '!', '@', '#', '$', '%', '^', '&', '*',
+            '(', ')', '_', '+', '-', '=', '[', ']', '{', '}',
+            ';', ':', '\'', '"', '\\', '|', ',', '.', '<', '>',
+            '/', '?', '¿', '\u0020', '«', '»', '•', '°', 'µ', '~'
         };
 
         private const int CellSize = 32; // Tamanho de cada célula
-        private const int Columns = 16;    // Número de colunas
-        private const int Rows = 16;       // Número de linhas
+        private const int Columns = 10;    // Número de colunas
+        private const int Rows = 10;       // Número de linhas
 
         public static void Load(string textureName, string textureFile)
         {
@@ -224,7 +223,7 @@ namespace UI_space {
 
             // Encontra o índice do caractere no array
             int index = Array.IndexOf(characters, character);
-            if (index == -1 || index >= Columns * Rows - 8) // Ignora as últimas 8 células
+            if (index == -1 || index >= Columns * Rows) // Ignora as últimas 8 células
             {
                 return null; // Retorna null se o caractere não for encontrado
             }

@@ -50,4 +50,8 @@ public static class Config {
     public static float light_pushback = 3f;
     public static float medium_pushback = 4f;
     public static float heavy_pushback = 5.5f;
+
+    // Text
+    public static int spacing_small = -26; 
+    public static int spacing_medium = -23;
 }

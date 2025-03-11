@@ -99,41 +99,6 @@ public class Stage {
     }
 
     // Behaviour
-    public void PauseScreen(RenderWindow window) {
-        fade90.Position = new Vector2f(Program.camera.X - Config.RenderWidth/2, Program.camera.Y - Config.RenderHeight/2);
-        window.Draw(fade90);
-
-        UI.Instance.DrawText(window, "Pause", 0, -75, size: 1.5f, spacing: -30, textureName: "default");
-        UI.Instance.DrawText(window, "Show hitboxes",0, 0, spacing: -22, textureName: this.pause_pointer == 0 ? "default black" : "default");
-        UI.Instance.DrawText(window, "Training mode", 0, 20, spacing: -22, textureName: this.pause_pointer == 1 ? "default black" : "default");
-        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: -22, textureName: this.pause_pointer == 2 ? "default black" : "default");
-        else UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: -22, textureName: "default grad");
-        UI.Instance.DrawText(window, "End match", 0, 70, spacing: -22, textureName: this.pause_pointer == 3 ? "default purple" : "default");
-
-        // Change option 
-        if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {
-            this.pause_pointer -= 1;
-        } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 3) {
-            this.pause_pointer += 1;
-        }
-
-        // Do option
-        if (this.pause_pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // rematch
-            this.showBoxs = !this.showBoxs;
-        } else if (this.pause_pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
-            this.debug_mode = !this.debug_mode;
-        } else if (this.pause_pointer == 2 && this.debug_mode && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
-            this.block_after_hit = !this.block_after_hit;
-        } else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
-            this.Pause();
-            Program.winner = Program.Drawn;
-            Program.sub_state = Program.MatchEnd;
-            this.showBoxs = false;
-            this.debug_mode = false;
-            this.block_after_hit = false;
-            this.pause_pointer = 0;
-        }
-    }
     public void Update(RenderWindow window) {
         if (hitstopCounter > 0) {
             hitstopCounter--;
@@ -226,8 +191,8 @@ public class Stage {
     }
     public virtual void doSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
-        UI.Instance.ShowFramerate(window, "default");
-        UI.Instance.DrawText(window, "training mode", 0, 70, spacing: -10, size: 0.5f, textureName: "default white");
+        UI.Instance.ShowFramerate(window, "default small white");
+        UI.Instance.DrawText(window, "training mode", 0, 70, spacing: Config.spacing_small, size: 1f, textureName: "default small white");
         
         this.ResetRoundTime();
         
@@ -257,6 +222,41 @@ public class Stage {
                 this.character_A.SuperPoints.X = this.character_A.SuperPoints.Y;
             }
             this.reset_frames = Config.resetFrames;
+        }
+    }
+    public void PauseScreen(RenderWindow window) {
+        fade90.Position = new Vector2f(Program.camera.X - Config.RenderWidth/2, Program.camera.Y - Config.RenderHeight/2);
+        window.Draw(fade90);
+
+        UI.Instance.DrawText(window, "Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
+        UI.Instance.DrawText(window, "Show hitboxes",0, 0, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium click" : "default medium");
+        UI.Instance.DrawText(window, "Training mode", 0, 20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium click" : "default medium");
+        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 2 ? "default medium click" : "default medium");
+        else UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: Config.spacing_medium, textureName: "default medium grad");
+        UI.Instance.DrawText(window, "End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 3 ? "default medium red" : "default medium");
+
+        // Change option 
+        if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {
+            this.pause_pointer -= 1;
+        } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 3) {
+            this.pause_pointer += 1;
+        }
+
+        // Do option
+        if (this.pause_pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // rematch
+            this.showBoxs = !this.showBoxs;
+        } else if (this.pause_pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
+            this.debug_mode = !this.debug_mode;
+        } else if (this.pause_pointer == 2 && this.debug_mode && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
+            this.block_after_hit = !this.block_after_hit;
+        } else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
+            this.Pause();
+            Program.winner = Program.Drawn;
+            Program.sub_state = Program.MatchEnd;
+            this.showBoxs = false;
+            this.debug_mode = false;
+            this.block_after_hit = false;
+            this.pause_pointer = 0;
         }
     }
 
