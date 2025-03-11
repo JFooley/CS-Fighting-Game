@@ -471,13 +471,13 @@ public class Stage {
         this.fireball.Unload();
         this.particle.Unload();
     }
-    public void LoadSpriteImages() {
+    public bool LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.spritesFolderPath);
 
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(fullPath)) {
-            throw new System.IO.DirectoryNotFoundException($"O diretório {fullPath} não foi encontrado.");
+            return false;
         }
 
         // Obtém todos os arquivos no diretório especificado
@@ -508,6 +508,8 @@ public class Stage {
                 // Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
             }
         }
+
+        return true;
     }
     public void UnloadSpriteImages() {
         foreach (var image in this.spriteImages.Values)
@@ -517,21 +519,20 @@ public class Stage {
         this.spriteImages.Clear(); // Clear the dictionary
     }
 
-    public void LoadSounds() {
+    public bool LoadSounds() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullSoundPath = Path.Combine(currentDirectory, this.soundFolderPath);
 
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(fullSoundPath)) {
-            throw new System.IO.DirectoryNotFoundException($"O diretório {fullSoundPath} não foi encontrado.");
+            return false;
         }
 
         // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(fullSoundPath);
+        try {
+            string[] files = System.IO.Directory.GetFiles(fullSoundPath);
 
-        foreach (string file in files) {
-            try
-            {
+            foreach (string file in files) {
                 // Tenta carregar a textura
                 var buffer = new SoundBuffer(file);
                 
@@ -540,10 +541,10 @@ public class Stage {
 
                 // Adiciona no dicionário
                 this.stageSounds[fileNameWithoutExtension] = new Sound(buffer);
-            } catch {
-                // Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
-            }
-        }
+            } 
+        } catch {}
+
+        return true;
     }
     public void UnloadSounds() {
         this.StopMusic();
