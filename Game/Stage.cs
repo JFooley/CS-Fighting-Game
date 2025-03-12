@@ -122,7 +122,7 @@ public class Stage {
         }
 
         // Keep music playing
-        this.PlayMusic();
+        if (!this.pause) this.PlayMusic();
 
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
@@ -159,8 +159,8 @@ public class Stage {
             this.Pause();
         }
 
-        if (debug_mode) this.DebugMode(window);
-        if (pause) this.PauseScreen(window);
+        if (this.debug_mode) this.DebugMode(window);
+        if (this.pause) this.PauseScreen(window);
     }
     private void DoBehavior() {
         // Move characters away from border
@@ -232,10 +232,9 @@ public class Stage {
         window.Draw(fade90);
 
         UI.Instance.DrawText(window, "Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
-        UI.Instance.DrawText(window, "Show hitboxes",0, 0, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium click" : "default medium");
-        UI.Instance.DrawText(window, "Training mode", 0, 20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium click" : "default medium");
-        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 2 ? "default medium click" : "default medium");
-        else UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: Config.spacing_medium, textureName: "default medium grad");
+        UI.Instance.DrawText(window, "Show hitboxes",0, 0, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
+        UI.Instance.DrawText(window, "Training mode", 0, 20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
+        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block after hit" : "Never Block", 0, 40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 2 ? "default medium hover" : "default medium");
         UI.Instance.DrawText(window, "End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 3 ? "default medium red" : "default medium");
 
         // Change option 
@@ -427,9 +426,15 @@ public class Stage {
         this.TogglePlayers();
         this.PauseRoundTime();
         this.PauseTimer();
+        this.ToggleMusicVolume(this.pause, volume_A: 10f);
         foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
         foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
     }
+    public void SetHitstop(int amount) {
+        this.hitstopCounter = amount;
+    }
+    
+    // Timer
     public void ResetTimer() {
         this.timer.Restart();
     }
@@ -440,22 +445,39 @@ public class Stage {
         if (this.timer.IsRunning) this.timer.Stop();
         else this.timer.Start();
     }
-    public double GetTimer() {
+    public double GetTimerValue() {
         return this.timer.Elapsed.TotalMilliseconds/1000;
     }
-    public void SetHitstop(int amount) {
-        this.hitstopCounter = amount;
+    
+    // Music
+    public void SetMusicVolume(float amount = -1) {
+        if (amount == -1) amount = Config.Music_Volume;
+        if (this.stageSounds.Keys.Contains("music")) {
+            this.stageSounds["music"].Volume = amount * (Config.Main_Volume / 100);
+        }
     }
     public void StopMusic() {
         if (this.stageSounds.Keys.Contains("music")) {
             this.stageSounds["music"].Stop();
         }
     }
+    public void PauseMusic() {
+        if (this.stageSounds.Keys.Contains("music")) {
+            this.stageSounds["music"].Pause();
+        }
+    }
     public void PlayMusic() {
-        if (this.stageSounds.Keys.Contains("music") && this.stageSounds["music"].Status == SoundStatus.Stopped){
-            this.stageSounds["music"].Volume = Config.Music_Volume;
+        if (this.stageSounds.Keys.Contains("music") && (this.stageSounds["music"].Status == SoundStatus.Stopped || this.stageSounds["music"].Status == SoundStatus.Paused)){
             this.stageSounds["music"].Play();
         }
+    }
+    public void ToggleMusic() {
+        if (this.stageSounds["music"].Status == SoundStatus.Paused) this.PlayMusic();
+        else this.PauseMusic();
+    }
+    public void ToggleMusicVolume(bool control, float volume_A = -1, float volume_B = -1) {
+        if (control) this.SetMusicVolume(volume_A);
+        else this.SetMusicVolume(volume_B);
     }
     
     // All loads
@@ -524,7 +546,6 @@ public class Stage {
         }
         this.spriteImages.Clear(); // Clear the dictionary
     }
-
     public bool LoadSounds() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullSoundPath = Path.Combine(currentDirectory, this.soundFolderPath);

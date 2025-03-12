@@ -78,23 +78,32 @@ public static class Program
         BitmapFont.Load("default medium white", "Assets/fonts/default medium white.png");
         BitmapFont.Load("default medium red", "Assets/fonts/default medium red.png");
         BitmapFont.Load("default medium click", "Assets/fonts/default medium click.png");
+        BitmapFont.Load("default medium hover", "Assets/fonts/default medium hover.png");
+
         BitmapFont.Load("default small", "Assets/fonts/default small.png");
         BitmapFont.Load("default small grad", "Assets/fonts/default small grad.png");
         BitmapFont.Load("default small white", "Assets/fonts/default small white.png");
         BitmapFont.Load("default small red", "Assets/fonts/default small red.png");
         BitmapFont.Load("default small click", "Assets/fonts/default small click.png");
+        BitmapFont.Load("default small hover", "Assets/fonts/default small hover.png");
+
         BitmapFont.Load("1", "Assets/fonts/font1.png");
         BitmapFont.Load("icons", "Assets/fonts/icons.png");
+
         UI.Instance.LoadCharacterSprites(32, "default medium");
         UI.Instance.LoadCharacterSprites(32, "default medium grad");
         UI.Instance.LoadCharacterSprites(32, "default medium white");
         UI.Instance.LoadCharacterSprites(32, "default medium red");
         UI.Instance.LoadCharacterSprites(32, "default medium click");
+        UI.Instance.LoadCharacterSprites(32, "default medium hover");
+
         UI.Instance.LoadCharacterSprites(32, "default small");
         UI.Instance.LoadCharacterSprites(32, "default small grad");
         UI.Instance.LoadCharacterSprites(32, "default small white");
         UI.Instance.LoadCharacterSprites(32, "default small red");
         UI.Instance.LoadCharacterSprites(32, "default small click");
+        UI.Instance.LoadCharacterSprites(32, "default small hover");
+
         UI.Instance.LoadCharacterSprites(32, "1");
         UI.Instance.LoadCharacterSprites(32, "icons");
 
@@ -190,7 +199,7 @@ public static class Program
                     
                     switch (sub_state) {
                         case Intro:
-                            // stage.PlayMusic();
+                            stage.SetMusicVolume();
                             stage.StopRoundTime();
                             stage.ResetTimer();
                             if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar
@@ -220,7 +229,7 @@ public static class Program
                             break;
 
                         case RoundEnd: // Fim de round
-                            if (stage.GetTimer() < 3) {
+                            if (stage.GetTimerValue() < 3) {
                                 if (stage.character_A.LifePoints.X <= 0 || stage.character_B.LifePoints.X <= 0) {
                                     KO_logo.Position = new Vector2f(Program.camera.X - 75, Program.camera.Y - 54);
                                     window.Draw(KO_logo);
@@ -264,8 +273,8 @@ public static class Program
                     else winner_text = "Player " + winner + " wins";
 
                     UI.Instance.DrawText(window, winner_text, 0, -100, spacing: Config.spacing_medium, size: 1f, textureName: "default medium");
-                    UI.Instance.DrawText(window, "Rematch", 0, 0, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 0 ? "default medium click" : "default medium");
-                    UI.Instance.DrawText(window, "Menu", 0, 20, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 1 ? "default medium click" : "default medium");
+                    UI.Instance.DrawText(window, "Rematch", 0, 0, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 0 ? "default medium hover" : "default medium");
+                    UI.Instance.DrawText(window, "Menu", 0, 20, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 1 ? "default medium hover" : "default medium");
                     UI.Instance.DrawText(window, "Exit", 0, 40, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 2 ? "default medium red" : "default medium");
 
                     // Change option

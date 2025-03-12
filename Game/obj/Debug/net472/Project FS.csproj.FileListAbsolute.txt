@@ -2250,3 +2250,5 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\def
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default small white.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default small.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\files\hud.xcf
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default medium hover.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\fonts\default small hover.png
