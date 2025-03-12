@@ -46,6 +46,7 @@ public static class Program
     public static int game_state;
     public static int sub_state;
     public static Camera camera;
+    public static Stage stage;
     public static Random random = new Random();
 
     public static int player1_wins = 0;
@@ -118,7 +119,7 @@ public static class Program
             new TheSavana(),
             new JapanFields(),
         };
-        Stage stage = stages[0];
+        stage = stages[0];
 
         int pointer = 0;
         int charA_selected = 0;

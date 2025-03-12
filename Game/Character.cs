@@ -114,6 +114,7 @@ public class Character : Object_Space.Object {
         var temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
+        temp_sprite.Color = Program.stage.AmbientLight;
 
         // Render tracing
         if (this.CurrentAnimation.doTrace || this.doTrace) {

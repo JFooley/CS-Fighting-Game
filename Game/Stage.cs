@@ -71,7 +71,9 @@ public class Stage {
     public Animation CurrentAnimation => animations[CurrentState];
     public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
 
-    Sprite fade90 = new Sprite(new Texture("Assets/ui/90fade.png"));
+    // Visual info
+    public Color AmbientLight = new Color(255, 255, 255, 255);
+    private Sprite fade90 = new Sprite(new Texture("Assets/ui/90fade.png"));
 
     public Stage(string name, int floorLine, int length, int height, string spritesFolderPath, string soundFolderPath, string thumbPath) {
         this.name = name;
@@ -388,6 +390,24 @@ public class Stage {
         
         return false;
     }
+    public void ResetMatch() {
+        this.rounds_A = 0;
+        this.rounds_B = 0;
+    }
+    public void Pause() {
+        this.pause = !this.pause;
+        this.TogglePlayers();
+        this.PauseRoundTime();
+        this.PauseTimer();
+        this.ToggleMusicVolume(this.pause, volume_A: 10f);
+        foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
+        foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
+    }
+    public void SetHitstop(int amount) {
+        this.hitstopCounter = amount;
+    }
+
+    // Round Time
     public void ResetRoundTime() {
         this.elapse_time = true;
         this.stopwatch.Reset();
@@ -404,10 +424,8 @@ public class Stage {
         if (stopwatch.IsRunning) stopwatch.Stop();
         else stopwatch.Start();
     }
-    public void ResetMatch() {
-        this.rounds_A = 0;
-        this.rounds_B = 0;
-    }
+
+    // Players
     public void ResetPlayers(bool force = false, bool total_reset = false) {
         if (force) {
             this.character_A.Reset(this.start_point_A, facing: 1, state: "Intro", total_reset: total_reset);
@@ -430,19 +448,6 @@ public class Stage {
         this.character_B.behave = false;
     }
 
-    public void Pause() {
-        this.pause = !this.pause;
-        this.TogglePlayers();
-        this.PauseRoundTime();
-        this.PauseTimer();
-        this.ToggleMusicVolume(this.pause, volume_A: 10f);
-        foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
-        foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
-    }
-    public void SetHitstop(int amount) {
-        this.hitstopCounter = amount;
-    }
-    
     // Timer
     public void ResetTimer() {
         this.timer.Restart();
@@ -489,7 +494,7 @@ public class Stage {
         else this.SetMusicVolume(volume_B);
     }
     
-    // All loads
+    // Loads
     public void LoadCharacters(int charA_index, int charB_index) {        
         var charA = Character.SelectCharacter(charA_index, this);
         var charB = Character.SelectCharacter(charB_index, this);
