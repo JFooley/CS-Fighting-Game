@@ -657,9 +657,9 @@ public class Ken : Character {
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 60)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
-            { "SA1", new Animation(SA1, "MK", 60)},
-            { "SA1_tail", new Animation(SA1_tail, "JumpFalling", 30)},
-            { "Shungoku", new Animation(Shungoku, "Idle", 10)},
+            { "SA1", new Animation(SA1, "MK", 60, doTrace: true)},
+            { "SA1_tail", new Animation(SA1_tail, "JumpFalling", 30, doTrace: true)},
+            { "Shungoku", new Animation(Shungoku, "Idle", 10, doTrace: true)},
             { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
@@ -1123,7 +1123,7 @@ public class Ken : Character {
                     target.HitStun(this, 10, airbone_height: 50);
                     this.SA_flag = true;
                 }
-                Character.GetSuper(target, this, hit, self_amount: 4);
+                Character.GetSuper(target, this, hit, self_amount: 2);
                 break;
                 
             case "SA1_tail":

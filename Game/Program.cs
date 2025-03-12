@@ -111,11 +111,11 @@ public static class Program
         List<Stage> stages = new List<Stage>{
             new Stage("Random", 0, 0, 0, "", "", "Assets/stages/thumb.png"),
             new BurningDojo(),
-            new NYCSubway(),
             new MidnightDuel(),
             new NightAlley(),
+            new NYCSubway(),
+            new RindoKanDojo(),
             new TheSavana(),
-            new DivineSaloon(),
             new JapanFields(),
         };
         Stage stage = stages[0];

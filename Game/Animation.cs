@@ -6,13 +6,17 @@ namespace Animation_Space {
 public class Animation {
     public List<FrameData> Frames { get; private set; }
     public List<string> SimpleFrames { get; private set; }
+
+    // logic
     public int currentFrameIndex;
     public bool onLastFrame;
     public bool hasFrameChange => this.frameCounter == 0; 
+    public bool doTrace;
+
+    // infos
     public string post_state; 
     public int animSize;
     public int realAnimSize => animSize * (60 / this.framerate);
-
     public bool changeOnLastframe;
     public bool changeOnGround;
     public bool loop;
@@ -20,7 +24,7 @@ public class Animation {
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.animSize = Frames.Count() - 1;
@@ -28,6 +32,7 @@ public class Animation {
         this.changeOnLastframe = changeOnLastframe;
         this.changeOnGround = changeOnGround;
         this.loop = loop;
+        this.doTrace = doTrace;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
@@ -40,6 +45,7 @@ public class Animation {
         this.post_state = post_state;
         this.changeOnLastframe = true;
         this.loop = true;
+        this.doTrace = false;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;

@@ -53,7 +53,9 @@ public class Character : Object_Space.Object {
     public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
-    
+    private Sprite[] LastSprites = new Sprite[3];
+    public bool doTrace = false;
+    private Color TraceColor = new Color(10, 10, 255, 125);
 
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
@@ -62,11 +64,11 @@ public class Character : Object_Space.Object {
     public bool onAir => this.body.Position.Y < this.floorLine;
     public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
-
     public bool blockingHigh = false;
     public bool blockingLow = false;
     public bool blocking = false;
 
+    // Counters
     public int comboCounter = 0;
     public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
 
@@ -107,10 +109,30 @@ public class Character : Object_Space.Object {
     }
     public override void DoRender(RenderWindow window, bool drawHitboxes = false) {
         base.DoRender(window, drawHitboxes);
-        // Render sprite
-        Sprite temp_sprite = this.GetCurrentSpriteImage();
+        
+        // Set current sprite
+        var temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
+
+        // Render tracing
+        if (this.CurrentAnimation.doTrace || this.doTrace) {
+            for (int i = 0; i < 3; i++) {
+                if (LastSprites[i] != null) window.Draw(LastSprites[i]);
+            }
+            
+            if (this.hasFrameChange) {
+                var temp_copy = new Sprite(temp_sprite);
+                temp_copy.Color = this.TraceColor;
+                
+                LastSprites[2] = LastSprites[1];
+                LastSprites[1] = LastSprites[0];
+                LastSprites[0] = temp_copy;
+            }
+        } else LastSprites = new Sprite[3];
+        
+
+        // Render current sprite
         window.Draw(temp_sprite);
 
         // Play sounds
@@ -118,7 +140,6 @@ public class Character : Object_Space.Object {
         
         // Draw Hitboxes
         if (drawHitboxes) {  
-            // Desenha o ponto central
             RectangleShape anchorY = new RectangleShape(new Vector2f(0, 10)) {
                 Position = new Vector2f(this.body.Position.X, this.body.Position.Y - 60),
                 FillColor = SFML.Graphics.Color.Transparent,
