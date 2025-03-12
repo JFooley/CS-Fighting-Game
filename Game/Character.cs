@@ -55,7 +55,8 @@ public class Character : Object_Space.Object {
     private string LastState { get; set; }
     private Sprite[] LastSprites = new Sprite[3];
     public bool doTrace = false;
-    private Color TraceColor = new Color(10, 10, 255, 125);
+    public Color TraceColor = new Color(10, 10, 255, 125); 
+    public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
     public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
@@ -114,7 +115,7 @@ public class Character : Object_Space.Object {
         var temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
-        temp_sprite.Color = Program.stage.AmbientLight;
+        temp_sprite.Color = this.LightTint;
 
         // Render tracing
         if (this.CurrentAnimation.doTrace || this.doTrace) {

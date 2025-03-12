@@ -6,7 +6,7 @@ public class RindoKanDojo : Stage {
     public RindoKanDojo()
         : base("Rindo-Kan Dojo", 496, 895, 475, "Assets/stages/Rindo-Kan Dojo/sprites", "Assets/stages/Rindo-Kan Dojo/sound", "Assets/stages/Rindo-Kan Dojo/thumb.png")
     {
-
+        this.AmbientLight = new SFML.Graphics.Color(255, 255, 240, 255);
     }
 
     public override void LoadStage() {

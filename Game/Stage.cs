@@ -342,6 +342,9 @@ public class Stage {
         this.character_A.stage = this;
         this.character_B.stage = this;
 
+        this.character_A.LightTint = this.AmbientLight;
+        this.character_B.LightTint = this.AmbientLight;
+
         this.OnSceneCharacters = new List<Character> {this.character_A, this.character_B};
         this.LockPlayers();
     }

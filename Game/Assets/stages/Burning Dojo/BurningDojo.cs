@@ -6,7 +6,7 @@ public class BurningDojo : Stage {
     public BurningDojo()
         : base("Burning Dojo", 369, 800, 336, "Assets/stages/Burning Dojo/sprites", "Assets/stages/Burning Dojo/sound", "Assets/stages/Burning Dojo/thumb.png")
     {
-
+        this.AmbientLight = new SFML.Graphics.Color(255, 230, 210, 255);
     }
 
     public override void LoadStage() {
