@@ -83,11 +83,11 @@ public class Ken : Character {
         };
         
         var OnHitLowFrames = new List<FrameData> {
-            new FrameData(14860, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 117, 122, 135, 138), new GenericBox(1, 89, 135, 139, 151), new GenericBox(1, 92, 152, 147, 174), new GenericBox(1, 78, 174, 156, 196) }),
-            new FrameData(14861, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 84, 123, 103, 137), new GenericBox(1, 67, 135, 123, 154), new GenericBox(1, 85, 155, 149, 176), new GenericBox(1, 84, 176, 166, 195) }),
-            new FrameData(14862, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 69, 127, 95, 145), new GenericBox(1, 68, 140, 115, 159), new GenericBox(1, 85, 158, 141, 178), new GenericBox(1, 85, 178, 162, 195) }),
-            new FrameData(14863, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 58, 139, 78, 155), new GenericBox(1, 65, 141, 112, 162), new GenericBox(1, 89, 163, 132, 178), new GenericBox(1, 82, 179, 162, 194) }),
-            new FrameData(14864, 0.0f, 0.0f, new List<GenericBox> { new GenericBox(1, 85, 128, 102, 140), new GenericBox(1, 86, 132, 130, 152), new GenericBox(1, 82, 153, 132, 171), new GenericBox(1, 82, 170, 156, 194) }),
+            new FrameData(14860, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 117, 122, 135, 138), new GenericBox(1, 89, 135, 139, 151), new GenericBox(1, 92, 152, 147, 174), new GenericBox(1, 78, 174, 156, 196) }),
+            new FrameData(14861, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 84, 123, 103, 137), new GenericBox(1, 67, 135, 123, 154), new GenericBox(1, 85, 155, 149, 176), new GenericBox(1, 84, 176, 166, 195) }),
+            new FrameData(14862, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 69, 127, 95, 145), new GenericBox(1, 68, 140, 115, 159), new GenericBox(1, 85, 158, 141, 178), new GenericBox(1, 85, 178, 162, 195) }),
+            new FrameData(14863, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 58, 139, 78, 155), new GenericBox(1, 65, 141, 112, 162), new GenericBox(1, 89, 163, 132, 178), new GenericBox(1, 82, 179, 162, 194) }),
+            new FrameData(14864, 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 85, 128, 102, 140), new GenericBox(1, 86, 132, 130, 152), new GenericBox(1, 82, 153, 132, 171), new GenericBox(1, 82, 170, 156, 194) }),
         };
 
         // Normals

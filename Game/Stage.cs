@@ -341,7 +341,7 @@ public class Stage {
         this.character_B.stage = this;
 
         this.OnSceneCharacters = new List<Character> {this.character_A, this.character_B};
-        this.TogglePlayers();
+        this.LockPlayers();
     }
     public bool CheckRoundEnd() {
         if (this.hitstopCounter != 0) return false;
@@ -421,6 +421,15 @@ public class Stage {
         this.character_A.behave = !this.character_A.behave;
         this.character_B.behave = !this.character_B.behave;
     }
+    public void ReleasePlayers() {
+        this.character_A.behave = true;
+        this.character_B.behave = true;
+    }
+    public void LockPlayers() {
+        this.character_A.behave = false;
+        this.character_B.behave = false;
+    }
+
     public void Pause() {
         this.pause = !this.pause;
         this.TogglePlayers();

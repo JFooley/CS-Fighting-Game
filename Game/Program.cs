@@ -211,7 +211,7 @@ public static class Program
                             if (stage.CheckTimer(2)) {
                                 stage.ResetRoundTime();
                                 stage.StartRoundTime();
-                                stage.TogglePlayers();
+                                stage.ReleasePlayers();
                                 sub_state = Battling;
                             } else if (stage.CheckTimer(1)) {
                                 fight_logo.Position = new Vector2f(Program.camera.X - 89, Program.camera.Y - 54);
@@ -239,7 +239,7 @@ public static class Program
                                 }
                             } 
                             if (stage.CheckTimer(4)) {
-                                stage.TogglePlayers();
+                                stage.LockPlayers();
                                 stage.ResetTimer();                            
                                 if (stage.CheckMatchEnd()) {
                                     sub_state = MatchEnd;
@@ -288,6 +288,7 @@ public static class Program
                     if (pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // rematch
                         camera.SetChars(stage.character_A, stage.character_B);
                         camera.SetLimits(stage.length, stage.height);
+                        stage.LockPlayers();
                         game_state = Battle;
 
                     } else if (pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { // MENU 
