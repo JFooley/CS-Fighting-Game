@@ -6,13 +6,13 @@ public static class Config {
     public const int RenderWidth = 384;
     public const int RenderHeight = 216;
 
-    public const bool Vsync = true;
+    public static bool Vsync = true;
     public const int Framerate = 60;
 
 
     public const int maxDistance = 350;
     public const int resetFrames = 20;
-    public const int inputWindowTime = 4;
+    public static int inputWindowTime = 4;
 
     // Audio
     private static float _main_volume = 50f;
@@ -40,18 +40,18 @@ public static class Config {
         set { _effect_volume = value; }
     }
 
-    public static float Gravity = 2450f / (Framerate*Framerate);
+    public const float Gravity = 2450f / (Framerate*Framerate);
 
-    // Battle constants 32 38 48
     public static int RoundLength = 90;
-    public static int hitStopTime = 10;
+    public static int hitStopTime = 8;
     public static int max_rounds = 2;
 
-    public static float light_pushback = 3f;
-    public static float medium_pushback = 4f;
-    public static float heavy_pushback = 5.5f;
+    // Battle constants 32 38 48
+    public const float light_pushback = 3f;
+    public const float medium_pushback = 4f;
+    public const float heavy_pushback = 5.5f;
 
     // Text
-    public static int spacing_small = -26; 
-    public static int spacing_medium = -23;
+    public const int spacing_small = -26; 
+    public const int spacing_medium = -23;
 }

@@ -36,7 +36,7 @@ public static class Program
     public const int LoadScreen = 4;
     public const int Battle = 5;
     public const int PostBattle = 6;
-    public const int ConfigScreen = 7;
+    public const int Settings = 7;
 
     public const int RoundStart = 1;
     public const int Battling = 2;
@@ -110,7 +110,7 @@ public static class Program
 
         // Instanciamento do stages
         List<Stage> stages = new List<Stage>{
-            new Stage("Random", 0, 0, 0, "", "", "Assets/stages/thumb.png"),
+            new Stage("Random", 0, 0, 0, "", "", "Assets/stages/random.png"),
             new BurningDojo(),
             new MidnightDuel(),
             new NightAlley(),
@@ -118,6 +118,7 @@ public static class Program
             new RindoKanDojo(),
             new TheSavana(),
             new JapanFields(),
+            new Stage("Settings", 0, 0, 0, "", "", "Assets/stages/settings.png"),
         };
         stage = stages[0];
 
@@ -132,10 +133,12 @@ public static class Program
         Sprite fight_logo = new Sprite(new Texture("Assets/ui/fight.png"));
         Sprite timesup_logo = new Sprite(new Texture("Assets/ui/timesup.png"));
         Sprite KO_logo = new Sprite(new Texture("Assets/ui/ko.png"));
+        Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
 
         while (window.IsOpen) {
             window.DispatchEvents();
             InputManager.Instance.Update();
+            UI.Instance.Update();
             camera.Update();
 
             switch (game_state) {
@@ -145,7 +148,7 @@ public static class Program
 
                 case MainMenu:
                     window.Draw(main_screen);
-                    UI.Instance.DrawText(window, "press start", 0, 50, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("Start") ? "default medium click" : "default medium white");
+                    if (UI.Instance.blink2Hz || InputManager.Instance.Key_hold("Start")) UI.Instance.DrawText(window, "press start", 0, 50, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("Start") ? "default medium click" : "default medium white");
 
                     if (InputManager.Instance.Key_up("Start")) {
                         game_state = SelectStage;
@@ -166,8 +169,14 @@ public static class Program
                     } else if (InputManager.Instance.Key_down("Right") && pointer < stages.Count - 1) {
                         pointer += 1;
                     } else if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")) {
-                        game_state = SelectChar;
-                        if (stages[pointer].name == "Random") pointer = Program.random.Next(1, stages.Count()-1);
+                        if (stages[pointer].name == "Settings") {
+                            game_state = Settings;
+                        } else {
+                            if (stages[pointer].name == "Random") pointer = Program.random.Next(1, stages.Count()-2);
+                            stage = stages[pointer];
+                            game_state = SelectChar;
+                        }
+                        pointer = 0;
                     } 
                     break;
                 
@@ -178,9 +187,6 @@ public static class Program
                     break;
                 
                 case LoadScreen:
-                    // Seleciona os chars e o stage
-                    stage = stages[pointer];
-                    
                     // Da load no Stage
                     stage.LoadStage();
 
@@ -301,8 +307,73 @@ public static class Program
 
                     break;
                 
-                case ConfigScreen:
-                    
+                case Settings:
+                    window.Draw(settings_bg);
+                    UI.Instance.DrawText(window, "Settings", -80, -107, spacing: Config.spacing_medium);
+                    //0
+                    UI.Instance.DrawText(window, "Main volume", -170, -74, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 0 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.Main_Volume.ToString() + "% >", 0, -74, spacing: Config.spacing_small, textureName: pointer == 0 ? "default small red" : "default small");
+                    //1
+                    UI.Instance.DrawText(window, "Music volume", -170, -64, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 1 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.Music_Volume.ToString() + "% >", 0, -64, spacing: Config.spacing_small, textureName: pointer == 1 ? "default small red" : "default small");
+                    //2
+                    UI.Instance.DrawText(window, "V-sync", -170, -54, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 2 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.Vsync ? "on" : "off") + " >", 0, -54, spacing: Config.spacing_small, textureName: pointer == 2 ? "default small red" : "default small");
+                    //3
+                    UI.Instance.DrawText(window, "Round Lenght", -170, -44, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 3 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.RoundLength + "s >", 0, -44, spacing: Config.spacing_small, textureName: pointer == 3 ? "default small red" : "default small");
+                    //4
+                    UI.Instance.DrawText(window, "Match", -170, -34, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 4 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.max_rounds + " rounds >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
+                    //5
+                    UI.Instance.DrawText(window, "Hitstop", -170, -24, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 5 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.hitStopTime == 0 ? "no hitstop" : Config.hitStopTime + " frames") + " >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
+                    //6
+                    UI.Instance.DrawText(window, "Input window", -170, -14, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 6 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.inputWindowTime == 1 ? "frame perfect" : Config.inputWindowTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
+                    //7
+                    UI.Instance.DrawText(window, "Back", -80, 74, spacing: Config.spacing_medium, textureName: pointer == 7 ? "default medium red" : "default medium");
+
+                    // Change option 
+                    if (InputManager.Instance.Key_down("Up") && pointer > 0) {
+                        pointer -= 1;
+                    } else if (InputManager.Instance.Key_down("Down") && pointer < 7) {
+                        pointer += 1;
+                    }
+
+                    // Do option
+                    if (pointer == 0) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.Main_Volume > 0) Config.Main_Volume -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config.Main_Volume < 100) Config.Main_Volume += 1;
+
+                    } else if (pointer == 1) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.Music_Volume > 0) Config.Music_Volume -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config.Music_Volume < 100) Config.Music_Volume += 1;
+
+                    } else if (pointer == 2 && (InputManager.Instance.Key_down("Left") || InputManager.Instance.Key_down("Right"))) { 
+                        Config.Vsync = !Config.Vsync;
+                        window.SetVerticalSyncEnabled(Config.Vsync);
+
+                    } else if (pointer == 3) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.RoundLength > 1) Config.RoundLength -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config.RoundLength < 99) Config.RoundLength += 1;
+
+                    } else if (pointer == 4) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.max_rounds > 1) Config.max_rounds -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config.max_rounds < 5) Config.max_rounds += 1;
+
+                    } else if (pointer == 5) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.hitStopTime > 0) Config.hitStopTime -= 1;
+                        else if (InputManager.Instance.Key_down("Right")) Config.hitStopTime += 1;
+
+                    } else if (pointer == 6) { 
+                        if (InputManager.Instance.Key_down("Left") && Config.inputWindowTime > 1) Config.inputWindowTime -= 1;
+                        else if (InputManager.Instance.Key_down("Right")) Config.inputWindowTime += 1;
+
+                    } else if (pointer == 7 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+                        game_state = SelectStage;
+                        pointer = 0;
+                    }
                     break;
             }
 

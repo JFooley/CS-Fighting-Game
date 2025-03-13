@@ -51,7 +51,8 @@ public class Fireball : Character {
         // States
         var animations = new Dictionary<string, Animation> {
             {"Ken1", new Animation(KenFireballFrames, "Ken1", 20)},
-            {"Ken2", new Animation(KenFireballFrames, "Ken2", 30)},
+            {"Ken2", new Animation(KenFireballFrames, "Ken2", 20)},
+            {"Ken3", new Animation(KenFireballFrames, "Ken3", 30)},
             {"KenExit", new Animation(KenFireballFinal, "Remove", 30)},
             {"Remove", new Animation(KenFireballFinal, "Remove", 60)},
         };
@@ -61,8 +62,10 @@ public class Fireball : Character {
         this.LoadSounds();
     }
 
-    public override void DoBehave() {        
+    public override void DoBehave() {
         base.DoBehave();
+        if (Math.Abs(Program.camera.X - this.VisualPosition.X) > Config.RenderWidth) this.remove = true;  
+        
         switch (this.CurrentState) {
             case "Ken1":
                 this.SetVelocity(X: 4);
@@ -75,6 +78,15 @@ public class Fireball : Character {
 
             case "Ken2":
                 this.SetVelocity(X: 5);
+                if (this.LifePoints.X == -1) {
+                    this.ChangeState("KenExit");
+                    this.SetVelocity(raw_set: true);
+                    break;
+                }
+                break;
+            
+            case "Ken3":
+                this.SetVelocity(X: 6);
                 if (this.LifePoints.X == -1) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
@@ -133,6 +145,24 @@ public class Fireball : Character {
                     target.HitStun(this, 30, force: true);
                 }
                 break;
+            
+            case "Ken3":
+                Character.Pushback(target: target, self: this, "Heavy", force_push: true);
+                this.ChangeState("KenExit");
+                this.SetVelocity(raw_set: true);
+
+                if (target.isBlocking()) {
+                    hit = 0;
+                    Character.Damage(target: target, self: this, 10, 0);
+                    target.BlockStun(this, 20, force: true);
+
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 125, 78);
+                    target.HitStun(this, 30, force: true);
+                }
+                break;
+
 
             default:
                 this.remove = true;

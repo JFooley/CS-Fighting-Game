@@ -242,9 +242,7 @@ public class InputManager {
                 } 
             }
 
-            if (!found) {
-                return false;
-            }
+            if (!found) return false;
 
             // Verifica se não há outros botões acionados se flexEntry é falso
             if (!flexEntry) {

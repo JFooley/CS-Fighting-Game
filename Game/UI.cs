@@ -10,6 +10,12 @@ namespace UI_space {
         private int elapsed = 0;
         private int counter = 0;
 
+        // Clocks
+        public bool blink10Hz = true;
+        public bool blink4Hz = true;
+        public bool blink2Hz = true;
+        public bool blink1Hz = true;
+
         private int graylife_A = 150;
         private int graylife_B = 150;
 
@@ -19,11 +25,13 @@ namespace UI_space {
         public Color bar_graylife = new Color(200, 0, 0);
         public Color bar_fulllife = new Color(50, 190, 60);
         public Color bar_life = new Color(240, 220, 20);
-        public Color bar_super = new Color(5, 175, 205);
-        public Color bar_super_full = new Color(170, 230, 255);
+        public Color bar_super = new Color(5, 110, 150);
+        public Color bar_super_full = new Color(0, 185, 255);
         
+        // visuals
         Sprite hud = new Sprite(new Texture("Assets/ui/hud.png"));
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
+        private string superBarMsg = "Max!";
 
         private UI() {
             this.font_textures = new Dictionary<string, Dictionary<char, Sprite>>();
@@ -42,6 +50,14 @@ namespace UI_space {
             }
         }
 
+        public void Update() {
+            this.counter = this.counter <= 60 ? this.counter + 1 : 1;
+            this.blink10Hz = this.counter % (60/10) == 0 ? this.blink10Hz = !this.blink10Hz : this.blink10Hz;
+            this.blink4Hz = this.counter % (60/4) == 0 ? this.blink4Hz = !this.blink4Hz : this.blink4Hz;
+            this.blink2Hz = this.counter % (60/2) == 0 ? this.blink2Hz = !this.blink2Hz : this.blink2Hz;
+            this.blink1Hz = !this.blink2Hz;
+        }
+
         // Loads
         public void LoadCharacterSprites(float size, string textureName) {
             Dictionary<char, Sprite> characterSprites = new Dictionary<char, Sprite>(); // Cria grupo de sprites
@@ -58,9 +74,8 @@ namespace UI_space {
         // Simple Draw Calls
         public void ShowFramerate(RenderWindow window, string textureName) {
             var frametime = this.clock.Restart().AsSeconds();
-            this.counter = this.counter >= 30 ? 0 : this.counter + 1;
-            this.elapsed = this.counter == 1 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, "" + this.elapsed, 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
+            this.elapsed = this.counter % (60/2) == 0 ? (int) (1 / frametime) : this.elapsed;
+            this.DrawText(window, this.elapsed.ToString() + " - " + frametime.ToString("F5"), 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
         }
 
         public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default medium") {
@@ -124,6 +139,8 @@ namespace UI_space {
             hud.Position = new Vector2f(Program.camera.X - 192, Program.camera.Y - 108);
             window.Draw(hud);
 
+
+            // Character A
             // Draw lifebar A
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
             var lifeA = Math.Max(Math.Min(lifeA_scale, 150), 0);
@@ -135,16 +152,19 @@ namespace UI_space {
             var superA_scale = stage.character_A.SuperPoints.X * 119 / stage.character_A.SuperPoints.Y;
             var superA = Math.Max(Math.Min(superA_scale, 119), 0);
             this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super);
-            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y) {
-                // this.DrawText(window, "MAX!", -59, 92.5f, spacing: -8, alignment: "left", size: 0.4f, textureName: "default");
-                if (stage.round_time % 2 == 0) this.DrawRectangle(window, -180, 97, 119, 4, this.bar_super_full);
+            if (stage.character_A.SuperPoints.X >= stage.character_A.SuperPoints.Y/2) {
+                var control = stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y ? this.blink10Hz : true;
+                if (control) this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super_full);
             }
-
+            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && this.blink2Hz) this.DrawText(window, this.superBarMsg, -193, 72, spacing: Config.spacing_medium, alignment: "left", textureName: "default medium");
+            
             // Draw Stun bar A
             var stunA_scale = ( stage.character_A.DizzyPoints.Y - stage.character_A.DizzyPoints.X) * 150 / stage.character_A.DizzyPoints.Y;
             var stunA = Math.Max(Math.Min(stunA_scale, 150), 0);
             this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
             
+
+            // Character B
             // Draw lifebar B
             var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;
             var lifeB = Math.Max(Math.Min(lifeB_scale, 150), 0);
@@ -156,16 +176,19 @@ namespace UI_space {
             var superB_scale = stage.character_B.SuperPoints.X * 119 / stage.character_B.SuperPoints.Y;
             var superB = Math.Max(Math.Min(superB_scale, 119), 0);
             this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super);
-            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y) {
-                // this.DrawText(window, "MAX!", 59, 92.5f, spacing: -8, alignment: "right", size: 0.4f, textureName: "default");
-                if (stage.round_time % 2 == 0) this.DrawRectangle(window, 61, 97, 119, 4, this.bar_super_full);
+            if (stage.character_B.SuperPoints.X >= stage.character_B.SuperPoints.Y/2) {
+                var control = stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y ? this.blink10Hz : true;
+                if (control) this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super_full);
             }
+            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && this.blink2Hz) this.DrawText(window, this.superBarMsg, 193, 72, spacing: Config.spacing_medium, alignment: "right", textureName: "default medium");
 
             // Draw Stun bar B
             var stunB_scale = ( stage.character_B.DizzyPoints.Y - stage.character_B.DizzyPoints.X) * 150 / stage.character_B.DizzyPoints.Y;
             var stunB = Math.Max(Math.Min(stunB_scale, 150), 0);
             this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
             
+            
+            // HUD elements
             // Draw names
             UI.Instance.DrawText(window, stage.character_A.name, -194, -95, spacing: Config.spacing_small, size: 1f, alignment: "left", textureName: "default small white");
             UI.Instance.DrawText(window, stage.character_B.name, 194, -95, spacing: Config.spacing_small, size: 1f, alignment: "right", textureName: "default small white");

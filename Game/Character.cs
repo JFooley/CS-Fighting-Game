@@ -309,9 +309,15 @@ public class Character : Object_Space.Object {
         target.LifePoints.X -= (int) (damage * self.damageScaling);
         target.DizzyPoints.X -= (int) (dizzy_damage * self.damageScaling);
     }
-    public static void GetSuper(Character target, Character self, int hit , int target_amount = 5, int self_amount = 10) {
+    public static void GetSuperPoints(Character target, Character self, int hit , int target_amount = 3, int self_amount = 10) {
         target.SuperPoints.X = (int) Math.Min(target.SuperPoints.Y, target.SuperPoints.X + target_amount);
         self.SuperPoints.X = (int) Math.Min(self.SuperPoints.Y, hit == 1 ? self.SuperPoints.X + self_amount : self.SuperPoints.X + (self_amount / 3));
+    }
+    public static bool CheckSuperPoints(Character target, int amount) {
+        return target.SuperPoints.X >= amount;
+    }
+    public static void UseSuperPoints(Character target, int amount) {
+        target.SuperPoints.X = (int) Math.Max(0, target.SuperPoints.X - amount);
     }
     
     // Auxiliar methods

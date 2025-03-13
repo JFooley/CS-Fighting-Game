@@ -8,6 +8,7 @@ using Stage_Space;
 public class Ken : Character {
     private int tatso_speed = 4;
     private bool SA_flag = false;
+    private Fireball current_fireball;
 
     public Ken(string initialState, int startX, int startY, Stage stage)
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
@@ -463,6 +464,45 @@ public class Ken : Character {
             new FrameData(15368, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
         };
 
+        var EXTatsoFrames = new List<FrameData> {
+            new FrameData(15356, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
+            new FrameData(15357, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
+            new FrameData(15358, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
+            new FrameData(15359, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
+
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+
+            new FrameData(15366, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
+            new FrameData(15367, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
+            new FrameData(15368, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
+        };
+
         var lightTatsoFrames = new List<FrameData> {
             new FrameData(15356, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 122, 88, 138, 102), new GenericBox(1, 108, 99, 143, 122), new GenericBox(1, 105, 121, 143, 143), new GenericBox(1, 81, 145, 148, 195) }, "tatso", hasHit: false),
             new FrameData(15357, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
@@ -664,11 +704,15 @@ public class Ken : Character {
             // Specials
             { "LightShory", new Animation(lightShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
             { "HeavyShory", new Animation(heavyShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "ShoryEX", new Animation(heavyShoryFrames, "Landing", 60, changeOnLastframe: false, changeOnGround: true, loop: false, doTrace: true)},
             { "LightHaduken", new Animation(hadukenFrames, "Idle", 30)},
             { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
+            { "HadukenEX", new Animation(hadukenFrames, "Idle", 30, doTrace: true)},
             { "LightTatso", new Animation(lightTatsoFrames, "Landing", 30)},
             { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30)},
+            { "TatsoEX", new Animation(EXTatsoFrames, "Landing", 60, doTrace: true)},
             { "AirTatso", new Animation(tatsoFrames, "Landing", 30, changeOnGround: true, changeOnLastframe: false)},
+            { "AirTatsoEX", new Animation(tatsoFrames, "Landing", 60, changeOnGround: true, changeOnLastframe: false, doTrace: true)},
             // Hit and Block
             { "Airboned", new Animation(AirbonedFrames, "Falling", 15, changeOnGround: true, changeOnLastframe: false, loop: false)},
             { "Falling", new Animation(fallingFrames, "OnGround", 15)},
@@ -741,9 +785,9 @@ public class Ken : Character {
         }
 
         // Super
-        if ((InputManager.Instance.Was_down("Down Right Down Right A", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) ) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK"))) && this.SuperPoints.X == this.SuperPoints.Y) {
+        if (InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK"))) && Character.CheckSuperPoints(this, 100)) {
+            Character.UseSuperPoints(this, 100);
             this.ChangeState("SA1");
-            this.SuperPoints.X = 0;
             this.SA_flag = false;
         } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.hasFrameChange) {
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
@@ -756,8 +800,9 @@ public class Ken : Character {
                 Y: 150);
         }
 
-        if (InputManager.Instance.Was_down("C C Right A D", 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f)) {
+        if (InputManager.Instance.Was_down("C C Right A D", 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f && Character.CheckSuperPoints(this, 100))) {
             this.ChangeState("Shungoku");
+            Character.UseSuperPoints(this, 100);
             this.stage.spawnParticle("SABlink", this.body.Position.X, this.body.Position.Y, Y_offset: -140, facing: this.facing);
             this.stage.SetHitstop(68);
         } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
@@ -781,17 +826,32 @@ public class Ken : Character {
                 X: 2.4f, 
                 Y: 73);
         } 
+        if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMP" ) && Character.CheckSuperPoints(this, 50)) {
+            Character.UseSuperPoints(this, 50);
+            this.ChangeState("ShoryEX");
+        } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
+            this.AddVelocity(
+                X: 2.4f, 
+                Y: 100);
+        } 
 
         // Haduken
-        if (InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "LowLK")))) {
+        if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
+        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "LowLK")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
+            this.current_fireball = stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         } 
-        if (InputManager.Instance.Was_down("Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyHaduken");
         } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
-            stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
+            this.current_fireball = stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
+        }
+        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right RB", 10, player: this.playerIndex, facing: this.facing) && this.notActing && Character.CheckSuperPoints(this, 50)) {
+            Character.UseSuperPoints(this, 50);
+            this.ChangeState("HadukenEX");
+        } else if (this.CurrentState == "HadukenEX" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
+            this.current_fireball = stage.spawnFireball("Ken3", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
         }
 
         // Tatso
@@ -800,18 +860,25 @@ public class Ken : Character {
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
-        }
-        
-        if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
+        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActing && Character.CheckSuperPoints(this, 50)) {
+            Character.UseSuperPoints(this, 50);
+            this.ChangeState("TatsoEX");
+            this.SetVelocity(Y: 5);
+        } else if (this.CurrentState == "TatsoEX") {
+            this.AddVelocity(Y: 0.5f, raw_set: true);
         }
         
+        // Air tatso
         if ((InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
             this.ChangeState("AirTatso");
-            this.SetVelocity(X: Math.Abs(this.body.Velocity.X), Y: this.body.Velocity.Y);
+        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActingAir && Character.CheckSuperPoints(this, 50)) {
+            Character.UseSuperPoints(this, 50);
+            this.ChangeState("AirTatsoEX");
         } 
 
         // Normals
@@ -855,7 +922,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 13, 50);
                     target.HitStun(this, 5);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
                 
             case "LowLP":
@@ -868,7 +935,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 13, 50);
                     target.HitStun(this, 5);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
 
             case "AirLP":
@@ -881,7 +948,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 50, 100);
                     target.HitStun(this, 7);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
 
             case "LK":
@@ -894,7 +961,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 44, 50);
                     target.HitStun(this, 2);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
                 
             case "LowLK":
@@ -907,7 +974,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 85, 50);
                     target.HitStun(this, -3);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
             
             case "AirLK":
@@ -920,7 +987,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 90, 150);
                     target.HitStun(this, 10);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
 
             case "MP":
@@ -933,7 +1000,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 100, 172);
                     target.HitStun(this, 0);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "LowMP":
@@ -946,7 +1013,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 90, 100);
                     target.HitStun(this, 4);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "AirMP":
@@ -959,7 +1026,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 100, 180);
                     target.HitStun(this, 10);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "MK":
@@ -972,7 +1039,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 120, 235);
                     target.HitStun(this, -2);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "LowMK":
@@ -985,7 +1052,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 130, 235);
                     target.ChangeState("Falling");
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "AirMK":
@@ -998,7 +1065,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 125, 235);
                     target.HitStun(this, 13);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "BackMK":
@@ -1012,7 +1079,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 56, 94);
                     target.HitStun(this, 10, airbone_height: 10);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 6);
+                Character.GetSuperPoints(target, this, hit, self_amount: 6);
                 break;
 
             case "BackMP":
@@ -1026,7 +1093,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 56, 94);
                     target.HitStun(this, 10);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
             case "CloseHP":
@@ -1040,7 +1107,7 @@ public class Ken : Character {
                     Character.Damage(target: target, self: this, 107, 110);
                     target.HitStun(this, 0);
                 }
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
             
             case "LightShory":
@@ -1054,7 +1121,7 @@ public class Ken : Character {
                     
                 }
                 Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f);
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
 
             case "HeavyShory":
@@ -1069,7 +1136,23 @@ public class Ken : Character {
                     else target.HitStun(this, 0);
                 }
                 Character.Pushback(target: target, self: this, "Heavy");
-                Character.GetSuper(target, this, hit, self_amount: 16);
+                Character.GetSuperPoints(target, this, hit, self_amount: 16);
+                break;
+
+            case "ShoryEX":
+                if (target.isBlocking()) {
+                    hit = 0;
+                    target.BlockStun(this, -10);
+                    Character.Damage(target: target, self: this, 20, 20);
+
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 120, 85);
+                    if (this.CurrentFrameIndex >= 6) target.HitStun(this, 0, airbone: true, airbone_height: 120, airbone_X: Config.medium_pushback);
+                    else target.HitStun(this, 0);
+                }
+                Character.Pushback(target: target, self: this, "Heavy");
+                Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;
             
             case "LightTatso":
@@ -1082,7 +1165,7 @@ public class Ken : Character {
                     target.HitStun(this, -3, airbone_height: 40);
                 }
                 Character.Pushback(target: target, self: this, "Light");
-                Character.GetSuper(target, this, hit);
+                Character.GetSuperPoints(target, this, hit);
                 break;
             
             case "HeavyTatso":
@@ -1095,7 +1178,21 @@ public class Ken : Character {
                     target.HitStun(this, -3, airbone_height: 40);
                 }
                 Character.Pushback(target: target, self: this, "Light");
-                Character.GetSuper(target, this, hit, self_amount: 8);
+                Character.GetSuperPoints(target, this, hit, self_amount: 8);
+                break;
+
+            case "TatsoEX":
+                if (target.isBlocking()) {
+                    hit = 0;
+                    target.BlockStun(this, -5);
+                    Character.Damage(target: target, self: this, 10, 30);
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 54, 234);
+                    target.HitStun(this, -3, airbone_height: 40);
+                }
+                Character.Pushback(target: target, self: this, "Light");
+                Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;
             
             case "AirTatso":
@@ -1106,9 +1203,22 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 80, 140);
+                    target.HitStun(this, -6);
+                }
+                Character.GetSuperPoints(target, this, hit, self_amount: 14);
+                break;
+
+            case "AirTatsoEX":
+                if (target.isBlocking()) {
+                    hit = 0;
+                    target.BlockStun(this, 1);
+
+                } else {
+                    hit = 1;
+                    Character.Damage(target: target, self: this, 80, 140);
                     target.HitStun(this, -6, airbone: true, airbone_height: 50, airbone_X: 2f);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 14);
+                Character.GetSuperPoints(target, this, hit, self_amount: 4);
                 break;
 
             case "SA1":
@@ -1123,7 +1233,6 @@ public class Ken : Character {
                     target.HitStun(this, 10, airbone_height: 50);
                     this.SA_flag = true;
                 }
-                Character.GetSuper(target, this, hit, self_amount: 2);
                 break;
                 
             case "SA1_tail":
@@ -1143,7 +1252,7 @@ public class Ken : Character {
 
                     } else target.HitStun(this, 5);
                 }
-                Character.GetSuper(target, this, hit, self_amount: 2);
+                Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;
                 
             case "Shungoku":
@@ -1159,7 +1268,7 @@ public class Ken : Character {
                 target.ChangeState("OnGround");
 
                 Character.Damage(target: target, self: this, 400, 0);
-                Character.GetSuper(target, this, hit, self_amount: 0, target_amount: 30);
+                Character.GetSuperPoints(target, this, hit, self_amount: 0, target_amount: 30);
                 break;
 
             default:
