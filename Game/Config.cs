@@ -15,10 +15,10 @@ public static class Config {
     public static int inputWindowTime = 4;
 
     // Audio
-    private static float _main_volume = 50f;
-    private static float _character_volume = 80f;
-    private static float _music_volume = 70f;
-    private static float _effect_volume = 100f;
+    public static float _main_volume = 50f;
+    public static float _character_volume = 80f;
+    public static float _music_volume = 70f;
+    public static float _effect_volume = 100f;
     public static float Main_Volume
     {
         get { return _main_volume; }

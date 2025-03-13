@@ -316,7 +316,7 @@ public static class Program
                     UI.Instance.DrawText(window, "< " + Config.Main_Volume.ToString() + "% >", 0, -74, spacing: Config.spacing_small, textureName: pointer == 0 ? "default small red" : "default small");
                     //1
                     UI.Instance.DrawText(window, "Music volume", -170, -64, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 1 ? "default small hover" : "default small");
-                    UI.Instance.DrawText(window, "< " + Config.Music_Volume.ToString() + "% >", 0, -64, spacing: Config.spacing_small, textureName: pointer == 1 ? "default small red" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config._music_volume.ToString() + "% >", 0, -64, spacing: Config.spacing_small, textureName: pointer == 1 ? "default small red" : "default small");
                     //2
                     UI.Instance.DrawText(window, "V-sync", -170, -54, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 2 ? "default small hover" : "default small");
                     UI.Instance.DrawText(window, "< " + (Config.Vsync ? "on" : "off") + " >", 0, -54, spacing: Config.spacing_small, textureName: pointer == 2 ? "default small red" : "default small");
@@ -348,8 +348,8 @@ public static class Program
                         else if (InputManager.Instance.Key_down("Right") && Config.Main_Volume < 100) Config.Main_Volume += 1;
 
                     } else if (pointer == 1) { 
-                        if (InputManager.Instance.Key_down("Left") && Config.Music_Volume > 0) Config.Music_Volume -= 1;
-                        else if (InputManager.Instance.Key_down("Right") && Config.Music_Volume < 100) Config.Music_Volume += 1;
+                        if (InputManager.Instance.Key_down("Left") && Config._music_volume > 0) Config._music_volume -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config._music_volume < 100) Config._music_volume += 1;
 
                     } else if (pointer == 2 && (InputManager.Instance.Key_down("Left") || InputManager.Instance.Key_down("Right"))) { 
                         Config.Vsync = !Config.Vsync;
