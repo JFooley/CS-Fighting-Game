@@ -336,6 +336,8 @@ public class Character : Object_Space.Object {
     public void ChangeState(string newState, int index = 0, bool reset = false) {
         this.LastState = CurrentState;
 
+        if (this.LifePoints.X <= 0 && this.CurrentState == "OnGround" && !reset) return;
+
         if (animations.ContainsKey(newState)) {
             this.CurrentState = newState;
             
@@ -366,7 +368,7 @@ public class Character : Object_Space.Object {
         return new Sprite(); 
     }
     public void Reset(int start_point, int facing, String state = "Idle", bool total_reset = false) {
-        this.ChangeState(state);
+        this.ChangeState(state, reset: true);
         this.LifePoints.X = this.LifePoints.Y;
         this.DizzyPoints.X = this.DizzyPoints.Y;
         this.SuperPoints.X = total_reset ? 0 : this.SuperPoints.X;

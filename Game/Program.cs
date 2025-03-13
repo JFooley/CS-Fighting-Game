@@ -55,6 +55,12 @@ public static class Program
 
     public static SFML.Graphics.View view = new SFML.Graphics.View(new FloatRect(0, 0, Config.RenderWidth, Config.RenderHeight));
 
+    // Aux
+    public static int pointer = 0;
+    public static int charA_selected = 0;
+    public static int charB_selected = 0;
+    public static bool loading = false;
+
     public static void Main() {  
         // Necessary infos
         game_state = Intro;
@@ -122,10 +128,6 @@ public static class Program
         };
         stage = stages[0];
 
-        int pointer = 0;
-        int charA_selected = 0;
-        int charB_selected = 0;
-
         // Menu e SelectStage visuals
         Sprite main_screen = new Sprite(new Texture("Assets/ui/title.png"));
         Sprite frame = new Sprite(new Texture("Assets/ui/frame.png"));
@@ -134,6 +136,7 @@ public static class Program
         Sprite timesup_logo = new Sprite(new Texture("Assets/ui/timesup.png"));
         Sprite KO_logo = new Sprite(new Texture("Assets/ui/ko.png"));
         Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
+        Sprite fslogo = new Sprite(new Texture("Assets/ui/fs.png"));
 
         while (window.IsOpen) {
             window.DispatchEvents();
@@ -173,7 +176,7 @@ public static class Program
                             game_state = Settings;
                         } else {
                             if (stages[pointer].name == "Random") pointer = Program.random.Next(1, stages.Count()-2);
-                            stage = stages[pointer];
+                            Program.stage = stages[pointer];
                             game_state = SelectChar;
                         }
                         pointer = 0;
@@ -187,18 +190,16 @@ public static class Program
                     break;
                 
                 case LoadScreen:
-                    // Da load no Stage
-                    stage.LoadStage();
+                    if (UI.Instance.counter % 20 == 0) pointer = pointer < 3 ? pointer + 1 : 0;
+                    fslogo.Position = new Vector2f(10, 139);
+                    window.Draw(fslogo);
+                    UI.Instance.DrawText(window, string.Concat(Enumerable.Repeat(".", pointer)), -122, 68, alignment: "left", spacing: -24);
 
-                    // Da load nos personagens
-                    stage.LoadCharacters(charA_selected, charB_selected);
-
-                    // Configura a camera
-                    camera.SetChars(stage.character_A, stage.character_B);
-                    camera.SetLimits(stage.length, stage.height);
-                    
-                    game_state = Battle;
-                    pointer = 0;
+                    if (!loading) {
+                        Thread stage_loader = new Thread(StageLoader);
+                        stage_loader.Start();
+                        loading = true;
+                    }
                     break;
 
                 case Battle:
@@ -223,7 +224,7 @@ public static class Program
                             } else if (stage.CheckTimer(1)) {
                                 fight_logo.Position = new Vector2f(Program.camera.X - 89, Program.camera.Y - 54);
                                 window.Draw(fight_logo);
-                            } else UI.Instance.DrawText(window, "Ready?", 0, -30, size: 2, spacing: Config.spacing_medium * 2, textureName: "default medium");
+                            } else UI.Instance.DrawText(window, "Ready?", 0, -30, spacing: Config.spacing_medium, textureName: "default medium white");
 
                             break;
 
@@ -381,6 +382,16 @@ public static class Program
             window.Display();
             window.Clear();
         }
+    }
+
+    public static void StageLoader() {
+        stage.LoadStage();
+        stage.LoadCharacters(charA_selected, charB_selected);
+        camera.SetChars(stage.character_A, stage.character_B);
+        camera.SetLimits(stage.length, stage.height);
+        loading = false;
+        pointer = 0;
+        game_state = Battle;
     }
 }
 

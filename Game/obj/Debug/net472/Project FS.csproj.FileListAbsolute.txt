@@ -2219,3 +2219,4 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Ja
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\random.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\settings.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\settings.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\fs.png

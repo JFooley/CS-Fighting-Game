@@ -8,7 +8,7 @@ namespace UI_space {
         private static UI instance;
         private Clock clock;
         private int elapsed = 0;
-        private int counter = 0;
+        public int counter = 0;
 
         // Clocks
         public bool blink10Hz = true;
@@ -139,7 +139,6 @@ namespace UI_space {
             hud.Position = new Vector2f(Program.camera.X - 192, Program.camera.Y - 108);
             window.Draw(hud);
 
-
             // Character A
             // Draw lifebar A
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
@@ -162,7 +161,6 @@ namespace UI_space {
             var stunA_scale = ( stage.character_A.DizzyPoints.Y - stage.character_A.DizzyPoints.X) * 150 / stage.character_A.DizzyPoints.Y;
             var stunA = Math.Max(Math.Min(stunA_scale, 150), 0);
             this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
-            
 
             // Character B
             // Draw lifebar B

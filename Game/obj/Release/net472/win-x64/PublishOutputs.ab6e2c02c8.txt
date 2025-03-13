@@ -2192,6 +2192,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\hud.xcf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\Regua.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\frame.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\fs.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\hud.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\ko.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\settings.png
