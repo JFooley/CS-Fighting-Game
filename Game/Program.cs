@@ -62,6 +62,8 @@ public static class Program
     public static bool loading = false;
 
     public static void Main() {  
+        Config.LoadFromFile();
+        
         // Necessary infos
         game_state = Intro;
         sub_state = Intro;
@@ -372,6 +374,7 @@ public static class Program
                         else if (InputManager.Instance.Key_down("Right")) Config.inputWindowTime += 1;
 
                     } else if (pointer == 7 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+                        Config.SaveToFile();
                         game_state = SelectStage;
                         pointer = 0;
                     }

@@ -1,6 +1,9 @@
-public static class Config {
+using Newtonsoft.Json;
+
+public static class Config
+{
     // Window
-    public const string GameTitle = "Fighting Game CS";
+    public const string GameTitle = "Project FS";
     public const int WindowWidth = 1280;
     public const int WindowHeight = 720;
     public const int RenderWidth = 384;
@@ -9,13 +12,12 @@ public static class Config {
     public static bool Vsync = true;
     public const int Framerate = 60;
 
-
     public const int maxDistance = 350;
     public const int resetFrames = 20;
     public static int inputWindowTime = 4;
 
     // Audio
-    public static float _main_volume = 50f;
+    public static float _main_volume = 100f;
     public static float _character_volume = 80f;
     public static float _music_volume = 70f;
     public static float _effect_volume = 100f;
@@ -54,4 +56,53 @@ public static class Config {
     // Text
     public const int spacing_small = -26; 
     public const int spacing_medium = -23;
+
+    public static void SaveToFile(string filePath = "config.json") {
+        var configData = new
+        {
+            Vsync,
+            inputWindowTime,
+            _main_volume,
+            _character_volume,
+            _music_volume,
+            _effect_volume,
+            RoundLength,
+            hitStopTime,
+            max_rounds
+        };
+
+        string jsonString = JsonConvert.SerializeObject(configData, Formatting.Indented);
+        File.WriteAllText(filePath, jsonString);
+    }
+
+    public static void LoadFromFile(string filePath = "config.json") {
+        if (File.Exists(filePath)) {
+            string jsonString = File.ReadAllText(filePath);
+            var configData = JsonConvert.DeserializeObject<ConfigData>(jsonString);
+
+            Vsync = configData.Vsync;
+            inputWindowTime = configData.inputWindowTime;
+            _main_volume = configData._main_volume;
+            _character_volume = configData._character_volume;
+            _music_volume = configData._music_volume;
+            _effect_volume = configData._effect_volume;
+            RoundLength = configData.RoundLength;
+            hitStopTime = configData.hitStopTime;
+            max_rounds = configData.max_rounds;
+        } else {
+            Console.WriteLine("Config file not found. Using default settings.");
+        }
+    }
+
+    private class ConfigData {
+        public bool Vsync { get; set; }
+        public int inputWindowTime { get; set; }
+        public float _main_volume { get; set; }
+        public float _character_volume { get; set; }
+        public float _music_volume { get; set; }
+        public float _effect_volume { get; set; }
+        public int RoundLength { get; set; }
+        public int hitStopTime { get; set; }
+        public int max_rounds { get; set; }
+    }
 }
