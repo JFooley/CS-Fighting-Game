@@ -329,14 +329,11 @@ public class Stage {
                             this.hitstopCounter = Config.hitStopTime;
                             var hit = charA.ImposeBehavior(charB);
                             charA.hasHit = true;
-                            charA.comboCounter += hit == 1 ? 1 : 0;
+                            if (charA.team == 0) this.character_A.comboCounter += hit == 1 ? 1 : 0;
+                            else this.character_B.comboCounter += hit == 1 ? 1 : 0;
 
                             // spawna a particula de hit
-                            float x1 = boxA.getRealA(charA).X;
-                            float y1 = boxA.getRealA(charA).Y;
-                            float x2 = boxA.getRealB(charA).X;
-                            float y2 = boxA.getRealB(charA).Y;
-                            this.spawnHitspark(hit, (x1 + x2) / 2, (y1 + y2) / 2 + 125, charA.facing);
+                            this.spawnHitspark(hit, (boxA.getRealA(charA).X + boxA.getRealB(charA).X) / 2, (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
                         }
                     }
                 }

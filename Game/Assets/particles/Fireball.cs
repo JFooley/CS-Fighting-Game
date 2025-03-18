@@ -127,6 +127,8 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 63, 48);
                     target.HitStun(this, 30, force: true);
                 }
+                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+                else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
 
             case "Ken2":
@@ -144,6 +146,8 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 125, 78);
                     target.HitStun(this, 30, force: true);
                 }
+                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+                else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
             
             case "Ken3":
@@ -161,6 +165,8 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 125, 78);
                     target.HitStun(this, 30, force: true);
                 }
+                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+                else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
 
 
