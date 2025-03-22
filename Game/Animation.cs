@@ -24,7 +24,7 @@ public class Animation {
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 24, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 30, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.animSize = Frames.Count() - 1;
@@ -38,7 +38,7 @@ public class Animation {
         this.frameCounter = 0;
     }
 
-    public Animation(List<string> SimpleFrames, string post_state, int framerate = 24, int screenFramerate = 60) {
+    public Animation(List<string> SimpleFrames, string post_state, int framerate = 30, int screenFramerate = 60) {
         this.SimpleFrames = SimpleFrames;
         this.currentFrameIndex = 0;
         this.animSize = SimpleFrames.Count() - 1;
@@ -169,6 +169,15 @@ public class FrameData {
 
     public FrameData(int sprite_index, float deltaX, float deltaY, List<GenericBox> boxes, string Sound_index = "", bool hasHit = true) {
         this.Sprite_index = sprite_index.ToString();
+        this.DeltaX = deltaX;
+        this.DeltaY = deltaY;
+        this.Boxes = boxes;
+        this.Sound_index = Sound_index;
+        this.hasHit = hasHit;
+    }
+
+    public FrameData(string sprite_index, float deltaX, float deltaY, List<GenericBox> boxes, string Sound_index = "", bool hasHit = true) {
+        this.Sprite_index = sprite_index;
         this.DeltaX = deltaX;
         this.DeltaY = deltaY;
         this.Boxes = boxes;

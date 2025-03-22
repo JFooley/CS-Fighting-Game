@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 
-public static class Config
-{
+public static class Config {
     // Window
     public const string GameTitle = "Project FS";
     public const int WindowWidth = 1280;

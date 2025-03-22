@@ -11,7 +11,7 @@ public class Hitspark : Character {
 
     public override void Load() {
         // Animations
-        var onHit1 = new List<FrameData> { 
+        var Hit1 = new List<FrameData> { 
             new FrameData(11, 0, 0, new List<GenericBox> {}, "on_hit_1"),
             new FrameData(12, 0, 0, new List<GenericBox> {}),
             new FrameData(13, 0, 0, new List<GenericBox> {}),
@@ -24,7 +24,7 @@ public class Hitspark : Character {
             new FrameData(110, 0, 0, new List<GenericBox> {}),
         };
 
-        var onHit2 = new List<FrameData> { 
+        var Hit2 = new List<FrameData> { 
             new FrameData(21, 0, 0, new List<GenericBox> {}, "on_hit_2"),
             new FrameData(22, 0, 0, new List<GenericBox> {}),
             new FrameData(23, 0, 0, new List<GenericBox> {}),
@@ -37,7 +37,7 @@ public class Hitspark : Character {
             new FrameData(210, 0, 0, new List<GenericBox> {}),
         };
 
-        var onHit3 = new List<FrameData> { 
+        var Hit3 = new List<FrameData> { 
             new FrameData(41, 0, 0, new List<GenericBox> {}, "on_hit_3"),
             new FrameData(42, 0, 0, new List<GenericBox> {}),
             new FrameData(43, 0, 0, new List<GenericBox> {}),
@@ -50,7 +50,7 @@ public class Hitspark : Character {
             new FrameData(410, 0, 0, new List<GenericBox> {}),
         };
 
-        var onBlock = new List<FrameData> {
+        var Block = new List<FrameData> {
             new FrameData(31, 0, 0, new List<GenericBox> {}, "on_block"),
             new FrameData(32, 0, 0, new List<GenericBox> {}),
             new FrameData(33, 0, 0, new List<GenericBox> {}),
@@ -59,13 +59,26 @@ public class Hitspark : Character {
             new FrameData(36, 0, 0, new List<GenericBox> {}),
         };
 
+        var Parry = new List<FrameData> {
+            new FrameData("parry1", 0, 0, new List<GenericBox> {}, "parry"),
+            new FrameData("parry2", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry3", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry4", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry5", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry6", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry7", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry8", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry9", 0, 0, new List<GenericBox> {}),
+        };
+        
         // States
         var animations = new Dictionary<string, Animation> {
-            {"OnHit1", new Animation(onHit1, "Remove", 60)},
-            {"OnHit2", new Animation(onHit2, "Remove", 60)},
-            {"OnHit3", new Animation(onHit3, "Remove", 60)},
-            {"OnBlock", new Animation(onBlock, "Remove", 30)},
-            {"Remove", new Animation(onBlock, "Remove", 60)},
+            {"Hit1", new Animation(Hit1, "Remove", 60)},
+            {"Hit2", new Animation(Hit2, "Remove", 60)},
+            {"Hit3", new Animation(Hit3, "Remove", 60)},
+            {"Parry", new Animation(Parry, "Remove", 60)},
+            {"Block", new Animation(Block, "Remove", 30)},
+            {"Remove", new Animation(Block, "Remove", 60)},
         };
 
         this.animations = animations;

@@ -1,11 +1,10 @@
 ﻿using Input_Space;
-using Character_Space;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 using Stage_Space;
 using UI_space;
-using System.Windows.Forms;
+using System.Diagnostics;
 
 // ----- Game States -----
 // 0 - Intro
@@ -25,10 +24,12 @@ using System.Windows.Forms;
 
 public static class Program
 {
+    // Winner index
     public const int Drawn = 0;
     public const int Player1 = 1;
     public const int Player2 = 2;
 
+    // Game States
     public const int Intro = 0;
     public const int MainMenu = 1;
     public const int SelectStage = 2;
@@ -38,21 +39,29 @@ public static class Program
     public const int PostBattle = 6;
     public const int Settings = 7;
 
+    // Battle States
     public const int RoundStart = 1;
     public const int Battling = 2;
     public const int RoundEnd = 3;
     public const int MatchEnd = 4;
 
+    // State holders
     public static int game_state;
     public static int sub_state;
+
+    // Common objects
     public static Camera camera;
     public static Stage stage;
+    public static RenderWindow window;
+    private static Stopwatch frametimer;
     public static Random random = new Random();
 
+    // Session infos
     public static int player1_wins = 0;
     public static int player2_wins = 0;
     public static int winner = 0;
 
+    // View
     public static SFML.Graphics.View view = new SFML.Graphics.View(new FloatRect(0, 0, Config.RenderWidth, Config.RenderHeight));
 
     // Aux
@@ -60,6 +69,7 @@ public static class Program
     public static int charA_selected = 0;
     public static int charB_selected = 0;
     public static bool loading = false;
+    public static double last_frame_time = 0;
 
     public static void Main() {  
         Config.LoadFromFile();
@@ -69,7 +79,7 @@ public static class Program
         sub_state = Intro;
 
         // Crie uma janela
-        RenderWindow window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
+        window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(Config.Framerate);
         window.SetVerticalSyncEnabled(Config.Vsync);
@@ -80,41 +90,10 @@ public static class Program
         // Inicializações
         InputManager.Initialize(autoDetectDevice: true);
         camera = Camera.GetInstance(window);
+        frametimer = new Stopwatch();
 
         // Carregamento de texturas de fontes
-        BitmapFont.Load("default medium", "Assets/fonts/default medium.png");
-        BitmapFont.Load("default medium grad", "Assets/fonts/default medium grad.png");
-        BitmapFont.Load("default medium white", "Assets/fonts/default medium white.png");
-        BitmapFont.Load("default medium red", "Assets/fonts/default medium red.png");
-        BitmapFont.Load("default medium click", "Assets/fonts/default medium click.png");
-        BitmapFont.Load("default medium hover", "Assets/fonts/default medium hover.png");
-
-        BitmapFont.Load("default small", "Assets/fonts/default small.png");
-        BitmapFont.Load("default small grad", "Assets/fonts/default small grad.png");
-        BitmapFont.Load("default small white", "Assets/fonts/default small white.png");
-        BitmapFont.Load("default small red", "Assets/fonts/default small red.png");
-        BitmapFont.Load("default small click", "Assets/fonts/default small click.png");
-        BitmapFont.Load("default small hover", "Assets/fonts/default small hover.png");
-
-        BitmapFont.Load("1", "Assets/fonts/font1.png");
-        BitmapFont.Load("icons", "Assets/fonts/icons.png");
-
-        UI.Instance.LoadCharacterSprites(32, "default medium");
-        UI.Instance.LoadCharacterSprites(32, "default medium grad");
-        UI.Instance.LoadCharacterSprites(32, "default medium white");
-        UI.Instance.LoadCharacterSprites(32, "default medium red");
-        UI.Instance.LoadCharacterSprites(32, "default medium click");
-        UI.Instance.LoadCharacterSprites(32, "default medium hover");
-
-        UI.Instance.LoadCharacterSprites(32, "default small");
-        UI.Instance.LoadCharacterSprites(32, "default small grad");
-        UI.Instance.LoadCharacterSprites(32, "default small white");
-        UI.Instance.LoadCharacterSprites(32, "default small red");
-        UI.Instance.LoadCharacterSprites(32, "default small click");
-        UI.Instance.LoadCharacterSprites(32, "default small hover");
-
-        UI.Instance.LoadCharacterSprites(32, "1");
-        UI.Instance.LoadCharacterSprites(32, "icons");
+        UI.Instance.LoadFonts();
 
         // Instanciamento do stages
         List<Stage> stages = new List<Stage>{
@@ -145,6 +124,7 @@ public static class Program
             InputManager.Instance.Update();
             UI.Instance.Update();
             camera.Update();
+            frametimer.Restart();
 
             switch (game_state) {
                 case Intro:
@@ -382,12 +362,13 @@ public static class Program
             }
 
             // Finally
+            last_frame_time = frametimer.Elapsed.TotalMilliseconds/1000;
             window.Display();
             window.Clear();
         }
     }
 
-    public static void StageLoader() {
+    public static void StageLoader() { 
         stage.LoadStage();
         stage.LoadCharacters(charA_selected, charB_selected);
         camera.SetChars(stage.character_A, stage.character_B);

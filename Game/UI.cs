@@ -1,12 +1,11 @@
 using SFML.Graphics;
 using SFML.System;
 using Stage_Space;
-using System.Collections.Generic;
+using System.Drawing;
 
 namespace UI_space {
     public class UI {
         private static UI instance;
-        private Clock clock;
         private int elapsed = 0;
         public int counter = 0;
 
@@ -19,14 +18,14 @@ namespace UI_space {
         private int graylife_A = 150;
         private int graylife_B = 150;
 
-        public Color light_background = new Color(150, 150, 150);
-        public Color background = new Color(35, 31, 34);
-        public Color outline = new Color(255, 255, 255);
-        public Color bar_graylife = new Color(200, 0, 0);
-        public Color bar_fulllife = new Color(50, 190, 60);
-        public Color bar_life = new Color(240, 220, 20);
-        public Color bar_super = new Color(5, 110, 150);
-        public Color bar_super_full = new Color(0, 185, 255);
+        public SFML.Graphics.Color light_background = new SFML.Graphics.Color(150, 150, 150);
+        public SFML.Graphics.Color background = new SFML.Graphics.Color(35, 31, 34);
+        public SFML.Graphics.Color outline = new SFML.Graphics.Color(255, 255, 255);
+        public SFML.Graphics.Color bar_graylife = new SFML.Graphics.Color(200, 0, 0);
+        public SFML.Graphics.Color bar_fulllife = new SFML.Graphics.Color(50, 190, 60);
+        public SFML.Graphics.Color bar_life = new SFML.Graphics.Color(240, 220, 20);
+        public SFML.Graphics.Color bar_super = new SFML.Graphics.Color(5, 110, 150);
+        public SFML.Graphics.Color bar_super_full = new SFML.Graphics.Color(0, 185, 255);
         
         // visuals
         Sprite hud = new Sprite(new Texture("Assets/ui/hud.png"));
@@ -35,7 +34,6 @@ namespace UI_space {
 
         private UI() {
             this.font_textures = new Dictionary<string, Dictionary<char, Sprite>>();
-            this.clock = new Clock();
         }
 
         public static UI Instance
@@ -71,11 +69,10 @@ namespace UI_space {
             this.font_textures[textureName] = characterSprites;
         }
 
-        // Simple Draw Calls
+        // Draw Callers
         public void ShowFramerate(RenderWindow window, string textureName) {
-            var frametime = this.clock.Restart().AsSeconds();
-            this.elapsed = this.counter % (60/2) == 0 ? (int) (1 / frametime) : this.elapsed;
-            this.DrawText(window, this.elapsed.ToString() + " - " + frametime.ToString("F5"), 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
+            this.elapsed = this.counter % (60/2) == 0 ? (int) (1 / Program.last_frame_time) : this.elapsed;
+            this.DrawText(window, this.elapsed.ToString() + " - " + Program.last_frame_time.ToString("F5"), 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
         }
 
         public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default medium") {
@@ -123,7 +120,7 @@ namespace UI_space {
             }
         }
 
-        public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, Color color) {
+        public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, SFML.Graphics.Color color) {
             RectangleShape rectangle = new RectangleShape(new Vector2f(width, height))
             {
                 Position = new Vector2f(Camera.GetInstance().X + X, Camera.GetInstance().Y + Y),
@@ -203,6 +200,41 @@ namespace UI_space {
             this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
         }
         
+        public void LoadFonts() {
+            BitmapFont.Load("default medium", "Assets/fonts/default medium.png");
+            BitmapFont.Load("default medium grad", "Assets/fonts/default medium grad.png");
+            BitmapFont.Load("default medium white", "Assets/fonts/default medium white.png");
+            BitmapFont.Load("default medium red", "Assets/fonts/default medium red.png");
+            BitmapFont.Load("default medium click", "Assets/fonts/default medium click.png");
+            BitmapFont.Load("default medium hover", "Assets/fonts/default medium hover.png");
+
+            BitmapFont.Load("default small", "Assets/fonts/default small.png");
+            BitmapFont.Load("default small grad", "Assets/fonts/default small grad.png");
+            BitmapFont.Load("default small white", "Assets/fonts/default small white.png");
+            BitmapFont.Load("default small red", "Assets/fonts/default small red.png");
+            BitmapFont.Load("default small click", "Assets/fonts/default small click.png");
+            BitmapFont.Load("default small hover", "Assets/fonts/default small hover.png");
+
+            BitmapFont.Load("1", "Assets/fonts/font1.png");
+            BitmapFont.Load("icons", "Assets/fonts/icons.png");
+
+            UI.Instance.LoadCharacterSprites(32, "default medium");
+            UI.Instance.LoadCharacterSprites(32, "default medium grad");
+            UI.Instance.LoadCharacterSprites(32, "default medium white");
+            UI.Instance.LoadCharacterSprites(32, "default medium red");
+            UI.Instance.LoadCharacterSprites(32, "default medium click");
+            UI.Instance.LoadCharacterSprites(32, "default medium hover");
+
+            UI.Instance.LoadCharacterSprites(32, "default small");
+            UI.Instance.LoadCharacterSprites(32, "default small grad");
+            UI.Instance.LoadCharacterSprites(32, "default small white");
+            UI.Instance.LoadCharacterSprites(32, "default small red");
+            UI.Instance.LoadCharacterSprites(32, "default small click");
+            UI.Instance.LoadCharacterSprites(32, "default small hover");
+
+            UI.Instance.LoadCharacterSprites(32, "1");
+            UI.Instance.LoadCharacterSprites(32, "icons");
+        }
     }
 
     public static class BitmapFont {

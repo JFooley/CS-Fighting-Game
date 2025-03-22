@@ -53,9 +53,11 @@ public class Stage {
     public int start_point_B;
     public Vector2f center_point => new Vector2f(length / 2, height / 2);
 
-    // Aux
+    // Timers
     private Stopwatch timer;
     private Stopwatch matchTimer;
+
+    // Aux
     private int pause_pointer = 0;
 
     // Pre-renders
@@ -77,6 +79,8 @@ public class Stage {
     // Visual info
     public Color AmbientLight = new Color(255, 255, 255, 255);
     private Sprite fade90 = new Sprite(new Texture("Assets/ui/90fade.png"));
+    private Texture[] shadows;
+    private Sprite shadow;
 
     public Stage(string name, int floorLine, int length, int height, string spritesFolderPath, string soundFolderPath, string thumbPath) {
         this.name = name;
@@ -115,10 +119,15 @@ public class Stage {
             this.character_A.comboCounter = 0;
         }
 
+        // Pause
+        if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) {
+            this.Pause();
+        }
+
         // Update Current Sprite
         this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
 
-        // Render sprite
+        // Render stage sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = this.spriteImages[this.CurrentSprite];
             temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
@@ -154,16 +163,18 @@ public class Stage {
         this.OnSceneParticles.RemoveAll(obj => obj.remove);
         this.OnSceneParticles.AddRange(this.newParticles);
         this.newParticles.Clear();
-        
-        // Render chars, UI and particles
-        foreach (Character char_object in this.OnSceneCharacters) char_object.DoRender(window, this.show_boxs);
-        UI.Instance.DrawBattleUI(window, this);
-        foreach (Character part_object in this.OnSceneParticles) part_object.DoRender(window, this.show_boxs);
 
-        if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) {
-            this.Pause();
+        // Render chars, UI, shadows and particles
+        foreach (Character char_object in this.OnSceneCharacters) {
+            this.DrawShadow(window, char_object);
+            char_object.DoRender(window, this.show_boxs);
         }
-
+        UI.Instance.DrawBattleUI(window, this);
+        foreach (Character part_object in this.OnSceneParticles) {
+            part_object.DoRender(window, this.show_boxs);
+        }
+        
+        // Render Pause menu and Traning assets
         if (this.debug_mode) this.DebugMode(window);
         if (this.pause) this.PauseScreen(window);
     }
@@ -292,10 +303,12 @@ public class Stage {
     }
     public void spawnHitspark(int hit, float X, float Y, int facing, int X_offset = 0, int Y_offset = 0) {
         var hs = new Hitspark("default", X + X_offset * facing, Y + Y_offset, facing);
-        if (hit == 1) {
-            hs.CurrentState = "OnHit" + Program.random.Next(1, 4);
+        if (hit == 2) {
+            hs.CurrentState = "Parry";
+        } else if (hit == 1) {
+            hs.CurrentState = "Hit" + Program.random.Next(1, 4);
         } else if (hit == 0){
-            hs.CurrentState = "OnBlock";
+            hs.CurrentState = "Block";
         } else {
             return;
         }
@@ -313,22 +326,39 @@ public class Stage {
         return fb;
     }
 
+    // Visuals
+    public void DrawShadow(RenderWindow window, Character char_obj) {
+        if (char_obj.shadow_size != -1) {
+            this.shadow.Texture = this.shadows[char_obj.shadow_size];
+            this.shadow.Position = new Vector2f(char_obj.body.Position.X - this.shadow.GetLocalBounds().Width/2, this.floorLine - this.shadow.GetLocalBounds().Height/2 - 55 );
+            this.shadow.Color = this.AmbientLight;
+            window.Draw(this.shadow);
+        }
+    }
+
     // Auxiliary
     public void CheckColisions() {
-        for (int i = 0; i < this.OnSceneCharacters.Count(); i++) {
-            for (int j = 0; j < this.OnSceneCharacters.Count(); j++) {
+        // Aleatoriza a lista para não dar vantagem sempre a um mesmo char
+        var OnSceneCharactersRandom = this.OnSceneCharacters.OrderBy(x => Program.random.Next()).ToList();
+
+        for (int i = 0; i < OnSceneCharactersRandom.Count(); i++) {
+            for (int j = 0; j < OnSceneCharactersRandom.Count(); j++) {
                 if (i == j) continue;
-                var charA = this.OnSceneCharacters[i];
-                var charB = this.OnSceneCharacters[j];
+                var charA = OnSceneCharactersRandom[i];
+                var charB = OnSceneCharactersRandom[j];
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
-                        if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) { // Push A e Push B
+                        if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) {
+                            // Colisão física
                             GenericBox.Colide(boxA, boxB, charA, charB);
 
                         } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && charA.type >= charB.type && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
                             this.hitstopCounter = Config.hitStopTime;
+
+                            charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
                             var hit = charA.ImposeBehavior(charB);
-                            charA.hasHit = true;
+
+                            // Soma o contador de combo do time
                             if (charA.team == 0) this.character_A.comboCounter += hit == 1 ? 1 : 0;
                             else this.character_B.comboCounter += hit == 1 ? 1 : 0;
 
@@ -540,6 +570,13 @@ public class Stage {
         if (!System.IO.Directory.Exists(fullPath)) {
             return false;
         }
+
+        // Load shadows textures
+        this.shadows = new Texture[3];
+        for (int i = 0; i < 3; i++) {
+            this.shadows[i] = new Texture("Assets/characters/Default/Sprites/shadow" + i + ".png");
+        }
+        this.shadow = new Sprite(this.shadows[0]);
 
         // Obtém todos os arquivos no diretório especificado
         string[] files = System.IO.Directory.GetFiles(fullPath);

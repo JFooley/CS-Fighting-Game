@@ -9,6 +9,7 @@ public class Fireball : Character {
             this.team = team;
             this.facing = facing;
             this.LifePoints = new Vector2i(1, 1);
+            this.shadow_size = 0;
         }
     public override void Load() {
         // Animations

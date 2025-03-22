@@ -79,6 +79,9 @@ public class Character : Object_Space.Object {
     public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
+    // visuals
+    public int shadow_size = 1;
+
     // Gets
     public string CurrentSprite = "";
     public string CurrentSound = "";
@@ -132,7 +135,6 @@ public class Character : Object_Space.Object {
                 LastSprites[0] = temp_copy;
             }
         } else LastSprites = new Sprite[3];
-        
 
         // Render current sprite
         window.Draw(temp_sprite);
@@ -382,7 +384,7 @@ public class Character : Object_Space.Object {
     public void LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
         string fullPath = Path.Combine(currentDirectory, this.folderPath);
-
+        
         // Verifica se o diretório existe
         if (!System.IO.Directory.Exists(fullPath)) {
             throw new System.IO.DirectoryNotFoundException($"O diretório {fullPath} não foi encontrado.");
