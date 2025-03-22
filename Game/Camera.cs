@@ -76,7 +76,7 @@ public class Camera
             Program.view.Center = new Vector2f(this.X, this.Y);
             this.window.SetView(Program.view);
         } else {
-            Program.view.Center = new Vector2f(Config.WindowWidth * 0.3f / 2, Config.WindowHeight * 0.3f / 2);
+            Program.view.Center = new Vector2f(Config.RenderWidth / 2, Config.RenderHeight / 2);
             this.window.SetView(Program.view);
         }
     }

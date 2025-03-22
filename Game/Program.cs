@@ -79,7 +79,8 @@ public static class Program
         sub_state = Intro;
 
         // Crie uma janela
-        window = new RenderWindow(new VideoMode(Config.WindowWidth, Config.WindowHeight), Config.GameTitle);
+        if (Config.Fullscreen == true) window = new RenderWindow(new VideoMode(VideoMode.DesktopMode.Width, VideoMode.DesktopMode.Height), Config.GameTitle, Styles.None);
+        else window = new RenderWindow(new VideoMode(Config.RenderWidth*3, Config.RenderHeight*3), Config.GameTitle, Styles.Default);
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(Config.Framerate);
         window.SetVerticalSyncEnabled(Config.Vsync);
@@ -303,24 +304,27 @@ public static class Program
                     UI.Instance.DrawText(window, "V-sync", -170, -54, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 2 ? "default small hover" : "default small");
                     UI.Instance.DrawText(window, "< " + (Config.Vsync ? "on" : "off") + " >", 0, -54, spacing: Config.spacing_small, textureName: pointer == 2 ? "default small red" : "default small");
                     //3
-                    UI.Instance.DrawText(window, "Round Lenght", -170, -44, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 3 ? "default small hover" : "default small");
-                    UI.Instance.DrawText(window, "< " + Config.RoundLength + "s >", 0, -44, spacing: Config.spacing_small, textureName: pointer == 3 ? "default small red" : "default small");
+                    UI.Instance.DrawText(window, "Window mode", -170, -44, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 3 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.Fullscreen ? "Fullscreen" : "Windowed") + " >", 0, -44, spacing: Config.spacing_small, textureName: pointer == 3 ? "default small red" : "default small");
                     //4
-                    UI.Instance.DrawText(window, "Match", -170, -34, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 4 ? "default small hover" : "default small");
-                    UI.Instance.DrawText(window, "< " + Config.max_rounds + " rounds >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
+                    UI.Instance.DrawText(window, "Round Lenght", -170, -34, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 4 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.RoundLength + "s >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
                     //5
-                    UI.Instance.DrawText(window, "Hitstop", -170, -24, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 5 ? "default small hover" : "default small");
-                    UI.Instance.DrawText(window, "< " + (Config.hitStopTime == 0 ? "no hitstop" : Config.hitStopTime + " frames") + " >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
+                    UI.Instance.DrawText(window, "Match", -170, -24, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 5 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + Config.max_rounds + " rounds >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
                     //6
-                    UI.Instance.DrawText(window, "Input window", -170, -14, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 6 ? "default small hover" : "default small");
-                    UI.Instance.DrawText(window, "< " + (Config.inputWindowTime == 1 ? "frame perfect" : Config.inputWindowTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
+                    UI.Instance.DrawText(window, "Hitstop", -170, -14, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 6 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.hitStopTime == 0 ? "no hitstop" : Config.hitStopTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
                     //7
-                    UI.Instance.DrawText(window, "Back", -80, 74, spacing: Config.spacing_medium, textureName: pointer == 7 ? "default medium red" : "default medium");
+                    UI.Instance.DrawText(window, "Input window", -170, -04, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 7 ? "default small hover" : "default small");
+                    UI.Instance.DrawText(window, "< " + (Config.inputWindowTime == 1 ? "frame perfect" : Config.inputWindowTime + " frames") + " >", 0, -04, spacing: Config.spacing_small, textureName: pointer == 7 ? "default small red" : "default small");
+                    //8
+                    UI.Instance.DrawText(window, "Back", -80, 74, spacing: Config.spacing_medium, textureName: pointer == 8 ? "default medium red" : "default medium");
 
                     // Change option 
                     if (InputManager.Instance.Key_down("Up") && pointer > 0) {
                         pointer -= 1;
-                    } else if (InputManager.Instance.Key_down("Down") && pointer < 7) {
+                    } else if (InputManager.Instance.Key_down("Down") && pointer < 8) {
                         pointer += 1;
                     }
 
@@ -337,23 +341,33 @@ public static class Program
                         Config.Vsync = !Config.Vsync;
                         window.SetVerticalSyncEnabled(Config.Vsync);
 
-                    } else if (pointer == 3) { 
+                    } else if (pointer == 3 && (InputManager.Instance.Key_down("Left") || InputManager.Instance.Key_down("Right"))) { 
+                        Config.Fullscreen = !Config.Fullscreen;
+                        window.Close();
+                        if (Config.Fullscreen == true) window = new RenderWindow(new VideoMode(VideoMode.DesktopMode.Width, VideoMode.DesktopMode.Height), Config.GameTitle, Styles.None);
+                        else window = new RenderWindow(new VideoMode(Config.RenderWidth*3, Config.RenderHeight*3), Config.GameTitle, Styles.Default);
+                        window.Closed += (sender, e) => window.Close();
+                        window.SetFramerateLimit(Config.Framerate);
+                        window.SetVerticalSyncEnabled(Config.Vsync);
+                        window.SetView(view);
+                        
+                    } else if (pointer == 4) { 
                         if (InputManager.Instance.Key_down("Left") && Config.RoundLength > 1) Config.RoundLength -= 1;
                         else if (InputManager.Instance.Key_down("Right") && Config.RoundLength < 99) Config.RoundLength += 1;
 
-                    } else if (pointer == 4) { 
+                    } else if (pointer == 5) { 
                         if (InputManager.Instance.Key_down("Left") && Config.max_rounds > 1) Config.max_rounds -= 1;
                         else if (InputManager.Instance.Key_down("Right") && Config.max_rounds < 5) Config.max_rounds += 1;
 
-                    } else if (pointer == 5) { 
+                    } else if (pointer == 6) { 
                         if (InputManager.Instance.Key_down("Left") && Config.hitStopTime > 0) Config.hitStopTime -= 1;
                         else if (InputManager.Instance.Key_down("Right")) Config.hitStopTime += 1;
 
-                    } else if (pointer == 6) { 
+                    } else if (pointer == 7) { 
                         if (InputManager.Instance.Key_down("Left") && Config.inputWindowTime > 1) Config.inputWindowTime -= 1;
                         else if (InputManager.Instance.Key_down("Right")) Config.inputWindowTime += 1;
 
-                    } else if (pointer == 7 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+                    } else if (pointer == 8 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
                         Config.SaveToFile();
                         game_state = SelectStage;
                         pointer = 0;
