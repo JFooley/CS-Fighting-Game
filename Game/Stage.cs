@@ -251,36 +251,46 @@ public class Stage {
         fade90.Position = new Vector2f(Program.camera.X - Config.RenderWidth/2, Program.camera.Y - Config.RenderHeight/2);
         window.Draw(fade90);
 
+        // Draw options
         UI.Instance.DrawText(window, "Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
-        UI.Instance.DrawText(window, "Training mode", 0, -40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
-        if (debug_mode) UI.Instance.DrawText(window, "Show hitboxes", 0, -20, spacing: Config.spacing_small, textureName: this.pause_pointer == 1 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block: after hit" : "Block: never", 0, -10, spacing: Config.spacing_small, textureName: this.pause_pointer == 2 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, refil_life ? "Life: refil" : "Life: keep", 0, 0, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, refil_super ? "Super: refil" : "Super: keep", 0, 10, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
-
-        UI.Instance.DrawText(window, "End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 5 ? "default medium red" : "default medium");
+        UI.Instance.DrawText(window, "Settings", 0, -40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
+        UI.Instance.DrawText(window, "Training mode", 0, -20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
+        if (debug_mode) UI.Instance.DrawText(window, "Show hitboxes", 0, 0, spacing: Config.spacing_small, textureName: this.pause_pointer == 2 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block: after hit" : "Block: never", 0, 10, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(window, refil_life ? "Life: refil" : "Life: keep", 0, 20, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(window, refil_super ? "Super: refil" : "Super: keep", 0, 30, spacing: Config.spacing_small, textureName: this.pause_pointer == 5 ? "default small hover" : "default small");
+        UI.Instance.DrawText(window, "End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 6 ? "default medium red" : "default medium");
 
         // Change option 
         if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {
             this.pause_pointer -= 1;
-            if (!debug_mode && this.pause_pointer != 0) this.pause_pointer = 0; 
-        } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 5) {
+            if (!debug_mode && this.pause_pointer < 5 && this.pause_pointer > 1) this.pause_pointer = 1;
+        } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 6) {
             this.pause_pointer += 1;
-            if (!debug_mode && this.pause_pointer != 5) this.pause_pointer = 5;
+            if (!debug_mode && this.pause_pointer < 5 && this.pause_pointer > 1) this.pause_pointer = 6;
         }
 
         // Do option
         if (this.pause_pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
-            this.debug_mode = !this.debug_mode;
+            Program.return_state = Program.game_state;
+            Program.game_state = Program.Settings;
+
         } else if (this.pause_pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+            this.debug_mode = !this.debug_mode;
+
+        }  else if (this.pause_pointer == 2 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
             this.show_boxs = !this.show_boxs;
-        } else if (this.pause_pointer == 2 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+
+        } else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
             this.block_after_hit = !this.block_after_hit;
-        } else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
+
+        } else if (this.pause_pointer == 4 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
             this.refil_life = !this.refil_life;
-        } else if (this.pause_pointer == 4 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+
+        } else if (this.pause_pointer == 5 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
             this.refil_super = !this.refil_super;
-        } else if (this.pause_pointer == 5 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {  
+
+        } else if (this.pause_pointer == 6 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {  
             this.Pause();
             Program.winner = Program.Drawn;
             Program.sub_state = Program.MatchEnd;

@@ -55,7 +55,6 @@ public class Character : Object_Space.Object {
     private string LastState { get; set; }
     private Sprite[] LastSprites = new Sprite[3];
     public bool doTrace = false;
-    public Color TraceColor = new Color(10, 10, 255, 125); 
     public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
@@ -122,17 +121,16 @@ public class Character : Object_Space.Object {
 
         // Render tracing
         if (this.CurrentAnimation.doTrace || this.doTrace) {
+            Program.hueChange.SetUniform("hslInput", new SFML.Graphics.Glsl.Vec3(0.66f, 0.5f, 0.75f));
+
             for (int i = 0; i < 3; i++) {
-                if (LastSprites[i] != null) window.Draw(LastSprites[i]);
+                if (LastSprites[i] != null) window.Draw(LastSprites[i], new RenderStates(Program.hueChange));
             }
             
-            if (this.hasFrameChange) {
-                var temp_copy = new Sprite(temp_sprite);
-                temp_copy.Color = this.TraceColor;
-                
+            if (this.hasFrameChange) {               
                 LastSprites[2] = LastSprites[1];
                 LastSprites[1] = LastSprites[0];
-                LastSprites[0] = temp_copy;
+                LastSprites[0] = temp_sprite;
             }
         } else LastSprites = new Sprite[3];
 

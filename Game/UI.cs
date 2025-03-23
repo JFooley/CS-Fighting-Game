@@ -53,7 +53,7 @@ namespace UI_space {
             this.blink10Hz = this.counter % (60/10) == 0 ? this.blink10Hz = !this.blink10Hz : this.blink10Hz;
             this.blink4Hz = this.counter % (60/4) == 0 ? this.blink4Hz = !this.blink4Hz : this.blink4Hz;
             this.blink2Hz = this.counter % (60/2) == 0 ? this.blink2Hz = !this.blink2Hz : this.blink2Hz;
-            this.blink1Hz = !this.blink2Hz;
+            this.blink1Hz = this.counter % 60 == 0 ? this.blink1Hz = !this.blink1Hz : this.blink1Hz;;
         }
 
         // Loads

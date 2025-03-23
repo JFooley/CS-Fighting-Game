@@ -2232,3 +2232,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Default\Sprites\shadow1.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Default\Sprites\shadow2.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\config.json
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\shaders\color_tinter.frag
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\ui\bgchar.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\Ken.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\Psylock.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\shaders\color_fill.frag
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\shaders\hue_change.frag

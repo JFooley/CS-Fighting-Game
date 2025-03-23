@@ -50,6 +50,9 @@ public class Camera
         }
     }
 
+    public void SetWindow(RenderWindow window) {
+        this.window = window;
+    }
     public void SetChars(Character charA, Character charB) {
         this.CharA = charA;
         this.CharB = charB;

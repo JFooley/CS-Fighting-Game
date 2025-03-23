@@ -1,6 +1,7 @@
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Default\Sprites\shadow0.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Default\Sprites\shadow1.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Default\Sprites\shadow2.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\Ken.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\dash.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\golpe_2.mp3
@@ -729,6 +730,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sprites\15686.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sprites\15687.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sprites\15688.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\Psylock.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\dash.wav
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_2.mp3
@@ -1906,6 +1908,9 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\particles\sprites\Particle\519.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\particles\sprites\Particle\520.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\particles\sprites\Particle\521.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\shaders\color_fill.frag
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\shaders\color_tinter.frag
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\shaders\hue_change.frag
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\sound\music.mp3
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\sprites\0.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\sprites\1.png
@@ -2199,6 +2204,7 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\9.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\90fade.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\bgchar.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\fight.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\hud.xcf
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\Regua.png

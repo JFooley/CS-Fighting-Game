@@ -5,6 +5,7 @@ using SFML.System;
 using Stage_Space;
 using UI_space;
 using System.Diagnostics;
+using Character_Space;
 
 // ----- Game States -----
 // 0 - Intro
@@ -47,6 +48,7 @@ public static class Program
 
     // State holders
     public static int game_state;
+    public static int return_state;
     public static int sub_state;
 
     // Common objects
@@ -65,11 +67,18 @@ public static class Program
     public static SFML.Graphics.View view = new SFML.Graphics.View(new FloatRect(0, 0, Config.RenderWidth, Config.RenderHeight));
 
     // Aux
-    public static int pointer = 0;
-    public static int charA_selected = 0;
-    public static int charB_selected = 0;
+    private static int pointer = 0;
+    private static int charA_selected = -1;
+    private static int charB_selected = -1;
+    private static int pointer_charA = 0;
+    private static int pointer_charB = 0;
     public static bool loading = false;
     public static double last_frame_time = 0;
+
+    // Shaders
+    public static Shader colorTinterShader;
+    public static Shader colorFillShader;
+    public static Shader hueChange;
 
     public static void Main() {  
         Config.LoadFromFile();
@@ -93,8 +102,19 @@ public static class Program
         camera = Camera.GetInstance(window);
         frametimer = new Stopwatch();
 
+        // Carregamento de shaders
+        colorTinterShader = new Shader(null, null, "Assets/shaders/color_tinter.frag");
+        colorFillShader = new Shader(null, null, "Assets/shaders/color_fill.frag");
+        hueChange = new Shader(null, null, "Assets/shaders/hue_change.frag");
+
         // Carregamento de texturas de fontes
         UI.Instance.LoadFonts();
+
+        // Personagens selecionáveis
+        Dictionary<int, (Texture, string)> characters = new Dictionary<int, (Texture, string)>{
+            {0, (new Texture("Assets/characters/Ken/Ken.png"), "Ken")},
+            {1, (new Texture("Assets/characters/Psylock/Psylock.png"), "Psylock")},
+        };
 
         // Instanciamento do stages
         List<Stage> stages = new List<Stage>{
@@ -113,12 +133,15 @@ public static class Program
         // Menu e SelectStage visuals
         Sprite main_screen = new Sprite(new Texture("Assets/ui/title.png"));
         Sprite frame = new Sprite(new Texture("Assets/ui/frame.png"));
+        Sprite bgchar = new Sprite(new Texture("Assets/ui/bgchar.png"));
         Sprite fade90 = new Sprite(new Texture("Assets/ui/90fade.png"));
         Sprite fight_logo = new Sprite(new Texture("Assets/ui/fight.png"));
         Sprite timesup_logo = new Sprite(new Texture("Assets/ui/timesup.png"));
         Sprite KO_logo = new Sprite(new Texture("Assets/ui/ko.png"));
         Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
         Sprite fslogo = new Sprite(new Texture("Assets/ui/fs.png"));
+        Sprite sprite_A = new Sprite(characters[pointer_charA].Item1);
+        Sprite sprite_B = new Sprite(characters[pointer_charB].Item1);
 
         while (window.IsOpen) {
             window.DispatchEvents();
@@ -126,7 +149,7 @@ public static class Program
             UI.Instance.Update();
             camera.Update();
             frametimer.Restart();
-
+            
             switch (game_state) {
                 case Intro:
                     game_state = MainMenu;
@@ -152,11 +175,15 @@ public static class Program
 
                     if (InputManager.Instance.Key_down("Left") && pointer > 0) {
                         pointer -= 1;
+                        
                     } else if (InputManager.Instance.Key_down("Right") && pointer < stages.Count - 1) {
                         pointer += 1;
+
                     } else if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")) {
                         if (stages[pointer].name == "Settings") {
+                            return_state = SelectStage;
                             game_state = Settings;
+
                         } else {
                             if (stages[pointer].name == "Random") pointer = Program.random.Next(1, stages.Count()-2);
                             Program.stage = stages[pointer];
@@ -167,9 +194,63 @@ public static class Program
                     break;
                 
                 case SelectChar:
-                    charA_selected = 0;
-                    charB_selected = 0;
-                    game_state = LoadScreen;
+                    window.Draw(bgchar);
+
+                    // Setup sprites texture
+                    sprite_A.Texture = characters[pointer_charA].Item1;
+                    sprite_B.Texture = characters[pointer_charB].Item1;
+
+                    // Draw Shadows
+                    sprite_A.Scale = new Vector2f(1f, 1f);
+                    sprite_B.Scale = new Vector2f(-1f, 1f);
+
+                    sprite_A.Position = new Vector2f(Camera.Instance.X - 81 - sprite_A.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_A.GetLocalBounds().Height/2);
+                    window.Draw(sprite_A, new RenderStates(colorFillShader));
+                    sprite_B.Position = new Vector2f(Camera.Instance.X + 73 + sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
+                    window.Draw(sprite_B, new RenderStates(colorFillShader));
+
+                    // Draw main sprite
+                    colorTinterShader.SetUniform("tintColor", new SFML.Graphics.Glsl.Vec3(0, 0, 0));
+                    colorTinterShader.SetUniform("intensity", 0.75f);
+
+                    sprite_A.Position = new Vector2f(Camera.Instance.X - 77 - sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
+                    if (charA_selected != -1) window.Draw(sprite_A, new RenderStates(colorTinterShader));
+                    else window.Draw(sprite_A);
+                    sprite_B.Position = new Vector2f(Camera.Instance.X + 77 + sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
+                    sprite_B.Scale = new Vector2f(-1f, 1f);
+                    if (charB_selected != -1) window.Draw(sprite_B, new RenderStates(colorTinterShader));
+                    else window.Draw(sprite_B);
+
+                    // Draw texts
+                    if (charA_selected == -1) UI.Instance.DrawText(window, "<  >", -77, -16);
+                    if (charB_selected == -1) UI.Instance.DrawText(window, "<  >", +77, -16);
+                    UI.Instance.DrawText(window, player1_wins.ToString(), 0, 63, alignment: "right");
+                    UI.Instance.DrawText(window, player2_wins.ToString(), 0, 63, alignment: "left");
+                    UI.Instance.DrawText(window, characters[pointer_charA].Item2, -77, 45, spacing: Config.spacing_small, textureName: "default small");
+                    UI.Instance.DrawText(window, characters[pointer_charB].Item2, +77, 45, spacing: Config.spacing_small, textureName: "default small");
+
+                    // Chose option A
+                    if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == -1) {
+                        pointer_charA -= 1;
+                    } else if (InputManager.Instance.Key_down("Right", player: 1) && pointer_charA < characters.Count - 1 && charA_selected == -1) {
+                        pointer_charA += 1;
+                    } else if (InputManager.Instance.Key_down("A", player: 1) || InputManager.Instance.Key_down("B", player: 1) || InputManager.Instance.Key_down("C", player: 1) || InputManager.Instance.Key_down("D", player: 1)) {
+                        charA_selected = pointer_charA;
+                    } 
+
+                    // Chose option B
+                    if (InputManager.Instance.Key_down("Left", player: 2) && pointer_charB > 0 && charB_selected == -1) {
+                        pointer_charB -= 1;
+                    } else if (InputManager.Instance.Key_down("Right", player: 2) && pointer_charB < characters.Count - 1 && charB_selected == -1) {
+                        pointer_charB += 1;
+                    } else if (InputManager.Instance.Key_down("A", player: 2) || InputManager.Instance.Key_down("B", player: 2) || InputManager.Instance.Key_down("C", player: 2) || InputManager.Instance.Key_down("D", player: 2)) {
+                        charB_selected = pointer_charB;
+                    } 
+                    
+                    // Ends when chars are selected
+                    if (charA_selected != -1 && charB_selected != -1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
+                        game_state = LoadScreen;
+                    } 
                     break;
                 
                 case LoadScreen:
@@ -292,7 +373,9 @@ public static class Program
                     break;
                 
                 case Settings:
+                    settings_bg.Position = new Vector2f(Program.camera.X - Config.RenderWidth/2, Program.camera.Y - Config.RenderHeight/2);
                     window.Draw(settings_bg);
+
                     UI.Instance.DrawText(window, "Settings", -80, -107, spacing: Config.spacing_medium);
                     //0
                     UI.Instance.DrawText(window, "Main volume", -170, -74, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 0 ? "default small hover" : "default small");
@@ -350,6 +433,7 @@ public static class Program
                         window.SetFramerateLimit(Config.Framerate);
                         window.SetVerticalSyncEnabled(Config.Vsync);
                         window.SetView(view);
+                        camera.SetWindow(window);
                         
                     } else if (pointer == 4) { 
                         if (InputManager.Instance.Key_down("Left") && Config.RoundLength > 1) Config.RoundLength -= 1;
@@ -369,7 +453,7 @@ public static class Program
 
                     } else if (pointer == 8 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
                         Config.SaveToFile();
-                        game_state = SelectStage;
+                        game_state = return_state;
                         pointer = 0;
                     }
                     break;
@@ -387,8 +471,14 @@ public static class Program
         stage.LoadCharacters(charA_selected, charB_selected);
         camera.SetChars(stage.character_A, stage.character_B);
         camera.SetLimits(stage.length, stage.height);
+
         loading = false;
         pointer = 0;
+        charA_selected = -1;
+        charB_selected = -1;
+        pointer_charA = 0;
+        pointer_charB = 0;
+
         game_state = Battle;
     }
 }
