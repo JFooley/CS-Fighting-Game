@@ -168,10 +168,14 @@ public static class Program
                 case SelectStage:
                     window.Draw(stages[pointer].thumb);
                     window.Draw(frame);
-                    UI.Instance.DrawText(window, stages[pointer].name, 0, -80, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("A") || InputManager.Instance.Key_hold("B") || InputManager.Instance.Key_hold("C") || InputManager.Instance.Key_hold("D") ? "default medium click" : "default medium white");
 
-                    UI.Instance.DrawText(window, Program.player1_wins.ToString(), -Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, size: 1f, textureName: "default medium", alignment: "left");
-                    UI.Instance.DrawText(window, Program.player2_wins.ToString(), Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, size: 1f, textureName: "default medium", alignment: "right");
+                    // draw texts
+                    UI.Instance.DrawText(window, stages[pointer].name, 0, -80, spacing: Config.spacing_medium, textureName: InputManager.Instance.Key_hold("A") || InputManager.Instance.Key_hold("B") || InputManager.Instance.Key_hold("C") || InputManager.Instance.Key_hold("D") ? "default medium click" : "default medium white");
+                    UI.Instance.DrawText(window, Program.player1_wins.ToString(), -Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, textureName: "default medium", alignment: "left");
+                    UI.Instance.DrawText(window, Program.player2_wins.ToString(), Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, textureName: "default medium", alignment: "right");
+                    
+                    UI.Instance.DrawText(window, "E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
+                    UI.Instance.DrawText(window, "Return", -183, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     if (InputManager.Instance.Key_down("Left") && pointer > 0) {
                         pointer -= 1;
@@ -190,7 +194,9 @@ public static class Program
                             game_state = SelectChar;
                         }
                         pointer = 0;
-                    } 
+                    } else if (InputManager.Instance.Key_up("LB")) {
+                        game_state = MainMenu;
+                    }
                     break;
                 
                 case SelectChar:
@@ -228,6 +234,9 @@ public static class Program
                     UI.Instance.DrawText(window, player2_wins.ToString(), 0, 63, alignment: "left");
                     UI.Instance.DrawText(window, characters[pointer_charA].Item2, -77, 45, spacing: Config.spacing_small, textureName: "default small");
                     UI.Instance.DrawText(window, characters[pointer_charB].Item2, +77, 45, spacing: Config.spacing_small, textureName: "default small");
+                    
+                    UI.Instance.DrawText(window, "E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
+                    UI.Instance.DrawText(window, "Return", -183, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     // Chose option A
                     if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == -1) {
@@ -246,6 +255,13 @@ public static class Program
                     } else if (InputManager.Instance.Key_down("A", player: 2) || InputManager.Instance.Key_down("B", player: 2) || InputManager.Instance.Key_down("C", player: 2) || InputManager.Instance.Key_down("D", player: 2)) {
                         charB_selected = pointer_charB;
                     } 
+                    
+                    // Return option
+                    else if (InputManager.Instance.Key_up("LB")) {
+                        charB_selected = -1;
+                        charA_selected = -1;
+                        game_state = SelectStage;
+                    }
                     
                     // Ends when chars are selected
                     if (charA_selected != -1 && charB_selected != -1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
