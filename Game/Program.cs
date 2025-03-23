@@ -175,7 +175,7 @@ public static class Program
                     UI.Instance.DrawText(window, Program.player2_wins.ToString(), Config.RenderWidth/2, -Config.RenderHeight/2, spacing: Config.spacing_medium, textureName: "default medium", alignment: "right");
                     
                     UI.Instance.DrawText(window, "E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
-                    UI.Instance.DrawText(window, "Return", -183, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
+                    UI.Instance.DrawText(window, "Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     if (InputManager.Instance.Key_down("Left") && pointer > 0) {
                         pointer -= 1;
@@ -236,7 +236,7 @@ public static class Program
                     UI.Instance.DrawText(window, characters[pointer_charB].Item2, +77, 45, spacing: Config.spacing_small, textureName: "default small");
                     
                     UI.Instance.DrawText(window, "E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
-                    UI.Instance.DrawText(window, "Return", -183, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
+                    UI.Instance.DrawText(window, "Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     // Chose option A
                     if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == -1) {
