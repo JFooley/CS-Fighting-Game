@@ -16,11 +16,19 @@ using UI_space;
 // JumpBackward
 // JumpFalling
 // Crouching
+
+// LightP
+// LightK
+// MediumP
+// MediumK
+
 // OnHit
 // OnHitLow
 // OnBlock
 // OnBlockLow
+
 // Airboned
+// Sweeped
 // Falling
 // OnGround
 // Wakeup
@@ -227,6 +235,10 @@ public class Character : Object_Space.Object {
     
     // Battle methods
     public virtual int ImposeBehavior(Character target) {
+        // -1 = Nothing
+        // 0 = Block
+        // 1 = Hit
+        // 2 = Parry
         return -1;
     }
     public bool isBlocking() {

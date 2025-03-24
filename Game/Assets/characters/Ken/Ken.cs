@@ -560,6 +560,14 @@ public class Ken : Character {
             new FrameData(14903, 0, 0, new List<GenericBox> { pushbox }),
         };
 
+        var sweepedFrames = new List<FrameData> {
+            // new FrameData("14916", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 155, 195, 95, 86) }),
+            new FrameData("14917", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 86, 104, 175, 164) }),
+            new FrameData("14918", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 85, 106, 175, 166) }),
+            new FrameData("14919", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 85, 115, 165, 174) }),
+            new FrameData("14920", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 85, 125, 154, 185) }),
+        };
+
         var OnGroundFrames = new List<FrameData> {
             new FrameData(14904, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14904, 0, 0, new List<GenericBox> { pushbox }),
@@ -669,21 +677,21 @@ public class Ken : Character {
             { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false, loop: false)}, 
             { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 30, changeOnLastframe: false, loop: false)},
             // Normals
-            { "LP", new Animation(LPFrames, "Idle", 30)},
-            { "LowLP", new Animation(lowLPFrames, "Crouching", 30)},
-            { "AirLP", new Animation(airLPFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "LK", new Animation(LKFrames, "Idle", 30)},
-            { "LowLK", new Animation(lowLKFrames, "Crouching", 20)},
-            { "AirLK", new Animation(airLKFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "MP", new Animation(MPFrames, "Idle", 20)},
-            { "LowMP", new Animation(lowMPFrames, "Crouching", 20)},
-            { "AirMP", new Animation(airMPFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "BackMP", new Animation(HPFrames, "Idle", 20)},
-            { "MK", new Animation(MKFrames, "Idle", 20)},
-            { "LowMK", new Animation(lowMKFrames, "Crouching", 20)},
-            { "AirMK", new Animation(airMKFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "BackMK", new Animation(BackMKFrames, "Idle", 20)},
-            { "CloseHP", new Animation(cl_HPFrames, "Idle", 30)},
+            { "LightP", new Animation(LPFrames, "Idle", 30)},
+            { "LowLightP", new Animation(lowLPFrames, "Crouching", 30)},
+            { "AirLightP", new Animation(airLPFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "LightK", new Animation(LKFrames, "Idle", 30)},
+            { "LowLightK", new Animation(lowLKFrames, "Crouching", 20, hitstop: "Medium")},
+            { "AirLightK", new Animation(airLKFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "MediumP", new Animation(MPFrames, "Idle", 20, hitstop: "Medium")},
+            { "LowMediumP", new Animation(lowMPFrames, "Crouching", 20, hitstop: "Medium")},
+            { "AirMediumP", new Animation(airMPFrames, "Idle", 20, hitstop: "Medium", changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "BackMediumP", new Animation(HPFrames, "Idle", 20, hitstop: "Heavy")},
+            { "MediumK", new Animation(MKFrames, "Idle", 20, hitstop: "Medium")},
+            { "LowMediumK", new Animation(lowMKFrames, "Crouching", 20, hitstop: "Heavy")},
+            { "AirMediumK", new Animation(airMKFrames, "Idle", 20, hitstop: "Medium", changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "BackMediumK", new Animation(BackMKFrames, "Idle", 20, hitstop: "Light")},
+            { "CloseMP", new Animation(cl_HPFrames, "Idle", 30, hitstop: "Medium")},
             // Movement
             { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 20)},
             { "WalkingBackward", new Animation(walkingBackwardFrames, "WalkingBackward", 20)},
@@ -697,25 +705,26 @@ public class Ken : Character {
             { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 60)},
             { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
             // Super
-            { "SA1", new Animation(SA1, "MK", 60, doTrace: true)},
+            { "SA1", new Animation(SA1, "MediumK", 60, doTrace: true)},
             { "SA1_tail", new Animation(SA1_tail, "JumpFalling", 30, doTrace: true)},
             { "Shungoku", new Animation(Shungoku, "Idle", 10, doTrace: true)},
             { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Landing", 30, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "ShoryEX", new Animation(heavyShoryFrames, "Landing", 60, changeOnLastframe: false, changeOnGround: true, loop: false, doTrace: true)},
-            { "LightHaduken", new Animation(hadukenFrames, "Idle", 30)},
-            { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20)},
-            { "HadukenEX", new Animation(hadukenFrames, "Idle", 30, doTrace: true)},
-            { "LightTatso", new Animation(lightTatsoFrames, "Landing", 30)},
-            { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30)},
-            { "TatsoEX", new Animation(EXTatsoFrames, "Landing", 60, doTrace: true)},
+            { "LightShory", new Animation(lightShoryFrames, "Landing", 30, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "HeavyShory", new Animation(heavyShoryFrames, "Landing", 30, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "ShoryEX", new Animation(heavyShoryFrames, "Landing", 60, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false, doTrace: true)},
+            { "LightHaduken", new Animation(hadukenFrames, "Idle", 30, hitstop: "Medium")},
+            { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20, hitstop: "Medium")},
+            { "HadukenEX", new Animation(hadukenFrames, "Idle", 30, hitstop: "Heavy", doTrace: true)},
+            { "LightTatso", new Animation(lightTatsoFrames, "Landing", 30, hitstop: "Medium")},
+            { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30, hitstop: "Medium")},
+            { "TatsoEX", new Animation(EXTatsoFrames, "Landing", 60, hitstop: "Medium", doTrace: true)},
             { "AirTatso", new Animation(tatsoFrames, "Landing", 30, changeOnGround: true, changeOnLastframe: false)},
             { "AirTatsoEX", new Animation(tatsoFrames, "Landing", 60, changeOnGround: true, changeOnLastframe: false, doTrace: true)},
             // Hit and Block
             { "Airboned", new Animation(AirbonedFrames, "Falling", 15, changeOnGround: true, changeOnLastframe: false, loop: false)},
-            { "Falling", new Animation(fallingFrames, "OnGround", 15)},
+            { "Falling", new Animation(fallingFrames, "OnGround", 20)},
+            { "Sweeped", new Animation(sweepedFrames, "Falling", 30)},
             { "OnGround", new Animation(OnGroundFrames, "Wakeup", 2)},
             { "Wakeup", new Animation(wakeupFrames, "Idle", 15)},
             // Bonus
@@ -785,7 +794,7 @@ public class Ken : Character {
         }
 
         // Super
-        if (InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseHP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLK"))) && Character.CheckSuperPoints(this, 100)) {
+        if (InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) && !this.onAir && (this.notActing || (this.hasHit && (this.CurrentState == "CloseMP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLightK"))) && Character.CheckSuperPoints(this, 100)) {
             Character.UseSuperPoints(this, 100);
             this.ChangeState("SA1");
             this.SA_flag = false;
@@ -812,21 +821,21 @@ public class Ken : Character {
         }
 
         // Shorys
-        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "CloseHP" || this.CurrentState == "LowLK" || this.CurrentState == "LowMP"))) {
+        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "CloseMP" || this.CurrentState == "LowLightK" || this.CurrentState == "LowMediumP"))) {
             this.ChangeState("LightShory");
         } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
-        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMP" )) {
+        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" )) {
             this.ChangeState("HeavyShory");
         } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 73);
         } 
-        if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMP" ) && Character.CheckSuperPoints(this, 50)) {
+        if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("ShoryEX");
         } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
@@ -837,7 +846,7 @@ public class Ken : Character {
 
         // Haduken
         if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
-        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MP" || this.CurrentState == "LP" || this.CurrentState == "LowLK")))) {
+        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
             this.current_fireball = stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.team, X_offset: 25);
@@ -882,37 +891,37 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LP") {
+        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LightP") {
             this.SetVelocity();
-            this.ChangeState("CloseHP");
+            this.ChangeState("CloseMP");
         } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
-            this.ChangeState("BackMK");
-        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !this.isCrounching && (this.notActing || (this.hasHit && this.CurrentState == "CloseHP"))) {
-            this.ChangeState("BackMP");
+            this.ChangeState("BackMediumK");
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !this.isCrounching && (this.notActing || (this.hasHit && this.CurrentState == "CloseMP"))) {
+            this.ChangeState("BackMediumP");
         } 
 
         if (this.notActing && this.isCrounching) {
-            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLP");
-            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLK");
-            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMP");
-            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMK");
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLightP");
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowLightK");
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMediumP");
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("LowMediumK");
         } else if (this.notActing) {
-            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LP");     
-            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LK");     
-            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("MP");     
-            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) ) this.ChangeState("MK");
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("LightP");     
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("LightK");     
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("MediumP");     
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) ) this.ChangeState("MediumK");
         } else if (this.notActingAir) {
-            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLP");
-            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLK");
-            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMP");
-            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMK");
+            if (InputManager.Instance.Key_press("C", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLightP");
+            else if (InputManager.Instance.Key_press("A", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirLightK");
+            else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMediumP");
+            else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing)) this.ChangeState("AirMediumK");
         }
     }
     
     public override int ImposeBehavior(Character target) {
         int hit = -1;
         switch (this.CurrentState) {
-            case "LP":
+            case "LightP":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -925,7 +934,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
                 
-            case "LowLP":
+            case "LowLightP":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -938,7 +947,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
 
-            case "AirLP":
+            case "AirLightP":
                 Character.Pushback(target: target, self: this, "Light", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -951,7 +960,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
 
-            case "LK":
+            case "LightK":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -964,7 +973,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
                 
-            case "LowLK":
+            case "LowLightK":
                 Character.Pushback(target: target, self: this, "Light");
                 if (target.isBlockingLow()) {
                     hit = 0;
@@ -977,7 +986,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
             
-            case "AirLK":
+            case "AirLightK":
                 Character.Pushback(target: target, self: this, "Light", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -990,7 +999,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit);
                 break;
 
-            case "MP":
+            case "MediumP":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -1003,7 +1012,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "LowMP":
+            case "LowMediumP":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -1016,7 +1025,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "AirMP":
+            case "AirMediumP":
                 Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -1029,7 +1038,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "MK":
+            case "MediumK":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;
@@ -1042,7 +1051,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "LowMK":
+            case "LowMediumK":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlockingLow()) {
                     hit = 0;
@@ -1050,12 +1059,12 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 130, 235);
-                    target.ChangeState("Falling");
+                    target.ChangeState("Sweeped");
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "AirMK":
+            case "AirMediumK":
                 Character.Pushback(target: target, self: this, "Medium", force_push: true);
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -1068,7 +1077,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "BackMK":
+            case "BackMediumK":
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -1082,7 +1091,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 6);
                 break;
 
-            case "BackMP":
+            case "BackMediumP":
                 Character.Pushback(target: target, self: this, "Heavy");
                 if (target.isBlockingHigh()) {
                     hit = 0;
@@ -1096,7 +1105,7 @@ public class Ken : Character {
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
-            case "CloseHP":
+            case "CloseMP":
                 Character.Pushback(target: target, self: this, "Medium");
                 if (target.isBlocking()) {
                     hit = 0;

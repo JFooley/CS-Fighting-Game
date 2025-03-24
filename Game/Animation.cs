@@ -17,6 +17,7 @@ public class Animation {
     public string post_state; 
     public int animSize;
     public int realAnimSize => animSize * (60 / this.framerate);
+    public string hitstop;
     public bool changeOnLastframe;
     public bool changeOnGround;
     public bool loop;
@@ -24,7 +25,7 @@ public class Animation {
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 30, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false) {
+    public Animation(List<FrameData> frames, string post_state, int framerate = 30, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false, string hitstop = "Default") {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.animSize = Frames.Count() - 1;
@@ -33,6 +34,7 @@ public class Animation {
         this.changeOnGround = changeOnGround;
         this.loop = loop;
         this.doTrace = doTrace;
+        this.hitstop = hitstop;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;

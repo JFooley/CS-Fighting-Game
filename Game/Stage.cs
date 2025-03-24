@@ -356,6 +356,7 @@ public class Stage {
                 if (i == j) continue;
                 var charA = OnSceneCharactersRandom[i];
                 var charB = OnSceneCharactersRandom[j];
+                
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
                         if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) {
@@ -363,7 +364,9 @@ public class Stage {
                             GenericBox.Colide(boxA, boxB, charA, charB);
 
                         } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && charA.type >= charB.type && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
-                            this.hitstopCounter = Config.hitStopTime;
+                            if (charA.CurrentAnimation.hitstop == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
+                            else if (charA.CurrentAnimation.hitstop == "Medium") this.hitstopCounter = Config.hitStopTime;
+                            else this.hitstopCounter = Config.hitStopTime * 3/4;
 
                             charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
                             var hit = charA.ImposeBehavior(charB);
