@@ -14,8 +14,6 @@ public class Camera
     public int X_stage_limits = 0;
     public int Y_stage_limits = 0;
 
-    public float camera_zoom = 0.3f;
-
     public RenderWindow window;
 
     // Camera Position
@@ -57,12 +55,10 @@ public class Camera
         this.CharA = charA;
         this.CharB = charB;
     }
-
     public void SetLimits(int length, int height) {
         this.X_stage_limits = length;
         this.Y_stage_limits = height;
     }
-
     public void Update() {   
         // Camera to center between players
         if (CharA != null && CharB != null) {
@@ -83,7 +79,6 @@ public class Camera
             this.window.SetView(Program.view);
         }
     }
-
     public void Reset() {
         this.CharA = null;
         this.CharB = null;

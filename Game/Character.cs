@@ -27,6 +27,10 @@ using UI_space;
 // OnBlock
 // OnBlockLow
 
+// Parry
+// LowParry
+// AirParry
+
 // Airboned
 // Sweeped
 // Falling
@@ -55,30 +59,34 @@ public class Character : Object_Space.Object {
     public int move_speed = 0;
     public int dash_speed = 0;
     public int jump_hight = 79;
-    public int push_box_width = 0;
+    public int push_box_width = 25;
 
     // Object infos
     public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
     public string CurrentState { get; set; }
     private string LastState { get; set; }
-    private Sprite[] LastSprites = new Sprite[3];
+    private Sprite[] LastSprites = new Sprite[3]; // For tracing
     public bool doTrace = false;
     public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
-    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame);
-    public bool notActingAir => (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward") && this.body.Position.Y < this.floorLine;
+    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "Parry" && this.hasHit);
+    public bool notActingAir => (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward" || (this.CurrentState == "AirParry" && this.hasHit)) && this.body.Position.Y < this.floorLine;
     public bool isCrounching = false;
     public bool onAir => this.body.Position.Y < this.floorLine;
     public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
+    public bool onParry => this.CurrentState.Contains("Parry");
     public bool blockingHigh = false;
     public bool blockingLow = false;
     public bool blocking = false;
 
-    // Counters
+    // Flags and counters
     public int comboCounter = 0;
     public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
+    public bool SA_flag = false;
+    public Vector2i parryTimer = new Vector2i(0, 60);
+    public bool canParry => this.parryTimer.X == this.parryTimer.Y;
 
     // Data
     public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
@@ -182,8 +190,11 @@ public class Character : Object_Space.Object {
                     case 1:
                         color = SFML.Graphics.Color.Blue;
                         break;
-                    default:
+                    case 2:
                         color = SFML.Graphics.Color.White;
+                        break;
+                    default:
+                        color = SFML.Graphics.Color.Green;
                         break;
                 }
 
@@ -203,6 +214,10 @@ public class Character : Object_Space.Object {
     }
     public override void DoAnimate() {
         if (!this.animate) return;
+
+        if (this.parryTimer.X < this.parryTimer.Y) {
+            this.parryTimer.X += 1;
+        }
 
         this.CheckStun();
 

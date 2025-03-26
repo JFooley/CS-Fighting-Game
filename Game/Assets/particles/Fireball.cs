@@ -8,7 +8,7 @@ public class Fireball : Character {
         : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage, 1) {
             this.team = team;
             this.facing = facing;
-            this.LifePoints = new Vector2i(1, 1);
+            this.LifePoints = new Vector2i(0, 0);
             this.shadow_size = 0;
         }
     public override void Load() {
@@ -169,7 +169,6 @@ public class Fireball : Character {
                 if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
-
 
             default:
                 this.remove = true;

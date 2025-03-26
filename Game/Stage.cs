@@ -12,7 +12,6 @@ namespace Stage_Space {
 public class Stage {
     // Basic Infos
     public string name = "Empty";
-    public float size_ratio = 1.0f;
     public string spritesFolderPath;
     public string soundFolderPath;
     public Sprite thumb;
@@ -130,7 +129,6 @@ public class Stage {
         // Render stage sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = this.spriteImages[this.CurrentSprite];
-            temp_sprite.Scale = new Vector2f(this.size_ratio, this.size_ratio);
             temp_sprite.Position = new Vector2f (0, 0);
             window.Draw(temp_sprite);
         }
@@ -359,24 +357,26 @@ public class Stage {
                 
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
-                        if (boxA.type == 2 && boxB.type == 2 && GenericBox.Intersects(boxA, boxB, charA, charB)) {
-                            // Colisão física
-                            GenericBox.Colide(boxA, boxB, charA, charB);
+                        if (GenericBox.Intersects(boxA, boxB, charA, charB)) {
+                            if (boxA.type == 2 && boxB.type == 2) {
+                                // Colisão física
+                                GenericBox.Colide(boxA, boxB, charA, charB);
 
-                        } else if (!charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.team != charB.team && charA.type >= charB.type && GenericBox.Intersects(boxA, boxB, charA, charB)) { // A hit B
-                            if (charA.CurrentAnimation.hitstop == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
-                            else if (charA.CurrentAnimation.hitstop == "Medium") this.hitstopCounter = Config.hitStopTime;
-                            else this.hitstopCounter = Config.hitStopTime * 3/4;
+                            } else if (charA.team != charB.team && !charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.type >= charB.type) { // A hit B
+                                if (charA.CurrentAnimation.hitstop == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
+                                else if (charA.CurrentAnimation.hitstop == "Medium") this.hitstopCounter = Config.hitStopTime;
+                                else this.hitstopCounter = Config.hitStopTime * 3/4;
 
-                            charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
-                            var hit = charA.ImposeBehavior(charB);
+                                charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
+                                var hit = charA.ImposeBehavior(charB);
 
-                            // Soma o contador de combo do time
-                            if (charA.team == 0) this.character_A.comboCounter += hit == 1 ? 1 : 0;
-                            else this.character_B.comboCounter += hit == 1 ? 1 : 0;
+                                // Soma o contador de combo do time
+                                if (charA.team == 0) this.character_A.comboCounter += hit == 1 ? 1 : 0;
+                                else this.character_B.comboCounter += hit == 1 ? 1 : 0;
 
-                            // spawna a particula de hit
-                            this.spawnHitspark(hit, (boxA.getRealA(charA).X + boxA.getRealB(charA).X) / 2, (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
+                                // spawna a particula de hit
+                                this.spawnHitspark(hit, (boxA.getRealA(charA).X + boxA.getRealB(charA).X) / 2, (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
+                            }
                         }
                     }
                 }
