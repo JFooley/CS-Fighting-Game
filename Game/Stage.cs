@@ -29,6 +29,11 @@ public class Stage {
     private int hitstopCounter = 0;
     public bool onHitstop => hitstopCounter > 0 ? true : false;
     public List<Character> OnSceneCharacters = new List<Character> {};
+    public List<Character> OnSceneCharactersSorted => this.OnSceneCharacters
+            .OrderByDescending(x => x.State.priority)
+            .ThenBy(x => Program.random.Next())
+            .ToList();
+
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
     public List<Character> newParticles = new List<Character> {};
@@ -151,7 +156,7 @@ public class Stage {
         // Update chars
         if (hitstopCounter == 0) {
             this.DoBehavior();
-            foreach (Character char_object in this.OnSceneCharacters) char_object.Update();
+            foreach (Character char_object in this.OnSceneCharactersSorted) char_object.Update();
             this.OnSceneCharacters.RemoveAll(obj => obj.remove);
             this.OnSceneCharacters.AddRange(this.newCharacters);
             this.newCharacters.Clear();
@@ -346,15 +351,12 @@ public class Stage {
     }
 
     // Auxiliary
-    public void CheckColisions() {
-        // Aleatoriza a lista para não dar vantagem sempre a um mesmo char
-        var OnSceneCharactersRandom = this.OnSceneCharacters.OrderBy(x => Program.random.Next()).ToList();
-
-        for (int i = 0; i < OnSceneCharactersRandom.Count(); i++) {
-            for (int j = 0; j < OnSceneCharactersRandom.Count(); j++) {
+    public void CheckColisions() {        
+        for (int i = 0; i < this.OnSceneCharactersSorted.Count(); i++) {
+            for (int j = 0; j < this.OnSceneCharactersSorted.Count(); j++) {
                 if (i == j) continue;
-                var charA = OnSceneCharactersRandom[i];
-                var charB = OnSceneCharactersRandom[j];
+                var charA = this.OnSceneCharactersSorted[i];
+                var charB = this.OnSceneCharactersSorted[j];
                 
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
