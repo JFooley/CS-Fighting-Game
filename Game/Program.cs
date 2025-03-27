@@ -68,8 +68,8 @@ public static class Program
 
     // Aux
     private static int pointer = 0;
-    private static int charA_selected = -1;
-    private static int charB_selected = -1;
+    private static string charA_selected = null;
+    private static string charB_selected = null;
     private static int pointer_charA = 0;
     private static int pointer_charB = 0;
     public static bool loading = false;
@@ -219,16 +219,16 @@ public static class Program
                     colorTinterShader.SetUniform("intensity", 0.75f);
 
                     sprite_A.Position = new Vector2f(Camera.Instance.X - 77 - sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
-                    if (charA_selected != -1) window.Draw(sprite_A, new RenderStates(colorTinterShader));
+                    if (charA_selected != null) window.Draw(sprite_A, new RenderStates(colorTinterShader));
                     else window.Draw(sprite_A);
                     sprite_B.Position = new Vector2f(Camera.Instance.X + 77 + sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
                     sprite_B.Scale = new Vector2f(-1f, 1f);
-                    if (charB_selected != -1) window.Draw(sprite_B, new RenderStates(colorTinterShader));
+                    if (charB_selected != null) window.Draw(sprite_B, new RenderStates(colorTinterShader));
                     else window.Draw(sprite_B);
 
                     // Draw texts
-                    if (charA_selected == -1) UI.Instance.DrawText(window, "<  >", -77, -16);
-                    if (charB_selected == -1) UI.Instance.DrawText(window, "<  >", +77, -16);
+                    if (charA_selected == null) UI.Instance.DrawText(window, "<  >", -77, -16);
+                    if (charB_selected == null) UI.Instance.DrawText(window, "<  >", +77, -16);
                     UI.Instance.DrawText(window, player1_wins.ToString(), 0, 63, alignment: "right");
                     UI.Instance.DrawText(window, player2_wins.ToString(), 0, 63, alignment: "left");
                     UI.Instance.DrawText(window, characters[pointer_charA].name, -77, 45, spacing: Config.spacing_small, textureName: "default small");
@@ -238,32 +238,32 @@ public static class Program
                     UI.Instance.DrawText(window, "Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     // Chose option A
-                    if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == -1) {
+                    if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == null) {
                         pointer_charA -= 1;
-                    } else if (InputManager.Instance.Key_down("Right", player: 1) && pointer_charA < characters.Count - 1 && charA_selected == -1) {
+                    } else if (InputManager.Instance.Key_down("Right", player: 1) && pointer_charA < characters.Count - 1 && charA_selected == null) {
                         pointer_charA += 1;
                     } else if (InputManager.Instance.Key_down("A", player: 1) || InputManager.Instance.Key_down("B", player: 1) || InputManager.Instance.Key_down("C", player: 1) || InputManager.Instance.Key_down("D", player: 1)) {
-                        charA_selected = pointer_charA;
+                        charA_selected = characters[pointer_charA].name;
                     } 
 
                     // Chose option B
-                    if (InputManager.Instance.Key_down("Left", player: 2) && pointer_charB > 0 && charB_selected == -1) {
+                    if (InputManager.Instance.Key_down("Left", player: 2) && pointer_charB > 0 && charB_selected == null) {
                         pointer_charB -= 1;
-                    } else if (InputManager.Instance.Key_down("Right", player: 2) && pointer_charB < characters.Count - 1 && charB_selected == -1) {
+                    } else if (InputManager.Instance.Key_down("Right", player: 2) && pointer_charB < characters.Count - 1 && charB_selected == null) {
                         pointer_charB += 1;
                     } else if (InputManager.Instance.Key_down("A", player: 2) || InputManager.Instance.Key_down("B", player: 2) || InputManager.Instance.Key_down("C", player: 2) || InputManager.Instance.Key_down("D", player: 2)) {
-                        charB_selected = pointer_charB;
+                        charB_selected = characters[pointer_charB].name;
                     } 
                     
                     // Return option
                     else if (InputManager.Instance.Key_up("LB")) {
-                        charB_selected = -1;
-                        charA_selected = -1;
+                        charB_selected = null;
+                        charA_selected = null;
                         game_state = SelectStage;
                     }
                     
                     // Ends when chars are selected
-                    if (charA_selected != -1 && charB_selected != -1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
+                    if (charA_selected != null && charB_selected != null && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
                         game_state = LoadScreen;
                     } 
                     break;
@@ -489,8 +489,8 @@ public static class Program
 
         loading = false;
         pointer = 0;
-        charA_selected = -1;
-        charB_selected = -1;
+        charA_selected = null;
+        charB_selected = null;
         pointer_charA = 0;
         pointer_charB = 0;
 

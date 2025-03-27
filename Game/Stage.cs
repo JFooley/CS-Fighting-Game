@@ -558,9 +558,9 @@ public class Stage {
     }
     
     // Loads
-    public void LoadCharacters(int charA_index, int charB_index) {        
-        var charA = Character.SelectCharacter(charA_index, this);
-        var charB = Character.SelectCharacter(charB_index, this);
+    public void LoadCharacters(string charA_name, string charB_name) {        
+        var charA = Character.SelectCharacter(charA_name, this);
+        var charB = Character.SelectCharacter(charB_name, this);
 
         this.SetChars(charA, charB);
         

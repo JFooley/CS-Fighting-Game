@@ -493,14 +493,14 @@ public class Character : Object_Space.Object {
     }
 
     // General Load
-    public static Character SelectCharacter(int index, Stage stage) {
-        switch (index) {
-            case 0:
+    public static Character SelectCharacter(string name, Stage stage) {
+        switch (name) {
+            case "Ken":
                 var Ken_object = new Ken("Intro", 0, stage.floorLine, stage);
                 Ken_object.Load();
                 return Ken_object;
             
-            case 1:
+            case "Psylock":
                 var Psylock_object = new Psylock("Intro", 0, stage.floorLine, stage);
                 Psylock_object.Load();
                 return Psylock_object;
