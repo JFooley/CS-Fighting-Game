@@ -72,13 +72,13 @@ public class Hitspark : Character {
         };
         
         // States
-        var animations = new Dictionary<string, Animation> {
-            {"Hit1", new Animation(Hit1, "Remove", 60)},
-            {"Hit2", new Animation(Hit2, "Remove", 60)},
-            {"Hit3", new Animation(Hit3, "Remove", 60)},
-            {"Parry", new Animation(Parry, "Remove", 30)},
-            {"Block", new Animation(Block, "Remove", 30)},
-            {"Remove", new Animation(Block, "Remove", 60)},
+        var animations = new Dictionary<string, State> {
+            {"Hit1", new State(Hit1, "Remove", 60)},
+            {"Hit2", new State(Hit2, "Remove", 60)},
+            {"Hit3", new State(Hit3, "Remove", 60)},
+            {"Parry", new State(Parry, "Remove", 30)},
+            {"Block", new State(Block, "Remove", 30)},
+            {"Remove", new State(Block, "Remove", 60)},
         };
 
         this.animations = animations;

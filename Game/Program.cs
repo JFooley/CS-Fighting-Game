@@ -109,11 +109,10 @@ public static class Program
 
         // Carregamento de texturas de fontes
         UI.Instance.LoadFonts();
-
-        // Personagens selecionáveis
-        Dictionary<int, (Texture, string)> characters = new Dictionary<int, (Texture, string)>{
-            {0, (new Texture("Assets/characters/Ken/Ken.png"), "Ken")},
-            {1, (new Texture("Assets/characters/Psylock/Psylock.png"), "Psylock")},
+        
+        List<Character> characters = new List<Character> {
+            new Ken("Intro", 0, 0, null),
+            new Psylock("Intro", 0, 0, null),
         };
 
         // Instanciamento do stages
@@ -140,8 +139,8 @@ public static class Program
         Sprite KO_logo = new Sprite(new Texture("Assets/ui/ko.png"));
         Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
         Sprite fslogo = new Sprite(new Texture("Assets/ui/fs.png"));
-        Sprite sprite_A = new Sprite(characters[pointer_charA].Item1);
-        Sprite sprite_B = new Sprite(characters[pointer_charB].Item1);
+        Sprite sprite_A = new Sprite(characters[pointer_charA].thumb);
+        Sprite sprite_B = new Sprite(characters[pointer_charB].thumb);
 
         while (window.IsOpen) {
             window.DispatchEvents();
@@ -203,8 +202,8 @@ public static class Program
                     window.Draw(bgchar);
 
                     // Setup sprites texture
-                    sprite_A.Texture = characters[pointer_charA].Item1;
-                    sprite_B.Texture = characters[pointer_charB].Item1;
+                    sprite_A.Texture = characters[pointer_charA].thumb;
+                    sprite_B.Texture = characters[pointer_charB].thumb;
 
                     // Draw Shadows
                     sprite_A.Scale = new Vector2f(1f, 1f);
@@ -232,8 +231,8 @@ public static class Program
                     if (charB_selected == -1) UI.Instance.DrawText(window, "<  >", +77, -16);
                     UI.Instance.DrawText(window, player1_wins.ToString(), 0, 63, alignment: "right");
                     UI.Instance.DrawText(window, player2_wins.ToString(), 0, 63, alignment: "left");
-                    UI.Instance.DrawText(window, characters[pointer_charA].Item2, -77, 45, spacing: Config.spacing_small, textureName: "default small");
-                    UI.Instance.DrawText(window, characters[pointer_charB].Item2, +77, 45, spacing: Config.spacing_small, textureName: "default small");
+                    UI.Instance.DrawText(window, characters[pointer_charA].name, -77, 45, spacing: Config.spacing_small, textureName: "default small");
+                    UI.Instance.DrawText(window, characters[pointer_charB].name, +77, 45, spacing: Config.spacing_small, textureName: "default small");
                     
                     UI.Instance.DrawText(window, "E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
                     UI.Instance.DrawText(window, "Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");

@@ -89,20 +89,22 @@ public class Character : Object_Space.Object {
     public bool canParry => this.parryTimer.X == this.parryTimer.Y;
 
     // Data
-    public Dictionary<string, Animation> animations = new Dictionary<string, Animation>{};
+    public Dictionary<string, State> animations = new Dictionary<string, State>{};
     public Dictionary<string, Sprite> spriteImages = new Dictionary<string, Sprite>{};
     public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
     // visuals
+    public Texture thumb = new Texture(250, 250);
     public int shadow_size = 1;
 
     // Gets
     public string CurrentSprite = "";
     public string CurrentSound = "";
-    public Animation CurrentAnimation => animations[CurrentState];
-    public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
-    public bool hasFrameChange => animations[CurrentState].hasFrameChange;
+    public State State => animations[CurrentState];
+    public Animation CurrentAnimation => animations[CurrentState].animation;
+    public int CurrentFrameIndex => animations[CurrentState].animation.currentFrameIndex;
+    public bool hasFrameChange => animations[CurrentState].animation.hasFrameChange;
     public int lastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
@@ -120,6 +122,7 @@ public class Character : Object_Space.Object {
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
+
     // Every Frame methods
     public override void Update() {
         base.Update();
@@ -136,7 +139,7 @@ public class Character : Object_Space.Object {
         temp_sprite.Color = this.LightTint;
 
         // Render tracing
-        if (this.CurrentAnimation.doTrace || this.doTrace) {
+        if (this.State.doTrace || this.doTrace) {
             Program.hueChange.SetUniform("hslInput", new SFML.Graphics.Glsl.Vec3(0.66f, 0.5f, 0.75f));
 
             for (int i = 0; i < 3; i++) {
@@ -231,10 +234,10 @@ public class Character : Object_Space.Object {
         this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
 
         // Change state, if necessary
-        if (CurrentAnimation.changeOnLastframe && this.CurrentAnimation.onLastFrame) {
-            this.ChangeState(this.CurrentAnimation.post_state);
-        } else if (CurrentAnimation.changeOnGround && this.body.Position.Y >= this.floorLine && this.body.LastPosition.Y < this.floorLine) {
-            this.ChangeState(this.CurrentAnimation.post_state);
+        if (State.changeOnLastframe && this.CurrentAnimation.onLastFrame) {
+            this.ChangeState(this.State.post_state);
+        } else if (State.changeOnGround && this.body.Position.Y >= this.floorLine && this.body.LastPosition.Y < this.floorLine) {
+            this.ChangeState(this.State.post_state);
         }
 
         // Advance to the next frame and reset hit if necessary
@@ -371,7 +374,7 @@ public class Character : Object_Space.Object {
         }
 
         if (CurrentState != LastState || reset) {
-            this.animations[LastState].Reset();
+            this.animations[LastState].animation.Reset();
             this.CurrentAnimation.currentFrameIndex = index;
         }
 
@@ -512,6 +515,11 @@ public class Character : Object_Space.Object {
     public override void Unload() {
         this.UnloadSounds();
         this.UnloadSpriteImages();
+    }
+
+    // Copy
+    public Character Copy() {
+        return (Character) this.MemberwiseClone();
     }
 }
 

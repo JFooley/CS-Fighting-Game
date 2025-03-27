@@ -155,14 +155,14 @@ public class Particle : Character {
         };
 
         // States
-        var animations = new Dictionary<string, Animation> {
-            {"SALighting", new Animation(SAGathering, "SALighting_tail", 60)},
-            {"SALighting_tail", new Animation(SALighting, "Remove", 60)},
-            {"SABlink", new Animation(SAGathering, "SABlink_tail", 60)},
-            {"SABlink_tail", new Animation(SABlink, "Remove", 20)},
-            {"Shungoku", new Animation(Shungoku, "Remove", 15)},
-            {"Shungoku_text", new Animation(Shungoku_text, "Remove", 15)},
-            {"Remove", new Animation(remove, "Remove", 60)},
+        var animations = new Dictionary<string, State> {
+            {"SALighting", new State(SAGathering, "SALighting_tail", 60)},
+            {"SALighting_tail", new State(SALighting, "Remove", 60)},
+            {"SABlink", new State(SAGathering, "SABlink_tail", 60)},
+            {"SABlink_tail", new State(SABlink, "Remove", 20)},
+            {"Shungoku", new State(Shungoku, "Remove", 15)},
+            {"Shungoku_text", new State(Shungoku_text, "Remove", 15)},
+            {"Remove", new State(remove, "Remove", 60)},
         };
 
         this.animations = animations;

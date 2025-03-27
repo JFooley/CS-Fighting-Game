@@ -3,6 +3,7 @@ using Character_Space;
 using Animation_Space;
 using Input_Space;
 using Stage_Space;
+using SFML.Graphics;
 
 public class Psylock : Character {
     public Psylock(string initialState, int startX, int startY, Stage stage)
@@ -14,11 +15,14 @@ public class Psylock : Character {
         this.dash_speed = 8;
         this.move_speed = 3;
         this.push_box_width = 25;
+
+        this.thumb = new Texture("Assets/characters/Psylock/thumb.png");
     }
 
     public override void Load() {
         // Boxes
         var pushbox = new GenericBox(2, 125 - this.push_box_width, 145, 125 + this.push_box_width, 195);
+        var airPuxbox = new GenericBox(2, 125 - this.push_box_width, 80, 125 + this.push_box_width, 156);
 
         // Animations
         var introFrames = new List<FrameData> {
@@ -237,32 +241,48 @@ public class Psylock : Character {
         };
 
         // States
-        var animations = new Dictionary<string, Animation> {
-            { "Idle", new Animation(idleFrames, "Idle", 20)},
-            { "OnHit", new Animation(idleFrames, "Idle", 20)},
-            { "Blocking", new Animation(idleFrames, "Idle", 20)},
+        var states = new Dictionary<string, State> {
+            { "Idle", new State(idleFrames, "Idle", 20)},
+
+            { "OnHit", new State(idleFrames, "Idle", 20)},
+            { "OnHitLow", new State(idleFrames, "Idle", 20)},
+
+            { "OnBlock", new State(idleFrames, "Idle", 20)},
+            { "OnBlockLow", new State(idleFrames, "Idle", 20)},
             // Normals
-            { "AAttack", new Animation(AFrames, "Idle", 30)},
-            { "BAttack", new Animation(CFrames, "Idle", 20)},
-            { "CAttack", new Animation(BFrames, "Idle", 20)},
-            { "DAttack", new Animation(DFrames, "Idle", 20)},
-            { "AltDAttack", new Animation(FrontDFrames, "Idle", 20)},
-            { "AltCAttack", new Animation(BackCFrames, "Idle", 20)},
+            { "AAttack", new State(AFrames, "Idle", 30)},
+            { "BAttack", new State(CFrames, "Idle", 20)},
+            { "CAttack", new State(BFrames, "Idle", 20)},
+            { "DAttack", new State(DFrames, "Idle", 20)},
+
+            { "AltDAttack", new State(FrontDFrames, "Idle", 20)},
+            { "AltCAttack", new State(BackCFrames, "Idle", 20)},
+
             // Movement
-            { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 30)},
-            { "WalkingBackward", new Animation(walkingBackwardFrames, "WalkingBackward", 20)},
-            { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
-            { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
-            { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
-            { "Jump", new Animation(jumpFrames, "JumpFalling", 20)},
-            { "JumpForward", new Animation(jumpFrames, "JumpFalling", 20)},
-            { "JumpBackward", new Animation(jumpFrames, "JumpFalling", 20)},
-            { "JumpFalling", new Animation(jumpFallingFrames, "Idle", 20, changeOnLastframe: false)},
-            // Bonus
-            { "Intro", new Animation(introFrames, "Idle", 10)},
+            { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 30)},
+            { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20)},
+
+            { "DashForward", new State(dashForwardFrames, "Idle", 20)},
+            { "DashBackward", new State(dashBackwardFrames, "Idle", 20)},
+
+            { "Crouching", new State(crouchingFrames, "Crouching", 4)},
+
+            { "Jump", new State(jumpFrames, "JumpFalling", 20)},
+            { "JumpForward", new State(jumpFrames, "JumpFalling", 20)},
+            { "JumpBackward", new State(jumpFrames, "JumpFalling", 20)},
+            { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, changeOnLastframe: false)},
+
+            { "Sweeped", new State(idleFrames, "Falling", 30)},
+            { "Airboned", new State(idleFrames, "Falling", 30)},
+            { "Falling", new State(idleFrames, "OnGround", 30)},
+            { "OnGround", new State(idleFrames, "Wakeup", 30)},
+            { "Wakeup", new State(idleFrames, "Idle", 30)},
+
+            // Bonus 
+            { "Intro", new State(introFrames, "Idle", 10)},
         };
 
-        this.animations = animations;
+        this.animations = states;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

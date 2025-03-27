@@ -4,6 +4,7 @@ using Animation_Space;
 using Input_Space;
 using System.IO.Compression;
 using Stage_Space;
+using SFML.Graphics;
 
 public class Ken : Character {
     private int tatso_speed = 4;
@@ -18,6 +19,8 @@ public class Ken : Character {
 
         this.dash_speed = 8;
         this.move_speed = 3;
+
+        this.thumb = new Texture("Assets/characters/Ken/thumb.png");
     }
     
     public override void Load() {
@@ -682,72 +685,72 @@ public class Ken : Character {
         };
 
         // States
-        var animations = new Dictionary<string, Animation> {
+        var states = new Dictionary<string, State> {
             // Normals
-            { "Idle", new Animation(idleFrames, "Idle", 20)},
-            { "OnBlock", new Animation(OnBlockFrames, "OnBlock", 20, changeOnLastframe: false, loop: false)}, 
-            { "OnHit", new Animation(OnHit3Frames, "OnHit", 30, changeOnLastframe: false, loop: false)},
-            { "OnBlockLow", new Animation(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false, loop: false)}, 
-            { "OnHitLow", new Animation(OnHitLowFrames, "OnHitLow", 30, changeOnLastframe: false, loop: false)},
-            { "Parry", new Animation(parryFrames, "Idle", 60, loop: false)},
-            { "AirParry", new Animation(parryFrames, "Idle", 60, loop: false)},
-            { "lowParry", new Animation(parryFrames, "Idle", 60, loop: false)},
+            { "Idle", new State(idleFrames, "Idle", 20)},
+            { "OnBlock", new State(OnBlockFrames, "OnBlock", 20, changeOnLastframe: false, loop: false)}, 
+            { "OnHit", new State(OnHit3Frames, "OnHit", 30, changeOnLastframe: false, loop: false)},
+            { "OnBlockLow", new State(OnBlockLowFrames, "OnBlockLow", 20, changeOnLastframe: false, loop: false)}, 
+            { "OnHitLow", new State(OnHitLowFrames, "OnHitLow", 30, changeOnLastframe: false, loop: false)},
+            { "Parry", new State(parryFrames, "Idle", 60, loop: false)},
+            { "AirParry", new State(parryFrames, "Idle", 60, loop: false)},
+            { "lowParry", new State(parryFrames, "Idle", 60, loop: false)},
             // Normals
-            { "LightP", new Animation(LPFrames, "Idle", 30)},
-            { "LowLightP", new Animation(lowLPFrames, "Crouching", 30)},
-            { "AirLightP", new Animation(airLPFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "LightK", new Animation(LKFrames, "Idle", 30)},
-            { "LowLightK", new Animation(lowLKFrames, "Crouching", 20, hitstop: "Medium")},
-            { "AirLightK", new Animation(airLKFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "MediumP", new Animation(MPFrames, "Idle", 20, hitstop: "Medium")},
-            { "LowMediumP", new Animation(lowMPFrames, "Crouching", 20, hitstop: "Medium")},
-            { "AirMediumP", new Animation(airMPFrames, "Idle", 20, hitstop: "Medium", changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "BackMediumP", new Animation(HPFrames, "Idle", 20, hitstop: "Heavy")},
-            { "MediumK", new Animation(MKFrames, "Idle", 20, hitstop: "Medium")},
-            { "LowMediumK", new Animation(lowMKFrames, "Crouching", 20, hitstop: "Heavy")},
-            { "AirMediumK", new Animation(airMKFrames, "Idle", 20, hitstop: "Medium", changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "BackMediumK", new Animation(BackMKFrames, "Idle", 20, hitstop: "Light")},
-            { "CloseMP", new Animation(cl_HPFrames, "Idle", 30, hitstop: "Medium")},
+            { "LightP", new State(LPFrames, "Idle", 30)},
+            { "LowLightP", new State(lowLPFrames, "Crouching", 30)},
+            { "AirLightP", new State(airLPFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "LightK", new State(LKFrames, "Idle", 30)},
+            { "LowLightK", new State(lowLKFrames, "Crouching", 20, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "AirLightK", new State(airLKFrames, "Idle", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "MediumP", new State(MPFrames, "Idle", 20, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "LowMediumP", new State(lowMPFrames, "Crouching", 20, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "AirMediumP", new State(airMPFrames, "Idle", 20, hitstop: new string[] {"Medium", "Medium", "Medium"}, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "BackMediumP", new State(HPFrames, "Idle", 20, hitstop: new string[] {"Heavy", "Heavy", "Heavy"})},
+            { "MediumK", new State(MKFrames, "Idle", 20, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "LowMediumK", new State(lowMKFrames, "Crouching", 20, hitstop: new string[] {"Heavy", "Heavy", "Heavy"})},
+            { "AirMediumK", new State(airMKFrames, "Idle", 20, hitstop: new string[] {"Medium", "Medium", "Medium"}, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "BackMediumK", new State(BackMKFrames, "Idle", 20)},
+            { "CloseMP", new State(cl_HPFrames, "Idle", 30, hitstop: new string[] {"Medium", "Medium", "Medium"})},
             // Movement
-            { "WalkingForward", new Animation(walkingForwardFrames, "WalkingForward", 20)},
-            { "WalkingBackward", new Animation(walkingBackwardFrames, "WalkingBackward", 20)},
-            { "DashForward", new Animation(dashForwardFrames, "Idle", 20)},
-            { "DashBackward", new Animation(dashBackwardFrames, "Idle", 20)},
-            { "Jump", new Animation(jumpFrames, "JumpFalling", 20)},
-            { "JumpForward", new Animation(jumpForward, "JumpFalling", 20)}, 
-            { "JumpBackward", new Animation(JumpBackward, "JumpFalling", 20)},
-            { "JumpFalling", new Animation(jumpFallingFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "Landing", new Animation(landingFrames, "Idle", 20)},
-            { "CrouchingIn", new Animation(crouchingInFrames, "Crouching", 60)},
-            { "Crouching", new Animation(crouchingFrames, "Crouching", 4)},
+            { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 20)},
+            { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20)},
+            { "DashForward", new State(dashForwardFrames, "Idle", 20)},
+            { "DashBackward", new State(dashBackwardFrames, "Idle", 20)},
+            { "Jump", new State(jumpFrames, "JumpFalling", 20)},
+            { "JumpForward", new State(jumpForward, "JumpFalling", 20)}, 
+            { "JumpBackward", new State(JumpBackward, "JumpFalling", 20)},
+            { "JumpFalling", new State(jumpFallingFrames, "Landing", 20, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "Landing", new State(landingFrames, "Idle", 20)},
+            { "CrouchingIn", new State(crouchingInFrames, "Crouching", 60)},
+            { "Crouching", new State(crouchingFrames, "Crouching", 4)},
             // Super
-            { "SA1", new Animation(SA1, "MediumK", 60, doTrace: true)},
-            { "SA1_tail", new Animation(SA1_tail, "JumpFalling", 30, doTrace: true)},
-            { "Shungoku", new Animation(Shungoku, "Idle", 10, doTrace: true)},
-            { "Shungoku_End", new Animation(idleFrames, "Idle", 10)},
+            { "SA1", new State(SA1, "MediumK", 60, doTrace: true)},
+            { "SA1_tail", new State(SA1_tail, "JumpFalling", 30, doTrace: true)},
+            { "Shungoku", new State(Shungoku, "Idle", 10, doTrace: true)},
+            { "Shungoku_End", new State(idleFrames, "Idle", 10)},
             // Specials
-            { "LightShory", new Animation(lightShoryFrames, "Landing", 30, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "HeavyShory", new Animation(heavyShoryFrames, "Landing", 30, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false)},
-            { "ShoryEX", new Animation(heavyShoryFrames, "Landing", 60, hitstop: "Heavy", changeOnLastframe: false, changeOnGround: true, loop: false, doTrace: true)},
-            { "LightHaduken", new Animation(hadukenFrames, "Idle", 30, hitstop: "Medium")},
-            { "HeavyHaduken", new Animation(hadukenFrames, "Idle", 20, hitstop: "Medium")},
-            { "HadukenEX", new Animation(hadukenFrames, "Idle", 30, hitstop: "Heavy", doTrace: true)},
-            { "LightTatso", new Animation(lightTatsoFrames, "Landing", 30, hitstop: "Medium")},
-            { "HeavyTatso", new Animation(heavyTatsoFrames, "Landing", 30, hitstop: "Medium")},
-            { "TatsoEX", new Animation(EXTatsoFrames, "Landing", 60, hitstop: "Medium", doTrace: true)},
-            { "AirTatso", new Animation(tatsoFrames, "Landing", 30, changeOnGround: true, changeOnLastframe: false)},
-            { "AirTatsoEX", new Animation(tatsoFrames, "Landing", 60, changeOnGround: true, changeOnLastframe: false, doTrace: true)},
+            { "LightShory", new State(lightShoryFrames, "Landing", 30, hitstop: new string[] {"Heavy", "Heavy", "Heavy"}, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "HeavyShory", new State(heavyShoryFrames, "Landing", 30, hitstop: new string[] {"Heavy", "Heavy", "Heavy"}, changeOnLastframe: false, changeOnGround: true, loop: false)},
+            { "ShoryEX", new State(heavyShoryFrames, "Landing", 60, hitstop: new string[] {"Heavy", "Heavy", "Heavy"}, changeOnLastframe: false, changeOnGround: true, loop: false, doTrace: true)},
+            { "LightHaduken", new State(hadukenFrames, "Idle", 30, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "HeavyHaduken", new State(hadukenFrames, "Idle", 20, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "HadukenEX", new State(hadukenFrames, "Idle", 30, hitstop: new string[] {"Heavy", "Heavy", "Heavy"}, doTrace: true)},
+            { "LightTatso", new State(lightTatsoFrames, "Landing", 30, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "HeavyTatso", new State(heavyTatsoFrames, "Landing", 30, hitstop: new string[] {"Medium", "Medium", "Medium"})},
+            { "TatsoEX", new State(EXTatsoFrames, "Landing", 60, hitstop: new string[] {"Medium", "Medium", "Medium"}, doTrace: true)},
+            { "AirTatso", new State(tatsoFrames, "Landing", 30, changeOnGround: true, changeOnLastframe: false)},
+            { "AirTatsoEX", new State(tatsoFrames, "Landing", 60, changeOnGround: true, changeOnLastframe: false, doTrace: true)},
             // Hit and Block
-            { "Airboned", new Animation(AirbonedFrames, "Falling", 15, changeOnGround: true, changeOnLastframe: false, loop: false)},
-            { "Falling", new Animation(fallingFrames, "OnGround", 20)},
-            { "Sweeped", new Animation(sweepedFrames, "Falling", 30)},
-            { "OnGround", new Animation(OnGroundFrames, "Wakeup", 2)},
-            { "Wakeup", new Animation(wakeupFrames, "Idle", 15)},
+            { "Airboned", new State(AirbonedFrames, "Falling", 15, changeOnGround: true, changeOnLastframe: false, loop: false)},
+            { "Falling", new State(fallingFrames, "OnGround", 20)},
+            { "Sweeped", new State(sweepedFrames, "Falling", 30)},
+            { "OnGround", new State(OnGroundFrames, "Wakeup", 2)},
+            { "Wakeup", new State(wakeupFrames, "Idle", 15)},
             // Bonus
-            { "Intro", new Animation(introFrames, "Idle", 10)},
+            { "Intro", new State(introFrames, "Idle", 10)},
         };
 
-        this.animations = animations;
+        this.animations = states;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

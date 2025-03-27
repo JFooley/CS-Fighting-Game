@@ -11,7 +11,7 @@ namespace Stage_Space {
 
 public class Stage {
     // Basic Infos
-    public string name = "Empty";
+    public string name = "";
     public string spritesFolderPath;
     public string soundFolderPath;
     public Sprite thumb;
@@ -67,13 +67,14 @@ public class Stage {
     // Animation infos
     public string CurrentState { get; set; }
     public string LastState { get; set; }
-    public Dictionary<string, Animation> animations;
+    public Dictionary<string, State> animations;
     private Dictionary<string, Sprite> spriteImages;
     private Dictionary<string, Sound> stageSounds;
     public string CurrentSprite = "";
     public string CurrentSound = "";
-    public Animation CurrentAnimation => animations[CurrentState];
-    public int CurrentFrameIndex => animations[CurrentState].currentFrameIndex;
+    public State state => animations[CurrentState];
+    public Animation CurrentAnimation => animations[CurrentState].animation;
+    public int CurrentFrameIndex => animations[CurrentState].animation.currentFrameIndex;
 
     // Visual info
     public Color AmbientLight = new Color(255, 255, 255, 255);
@@ -139,10 +140,10 @@ public class Stage {
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.onLastFrame) {
-            if (CurrentAnimation.changeOnLastframe) {
-                if (animations.ContainsKey(this.CurrentAnimation.post_state)) {
+            if (state.changeOnLastframe) {
+                if (animations.ContainsKey(this.state.post_state)) {
                     this.LastState = this.CurrentState;
-                    this.CurrentState = this.CurrentAnimation.post_state;
+                    this.CurrentState = this.state.post_state;
                 }
             }
         }
@@ -325,7 +326,7 @@ public class Stage {
         hs.characterSounds = this.spark.characterSounds;
         this.newParticles.Add(hs);
     }
-    public Fireball spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10, int Y_offset = 0) {
+    public Fireball spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10, int Y_offset = 0) {        
         var fb = new Fireball(state, X + X_offset * facing, Y + Y_offset, team, facing, this);
         fb.animations = this.fireball.animations;
         fb.spriteImages = this.fireball.spriteImages;
@@ -363,8 +364,8 @@ public class Stage {
                                 GenericBox.Colide(boxA, boxB, charA, charB);
 
                             } else if (charA.team != charB.team && !charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.type >= charB.type) { // A hit B
-                                if (charA.CurrentAnimation.hitstop == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
-                                else if (charA.CurrentAnimation.hitstop == "Medium") this.hitstopCounter = Config.hitStopTime;
+                                if (charA.State.hitstop[0] == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
+                                else if (charA.State.hitstop[0] == "Medium") this.hitstopCounter = Config.hitStopTime;
                                 else this.hitstopCounter = Config.hitStopTime * 3/4;
 
                                 charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
@@ -562,7 +563,7 @@ public class Stage {
         var charB = Character.SelectCharacter(charB_index, this);
 
         this.SetChars(charA, charB);
-
+        
         this.spark.Load();
         this.fireball.Load();
         this.particle.Load();

@@ -13,8 +13,8 @@ public class MidnightDuel : Stage {
         var defaultFrames = new List<int> {0, 1, 2, 3};
         List<string> frames = defaultFrames.Select(i => i.ToString()).ToList();
 
-        var animations = new Dictionary<string, Animation> {
-            { "Default", new Animation(frames, "Default", 8)},
+        var animations = new Dictionary<string, State> {
+            { "Default", new State(frames, "Default", 8)},
         };
 
         this.animations = animations;

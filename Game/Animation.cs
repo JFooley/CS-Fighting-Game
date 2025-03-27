@@ -11,43 +11,30 @@ public class Animation {
     public int currentFrameIndex;
     public bool onLastFrame;
     public bool hasFrameChange => this.frameCounter == 0; 
-    public bool doTrace;
 
     // infos
-    public string post_state; 
     public int animSize;
     public int realAnimSize => animSize * (60 / this.framerate);
-    public string hitstop;
-    public bool changeOnLastframe;
-    public bool changeOnGround;
     public bool loop;
     public int framerate;
     public int screenFramerate;
     public int frameCounter;
 
-    public Animation(List<FrameData> frames, string post_state, int framerate = 30, int screenFramerate = 60, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool doTrace = false, string hitstop = "Default") {
+    public Animation(List<FrameData> frames, int framerate = 30, int screenFramerate = 60, bool loop = true) {
         this.Frames = frames;
         this.currentFrameIndex = 0;
         this.animSize = Frames.Count() - 1;
-        this.post_state = post_state;
-        this.changeOnLastframe = changeOnLastframe;
-        this.changeOnGround = changeOnGround;
         this.loop = loop;
-        this.doTrace = doTrace;
-        this.hitstop = hitstop;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
     }
 
-    public Animation(List<string> SimpleFrames, string post_state, int framerate = 30, int screenFramerate = 60) {
+    public Animation(List<string> SimpleFrames, int framerate = 30, int screenFramerate = 60) {
         this.SimpleFrames = SimpleFrames;
         this.currentFrameIndex = 0;
         this.animSize = SimpleFrames.Count() - 1;
-        this.post_state = post_state;
-        this.changeOnLastframe = true;
         this.loop = true;
-        this.doTrace = false;
         this.framerate = framerate;
         this.screenFramerate = screenFramerate;
         this.frameCounter = 0;
