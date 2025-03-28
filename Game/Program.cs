@@ -93,6 +93,7 @@ public static class Program
         window.Closed += (sender, e) => window.Close();
         window.SetFramerateLimit(Config.Framerate);
         window.SetVerticalSyncEnabled(Config.Vsync);
+        window.SetMouseCursorVisible(false);
         
         // Cria uma view
         window.SetView(view);
@@ -447,6 +448,7 @@ public static class Program
                         window.Closed += (sender, e) => window.Close();
                         window.SetFramerateLimit(Config.Framerate);
                         window.SetVerticalSyncEnabled(Config.Vsync);
+                        window.SetMouseCursorVisible(false);
                         window.SetView(view);
                         camera.SetWindow(window);
                         

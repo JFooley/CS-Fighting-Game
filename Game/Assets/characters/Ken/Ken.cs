@@ -1085,7 +1085,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 130, 235);
-                    target.ChangeState("Sweeped");
+                    target.HitStun(target, 0, sweep: true);
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
@@ -1276,17 +1276,18 @@ public class Ken : Character {
                     hit = 0;
                     Character.Damage(target: target, self: this, 5, 0);
                     target.BlockStun(this, 30, force: true);
+
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 45, 35);
-                    if (this.CurrentFrameIndex < 6) {
-                        target.HitStun(this, 5, airbone: true, airbone_height: 150, airbone_X: 0);
-                        
-                    } else if (this.CurrentFrameIndex >= 13) {
-                        target.HitStun(this, 5, airbone: true, airbone_height: 100);
-                        Character.Pushback(target: target, self: this, "Heavy");
 
-                    } else target.HitStun(this, 5);
+                    if (this.CurrentFrameIndex < 6) target.HitStun(this, 5, airbone: true, airbone_height: 150, airbone_X: 0);
+                    else target.HitStun(this, 5, airbone_height: 20);
+
+                    if (this.CurrentFrameIndex >= 13) {
+                        target.HitStun(this, 5, airbone: true, airbone_height: 80, airbone_X: 0);
+                        Character.Pushback(target: target, self: this, "Heavy");
+                    }
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;

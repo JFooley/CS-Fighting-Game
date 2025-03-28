@@ -268,7 +268,7 @@ public class Stage {
         // Change option 
         if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {
             this.pause_pointer -= 1;
-            if (!debug_mode && this.pause_pointer < 5 && this.pause_pointer > 1) this.pause_pointer = 1;
+            if (!debug_mode && this.pause_pointer < 6 && this.pause_pointer > 1) this.pause_pointer = 1;
         } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 6) {
             this.pause_pointer += 1;
             if (!debug_mode && this.pause_pointer < 5 && this.pause_pointer > 1) this.pause_pointer = 6;
@@ -352,11 +352,12 @@ public class Stage {
 
     // Auxiliary
     public void CheckColisions() {        
-        for (int i = 0; i < this.OnSceneCharactersSorted.Count(); i++) {
-            for (int j = 0; j < this.OnSceneCharactersSorted.Count(); j++) {
+        var sortedList = this.OnSceneCharactersSorted;
+        for (int i = 0; i < sortedList.Count(); i++) {
+            for (int j = 0; j < sortedList.Count(); j++) {
                 if (i == j) continue;
-                var charA = this.OnSceneCharactersSorted[i];
-                var charB = this.OnSceneCharactersSorted[j];
+                var charA = sortedList[i];
+                var charB = sortedList[j];
                 
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
@@ -411,7 +412,7 @@ public class Stage {
         this.LockPlayers();
     }
     public bool CheckRoundEnd() {
-        if (this.hitstopCounter != 0) return false;
+        if (this.hitstopCounter != 0 || this.debug_mode || this.pause ) return false;
         
         bool doEnd = false;
 

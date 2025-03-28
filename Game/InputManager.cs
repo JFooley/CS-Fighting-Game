@@ -297,15 +297,13 @@ public class JoystickInput {
     private const int ERROR_DEVICE_NOT_CONNECTED = 1167;
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct XINPUT_STATE
-    {
+    private struct XINPUT_STATE {
         public uint dwPacketNumber;
         public XINPUT_GAMEPAD Gamepad;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct XINPUT_GAMEPAD
-    {
+    private struct XINPUT_GAMEPAD {
         public ushort wButtons;
         public byte bLeftTrigger;
         public byte bRightTrigger;
@@ -316,33 +314,38 @@ public class JoystickInput {
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct XINPUT_VIBRATION
-    {
+    private struct XINPUT_VIBRATION {
         public ushort wLeftMotorSpeed;
         public ushort wRightMotorSpeed;
     }
 
-    public static int ReadJoystickState(Dictionary<int, int> joystickMap, int dwUserIndex = 0)
-    {
+    public static int ReadJoystickState(Dictionary<int, int> joystickMap, int dwUserIndex = 0) {
         XINPUT_STATE state;
-        int result = XInputGetState(dwUserIndex, out state);
+        if (XInputGetState(dwUserIndex, out state) != 0) return 0;
 
-        if (result == 0)
-        {
-            int stateValue = 0;
-            foreach (var button in joystickMap)
-            {   
-                if (button.Key == -1) {
-                    if (state.Gamepad.bLeftTrigger > 0) stateValue |= (1 << button.Value);
-                } else if (button.Key == -2) {
-                    if (state.Gamepad.bRightTrigger > 0) stateValue |= (1 << button.Value);
-                } else if ((state.Gamepad.wButtons & button.Key) != 0) {
-                    stateValue |= (1 << button.Value);
-                }
-            }
-            return stateValue;
-        }
-        return 0;
+        int stateValue = 0;
+        const int threshold = 16384; // 50% do analógico
+        var g = state.Gamepad;
+
+        // 1. Processa direções (combina DPad + Analógico)
+        stateValue |= ((g.wButtons & 0x0001) != 0 | (g.sThumbLY > threshold)) ? (1 << joystickMap[0x0001]) : 0; // Up
+        stateValue |= ((g.wButtons & 0x0002) != 0 | (g.sThumbLY < -threshold)) ? (1 << joystickMap[0x0002]) : 0; // Down
+        stateValue |= ((g.wButtons & 0x0004) != 0 | (g.sThumbLX < -threshold)) ? (1 << joystickMap[0x0004]) : 0; // Left
+        stateValue |= ((g.wButtons & 0x0008) != 0 | (g.sThumbLX > threshold)) ? (1 << joystickMap[0x0008]) : 0; // Right
+
+        // 2. Processa botões conforme seu mapping original
+        stateValue |= (g.wButtons & 0x1000) != 0 ? (1 << joystickMap[0x1000]) : 0; // A
+        stateValue |= (g.wButtons & 0x2000) != 0 ? (1 << joystickMap[0x2000]) : 0; // B
+        stateValue |= (g.wButtons & 0x4000) != 0 ? (1 << joystickMap[0x4000]) : 0; // X
+        stateValue |= (g.wButtons & 0x8000) != 0 ? (1 << joystickMap[0x8000]) : 0; // Y
+        stateValue |= (g.wButtons & 0x0100) != 0 ? (1 << joystickMap[0x0100]) : 0; // LB
+        stateValue |= (g.wButtons & 0x0200) != 0 ? (1 << joystickMap[0x0200]) : 0; // RB
+        stateValue |= g.bLeftTrigger > 0 ? (1 << joystickMap[-1]) : 0;             // LT
+        stateValue |= g.bRightTrigger > 0 ? (1 << joystickMap[-2]) : 0;            // RT
+        stateValue |= (g.wButtons & 0x0010) != 0 ? (1 << joystickMap[0x0010]) : 0; // Start
+        stateValue |= (g.wButtons & 0x0020) != 0 ? (1 << joystickMap[0x0020]) : 0; // Select
+
+        return stateValue;
     }
 
     public static bool IsJoystickConnected(int dwUserIndex = 0)

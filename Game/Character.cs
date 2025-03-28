@@ -270,20 +270,33 @@ public class Character : Object_Space.Object {
         if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
-    public void HitStun(Character enemy, int advantage, bool airbone = false, float airbone_height = 0, float airbone_X = 5, bool force = false) {
-        this.facing = -enemy.facing;
+    public void HitStun(Character enemy, int advantage, bool airbone = false, bool sweep = false, float airbone_height = -1, float airbone_X = 0, bool force = false) {
+        this.StunFrames = 0;
+        
+        if (sweep) {
+            this.ChangeState("Sweeped", reset: true);
+            return;
 
-        if (airbone || this.LifePoints.X <= 0 || this.onAir && airbone_height > 0 || enemy.CurrentState == "Airboned") {
-            if (airbone_height == 0) airbone_height = 10;
-            this.ChangeState("Airboned", reset: true);
+        // } else if (airbone || this.LifePoints.X <= 0 || this.onAir) {
+        } else if (airbone || this.LifePoints.X <= 0) {
             this.facing = -enemy.facing;
+
+            if (airbone_height == -1) airbone_height = 10;
+            this.ChangeState("Airboned", reset: true);
             this.SetVelocity(
                 X: airbone_X * (enemy.facing * this.facing), 
                 Y: airbone_height);
             this.StunFrames = 0;
             return;
-        } else if (this.isCrounching) this.ChangeState("OnHitLow", reset: true);
-        else this.ChangeState("OnHit", reset: true);
+
+        } else if (this.isCrounching) {
+            this.facing = -enemy.facing;
+            this.ChangeState("OnHitLow", reset: true);
+
+        } else {
+            this.facing = -enemy.facing;
+            this.ChangeState("OnHit", reset: true);
+        }
 
         if (force) {
             this.StunFrames = Math.Max(advantage, 1);
