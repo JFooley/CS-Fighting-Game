@@ -73,8 +73,8 @@ public class Character : Object_Space.Object {
     public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
-    public bool notActing => this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "Parry" && this.hasHit);
-    public bool notActingAir => (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward" || (this.CurrentState == "AirParry" && this.hasHit)) && this.body.Position.Y < this.floorLine;
+    public bool notActing => !this.onAir && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "Parry" && this.hasHit));
+    public bool notActingAir => this.onAir && (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward" || (this.CurrentState == "AirParry" && this.hasHit));
     public bool isCrounching = false;
     public bool onAir => this.body.Position.Y < this.floorLine;
     public bool hasHit = false; 
@@ -331,23 +331,23 @@ public class Character : Object_Space.Object {
     public static void Pushback(Character target, Character self, string amount, float X_amount = 0, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (X_amount != 0) {
-                self.SetVelocity(X: (self.facing * target.facing) * X_amount, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * X_amount, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Light") {
-                self.SetVelocity(X: (self.facing * target.facing) * Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                self.SetVelocity(X: (self.facing * target.facing) * Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                self.SetVelocity(X: (self.facing * target.facing) * Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             }
         } else {
             if (X_amount != 0) {
-                target.SetVelocity(X: (self.facing * target.facing) * X_amount, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * X_amount, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Light") {
-                target.SetVelocity(X: (self.facing * target.facing) * Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                target.SetVelocity(X: (self.facing * target.facing) * Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                target.SetVelocity(X: (self.facing * target.facing) * Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             }
         }
     }
@@ -386,7 +386,6 @@ public class Character : Object_Space.Object {
 
         if (animations.ContainsKey(newState)) {
             this.CurrentState = newState;
-            
         }
 
         if (CurrentState != LastState || reset) {
