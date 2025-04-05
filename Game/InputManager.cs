@@ -7,9 +7,10 @@ namespace Input_Space
 {
 public class InputManager {    
     public const int NONE_INPUT = 0;
-    public const int KEYBOARD_INPUT = 1;
-    public const int JOYSTICK_0_INPUT = 2;
-    public const int JOYSTICK_1_INPUT = 3;
+    public const int KEYBOARD_A_INPUT = 1;
+    public const int KEYBOARD_B_INPUT = 2;
+    public const int JOYSTICK_0_INPUT = 3;
+    public const int JOYSTICK_1_INPUT = 4;
 
     public const int DEFAULT = 0;
     public const int PLAYER_A = 1;
@@ -65,7 +66,8 @@ public class InputManager {
     public bool anyKey => this.buttonState[DEFAULT] > 0;
 
     // Mapping para teclado e mouse
-    private Dictionary<Keys, int> keyMap;
+    private Dictionary<Keys, int> keyMapA;
+    private Dictionary<Keys, int> keyMapB;
     private Dictionary<int, int> joystickMap;
 
     // Buffer de inputs para os últimos 240 frames
@@ -86,11 +88,11 @@ public class InputManager {
             this.buttonState[i] = 0b0;
             this.buttonLastState[i] = 0b0;
         }
-        inputDevice[0] = KEYBOARD_INPUT;
+        inputDevice[0] = KEYBOARD_A_INPUT;
         inputDevice[1] = JOYSTICK_0_INPUT;
         inputDevice[2] = JOYSTICK_1_INPUT;
 
-        this.keyMap = new Dictionary<Keys, int>
+        this.keyMapA = new Dictionary<Keys, int>
         {
             { Keys.A, 0 },      // A
             { Keys.S, 1 },      // B
@@ -106,6 +108,24 @@ public class InputManager {
             { Keys.Right, 11 }, // Right
             { Keys.Enter, 12 }, // Start
             { Keys.Space, 13 }, // Select
+        };
+
+        this.keyMapB = new Dictionary<Keys, int>
+        {
+            { Keys.H, 0 },      // A
+            { Keys.J, 1 },      // B
+            { Keys.Y, 2 },      // X
+            { Keys.U, 3 },      // Y
+            { Keys.O, 4 },      // L
+            { Keys.L, 5 },      // LT
+            { Keys.I, 6 },      // R
+            { Keys.K, 7 },      // RT
+            { Keys.NumPad8, 8 },     // Up
+            { Keys.NumPad2, 9 },   // Down
+            { Keys.NumPad4, 10 },  // Left
+            { Keys.NumPad6, 11 }, // Right
+            { Keys.Add, 12 }, // Start
+            { Keys.Subtract, 13 }, // Select
         };
 
         this.joystickMap = new Dictionary<int, int>
@@ -159,18 +179,21 @@ public class InputManager {
         else if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
             inputDevice[0] = NONE_INPUT;
             inputDevice[1] = JOYSTICK_0_INPUT;
-            inputDevice[2] = KEYBOARD_INPUT;
+            inputDevice[2] = KEYBOARD_A_INPUT;
         }
         else {
             inputDevice[0] = NONE_INPUT;
-            inputDevice[1] = KEYBOARD_INPUT;
-            inputDevice[2] = NONE_INPUT;
+            inputDevice[1] = KEYBOARD_A_INPUT;
+            inputDevice[2] = KEYBOARD_B_INPUT;
         }
 
         int[] currentInput =  new int[3] {0, 0, 0};
         for (int i = 1; i < 3; i++) {
-            if (inputDevice[i] == KEYBOARD_INPUT) {
-                currentInput[i] = RawInput.ReadKeyboardState(keyMap);
+            if (inputDevice[i] == KEYBOARD_A_INPUT) {
+                currentInput[i] = RawInput.ReadKeyboardState(keyMapA);
+            }
+            else if (inputDevice[i] == KEYBOARD_B_INPUT) {
+                currentInput[i] = RawInput.ReadKeyboardState(keyMapB);
             }
             else if (inputDevice[i] == JOYSTICK_0_INPUT) {
                 currentInput[i] = JoystickInput.ReadJoystickState(joystickMap, dwUserIndex: 0);
@@ -271,11 +294,11 @@ public static class RawInput {
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(Keys vKey);
 
-    public static int ReadKeyboardState(Dictionary<Keys, int> keyMap)
+    public static int ReadKeyboardState(Dictionary<Keys, int> keyMapA)
     {
         int state = 0;
 
-        foreach (var key in keyMap)
+        foreach (var key in keyMapA)
         {
             if ((GetAsyncKeyState(key.Key) & 0x8000) != 0)
             {

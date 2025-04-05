@@ -441,7 +441,7 @@ public class Stage {
         this.TogglePlayers();
         this.PauseRoundTime();
         this.PauseTimer();
-        this.ToggleMusicVolume(this.pause, volume_A: 10f);
+        this.ToggleMusicVolume(this.pause, volume_A: 20f);
         foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
         foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
     }
