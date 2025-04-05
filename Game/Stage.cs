@@ -387,30 +387,6 @@ public class Stage {
             }
         }
     }
-    public void SetChars(Character char_A, Character char_B) {
-        this.character_A = char_A;
-        this.character_A.facing = 1;
-        this.character_A.playerIndex = 1;
-        this.character_A.team = 0;
-
-        this.character_B = char_B;
-        this.character_B.facing = -1;
-        this.character_B.playerIndex = 2;
-        this.character_B.team = 1;
-
-        this.character_A.floorLine = this.floorLine;
-        this.character_B.floorLine = this.floorLine;
-        this.character_A.body.Position.X = this.start_point_A;
-        this.character_B.body.Position.X = this.start_point_B;
-        this.character_A.stage = this;
-        this.character_B.stage = this;
-
-        this.character_A.LightTint = this.AmbientLight;
-        this.character_B.LightTint = this.AmbientLight;
-
-        this.OnSceneCharacters = new List<Character> {this.character_A, this.character_B};
-        this.LockPlayers();
-    }
     public bool CheckRoundEnd() {
         if (this.hitstopCounter != 0 || this.debug_mode || this.pause ) return false;
         
@@ -492,6 +468,30 @@ public class Stage {
     }
 
     // Players
+    public void SetChars(Character char_A, Character char_B) {
+        this.character_A = char_A;
+        this.character_A.facing = 1;
+        this.character_A.playerIndex = 1;
+        this.character_A.team = 0;
+
+        this.character_B = char_B;
+        this.character_B.facing = -1;
+        this.character_B.playerIndex = 2;
+        this.character_B.team = 1;
+
+        this.character_A.floorLine = this.floorLine;
+        this.character_B.floorLine = this.floorLine;
+        this.character_A.body.Position.X = this.start_point_A;
+        this.character_B.body.Position.X = this.start_point_B;
+        this.character_A.stage = this;
+        this.character_B.stage = this;
+
+        this.character_A.LightTint = this.AmbientLight;
+        this.character_B.LightTint = this.AmbientLight;
+
+        this.OnSceneCharacters = new List<Character> {this.character_A, this.character_B};
+        this.LockPlayers();
+    }
     public void ResetPlayers(bool force = false, bool total_reset = false) {
         if (force) {
             this.character_A.Reset(this.start_point_A, facing: 1, state: "Intro", total_reset: total_reset);

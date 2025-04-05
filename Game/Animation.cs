@@ -97,7 +97,7 @@ public class GenericBox {
     public float width;
     public float height;
 
-    public int type;
+    public int type; // 0 Hitbox, 1 Hurtbox, 2 Pushbox, 3 ParryBox, 4 Grabbox
     public int quadsize = 250;
 
     public GenericBox(int type, int x1, int y1, int x2, int y2) {   

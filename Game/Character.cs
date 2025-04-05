@@ -9,12 +9,15 @@ using UI_space;
 // ----- Default States -------
 // Intro
 // Idle
+
 // WalkingForward
 // WalkingBackward
+
 // JumpForward
 // Jump
 // JumpBackward
 // JumpFalling
+
 // Crouching
 
 // LightP
@@ -328,23 +331,23 @@ public class Character : Object_Space.Object {
     public static void Pushback(Character target, Character self, string amount, float X_amount = 0, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (X_amount != 0) {
-                self.SetVelocity(X: -X_amount, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: (self.facing * target.facing) * X_amount, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Light") {
-                self.SetVelocity(X: -Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: (self.facing * target.facing) * Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                self.SetVelocity(X: -Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: (self.facing * target.facing) * Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                self.SetVelocity(X: -Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: (self.facing * target.facing) * Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
             }
         } else {
             if (X_amount != 0) {
-                target.SetVelocity(X: -X_amount, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: (self.facing * target.facing) * X_amount, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Light") {
-                target.SetVelocity(X: -Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: (self.facing * target.facing) * Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Medium") {
-                target.SetVelocity(X: -Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: (self.facing * target.facing) * Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             } else if (amount == "Heavy"){
-                target.SetVelocity(X: -Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: (self.facing * target.facing) * Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
             }
         }
     }

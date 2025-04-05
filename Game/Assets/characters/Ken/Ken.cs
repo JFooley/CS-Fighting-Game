@@ -105,7 +105,7 @@ public class Ken : Character {
             new FrameData("15034", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(3, 85, 115, 156, 195) }),
             new FrameData("15034", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(3, 85, 115, 156, 195) }),
         };
-        
+
         // Normals
         var LPFrames = new List<FrameData> { 
             new FrameData(15008, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 105, 97, 144, 154), new GenericBox(1, 136, 103, 162, 129), new GenericBox(1, 91, 96, 125, 121), new GenericBox(1, 120, 87, 141, 105), new GenericBox(1, 87, 137, 162, 194), pushbox}, "golpe_1"),
