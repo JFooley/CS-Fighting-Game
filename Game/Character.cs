@@ -285,6 +285,10 @@ public class Character : Object_Space.Object {
             this.facing = -enemy.facing;
             this.ChangeState("Airboned", reset: true);
             this.StunFrames = 0;
+
+            if (this.LifePoints.X <= 0) {
+                this.SetVelocity(X: -Config.heavy_pushback, Y: 10);
+            }
             return;
 
         } else if (this.isCrounching) {

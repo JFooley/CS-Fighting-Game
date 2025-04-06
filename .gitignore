@@ -1,2 +1,4 @@
 *.dat
 Game/Assets/**/*.dat
+Game/bin/**/*.dat
+Game/obj/**/*.dat
