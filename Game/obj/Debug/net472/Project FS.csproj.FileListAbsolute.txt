@@ -2234,3 +2234,15 @@ D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\shaders\c
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\shaders\hue_change.frag
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\thumb.png
 D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\thumb.png
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Ken\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Fireball\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Hitspark\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\particles\sprites\Particle\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Burning Dojo\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Japan Fields\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Night Alley\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\NYC Subway\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\Rindo-Kan Dojo\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Midnight Duel\sprites\visuals.dat
+D:\GABRIEL\Repositórios\Fighting Game CS\Game\bin\Debug\net472\Assets\stages\The Savana\sprites\visuals.dat

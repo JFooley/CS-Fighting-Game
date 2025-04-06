@@ -5,6 +5,7 @@ using Animation_Space;
 using Input_Space;
 using Stage_Space;
 using UI_space;
+using Data_space;
 
 // ----- Default States -------
 // Intro
@@ -93,7 +94,7 @@ public class Character : Object_Space.Object {
 
     // Data
     public Dictionary<string, State> animations = new Dictionary<string, State>{};
-    public Dictionary<string, Sprite> spriteImages = new Dictionary<string, Sprite>{};
+    public Dictionary<string, Texture> spriteImages = new Dictionary<string, Texture>{};
     public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
     public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
 
@@ -121,7 +122,7 @@ public class Character : Object_Space.Object {
         base.body.Position.X = startX; 
         base.body.Position.Y = startY;
         this.floorLine = startY;
-        this.spriteImages = new Dictionary<string, Sprite>();
+        this.spriteImages = new Dictionary<string, Texture>();
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
@@ -273,22 +274,16 @@ public class Character : Object_Space.Object {
         if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
-    public void HitStun(Character enemy, int advantage, bool airbone = false, bool sweep = false, float airbone_height = -1, float airbone_X = 0, bool force = false) {
+    public void HitStun(Character enemy, int advantage, bool airbone = false, bool sweep = false, bool force = false) {
         this.StunFrames = 0;
         
         if (sweep) {
             this.ChangeState("Sweeped", reset: true);
             return;
 
-        // } else if (airbone || this.LifePoints.X <= 0 || this.onAir) {
         } else if (airbone || this.LifePoints.X <= 0) {
             this.facing = -enemy.facing;
-
-            if (airbone_height == -1) airbone_height = 10;
             this.ChangeState("Airboned", reset: true);
-            this.SetVelocity(
-                X: airbone_X * (enemy.facing * this.facing), 
-                Y: airbone_height);
             this.StunFrames = 0;
             return;
 
@@ -328,26 +323,30 @@ public class Character : Object_Space.Object {
     }
 
     // Static Methods 
-    public static void Pushback(Character target, Character self, string amount, float X_amount = 0, bool force_push = false) {
+    public static void Pushback(Character target, Character self, string amount, float X_amount = 0, float Y_amount = 0, bool airbone = false, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (X_amount != 0) {
-                self.SetVelocity(X: self.facing * target.facing * X_amount, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * X_amount);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Light") {
-                self.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.light_pushback);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Medium") {
-                self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Heavy"){
-                self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: -self.body.Velocity.Y, raw_set: true);
+                self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
             }
         } else {
             if (X_amount != 0) {
-                target.SetVelocity(X: self.facing * target.facing * X_amount, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * X_amount, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Light") {
-                target.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Medium") {
-                target.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Heavy"){
-                target.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: -target.body.Velocity.Y, raw_set: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             }
         }
     }
@@ -406,9 +405,8 @@ public class Character : Object_Space.Object {
         }
     }
     public Sprite GetCurrentSpriteImage() {
-        if (spriteImages.ContainsKey(this.CurrentSprite))
-        {
-            return spriteImages[this.CurrentSprite];
+        if (spriteImages.ContainsKey(this.CurrentSprite)) {
+            return new Sprite(spriteImages[this.CurrentSprite]);
         }
         return new Sprite(); 
     }
@@ -433,33 +431,27 @@ public class Character : Object_Space.Object {
             throw new System.IO.DirectoryNotFoundException($"O diretório {fullPath} não foi encontrado.");
         }
 
-        // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(fullPath);
-
-        foreach (string file in files) {
-            try
-            {
+        // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
+        string datpath = Path.Combine(fullPath, "visuals.dat");
+        if (System.IO.File.Exists(datpath)) {
+            this.spriteImages = DataManagement.LoadTextures(datpath);
+            
+        } else {
+            // Obtém todos os arquivos no diretório especificado
+            string[] files = System.IO.Directory.GetFiles(fullPath);
+            foreach (string file in files) {
                 // Tenta carregar a textura
                 Texture texture = new Texture(file);
-                Sprite sprite = new Sprite(texture);
-                sprite.Texture.Smooth = false;
                 
                 // Obtém o nome do arquivo sem a extensão
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                spriteImages[fileNameWithoutExtension] = sprite;
+                this.spriteImages[fileNameWithoutExtension] = texture;
             }
-            catch (SFML.LoadingFailedException)
-            {
-                // Se falhar ao carregar a imagem, simplesmente ignore
-                Console.WriteLine($"Falha ao carregar o arquivo {file} como textura. Ignorando...");
-            }
-            catch (FormatException)
-            {
-                // Caso o nome do arquivo não seja um número, ignora
-                Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
-            }
+
+            // Salva o arquivo binário
+            DataManagement.SaveTextures(datpath, this.spriteImages);
         }
     }
     public void UnloadSpriteImages() {

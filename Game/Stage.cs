@@ -6,6 +6,7 @@ using Character_Space;
 using UI_space;
 using Input_Space;
 using System.Diagnostics;
+using Data_space;
 
 namespace Stage_Space {
 
@@ -73,7 +74,7 @@ public class Stage {
     public string CurrentState { get; set; }
     public string LastState { get; set; }
     public Dictionary<string, State> animations;
-    private Dictionary<string, Sprite> spriteImages;
+    private Dictionary<string, Texture> spriteImages;
     private Dictionary<string, Sound> stageSounds;
     public string CurrentSprite = "";
     public string CurrentSound = "";
@@ -99,7 +100,7 @@ public class Stage {
         this.rounds_A = 0;
         this.rounds_B = 0;
         this.CurrentState = "Default";
-        this.spriteImages = new Dictionary<string, Sprite>();
+        this.spriteImages = new Dictionary<string, Texture>();
         this.stageSounds = new Dictionary<string, Sound>();
 
         this.spark = new Hitspark("Default", 0, 0, 1, this);
@@ -134,7 +135,7 @@ public class Stage {
 
         // Render stage sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
-            Sprite temp_sprite = this.spriteImages[this.CurrentSprite];
+            Sprite temp_sprite = new Sprite(this.spriteImages[this.CurrentSprite]);
             temp_sprite.Position = new Vector2f (0, 0);
             window.Draw(temp_sprite);
         }
@@ -595,33 +596,27 @@ public class Stage {
         }
         this.shadow = new Sprite(this.shadows[0]);
 
-        // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(fullPath);
-
-        foreach (string file in files) {
-            try
-            {
+        // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
+        string datpath = Path.Combine(fullPath, "visuals.dat");
+        if (System.IO.File.Exists(datpath)) {
+            this.spriteImages = DataManagement.LoadTextures(datpath);
+            
+        } else {
+            // Obtém todos os arquivos no diretório especificado
+            string[] files = System.IO.Directory.GetFiles(fullPath);
+            foreach (string file in files) {
                 // Tenta carregar a textura
                 Texture texture = new Texture(file);
-                Sprite sprite = new Sprite(texture);
-                sprite.Texture.Smooth = false;
                 
                 // Obtém o nome do arquivo sem a extensão
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                this.spriteImages[fileNameWithoutExtension] = sprite;
+                this.spriteImages[fileNameWithoutExtension] = texture;
             }
-            catch (SFML.LoadingFailedException)
-            {
-                // Se falhar ao carregar a imagem, simplesmente ignore
-                // Console.WriteLine($"Falha ao carregar o arquivo {file} como textura. Ignorando...");
-            }
-            catch (FormatException)
-            {
-                // Caso o nome do arquivo não seja um número, ignora
-                // Console.WriteLine($"O nome do arquivo {file} não é um número válido. Ignorando...");
-            }
+
+            // Salva o arquivo binário
+            DataManagement.SaveTextures(datpath, this.spriteImages);
         }
 
         return true;

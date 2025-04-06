@@ -859,7 +859,7 @@ public class Ken : Character {
         } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
             this.AddVelocity(
                 X: 2.4f, 
-                Y: 73);
+                Y: 80);
         } 
         if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
@@ -895,11 +895,13 @@ public class Ken : Character {
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
+
         } else if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
+
         } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActing && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("TatsoEX");
@@ -1112,7 +1114,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 56, 94);
-                    target.HitStun(this, 10, airbone_height: 10);
+                    target.HitStun(this, 10);
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 6);
                 break;
@@ -1149,13 +1151,15 @@ public class Ken : Character {
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -17);
+                    Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f);
+
                 } else {
                     hit = 1;
+                    target.HitStun(this, 0, airbone: true);
+                    Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f, Y_amount: 110f, airbone: true);
                     Character.Damage(target: target, self: this, 100, 160);
-                    target.HitStun(this, 0, airbone: true, airbone_height: 110, airbone_X: Config.light_pushback);
-                    
                 }
-                Character.Pushback(target: target, self: this, "Light", X_amount: 4.8f);
+
                 Character.GetSuperPoints(target, this, hit);
                 break;
 
@@ -1163,14 +1167,16 @@ public class Ken : Character {
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -10);
+                    Character.Pushback(target: target, self: this, "Heavy");
 
                 } else {
                     hit = 1;
+                    if (this.CurrentFrameIndex >= 6) {
+                        target.HitStun(this, 0, airbone: true);
+                        Character.Pushback(target: target, self: this, "Heavy", Y_amount: 120f, airbone: true);
+                    } else target.HitStun(this, 0);
                     Character.Damage(target: target, self: this, 100, 85);
-                    if (this.CurrentFrameIndex >= 6) target.HitStun(this, 0, airbone: true, airbone_height: 120, airbone_X: Config.medium_pushback);
-                    else target.HitStun(this, 0);
                 }
-                Character.Pushback(target: target, self: this, "Heavy");
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
                 break;
 
@@ -1178,15 +1184,18 @@ public class Ken : Character {
                 if (target.isBlocking()) {
                     hit = 0;
                     target.BlockStun(this, -10);
+                    Character.Pushback(target: target, self: this, "Heavy");
                     Character.Damage(target: target, self: this, 20, 20);
 
                 } else {
                     hit = 1;
+                    if (this.CurrentFrameIndex >= 6) {
+                        target.HitStun(this, 0, airbone: true);
+                        Character.Pushback(target: target, self: this, "Heavy", Y_amount: 120f, airbone: true);
+                    } else target.HitStun(this, 0);
                     Character.Damage(target: target, self: this, 120, 85);
-                    if (this.CurrentFrameIndex >= 6) target.HitStun(this, 0, airbone: true, airbone_height: 120, airbone_X: Config.medium_pushback);
-                    else target.HitStun(this, 0);
+
                 }
-                Character.Pushback(target: target, self: this, "Heavy");
                 Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;
             
@@ -1197,7 +1206,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 66, 203);
-                    target.HitStun(this, -3, airbone_height: 40);
+                    target.HitStun(this, -3);
                 }
                 Character.Pushback(target: target, self: this, "Light");
                 Character.GetSuperPoints(target, this, hit);
@@ -1210,7 +1219,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 54, 234);
-                    target.HitStun(this, -3, airbone_height: 40);
+                    target.HitStun(this, -3);
                 }
                 Character.Pushback(target: target, self: this, "Light");
                 Character.GetSuperPoints(target, this, hit, self_amount: 8);
@@ -1224,7 +1233,7 @@ public class Ken : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 54, 234);
-                    target.HitStun(this, -3, airbone_height: 40);
+                    target.HitStun(this, -3);
                 }
                 Character.Pushback(target: target, self: this, "Light");
                 Character.GetSuperPoints(target, this, hit, self_amount: 2);
@@ -1251,8 +1260,9 @@ public class Ken : Character {
 
                 } else {
                     hit = 1;
+                    target.HitStun(this, -6, airbone: true);
+                    Character.Pushback(target: target, self: this, "Light", X_amount: 2f, Y_amount: 50, airbone: true);
                     Character.Damage(target: target, self: this, 80, 140);
-                    target.HitStun(this, -6, airbone: true, airbone_height: 50, airbone_X: 2f);
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 4);
                 break;
@@ -1260,13 +1270,14 @@ public class Ken : Character {
             case "SA1":
                 if (target.isBlocking()) {
                     hit = 0;
-                    Character.Damage(target: target, self: this, 5, 0);
-                    Character.Pushback(target: target, self: this, "Heavy");
                     target.BlockStun(this, 30, force: true);
+                    Character.Pushback(target: target, self: this, "Heavy");
+                    Character.Damage(target: target, self: this, 5, 0);
                 } else {
                     hit = 1;
+                    target.HitStun(this, 10);
+                    Character.Pushback(target: target, self: this, "Light", X_amount: 1, Y_amount: 20);
                     Character.Damage(target: target, self: this, 45, 35);
-                    target.HitStun(this, 10, airbone_height: 50);
                     this.SA_flag = true;
                 }
                 break;
@@ -1279,15 +1290,15 @@ public class Ken : Character {
 
                 } else {
                     hit = 1;
-                    Character.Damage(target: target, self: this, 45, 35);
+                    target.HitStun(this, 5, airbone: true);
 
-                    if (this.CurrentFrameIndex < 6) target.HitStun(this, 5, airbone: true, airbone_height: 150, airbone_X: 0);
-                    else target.HitStun(this, 5, airbone_height: 20);
-
-                    if (this.CurrentFrameIndex >= 13) {
-                        target.HitStun(this, 5, airbone: true, airbone_height: 80, airbone_X: 0);
-                        Character.Pushback(target: target, self: this, "Heavy");
+                    if (this.CurrentFrameIndex < 6) {
+                        Character.Pushback(target: target, self: this, "Light", X_amount: 1, Y_amount: 150, airbone: true);
+                    } else if (this.CurrentFrameIndex >= 13) {
+                        Character.Pushback(target: target, self: this, "Heavy", Y_amount: 80, airbone: true);
                     }
+
+                    Character.Damage(target: target, self: this, 45, 35);
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 2);
                 break;

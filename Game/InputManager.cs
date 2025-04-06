@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -16,8 +14,7 @@ public class InputManager {
     public const int PLAYER_A = 1;
     public const int PLAYER_B = 2;
 
-    private static Dictionary<int, Dictionary<string, int>> keysTranslationMap = new Dictionary<int, Dictionary<string, int>>
-    {
+    private static Dictionary<int, Dictionary<string, int>> keysTranslationMap = new Dictionary<int, Dictionary<string, int>> {
         { -1, new Dictionary<string, int>
             {
                 { "A", 0 },
@@ -94,14 +91,14 @@ public class InputManager {
 
         this.keyMapA = new Dictionary<Keys, int>
         {
-            { Keys.A, 0 },      // A
-            { Keys.S, 1 },      // B
-            { Keys.Q, 2 },      // X
-            { Keys.W, 3 },      // Y
-            { Keys.R, 4 },      // L
-            { Keys.F, 5 },      // LT
-            { Keys.E, 6 },      // R
-            { Keys.D, 7 },      // RT
+            { Keys.Z, 0 },      // A
+            { Keys.X, 1 },      // B
+            { Keys.A, 2 },      // X
+            { Keys.S, 3 },      // Y
+            { Keys.F, 4 },      // L
+            { Keys.V, 5 },      // LT
+            { Keys.D, 6 },      // R
+            { Keys.C, 7 },      // RT
             { Keys.Up, 8 },     // Up
             { Keys.Down, 9 },   // Down
             { Keys.Left, 10 },  // Left
@@ -112,14 +109,14 @@ public class InputManager {
 
         this.keyMapB = new Dictionary<Keys, int>
         {
-            { Keys.H, 0 },      // A
-            { Keys.J, 1 },      // B
-            { Keys.Y, 2 },      // X
-            { Keys.U, 3 },      // Y
-            { Keys.O, 4 },      // L
-            { Keys.L, 5 },      // LT
-            { Keys.I, 6 },      // R
-            { Keys.K, 7 },      // RT
+            { Keys.Q, 0 },      // A
+            { Keys.W, 1 },      // B
+            { Keys.D1, 2 },      // X
+            { Keys.D2, 3 },      // Y
+            { Keys.D4, 4 },      // L
+            { Keys.R, 5 },      // LT
+            { Keys.D3, 6 },      // R
+            { Keys.E, 7 },      // RT
             { Keys.NumPad8, 8 },     // Up
             { Keys.NumPad2, 9 },   // Down
             { Keys.NumPad4, 10 },  // Left

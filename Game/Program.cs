@@ -23,8 +23,7 @@ using Character_Space;
 // True Size: 1280x720
 // View Size: 384x216
 
-public static class Program
-{
+public static class Program {
     // Winner index
     public const int Drawn = 0;
     public const int Player1 = 1;
