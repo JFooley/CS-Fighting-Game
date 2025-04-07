@@ -39,8 +39,15 @@ Implementado:
 - Modo treino
 - Menu de pausa
 - Lógica do jogo mais robusta
-- Menu de seleção de stage
+- Menu de seleção de stage e personagem
 - Tela pós batalha com rematch instantâneo
+- Tela de configurações com permanência dos dados
+- Sistema de prioridade de golpes
+- Layout de teclado adaptável para P1 e P2 (possibilita jogar com uma pessoa só)
+- Serialização dos dados (poupa tempo de load)
+- Imposição de movimento unificada (Agora usa apenas o método Push)
+- Trail visual para Super e movimentos EX
+- Sistema de mudança sutil na cor da sprite de acordo com cada stage (simula uma iluminação global simples)
 
 Deprecated:
 - Física simples
@@ -48,5 +55,4 @@ Deprecated:
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Limite de juggle
-- Fix: Pushback usando push boxes ao invés de valores fixos
 - Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
