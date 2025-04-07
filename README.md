@@ -20,30 +20,29 @@ Implementado:
 - Orientação visual dos personagens (olharem para o lado correto)
 - Padronização dos controles
 - Hitstop
-- Pushback usando as pushboxes
+- Pushback usando as pushboxes (jogadores se "empurram" ao colidirem)
 - Particulas de dano e block
-- HUD de Batalha
+- UI
 - Estados de intervalo entre rounds
-- Dano e stun na colisão
-- 2° controle conectado se torna o player 2 e o teclado fica como default
-- Pushback no corner: o personagem que está batendo receber o pushback pois o que está sendo atingido não pode se afastar mais devido ao corner
+- Dano e stun ao interagir
+- Auto detecção e assingment de controles:  começa com ambos no teclado e vai trocando a medida que controles forem sendo conectados ou desconectados.
+- Pushback no corner: o personagem que está batendo receber o pushback (apenas o movimento no eixo X) pois o que está sendo atingido não pode se afastar mais devido ao corner.
 - Capacidade de realizar Super Arts
-- Hitstop melhorado
+- Hitstop variável de acordo com a intensidade do golpe
 - Multiplos hits por animação (com reinício definido no frame)
-- Fixed: Jogadores não podem se afastar um do outro mais do que o tamanho da tela.
+- Limitação da tela: Jogadores não podem se afastar um do outro mais do que o tamanho da tela.
 - Particulas visuais independentes (Super Art, etc)
 - Hitstun e blockstun
-- Combo e indicação individual
-- Damage scaling
+- Sistema de contagem de combo
+- Damage scaling de acordo com o combo
 - Física complexa
-- Modo treino
+- Modo treino configurável 
 - Menu de pausa
 - Lógica do jogo mais robusta
 - Menu de seleção de stage e personagem
 - Tela pós batalha com rematch instantâneo
 - Tela de configurações com permanência dos dados
 - Sistema de prioridade de golpes
-- Layout de teclado adaptável para P1 e P2 (possibilita jogar com uma pessoa só)
 - Serialização dos dados (poupa tempo de load)
 - Imposição de movimento unificada (Agora usa apenas o método Push)
 - Trail visual para Super e movimentos EX
