@@ -274,47 +274,52 @@ public class Character : Object_Space.Object {
         if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
         return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
-    public void HitStun(Character enemy, int advantage, bool airbone = false, bool sweep = false, bool force = false) {
+    public void Stun(Character enemy, int advantage, bool hit = true, bool airbone = false, bool sweep = false, bool force = false) {
         this.StunFrames = 0;
-        
-        if (sweep) {
-            this.ChangeState("Sweeped", reset: true);
-            return;
+        if (hit) { // Hit stun states
+            if (sweep) {
+                this.ChangeState("Sweeped", reset: true);
+                return;
 
-        } else if (airbone || this.LifePoints.X <= 0) {
-            this.facing = -enemy.facing;
-            this.ChangeState("Airboned", reset: true);
-            this.StunFrames = 0;
+            } else if (airbone || this.LifePoints.X <= 0) {
+                this.facing = -enemy.facing;
+                this.ChangeState("Airboned", reset: true);
+                this.StunFrames = 0;
 
-            if (this.LifePoints.X <= 0) {
-                this.SetVelocity(X: -Config.heavy_pushback, Y: 10);
+                if (this.LifePoints.X <= 0) {
+                    this.SetVelocity(X: -Config.heavy_pushback, Y: 10);
+                }
+                return;
+
+            } else if (this.isCrounching) {
+                this.facing = -enemy.facing;
+                this.ChangeState("OnHitLow", reset: true);
+
+            } else {
+                this.facing = -enemy.facing;
+                this.ChangeState("OnHit", reset: true);
             }
-            return;
 
-        } else if (this.isCrounching) {
-            this.facing = -enemy.facing;
-            this.ChangeState("OnHitLow", reset: true);
+            if (force) {
+                this.StunFrames = Math.Max(advantage, 1);
+            } else {
+                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
+            }
 
-        } else {
-            this.facing = -enemy.facing;
-            this.ChangeState("OnHit", reset: true);
+        } else { // Block stun states
+            if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
+            else this.ChangeState("OnBlock", reset: true);
+
+            if (force) {
+                this.StunFrames = Math.Max(advantage, 0);
+            } else {
+                this.StunFrames = Math.Max((60 / enemy.CurrentAnimation.framerate) * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
+            }
         }
 
-        if (force) {
-            this.StunFrames = Math.Max(advantage, 1);
-        } else {
-            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
-        }
     }
     public void BlockStun(Character enemy, int advantage, bool force = false) {
-        if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
-        else this.ChangeState("OnBlock", reset: true);
-
-        if (force) {
-            this.StunFrames = Math.Max(advantage, 0);
-        } else {
-            this.StunFrames = Math.Max((60 / enemy.CurrentAnimation.framerate) * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
-        }
+        this.Stun(enemy, advantage, hit: false, force: force);
     }
     public void CheckStun() {
         if (this.StunFrames > 0) {
@@ -327,7 +332,7 @@ public class Character : Object_Space.Object {
     }
 
     // Static Methods 
-    public static void Pushback(Character target, Character self, string amount, float X_amount = 0, float Y_amount = 0, bool airbone = false, bool force_push = false) {
+    public static void Push(Character target, Character self, string amount, float X_amount = 0, float Y_amount = 0, bool airbone = false, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (X_amount != 0) {
                 self.SetVelocity(X: self.facing * target.facing * X_amount);

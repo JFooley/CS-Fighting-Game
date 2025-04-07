@@ -114,7 +114,7 @@ public class Fireball : Character {
 
         switch (this.CurrentState) {
             case "Ken1":
-                Character.Pushback(target: target, self: this, "Medium", force_push: true);
+                Character.Push(target: target, self: this, "Medium", force_push: true);
                 this.ChangeState("KenExit");
                 this.SetVelocity(raw_set: true);
 
@@ -126,14 +126,14 @@ public class Fireball : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 63, 48);
-                    target.HitStun(this, 30, force: true);
+                    target.Stun(this, 30, force: true);
                 }
                 if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
 
             case "Ken2":
-                Character.Pushback(target: target, self: this, "Heavy", force_push: true);
+                Character.Push(target: target, self: this, "Heavy", force_push: true);
                 this.ChangeState("KenExit");
                 this.SetVelocity(raw_set: true);
 
@@ -145,14 +145,14 @@ public class Fireball : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 125, 78);
-                    target.HitStun(this, 30, force: true);
+                    target.Stun(this, 30, force: true);
                 }
                 if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
             
             case "Ken3":
-                Character.Pushback(target: target, self: this, "Heavy", force_push: true);
+                Character.Push(target: target, self: this, "Heavy", force_push: true);
                 this.ChangeState("KenExit");
                 this.SetVelocity(raw_set: true);
 
@@ -164,7 +164,7 @@ public class Fireball : Character {
                 } else {
                     hit = 1;
                     Character.Damage(target: target, self: this, 125, 78);
-                    target.HitStun(this, 30, force: true);
+                    target.Stun(this, 30, force: true);
                 }
                 if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);

@@ -372,10 +372,10 @@ public class Psylock : Character {
         int hit = -1;
         switch (this.CurrentState) {
             case "AAttack":
-                Character.Pushback(target: target, self: this, "Light");
+                Character.Push(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.HitStun(this, 3);
+                    target.Stun(this, 3);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
@@ -385,10 +385,10 @@ public class Psylock : Character {
                 break;
                 
             case "BAttack":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Push(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.HitStun(this, 4);
+                    target.Stun(this, 4);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
@@ -398,10 +398,10 @@ public class Psylock : Character {
                 break;
                 
             case "CAttack":
-                Character.Pushback(target: target, self: this, "Medium");
+                Character.Push(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.HitStun(this, 2);
+                    target.Stun(this, 2);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
@@ -411,10 +411,10 @@ public class Psylock : Character {
                 break;
 
             case "DAttack":
-                Character.Pushback(target: target, self: this, "Heavy");
+                Character.Push(target: target, self: this, "Heavy");
                 if (!target.isBlocking()) {
                     hit = 1;
-                    target.HitStun(this, 0);
+                    target.Stun(this, 0);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
