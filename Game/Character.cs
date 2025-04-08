@@ -481,12 +481,15 @@ public class Character : Object_Space.Object {
             throw new System.IO.DirectoryNotFoundException($"O diretório {fullSoundPath} não foi encontrado.");
         }
 
-        // Obtém todos os arquivos no diretório especificado
-        string[] files = System.IO.Directory.GetFiles(fullSoundPath);
-
-        foreach (string file in files) {
-            try
-            {
+        // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
+        string datpath = Path.Combine(fullSoundPath, "sounds.dat");
+        if (System.IO.File.Exists(datpath)) {
+            this.characterSounds = DataManagement.LoadSounds(datpath);
+            
+        } else {
+            // Obtém todos os arquivos no diretório especificado
+            string[] files = System.IO.Directory.GetFiles(fullSoundPath);
+            foreach (string file in files) {
                 // Tenta carregar a textura
                 var buffer = new SoundBuffer(file);
                 
@@ -495,9 +498,10 @@ public class Character : Object_Space.Object {
 
                 // Adiciona no dicionário
                 this.characterSounds[fileNameWithoutExtension] = new Sound(buffer);
-            } catch (SFML.LoadingFailedException ex) {
-                Console.WriteLine($"Falha ao carregar o som {file}: {ex.Message}");
             }
+
+            // Salva o arquivo binário
+            DataManagement.SaveSounds(datpath, this.characterSounds);
         }
     }
     public void UnloadSounds() {

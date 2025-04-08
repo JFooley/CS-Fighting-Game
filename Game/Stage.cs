@@ -637,10 +637,14 @@ public class Stage {
             return false;
         }
 
-        // Obtém todos os arquivos no diretório especificado
-        try {
+        // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
+        string datpath = Path.Combine(fullSoundPath, "sounds.dat");
+        if (System.IO.File.Exists(datpath)) {
+            this.stageSounds = DataManagement.LoadSounds(datpath);
+            
+        } else {
+            // Obtém todos os arquivos no diretório especificado
             string[] files = System.IO.Directory.GetFiles(fullSoundPath);
-
             foreach (string file in files) {
                 // Tenta carregar a textura
                 var buffer = new SoundBuffer(file);
@@ -651,8 +655,10 @@ public class Stage {
                 // Adiciona no dicionário
                 this.stageSounds[fileNameWithoutExtension] = new Sound(buffer);
             } 
-        } catch {}
-
+            
+            // Salva o arquivo binário
+            DataManagement.SaveSounds(datpath, this.stageSounds);
+        }
         return true;
     }
     public void UnloadSounds() {

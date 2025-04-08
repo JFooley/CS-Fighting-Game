@@ -4494,3 +4494,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.sourc
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.csproj.Up2Date
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.exe
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.pdb
+D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\characters\Ken\sounds\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Fireball\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Hitspark\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Particle\sounds.dat

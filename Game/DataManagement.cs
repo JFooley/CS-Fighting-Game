@@ -1,9 +1,9 @@
+using SFML.Audio;
 using SFML.Graphics;
 
 namespace Data_space {
     public static class DataManagement {
-        public static void SaveTextures(string fileName, Dictionary<string, Texture> textures) 
-        {
+        public static void SaveTextures(string fileName, Dictionary<string, Texture> textures) {
             using (var stream = new FileStream(fileName, FileMode.Create))
             using (var writer = new BinaryWriter(stream))
             {
@@ -25,9 +25,7 @@ namespace Data_space {
                 }
             }
         }
-
-        public static Dictionary<string, Texture> LoadTextures(string fileName) 
-        {
+        public static Dictionary<string, Texture> LoadTextures(string fileName) {
             var textures = new Dictionary<string, Texture>();
 
             using (var stream = new FileStream(fileName, FileMode.Open))
@@ -65,6 +63,60 @@ namespace Data_space {
             }
 
             return textures;
+        }
+
+        public static void SaveSounds(string fileName, Dictionary<string, Sound> sounds) {
+            using (FileStream fs = new FileStream(fileName, FileMode.Create))
+            using (BinaryWriter writer = new BinaryWriter(fs))
+            {
+                writer.Write(sounds.Count); // Escreve quantos sons serão salvos
+                
+                foreach (var pair in sounds)
+                {
+                    // Salva o nome do som
+                    writer.Write(pair.Key);
+                    
+                    // Obtém os dados brutos do SoundBuffer
+                    SoundBuffer buffer = pair.Value.SoundBuffer;
+                    short[] samples = buffer.Samples;
+                    byte[] sampleBytes = new byte[samples.Length * 2];
+                    Buffer.BlockCopy(samples, 0, sampleBytes, 0, sampleBytes.Length);
+                    
+                    // Escreve os metadados e dados do áudio
+                    writer.Write(buffer.SampleRate);
+                    writer.Write((byte)buffer.ChannelCount);
+                    writer.Write(sampleBytes.Length);
+                    writer.Write(sampleBytes);
+                }
+            }
+        }
+        public static Dictionary<string, Sound> LoadSounds(string fileName) {
+            Dictionary<string, Sound> loadedSounds = new Dictionary<string, Sound>();
+            
+            using (FileStream fs = new FileStream(fileName, FileMode.Open))
+            using (BinaryReader reader = new BinaryReader(fs))
+            {
+                int soundCount = reader.ReadInt32();
+                
+                for (int i = 0; i < soundCount; i++)
+                {
+                    string soundName = reader.ReadString();
+                    uint sampleRate = reader.ReadUInt32();
+                    byte channels = reader.ReadByte();
+                    int dataLength = reader.ReadInt32();
+                    byte[] audioData = reader.ReadBytes(dataLength);
+                    
+                    // Reconstrói o SoundBuffer
+                    short[] samples = new short[dataLength / 2];
+                    Buffer.BlockCopy(audioData, 0, samples, 0, dataLength);
+                    SoundBuffer buffer = new SoundBuffer(samples, channels, sampleRate);
+                    
+                    // Cria o Sound e adiciona ao dicionário
+                    loadedSounds[soundName] = new Sound(buffer);
+                }
+            }
+            
+            return loadedSounds;
         }
     }
 }
