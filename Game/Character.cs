@@ -132,8 +132,8 @@ public class Character : Object_Space.Object {
         this.DoBehave();
         this.DoAnimate();
     }
-    public override void DoRender(RenderWindow window, bool drawHitboxes = false) {
-        base.DoRender(window, drawHitboxes);
+    public override void DoRender(bool drawHitboxes = false) {
+        base.DoRender(drawHitboxes);
         
         // Set current sprite
         var temp_sprite = this.GetCurrentSpriteImage();
@@ -146,7 +146,7 @@ public class Character : Object_Space.Object {
             Program.hueChange.SetUniform("hslInput", new SFML.Graphics.Glsl.Vec3(0.66f, 0.5f, 0.75f));
 
             for (int i = 0; i < 3; i++) {
-                if (LastSprites[i] != null) window.Draw(LastSprites[i], new RenderStates(Program.hueChange));
+                if (LastSprites[i] != null) Program.window.Draw(LastSprites[i], new RenderStates(Program.hueChange));
             }
             
             if (this.hasFrameChange) {               
@@ -157,7 +157,7 @@ public class Character : Object_Space.Object {
         } else LastSprites = new Sprite[3];
 
         // Render current sprite
-        window.Draw(temp_sprite);
+        Program.window.Draw(temp_sprite);
 
         // Play sounds
         this.PlaySound();
@@ -177,8 +177,8 @@ public class Character : Object_Space.Object {
                 OutlineThickness = 1.0f 
             };
             
-            window.Draw(anchorX);
-            window.Draw(anchorY);
+            Program.window.Draw(anchorX);
+            Program.window.Draw(anchorY);
 
             foreach (GenericBox box in this.CurrentBoxes) {
                 // Calcula as coordenadas absolutas da hitbox
@@ -212,10 +212,10 @@ public class Character : Object_Space.Object {
                 };
 
                 // Desenha o retângulo da hitbox na janela
-                window.Draw(hitboxRect);
+                Program.window.Draw(hitboxRect);
             }
 
-            UI.Instance.DrawText(window, this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 50, spacing: -10, size: 0.5f, alignment: "center");
+            UI.Instance.DrawText(this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 50, spacing: -10, size: 0.5f, alignment: "center");
         }
     }
     public override void DoAnimate() {

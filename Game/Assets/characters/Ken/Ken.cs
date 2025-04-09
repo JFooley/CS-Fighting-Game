@@ -888,19 +888,19 @@ public class Ken : Character {
         }
 
         // Tatso
-        if (InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        if (InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && this.CurrentState == "LowLightK"))) {
             this.ChangeState("LightTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
 
-        } else if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
+        } else if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && this.CurrentState == "LowLightK"))) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
 
-        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActing && Character.CheckSuperPoints(this, 50)) {
+        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && this.CurrentState == "LowLightK")) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("TatsoEX");
             this.SetVelocity(Y: 5);
@@ -922,7 +922,7 @@ public class Ken : Character {
             this.ChangeState("CloseMP");
         } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.isCrounching) {
             this.ChangeState("BackMediumK");
-        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !this.isCrounching && (this.notActing || (this.hasHit && this.CurrentState == "CloseMP"))) {
+        } else if (InputManager.Instance.Key_press("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && this.CurrentState == "CloseMP"))) {
             this.ChangeState("BackMediumP");
         } 
 

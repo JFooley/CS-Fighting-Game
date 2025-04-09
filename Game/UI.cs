@@ -70,12 +70,12 @@ namespace UI_space {
         }
 
         // Draw Callers
-        public void ShowFramerate(RenderWindow window, string textureName) {
+        public void ShowFramerate(string textureName) {
             this.elapsed = this.counter % (60/2) == 0 ? (int) (1 / Program.last_frame_time) : this.elapsed;
-            this.DrawText(window, this.elapsed.ToString() + " - " + Program.last_frame_time.ToString("F5"), 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
+            this.DrawText(this.elapsed.ToString() + " - " + Program.last_frame_time.ToString("F5"), 0, 82, spacing: Config.spacing_small, size: 1f, textureName: textureName);
         }
 
-        public void DrawText(RenderWindow window, string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default medium") {
+        public void DrawText(string text, float X, float Y, float spacing = 0, float size = 1f, string alignment = "center", bool absolutePosition = false, string textureName = "default medium") {
             float totalWidth = 0;
             float pos_X;
             float pos_Y;
@@ -115,19 +115,19 @@ namespace UI_space {
             }
             foreach (Sprite sprite in text_sprites) {   
                 sprite.Position = new Vector2f(pos_X + offset_X, pos_Y + Y);
-                window.Draw(sprite);
+                Program.window.Draw(sprite);
                 offset_X += sprite.GetGlobalBounds().Width + spacing;
             }
         }
 
-        public void DrawRectangle(RenderWindow window, float X, float Y, float width, float height, SFML.Graphics.Color color) {
+        public void DrawRectangle(float X, float Y, float width, float height, SFML.Graphics.Color color) {
             RectangleShape rectangle = new RectangleShape(new Vector2f(width, height))
             {
                 Position = new Vector2f(Camera.GetInstance().X + X, Camera.GetInstance().Y + Y),
                 FillColor = color
             };
 
-            window.Draw(rectangle);
+            Program.window.Draw(rectangle);
         }
     
         // Battle UI
@@ -141,63 +141,63 @@ namespace UI_space {
             var lifeA_scale = stage.character_A.LifePoints.X * 150 / stage.character_A.LifePoints.Y;
             var lifeA = Math.Max(Math.Min(lifeA_scale, 150), 0);
             if (stage.character_B.comboCounter == 0) this.graylife_A = lifeA > this.graylife_A ? this.graylife_A = lifeA : (int) (this.graylife_A + (lifeA - this.graylife_A) * 0.01);
-            this.DrawRectangle(window, -180 + (150 - this.graylife_A), -95, this.graylife_A, 8, this.bar_graylife);
-            this.DrawRectangle(window, -180 + (150 - lifeA), -95, lifeA, 8, stage.character_A.LifePoints.X == stage.character_A.LifePoints.Y ? this.bar_fulllife : this.bar_life);
+            this.DrawRectangle(-180 + (150 - this.graylife_A), -95, this.graylife_A, 8, this.bar_graylife);
+            this.DrawRectangle(-180 + (150 - lifeA), -95, lifeA, 8, stage.character_A.LifePoints.X == stage.character_A.LifePoints.Y ? this.bar_fulllife : this.bar_life);
 
             // Draw Super bar A
             var superA_scale = stage.character_A.SuperPoints.X * 119 / stage.character_A.SuperPoints.Y;
             var superA = Math.Max(Math.Min(superA_scale, 119), 0);
-            this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super);
+            this.DrawRectangle(-180 + (119 - superA), 97, superA, 4, this.bar_super);
             if (stage.character_A.SuperPoints.X >= stage.character_A.SuperPoints.Y/2) {
                 var control = stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y ? this.blink10Hz : true;
-                if (control) this.DrawRectangle(window, -180 + (119 - superA), 97, superA, 4, this.bar_super_full);
+                if (control) this.DrawRectangle(-180 + (119 - superA), 97, superA, 4, this.bar_super_full);
             }
-            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && this.blink2Hz) this.DrawText(window, this.superBarMsg, -193, 72, spacing: Config.spacing_medium, alignment: "left", textureName: "default medium");
+            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, -193, 72, spacing: Config.spacing_medium, alignment: "left", textureName: "default medium");
             
             // Draw Stun bar A
             var stunA_scale = ( stage.character_A.DizzyPoints.Y - stage.character_A.DizzyPoints.X) * 150 / stage.character_A.DizzyPoints.Y;
             var stunA = Math.Max(Math.Min(stunA_scale, 150), 0);
-            this.DrawRectangle(window, -180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
+            this.DrawRectangle(-180 + (150 - stunA), -86, stunA, 1, this.bar_graylife);
 
             // Character B
             // Draw lifebar B
             var lifeB_scale = stage.character_B.LifePoints.X * 150 / stage.character_B.LifePoints.Y;
             var lifeB = Math.Max(Math.Min(lifeB_scale, 150), 0);
             if (stage.character_A.comboCounter == 0) this.graylife_B = lifeB > this.graylife_B ? this.graylife_B = lifeB : (int) (this.graylife_B + (lifeB - this.graylife_B) * 0.01);
-            this.DrawRectangle(window, 30, -95, this.graylife_B, 8, this.bar_graylife);
-            this.DrawRectangle(window, 30, -95, lifeB, 8, stage.character_B.LifePoints.X == stage.character_B.LifePoints.Y ? this.bar_fulllife : this.bar_life);
+            this.DrawRectangle(30, -95, this.graylife_B, 8, this.bar_graylife);
+            this.DrawRectangle(30, -95, lifeB, 8, stage.character_B.LifePoints.X == stage.character_B.LifePoints.Y ? this.bar_fulllife : this.bar_life);
             
             // Draw Super bar B
             var superB_scale = stage.character_B.SuperPoints.X * 119 / stage.character_B.SuperPoints.Y;
             var superB = Math.Max(Math.Min(superB_scale, 119), 0);
-            this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super);
+            this.DrawRectangle(61, 97, superB, 4, this.bar_super);
             if (stage.character_B.SuperPoints.X >= stage.character_B.SuperPoints.Y/2) {
                 var control = stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y ? this.blink10Hz : true;
-                if (control) this.DrawRectangle(window, 61, 97, superB, 4, this.bar_super_full);
+                if (control) this.DrawRectangle(61, 97, superB, 4, this.bar_super_full);
             }
-            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && this.blink2Hz) this.DrawText(window, this.superBarMsg, 193, 72, spacing: Config.spacing_medium, alignment: "right", textureName: "default medium");
+            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, 193, 72, spacing: Config.spacing_medium, alignment: "right", textureName: "default medium");
 
             // Draw Stun bar B
             var stunB_scale = ( stage.character_B.DizzyPoints.Y - stage.character_B.DizzyPoints.X) * 150 / stage.character_B.DizzyPoints.Y;
             var stunB = Math.Max(Math.Min(stunB_scale, 150), 0);
-            this.DrawRectangle(window, 30, -86, stunB, 1, this.bar_graylife);
+            this.DrawRectangle(30, -86, stunB, 1, this.bar_graylife);
             
             
             // HUD elements
             // Draw names
-            UI.Instance.DrawText(window, stage.character_A.name, -194, -95, spacing: Config.spacing_small, size: 1f, alignment: "left", textureName: "default small white");
-            UI.Instance.DrawText(window, stage.character_B.name, 194, -95, spacing: Config.spacing_small, size: 1f, alignment: "right", textureName: "default small white");
+            UI.Instance.DrawText(stage.character_A.name, -194, -95, spacing: Config.spacing_small, size: 1f, alignment: "left", textureName: "default small white");
+            UI.Instance.DrawText(stage.character_B.name, 194, -95, spacing: Config.spacing_small, size: 1f, alignment: "right", textureName: "default small white");
 
             // Draw Combo text
-            if (stage.character_A.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_A.comboCounter, -190, -80, spacing: -23, alignment: "left", size: 1f, textureName: "default medium white");
-            if (stage.character_B.comboCounter > 1) this.DrawText(window, "Combo " + stage.character_B.comboCounter, 190, -80, spacing: -23, alignment: "right", size: 1f, textureName: "default medium white");
+            if (stage.character_A.comboCounter > 1) this.DrawText("Combo " + stage.character_A.comboCounter, -190, -80, spacing: -23, alignment: "left", size: 1f, textureName: "default medium white");
+            if (stage.character_B.comboCounter > 1) this.DrawText("Combo " + stage.character_B.comboCounter, 190, -80, spacing: -23, alignment: "right", size: 1f, textureName: "default medium white");
 
             // Draw time
-            this.DrawText(window, "" + Math.Max(stage.round_time, 0), 0, -106, alignment: "center", spacing: -8, size: 1f, textureName: "1");
+            this.DrawText("" + Math.Max(stage.round_time, 0), 0, -106, alignment: "center", spacing: -8, size: 1f, textureName: "1");
 
             // Draw round indicator ≈
-            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "icons");
-            this.DrawText(window, string.Concat(Enumerable.Repeat("*", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
+            this.DrawText(string.Concat(Enumerable.Repeat("*", stage.rounds_A)), -20, -93, spacing: -19, alignment: "right", textureName: "icons");
+            this.DrawText(string.Concat(Enumerable.Repeat("*", stage.rounds_B)),  20, -93, spacing: -19, alignment: "left", textureName: "icons");
         }
         
         public void LoadFonts() {

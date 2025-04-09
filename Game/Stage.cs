@@ -160,11 +160,11 @@ public class Stage {
         // Render chars, UI, shadows and particles
         foreach (Character char_object in this.OnSceneCharactersRender) {
             this.DrawShadow(window, char_object);
-            char_object.DoRender(window, this.show_boxs);
+            char_object.DoRender(this.show_boxs);
         }
         UI.Instance.DrawBattleUI(window, this);
         foreach (Character part_object in this.OnSceneParticles) {
-            part_object.DoRender(window, this.show_boxs);
+            part_object.DoRender(this.show_boxs);
         }
 
         // Update chars
@@ -218,8 +218,8 @@ public class Stage {
     }
     public virtual void DoSpecialBehaviour() {}
     public void DebugMode(RenderWindow window) {
-        UI.Instance.ShowFramerate(window, "default small white");
-        UI.Instance.DrawText(window, "training mode", 0, 70, spacing: Config.spacing_small, size: 1f, textureName: "default small white");
+        UI.Instance.ShowFramerate("default small white");
+        UI.Instance.DrawText("training mode", 0, 70, spacing: Config.spacing_small, size: 1f, textureName: "default small white");
         
         this.ResetRoundTime();
         
@@ -260,14 +260,14 @@ public class Stage {
         window.Draw(fade90);
 
         // Draw options
-        UI.Instance.DrawText(window, "Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
-        UI.Instance.DrawText(window, "Settings", 0, -40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
-        UI.Instance.DrawText(window, "Training mode", 0, -20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
-        if (debug_mode) UI.Instance.DrawText(window, "Show hitboxes", 0, 0, spacing: Config.spacing_small, textureName: this.pause_pointer == 2 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, block_after_hit ? "Block: after hit" : "Block: never", 0, 10, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, refil_life ? "Life: refil" : "Life: keep", 0, 20, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
-        if (debug_mode) UI.Instance.DrawText(window, refil_super ? "Super: refil" : "Super: keep", 0, 30, spacing: Config.spacing_small, textureName: this.pause_pointer == 5 ? "default small hover" : "default small");
-        UI.Instance.DrawText(window, "End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 6 ? "default medium red" : "default medium");
+        UI.Instance.DrawText("Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
+        UI.Instance.DrawText("Settings", 0, -40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
+        UI.Instance.DrawText("Training mode", 0, -20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
+        if (debug_mode) UI.Instance.DrawText("Show hitboxes", 0, 0, spacing: Config.spacing_small, textureName: this.pause_pointer == 2 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(block_after_hit ? "Block: after hit" : "Block: never", 0, 10, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(refil_life ? "Life: refil" : "Life: keep", 0, 20, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
+        if (debug_mode) UI.Instance.DrawText(refil_super ? "Super: refil" : "Super: keep", 0, 30, spacing: Config.spacing_small, textureName: this.pause_pointer == 5 ? "default small hover" : "default small");
+        UI.Instance.DrawText("End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 6 ? "default medium red" : "default medium");
 
         // Change option 
         if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {

@@ -170,14 +170,14 @@ public class Particle : Character {
         this.LoadSounds();
     }
     
-    public override void DoRender(RenderWindow window, bool drawHitboxes = false) {
+    public override void DoRender(bool drawHitboxes = false) {
         if (!this.render) return;
         
         // Render sprite
         Sprite temp_sprite = this.GetCurrentSpriteImage();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height / 2);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
-        window.Draw(temp_sprite);
+        Program.window.Draw(temp_sprite);
 
         // Play sounds
         base.PlaySound();
