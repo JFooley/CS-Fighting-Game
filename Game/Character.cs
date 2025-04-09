@@ -126,7 +126,6 @@ public class Character : Object_Space.Object {
         this.characterSounds = new Dictionary<string, Sound>();
     }
 
-
     // Every Frame methods
     public override void Update() {
         base.Update();
@@ -335,17 +334,17 @@ public class Character : Object_Space.Object {
     public static void Push(Character target, Character self, string amount, float X_amount = 0, float Y_amount = 0, bool airbone = false, bool force_push = false) {
         if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
             if (X_amount != 0) {
-                self.SetVelocity(X: self.facing * target.facing * X_amount);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
+                self.SetVelocity(X: self.facing * target.facing * X_amount, keep_Y: true);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
             } else if (amount == "Light") {
-                self.SetVelocity(X: self.facing * target.facing * Config.light_pushback);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
+                self.SetVelocity(X: self.facing * target.facing * Config.light_pushback, keep_Y: true);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
             } else if (amount == "Medium") {
-                self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
+                self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, keep_Y: true);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
             } else if (amount == "Heavy"){
-                self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0);
+                self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, keep_Y: true);
+                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
             }
         } else {
             if (X_amount != 0) {
@@ -360,8 +359,8 @@ public class Character : Object_Space.Object {
         }
     }
     public static void Damage(Character target, Character self, int damage, int dizzy_damage) {
-        target.LifePoints.X -= (int) (damage * self.damageScaling);
-        target.DizzyPoints.X -= (int) (dizzy_damage * self.damageScaling);
+        target.LifePoints.X = (int) Math.Max(target.LifePoints.X - damage * self.damageScaling, 0);
+        target.DizzyPoints.X = (int) Math.Max(target.DizzyPoints.X - dizzy_damage * self.damageScaling, 0);
     }
     public static void GetSuperPoints(Character target, Character self, int hit , int target_amount = 3, int self_amount = 10) {
         target.SuperPoints.X = (int) Math.Min(target.SuperPoints.Y, target.SuperPoints.X + target_amount);
@@ -375,8 +374,8 @@ public class Character : Object_Space.Object {
     }
     
     // Auxiliar methods
-    public void SetVelocity(float X = 0, float Y = 0, bool raw_set = false) {
-        this.body.SetVelocity(this, X, Y, raw_set: raw_set);
+    public void SetVelocity(float X = 0, float Y = 0, bool raw_set = false,bool keep_X = false, bool keep_Y = false) {
+        this.body.SetVelocity(this, X, Y, raw_set: raw_set, keep_X: keep_X, keep_Y: keep_Y);
     }
     public void AddVelocity(float X = 0, float Y = 0, bool raw_set = false) {
         this.body.AddVelocity(this, X, Y, raw_set: raw_set);

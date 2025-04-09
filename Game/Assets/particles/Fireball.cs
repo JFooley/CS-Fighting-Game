@@ -51,10 +51,10 @@ public class Fireball : Character {
 
         // States
         var animations = new Dictionary<string, State> {
-            {"Ken1", new State(KenFireballFrames, "Ken1", 20)},
-            {"Ken2", new State(KenFireballFrames, "Ken2", 20)},
-            {"Ken3", new State(KenFireballFrames, "Ken3", 30)},
-            {"KenExit", new State(KenFireballFinal, "Remove", 30)},
+            {"Ken1", new State(KenFireballFrames, "Ken1", 20, 7)},
+            {"Ken2", new State(KenFireballFrames, "Ken2", 20, 7)},
+            {"Ken3", new State(KenFireballFrames, "Ken3", 30, 7)},
+            {"KenExit", new State(KenFireballFinal, "Remove", 30, 7)},
             {"Remove", new State(KenFireballFinal, "Remove", 60)},
         };
 

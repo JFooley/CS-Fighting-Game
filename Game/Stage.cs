@@ -34,6 +34,9 @@ public class Stage {
             .OrderByDescending(x => x.State.priority)
             .ThenBy(x => Program.random.Next())
             .ToList();
+    public List<Character> OnSceneCharactersRender => this.OnSceneCharacters
+            .OrderBy(x => x.State.priority)
+            .ToList();
 
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
@@ -130,18 +133,12 @@ public class Stage {
             this.Pause();
         }
 
-        // Update Current Sprite
-        this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
-
         // Render stage sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = new Sprite(this.spriteImages[this.CurrentSprite]);
             temp_sprite.Position = new Vector2f (0, 0);
             window.Draw(temp_sprite);
         }
-
-        // Keep music playing
-        if (!this.pause) this.PlayMusic();
 
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
@@ -152,6 +149,22 @@ public class Stage {
                     this.CurrentState = this.state.post_state;
                 }
             }
+        }
+
+        // Keep music playing
+        if (!this.pause) this.PlayMusic();
+
+        // Update Current Sprite
+        this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
+
+        // Render chars, UI, shadows and particles
+        foreach (Character char_object in this.OnSceneCharactersRender) {
+            this.DrawShadow(window, char_object);
+            char_object.DoRender(window, this.show_boxs);
+        }
+        UI.Instance.DrawBattleUI(window, this);
+        foreach (Character part_object in this.OnSceneParticles) {
+            part_object.DoRender(window, this.show_boxs);
         }
 
         // Update chars
@@ -168,16 +181,6 @@ public class Stage {
         this.OnSceneParticles.RemoveAll(obj => obj.remove);
         this.OnSceneParticles.AddRange(this.newParticles);
         this.newParticles.Clear();
-
-        // Render chars, UI, shadows and particles
-        foreach (Character char_object in this.OnSceneCharacters) {
-            this.DrawShadow(window, char_object);
-            char_object.DoRender(window, this.show_boxs);
-        }
-        UI.Instance.DrawBattleUI(window, this);
-        foreach (Character part_object in this.OnSceneParticles) {
-            part_object.DoRender(window, this.show_boxs);
-        }
         
         // Render Pause menu and Traning assets
         if (this.debug_mode) this.DebugMode(window);
@@ -533,19 +536,13 @@ public class Stage {
     // Music
     public void SetMusicVolume(float amount = -1) {
         if (amount == -1) amount = Config.Music_Volume;
-        if (this.stageSounds.Keys.Contains("music")) {
-            this.stageSounds["music"].Volume = amount * (Config.Main_Volume / 100);
-        }
+        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Volume = amount * (Config.Main_Volume / 100);
     }
     public void StopMusic() {
-        if (this.stageSounds.Keys.Contains("music")) {
-            this.stageSounds["music"].Stop();
-        }
+        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Stop();
     }
     public void PauseMusic() {
-        if (this.stageSounds.Keys.Contains("music")) {
-            this.stageSounds["music"].Pause();
-        }
+        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Pause();
     }
     public void PlayMusic() {
         if (this.stageSounds.Keys.Contains("music") && (this.stageSounds["music"].Status == SoundStatus.Stopped || this.stageSounds["music"].Status == SoundStatus.Paused)){

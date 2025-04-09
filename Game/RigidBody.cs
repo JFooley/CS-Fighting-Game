@@ -47,23 +47,35 @@ public class RigidBody {
         } 
     }
 
-    public void SetVelocity(Character player, float X = 0, float Y = 0, bool raw_set = false) {
-        if (raw_set) this.Velocity = new Vector2f(X * player.facing, -Y);
-        else this.Velocity = new Vector2f(X * player.facing, -this.CalcularForcaY(Y));
+    public void SetVelocity(Character player, float X = 0, float Y = 0, bool raw_set = false, bool keep_X = false, bool keep_Y = false) {
+        if (raw_set) {
+            this.Velocity.X = keep_X ? this.Velocity.X : X * player.facing;
+            this.Velocity.Y = keep_Y ? this.Velocity.Y : -Y;
+        } else {
+            this.Velocity.X = keep_X ? this.Velocity.X : X * player.facing;
+            this.Velocity.Y = keep_Y ? this.Velocity.Y : -this.CalcularForcaY(Y);
+        }
     }
 
     public void AddVelocity(Character player, float X = 0, float Y = 0, bool raw_set = false) {
-        if (raw_set) this.Velocity += new Vector2f(X * player.facing, -Y);
-        else this.Velocity += new Vector2f(X * player.facing, -this.CalcularForcaY(Y));
+        if (raw_set) {
+            this.Velocity.X += X * player.facing;
+            this.Velocity.Y += -Y;
+        } else {
+            this.Velocity.X += X * player.facing;
+            this.Velocity.Y += -this.CalcularForcaY(Y);
+        }
     }
 
     public void SetForce(Character player, float X = 0, float Y = 0, int T = 0) {
-        this.Force = new Vector2f(X * player.facing, -Y);
+        this.Force.X = X * player.facing;
+        this.Force.Y = -Y;
         this.force_frames = T;
     }
 
     public void AddForce(Character player, float X = 0, float Y = 0, int T = 0) {
-        this.Force += new Vector2f(X * player.facing, -Y);
+        this.Force.X += X * player.facing;
+        this.Force.Y += -Y;
         this.force_frames += T;
     }
 

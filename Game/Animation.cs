@@ -90,6 +90,8 @@ public class GenericBox {
     public const int HITBOX = 0;
     public const int HURTBOX = 1;
     public const int PUSHBOX = 2;
+    public const int PARRYBOX = 3;
+    public const int GRABBOX = 4;
 
     public Vector2f pA;
     public Vector2f pB;

@@ -558,8 +558,8 @@ public class Ken : Character {
         };
 
         var fallingFrames = new List<FrameData> {
-            new FrameData(14888, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 79, 146, 129, 196), new GenericBox(1, 78, 102, 117, 147) }),
-            new FrameData(14889, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 77, 153, 131, 197), new GenericBox(1, 47, 140, 86, 173) }),
+            new FrameData(14888, 0, 0, new List<GenericBox> { pushbox }),
+            new FrameData(14889, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14890, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14891, 0, 0, new List<GenericBox> { pushbox }),
             new FrameData(14892, 0, 0, new List<GenericBox> { pushbox }),
@@ -757,8 +757,6 @@ public class Ken : Character {
 
     public override void DoBehave() {
         if (this.behave == false) return;
-
-        this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
 
         if ((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) {
             this.ChangeState("Idle");
