@@ -67,9 +67,9 @@ public class RigidBody {
         }
     }
 
-    public void SetForce(Character player, float X = 0, float Y = 0, int T = 0) {
-        this.Force.X = X * player.facing;
-        this.Force.Y = -Y;
+    public void SetForce(Character player, float X = 0, float Y = 0, int T = 0, bool keep_X = false, bool keep_Y = false) {
+        this.Force.X = keep_X ? this.Force.X : X * player.facing;
+        this.Force.Y = keep_Y ? this.Force.Y : -Y;
         this.force_frames = T;
     }
 

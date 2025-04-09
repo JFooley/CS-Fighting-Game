@@ -107,7 +107,7 @@ public class Stage {
         this.stageSounds = new Dictionary<string, Sound>();
 
         this.spark = new Hitspark("Default", 0, 0, 1, this);
-        this.fireball = new Fireball("Default", 0, 0, 0, 1, this);
+        this.fireball = new Fireball("Default", 1, 0, 0, 0, 1, this);
         this.particle = new Particle("Default", 0, 0, 1, this);
 
         this.thumb = new Sprite(new Texture(thumbPath));
@@ -117,10 +117,11 @@ public class Stage {
     }
 
     // Behaviour
-    public void Update(RenderWindow window) {
+    public void Update() {
         if (hitstopCounter > 0) {
             hitstopCounter--;
         }
+
         if (!this.character_A.onHit) {
             this.character_B.comboCounter = 0;
         }
@@ -137,7 +138,7 @@ public class Stage {
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
             Sprite temp_sprite = new Sprite(this.spriteImages[this.CurrentSprite]);
             temp_sprite.Position = new Vector2f (0, 0);
-            window.Draw(temp_sprite);
+            Program.window.Draw(temp_sprite);
         }
 
         // Advance to the next frame
@@ -159,10 +160,10 @@ public class Stage {
 
         // Render chars, UI, shadows and particles
         foreach (Character char_object in this.OnSceneCharactersRender) {
-            this.DrawShadow(window, char_object);
+            this.DrawShadow(char_object);
             char_object.DoRender(this.show_boxs);
         }
-        UI.Instance.DrawBattleUI(window, this);
+        UI.Instance.DrawBattleUI(this);
         foreach (Character part_object in this.OnSceneParticles) {
             part_object.DoRender(this.show_boxs);
         }
@@ -183,8 +184,8 @@ public class Stage {
         this.newParticles.Clear();
         
         // Render Pause menu and Traning assets
-        if (this.debug_mode) this.DebugMode(window);
-        if (this.pause) this.PauseScreen(window);
+        if (this.debug_mode) this.DebugMode();
+        if (this.pause) this.PauseScreen();
     }
     private void DoBehavior() {
         // Move characters away from border
@@ -217,7 +218,7 @@ public class Stage {
         this.DoSpecialBehaviour();
     }
     public virtual void DoSpecialBehaviour() {}
-    public void DebugMode(RenderWindow window) {
+    public void DebugMode() {
         UI.Instance.ShowFramerate("default small white");
         UI.Instance.DrawText("training mode", 0, 70, spacing: Config.spacing_small, size: 1f, textureName: "default small white");
         
@@ -255,9 +256,9 @@ public class Stage {
             this.reset_frames = Config.resetFrames;
         }
     }
-    public void PauseScreen(RenderWindow window) {
+    public void PauseScreen() {
         fade90.Position = new Vector2f(Program.camera.X - Config.RenderWidth/2, Program.camera.Y - Config.RenderHeight/2);
-        window.Draw(fade90);
+        Program.window.Draw(fade90);
 
         // Draw options
         UI.Instance.DrawText("Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
@@ -320,23 +321,24 @@ public class Stage {
         this.newParticles.Add(par);
     }
     public void spawnHitspark(int hit, float X, float Y, int facing, int X_offset = 0, int Y_offset = 0) {
-        var hs = new Hitspark("default", X + X_offset * facing, Y + Y_offset, facing);
-        if (hit == 2) {
-            hs.CurrentState = "Parry";
-        } else if (hit == 1) {
-            hs.CurrentState = "Hit" + Program.random.Next(1, 4);
-        } else if (hit == 0){
-            hs.CurrentState = "Block";
+        string state;
+        if (hit == Character.PARRY) {
+            state = "Parry";
+        } else if (hit == Character.HIT) {
+            state = "Hit" + Program.random.Next(1, 4);
+        } else if (hit == Character.BLOCK){
+            state = "Block";
         } else {
             return;
         }
+        var hs = new Hitspark(state, X + X_offset * facing, Y + Y_offset, facing);
         hs.animations = this.spark.animations;
         hs.spriteImages = this.spark.spriteImages;
         hs.characterSounds = this.spark.characterSounds;
         this.newParticles.Add(hs);
     }
-    public Fireball spawnFireball(string state, float X, float Y, int facing, int team, int X_offset = 10, int Y_offset = 0) {        
-        var fb = new Fireball(state, X + X_offset * facing, Y + Y_offset, team, facing, this);
+    public Fireball spawnFireball(string state, float X, float Y, int facing, int team, int life_points = 1, int X_offset = 10, int Y_offset = 0) {        
+        var fb = new Fireball(state, life_points, X + X_offset * facing, Y + Y_offset, team, facing, this);
         fb.animations = this.fireball.animations;
         fb.spriteImages = this.fireball.spriteImages;
         fb.characterSounds = this.fireball.characterSounds;
@@ -345,45 +347,43 @@ public class Stage {
     }
 
     // Visuals
-    public void DrawShadow(RenderWindow window, Character char_obj) {
+    public void DrawShadow(Character char_obj) {
         if (char_obj.shadow_size != -1) {
             this.shadow.Texture = this.shadows[char_obj.shadow_size];
             this.shadow.Position = new Vector2f(char_obj.body.Position.X - this.shadow.GetLocalBounds().Width/2, this.floorLine - this.shadow.GetLocalBounds().Height/2 - 55 );
             this.shadow.Color = this.AmbientLight;
-            window.Draw(this.shadow);
+            Program.window.Draw(this.shadow);
         }
     }
 
     // Auxiliary
     public void CheckColisions() {        
-        var sortedList = this.OnSceneCharactersSorted;
-        for (int i = 0; i < sortedList.Count(); i++) {
-            for (int j = 0; j < sortedList.Count(); j++) {
+        for (int i = 0; i < this.OnSceneCharactersSorted.Count(); i++) {
+            for (int j = 0; j < this.OnSceneCharactersSorted.Count(); j++) {
                 if (i == j) continue;
-                var charA = sortedList[i];
-                var charB = sortedList[j];
+                var charA = this.OnSceneCharactersSorted[i];
+                var charB = this.OnSceneCharactersSorted[j];
                 
                 foreach (GenericBox boxA in charA.CurrentBoxes) {
                     foreach (GenericBox boxB in charB.CurrentBoxes) {
                         if (GenericBox.Intersects(boxA, boxB, charA, charB)) {
-                            if (boxA.type == 2 && boxB.type == 2) {
-                                // Colisão física
+                            if (boxA.type == GenericBox.PUSHBOX && boxB.type == GenericBox.PUSHBOX) { 
+                                // A body push B
                                 GenericBox.Colide(boxA, boxB, charA, charB);
 
-                            } else if (charA.team != charB.team && !charA.hasHit && boxA.type == 0 && boxB.type == 1 && charA.type >= charB.type) { // A hit B
-                                if (charA.State.hitstop[0] == "Heavy") this.hitstopCounter = Config.hitStopTime * 3/2;
-                                else if (charA.State.hitstop[0] == "Medium") this.hitstopCounter = Config.hitStopTime;
-                                else this.hitstopCounter = Config.hitStopTime * 3/4;
+                            } else if (charA.playerIndex != charB.playerIndex && !charA.hasHit && charA.type >= charB.type && (boxA.type == GenericBox.HITBOX || boxA.type == GenericBox.GRABBOX) && boxB.type == GenericBox.HURTBOX) { 
+                                // A hit B
+                                this.Stop(charA.State.hitstop);
 
-                                charA.hasHit = true; // isso tava abaixo do behaviour, não sei se tava certo. 
-                                var hit = charA.ImposeBehavior(charB);
+                                charA.hasHit = true;
+                                var hit = charA.ImposeBehavior(charB, parried: charB.canParry);
 
-                                // Soma o contador de combo do time
-                                if (charA.team == 0) this.character_A.comboCounter += hit == 1 ? 1 : 0;
-                                else this.character_B.comboCounter += hit == 1 ? 1 : 0;
+                                if (hit == Character.PARRY) charB.ChangeState("Parry", reset: true);
 
-                                // spawna a particula de hit
-                                this.spawnHitspark(hit, (boxA.getRealA(charA).X + boxA.getRealB(charA).X) / 2, (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
+                                if (charA.playerIndex == 1) this.character_A.comboCounter += hit == Character.HIT ? 1 : 0; 
+                                else this.character_B.comboCounter += hit == Character.HIT ? 1 : 0;
+
+                                this.spawnHitspark(hit, boxA.getRealB(charA).X - (boxA.width * 1/3), (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
                             }
                         }
                     }
@@ -449,8 +449,31 @@ public class Stage {
         foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
         foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
     }
-    public void SetHitstop(int amount) {
-        this.hitstopCounter = amount;
+    public void Stop(string amount, bool is_parry = false) {
+        if (is_parry) {
+            this.hitstopCounter = Config.hitStopTime + Config.parry_advantage;
+
+        } else {
+            switch (amount) {
+                case "Light":
+                    this.hitstopCounter = Config.hitStopTime * 1/2;
+                    break;
+
+                case "Medium":
+                    this.hitstopCounter = Config.hitStopTime * 2/3;
+                    break;
+
+                case "Heavy":
+                    this.hitstopCounter = Config.hitStopTime;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+    public void StopFor(int frame_amount) {
+        this.hitstopCounter = frame_amount;
     }
 
     // Round Time
@@ -476,12 +499,10 @@ public class Stage {
         this.character_A = char_A;
         this.character_A.facing = 1;
         this.character_A.playerIndex = 1;
-        this.character_A.team = 0;
 
         this.character_B = char_B;
         this.character_B.facing = -1;
         this.character_B.playerIndex = 2;
-        this.character_B.team = 1;
 
         this.character_A.floorLine = this.floorLine;
         this.character_B.floorLine = this.floorLine;

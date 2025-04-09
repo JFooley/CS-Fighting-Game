@@ -13,7 +13,10 @@ public static class Config {
     
     // Battle
     public static int RoundLength = 90;
-    public static int hitStopTime = 8;
+    public static int hitStopTime = 12;
+    public static int parry_advantage = 4;
+    public static int parry_window = 10;
+
     public static int max_rounds = 2;
 
     // Audio
@@ -61,6 +64,8 @@ public static class Config {
             Fullscreen,
             Vsync,
             inputWindowTime,
+            parry_advantage,
+            parry_window,
             _main_volume,
             _character_volume,
             _music_volume,
@@ -81,6 +86,8 @@ public static class Config {
             Fullscreen = configData.Fullscreen;
             Vsync = configData.Vsync;
             inputWindowTime = configData.inputWindowTime;
+            parry_advantage = configData.parry_advantage;
+            parry_window = configData.parry_window;
             _main_volume = configData._main_volume;
             _character_volume = configData._character_volume;
             _music_volume = configData._music_volume;
@@ -97,6 +104,8 @@ public static class Config {
         public bool Fullscreen { get; set; }
         public bool Vsync { get; set; }
         public int inputWindowTime { get; set; }
+        public int parry_advantage { get; set; }
+        public int parry_window { get; set; }
         public float _main_volume { get; set; }
         public float _character_volume { get; set; }
         public float _music_volume { get; set; }

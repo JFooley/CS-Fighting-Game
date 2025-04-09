@@ -1705,7 +1705,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_1.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_2.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_3.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\parry.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\parry.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Particle\explosão.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Particle\sounds.dat
@@ -2195,6 +2195,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\settings.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sound\music.mp3
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sprites\0.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sprites\1.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sprites\2.png
@@ -2202,6 +2203,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sound\music.mp3
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\0.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\1.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\sprites\10.png

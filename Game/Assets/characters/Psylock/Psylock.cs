@@ -368,18 +368,21 @@ public class Psylock : Character {
         } 
     }
 
-    public override int ImposeBehavior(Character target) {
+    public override int ImposeBehavior(Character target, bool parried = false) {
         int hit = -1;
+
+        if (parried && this.State.canBeParried) return Character.PARRY;
+
         switch (this.CurrentState) {
             case "AAttack":
                 Character.Push(target: target, self: this, "Light");
                 if (!target.isBlocking()) {
-                    hit = 1;
+                    hit = Character.HIT;
                     target.Stun(this, 3);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
-                    hit = 0;
+                    hit = Character.BLOCK;
                     target.BlockStun(this, 3);
                 }
                 break;
@@ -387,12 +390,12 @@ public class Psylock : Character {
             case "BAttack":
                 Character.Push(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = 1;
+                    hit = Character.HIT;
                     target.Stun(this, 4);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
-                    hit = 0;
+                    hit = Character.BLOCK;
                     target.BlockStun(this, 4);
                 }
                 break;
@@ -400,12 +403,12 @@ public class Psylock : Character {
             case "CAttack":
                 Character.Push(target: target, self: this, "Medium");
                 if (!target.isBlocking()) {
-                    hit = 1;
+                    hit = Character.HIT;
                     target.Stun(this, 2);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
-                    hit = 0;
+                    hit = Character.BLOCK;
                     target.BlockStun(this, 2);
                 }
                 break;
@@ -413,12 +416,12 @@ public class Psylock : Character {
             case "DAttack":
                 Character.Push(target: target, self: this, "Heavy");
                 if (!target.isBlocking()) {
-                    hit = 1;
+                    hit = Character.HIT;
                     target.Stun(this, 0);
                     Character.Damage(target: target, self: this, 50, 170);
 
                 } else {
-                    hit = 0;
+                    hit = Character.BLOCK;
                     target.BlockStun(this, -4);
                 }
                 break;

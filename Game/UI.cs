@@ -131,10 +131,10 @@ namespace UI_space {
         }
     
         // Battle UI
-        public void DrawBattleUI(RenderWindow window, Stage stage) {
+        public void DrawBattleUI(Stage stage) {
             // Draw hud
             hud.Position = new Vector2f(Program.camera.X - 192, Program.camera.Y - 108);
-            window.Draw(hud);
+            Program.window.Draw(hud);
 
             // Character A
             // Draw lifebar A

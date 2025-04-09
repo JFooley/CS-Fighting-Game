@@ -4,11 +4,11 @@ using SFML.System;
 using Stage_Space;
 
 public class Fireball : Character {
-    public Fireball(string initialState, float startX, float startY, int team, int facing, Stage stage)
+    public Fireball(string initialState, int life_points, float startX, float startY, int team, int facing, Stage stage)
         : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage, 1) {
-            this.team = team;
+            this.playerIndex = team;
             this.facing = facing;
-            this.LifePoints = new Vector2i(0, 0);
+            this.LifePoints = new Vector2i(life_points, life_points);
             this.shadow_size = 0;
         }
     public override void Load() {
@@ -17,27 +17,27 @@ public class Fireball : Character {
         var kenFB1 = new GenericBox(1, 139, 115, 163, 143);
         
         var KenFireballFrames = new List<FrameData> { 
-            new FrameData(21, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(22, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(23, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(24, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(25, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(26, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(27, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(28, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(29, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(210, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(211, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(212, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(213, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(214, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(215, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(216, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(217, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(218, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(219, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(220, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
-            new FrameData(221, 0, 0, new List<GenericBox> {kenFB1, kenFB0}),
+            new FrameData(21, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(22, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(23, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(24, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(25, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(26, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(27, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(28, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(29, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(210, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(211, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(212, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(213, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(214, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(215, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(216, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(217, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(218, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(219, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(220, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
+            new FrameData(221, 0, 0, new List<GenericBox> {kenFB1, kenFB0}, hasHit: false),
         };
 
         var KenFireballFinal = new List<FrameData> {
@@ -70,7 +70,7 @@ public class Fireball : Character {
         switch (this.CurrentState) {
             case "Ken1":
                 this.SetVelocity(X: 4);
-                if (this.LifePoints.X == -1) {
+                if (this.LifePoints.X == 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -79,7 +79,7 @@ public class Fireball : Character {
 
             case "Ken2":
                 this.SetVelocity(X: 5);
-                if (this.LifePoints.X == -1) {
+                if (this.LifePoints.X == 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -88,7 +88,7 @@ public class Fireball : Character {
             
             case "Ken3":
                 this.SetVelocity(X: 6);
-                if (this.LifePoints.X == -1) {
+                if (this.LifePoints.X == 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -104,18 +104,23 @@ public class Fireball : Character {
         }
     }
 
-    public override int ImposeBehavior(Character target) {
+    public override int ImposeBehavior(Character target, bool parried = false) {
         int hit = -1;
 
+        if (parried && this.State.canBeParried) {
+            this.LifePoints.X -= 1;
+            return Character.PARRY;
+        }
+
         if (target.name == "Fireball") {
-            target.LifePoints.X = -1;
+            target.LifePoints.X -= 1;
+            this.LifePoints.X -= 1;
             return hit;
         };
 
         switch (this.CurrentState) {
             case "Ken1":
-                Character.Push(target: target, self: this, "Medium", force_push: true);
-                this.ChangeState("KenExit");
+                this.LifePoints.X -= 1;
                 this.SetVelocity(raw_set: true);
 
                 if (target.isBlocking()) {
@@ -128,13 +133,13 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 63, 48);
                     target.Stun(this, 30, force: true);
                 }
-                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+
+                if (this.playerIndex == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
 
             case "Ken2":
-                Character.Push(target: target, self: this, "Heavy", force_push: true);
-                this.ChangeState("KenExit");
+                this.LifePoints.X -= 1;
                 this.SetVelocity(raw_set: true);
 
                 if (target.isBlocking()) {
@@ -147,13 +152,13 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 125, 78);
                     target.Stun(this, 30, force: true);
                 }
-                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+
+                if (this.playerIndex == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
             
             case "Ken3":
-                Character.Push(target: target, self: this, "Heavy", force_push: true);
-                this.ChangeState("KenExit");
+                this.LifePoints.X -= 1;
                 this.SetVelocity(raw_set: true);
 
                 if (target.isBlocking()) {
@@ -166,7 +171,8 @@ public class Fireball : Character {
                     Character.Damage(target: target, self: this, 125, 78);
                     target.Stun(this, 30, force: true);
                 }
-                if (this.team == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
+
+                if (this.playerIndex == 0) Character.GetSuperPoints(target: target, self: stage.character_A, hit);
                 else Character.GetSuperPoints(target: target, self: stage.character_B, hit);
                 break;
 

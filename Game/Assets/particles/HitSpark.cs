@@ -5,7 +5,7 @@ using Stage_Space;
 public class Hitspark : Character {
     public Hitspark(string initialState, float startX, float startY, int facing, Stage stage = null)
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", stage) {
-            this.team = 0;
+            this.playerIndex = 0;
             this.facing = facing;
         }
 

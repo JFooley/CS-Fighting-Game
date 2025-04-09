@@ -3950,7 +3950,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\on_hit_1.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\on_hit_2.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\on_hit_3.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\parry.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Particle\explosão.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Particle\super art.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sprites\Fireball\12.png
@@ -4494,12 +4493,15 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.sourc
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.csproj.Up2Date
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.exe
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\obj\Debug\net472\Project FS.pdb
-D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\characters\Ken\sounds\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Fireball\sounds.dat
-D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Hitspark\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\game\bin\Debug\net472\Assets\particles\sounds\Particle\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\NYC Subway\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Rindo-Kan Dojo\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Burning Dojo\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Night Alley\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sounds\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\The Midnight Duel\sound\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\The Savana\sound\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\parry.mp3
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Ken\sounds\sounds.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\particles\sounds\Hitspark\sounds.dat

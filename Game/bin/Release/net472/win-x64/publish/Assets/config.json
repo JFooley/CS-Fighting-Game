@@ -2,11 +2,13 @@
   "Fullscreen": true,
   "Vsync": true,
   "inputWindowTime": 4,
+  "parry_advantage": 0,
+  "parry_window": 0,
   "_main_volume": 100.0,
   "_character_volume": 80.0,
   "_music_volume": 100.0,
   "_effect_volume": 100.0,
   "RoundLength": 90,
-  "hitStopTime": 8,
+  "hitStopTime": 12,
   "max_rounds": 2
 }

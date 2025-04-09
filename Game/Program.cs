@@ -282,7 +282,7 @@ public static class Program {
                     break;
 
                 case Battle:
-                    stage.Update(window);
+                    stage.Update();
                     
                     switch (sub_state) {
                         case Intro:
