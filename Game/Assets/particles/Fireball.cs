@@ -55,7 +55,6 @@ public class Fireball : Character {
             {"Ken2", new State(KenFireballFrames, "Ken2", 20, 7)},
             {"Ken3", new State(KenFireballFrames, "Ken3", 30, 7)},
             {"KenExit", new State(KenFireballFinal, "Remove", 30, 7)},
-            {"Remove", new State(KenFireballFinal, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -65,12 +64,17 @@ public class Fireball : Character {
 
     public override void DoBehave() {
         base.DoBehave();
+        if (this.State.post_state == "Remove" && this.CurrentAnimation.ended) {
+            this.remove = true;
+            this.CurrentAnimation.Reset();
+        }
+
         if (Math.Abs(Program.camera.X - this.VisualPosition.X) > Config.RenderWidth) this.remove = true;  
         
         switch (this.CurrentState) {
             case "Ken1":
                 this.SetVelocity(X: 4);
-                if (this.LifePoints.X == 0) {
+                if (this.LifePoints.X <= 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -79,7 +83,7 @@ public class Fireball : Character {
 
             case "Ken2":
                 this.SetVelocity(X: 5);
-                if (this.LifePoints.X == 0) {
+                if (this.LifePoints.X <= 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -88,7 +92,7 @@ public class Fireball : Character {
             
             case "Ken3":
                 this.SetVelocity(X: 6);
-                if (this.LifePoints.X == 0) {
+                if (this.LifePoints.X <= 0) {
                     this.ChangeState("KenExit");
                     this.SetVelocity(raw_set: true);
                     break;
@@ -107,14 +111,18 @@ public class Fireball : Character {
     public override int ImposeBehavior(Character target, bool parried = false) {
         int hit = -1;
 
+        if (this.LifePoints.X <= 0) return hit;
+
         if (parried && this.State.canBeParried) {
             this.LifePoints.X -= 1;
+            this.hasHit = true;
             return Character.PARRY;
         }
 
         if (target.name == "Fireball") {
             target.LifePoints.X -= 1;
             this.LifePoints.X -= 1;
+            this.hasHit = true;
             return hit;
         };
 

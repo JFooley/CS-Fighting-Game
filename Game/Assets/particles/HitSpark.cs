@@ -5,7 +5,6 @@ using Stage_Space;
 public class Hitspark : Character {
     public Hitspark(string initialState, float startX, float startY, int facing, Stage stage = null)
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", stage) {
-            this.playerIndex = 0;
             this.facing = facing;
         }
 
@@ -78,7 +77,6 @@ public class Hitspark : Character {
             {"Hit3", new State(Hit3, "Remove", 60)},
             {"Parry", new State(Parry, "Remove", 30)},
             {"Block", new State(Block, "Remove", 30)},
-            {"Remove", new State(Block, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -87,8 +85,9 @@ public class Hitspark : Character {
     }
 
     public override void DoBehave() {        
-        if (this.CurrentState == "Remove") {
+        if (this.State.post_state == "Remove" && this.CurrentAnimation.ended) {
             this.remove = true;
-        } 
+            this.CurrentAnimation.Reset();
+        }
     }
 }

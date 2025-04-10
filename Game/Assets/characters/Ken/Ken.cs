@@ -181,7 +181,7 @@ public class Ken : Character {
             new FrameData(15022, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 105, 96, 142, 160), new GenericBox(1, 84, 116, 109, 135), new GenericBox(1, 84, 149, 163, 194), pushbox }),
             new FrameData(15023, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 113, 92, 136, 111), new GenericBox(1, 103, 103, 146, 159), new GenericBox(1, 85, 145, 161, 196), new GenericBox(1, 85, 110, 114, 127) }),
             new FrameData(15024, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 95, 148, 156), new GenericBox(1, 94, 117, 111, 135), new GenericBox(1, 144, 101, 182, 113), new GenericBox(0, 144, 96, 191, 119), new GenericBox(0, 171, 93, 199, 121), pushbox, new GenericBox(1, 85, 150, 162, 195) }),
-            new FrameData(15025, 0, 0, new List<GenericBox> { pushbox, new GenericBox(0, 166, 92, 196, 116), pushbox, new GenericBox(1, 95, 96, 153, 143), new GenericBox(1, 143, 99, 189, 112), new GenericBox(1, 82, 142, 161, 193) }),
+            new FrameData(15025, 0, 0, new List<GenericBox> { pushbox, new GenericBox(0, 166, 92, 196, 116), new GenericBox(1, 95, 96, 153, 143), new GenericBox(1, 143, 99, 189, 112), new GenericBox(1, 82, 142, 161, 193) }),
             new FrameData(15026, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 95, 99, 146, 156), new GenericBox(1, 132, 94, 167, 119), new GenericBox(1, 79, 144, 159, 194), pushbox }),
             new FrameData(15027, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 97, 98, 147, 158), new GenericBox(1, 85, 152, 161, 196) }),
             new FrameData(15028, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 106, 95, 128, 114), new GenericBox(1, 91, 110, 143, 162), new GenericBox(1, 85, 150, 162, 194) }),
@@ -606,7 +606,7 @@ public class Ken : Character {
             new FrameData(15136, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 117, 92, 137, 109), new GenericBox(1, 103, 102, 141, 123), new GenericBox(1, 106, 123, 142, 152), new GenericBox(1, 89, 151, 153, 195) }),
             new FrameData(15137, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 118, 93, 137, 106), new GenericBox(1, 104, 103, 142, 118), new GenericBox(1, 108, 117, 140, 144), new GenericBox(1, 83, 145, 157, 195) }),
             new FrameData(15138, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 116, 92, 140, 108), new GenericBox(1, 103, 100, 141, 123), new GenericBox(1, 107, 123, 143, 151), new GenericBox(1, 98, 151, 154, 194) }),
-            new FrameData(15072, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 96, 102, 143, 150), new GenericBox(1, 82, 107, 100, 132), new GenericBox(1, 138, 124, 170, 150), new GenericBox(1, 114, 143, 148, 193), new GenericBox(1, 106, 92, 131, 106), pushbox},  "shinpu"),
+            new FrameData(15139, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(1, 96, 102, 143, 150), new GenericBox(1, 82, 107, 100, 132), new GenericBox(1, 138, 124, 170, 150), new GenericBox(1, 114, 143, 148, 193), new GenericBox(1, 106, 92, 131, 106), pushbox},  "shinpu"),
             new FrameData(15073, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(0, 176, 89, 210, 117), new GenericBox(0, 158, 105, 184, 126), new GenericBox(0, 139, 118, 166, 142), new GenericBox(1, 90, 93, 141, 146), new GenericBox(1, 110, 137, 137, 194), new GenericBox(1, 69, 114, 90, 136), pushbox}),
             new FrameData(15074, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(0, 186, 95, 219, 120), new GenericBox(0, 162, 106, 189, 129), new GenericBox(0, 145, 117, 171, 140), pushbox , new GenericBox(1, 91, 91, 148, 140), new GenericBox(1, 112, 140, 139, 194), new GenericBox(1, 70, 120, 92, 140) }),
             new FrameData(15075, 6.25f, 0, new List<GenericBox> { pushbox, new GenericBox(0, 174, 118, 204, 144), new GenericBox(0, 145, 123, 174, 146), pushbox, new GenericBox(1, 93, 94, 148, 139), new GenericBox(1, 112, 137, 144, 193), new GenericBox(1, 79, 128, 101, 148) }),
@@ -724,8 +724,8 @@ public class Ken : Character {
             // Super
             { "SA1", new State(SA1, "MediumK", 60, 4, doTrace: true)},
             { "SA1_tail", new State(SA1_tail, "JumpFalling", 30, 4, doTrace: true)},
-            { "Shungoku", new State(Shungoku, "Idle", 10, 5, doTrace: true, canBeParried: false)},
-            { "Shungoku_End", new State(idleFrames, "Idle", 10, 5)},
+            { "Shungoku", new State(Shungoku, "Idle", 10, 5, hitstop: "None", doTrace: true, canBeParried: false)},
+            { "Shungoku_End", new State(idleFrames, "Idle", 10, 5, hitstop: "None")},
             // Specials
             { "LightShory", new State(lightShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy")},
             { "HeavyShory", new State(heavyShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy")},
@@ -814,13 +814,16 @@ public class Ken : Character {
             Character.UseSuperPoints(this, 100);
             this.ChangeState("SA1");
             this.SA_flag = false;
-        } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.hasFrameChange) {
+
+        } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.has_frame_change) {
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.StopFor(54);
-        } else if (this.CurrentState == "SA1" && this.CurrentAnimation.onLastFrame && this.SA_flag) {
+            
+        } else if (this.CurrentState == "SA1" && this.CurrentAnimation.on_last_frame && this.SA_flag) {
             this.ChangeState("SA1_tail");
-        } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 2 && this.hasFrameChange ) {
-            this.SetVelocity(
+
+        } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.has_frame_change ) {
+            this.AddVelocity(
                 X: 1, 
                 Y: 150);
         }
@@ -830,7 +833,7 @@ public class Ken : Character {
             Character.UseSuperPoints(this, 100);
             this.stage.spawnParticle("SABlink", this.body.Position.X, this.body.Position.Y, Y_offset: -140, facing: this.facing);
             this.stage.StopFor(68);
-        } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.currentFrameIndex == 0) {
+        } else if (this.CurrentState == "Shungoku" && this.CurrentAnimation.current_frame_index == 0) {
             this.SetVelocity(
                 X: 8f, 
                 Y: 0);
@@ -839,14 +842,14 @@ public class Ken : Character {
         // Shorys
         if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "CloseMP" || this.CurrentState == "LowLightK" || this.CurrentState == "LowMediumP"))) {
             this.ChangeState("LightShory");
-        } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.hasFrameChange) {
+        } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.has_frame_change) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
         if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" )) {
             this.ChangeState("HeavyShory");
-        } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 7 && this.CurrentAnimation.has_frame_change) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 80);
@@ -854,7 +857,7 @@ public class Ken : Character {
         if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("ShoryEX");
-        } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 6 && this.CurrentAnimation.hasFrameChange) {
+        } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 7 && this.CurrentAnimation.has_frame_change) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 100);
@@ -864,18 +867,18 @@ public class Ken : Character {
         if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
         if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
             this.ChangeState("LightHaduken");
-        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frameCounter == 0) {
+        } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frame_counter == 0) {
             this.current_fireball = stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.playerIndex, X_offset: 25);
         } 
         if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right D", 10, player: this.playerIndex, facing: this.facing) && this.notActing) {
             this.ChangeState("HeavyHaduken");
-        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
+        } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frame_counter == 0) {
             this.current_fireball = stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.playerIndex, X_offset: 25);
         }
         if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right RB", 10, player: this.playerIndex, facing: this.facing) && this.notActing && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("HadukenEX");
-        } else if (this.CurrentState == "HadukenEX" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frameCounter == 0) {
+        } else if (this.CurrentState == "HadukenEX" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frame_counter == 0) {
             this.current_fireball = stage.spawnFireball("Ken3", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.playerIndex, life_points: 2, X_offset: 25);
         }
 
@@ -940,7 +943,6 @@ public class Ken : Character {
         int hit = -1;
 
         if (parried && this.State.canBeParried) {
-            this.SA_flag = true;
             return Character.PARRY;
         } 
 
@@ -1170,7 +1172,9 @@ public class Ken : Character {
                     if (this.CurrentFrameIndex >= 6) {
                         target.Stun(this, 0, airbone: true);
                         Character.Push(target: target, self: this, "Heavy", Y_amount: 120f, airbone: true);
+
                     } else target.Stun(this, 0);
+
                     Character.Damage(target: target, self: this, 100, 85);
                 }
                 Character.GetSuperPoints(target, this, hit, self_amount: 16);
@@ -1188,7 +1192,9 @@ public class Ken : Character {
                     if (this.CurrentFrameIndex >= 6) {
                         target.Stun(this, 0, airbone: true);
                         Character.Push(target: target, self: this, "Heavy", Y_amount: 120f, airbone: true);
+
                     } else target.Stun(this, 0);
+                    
                     Character.Damage(target: target, self: this, 120, 85);
 
                 }
@@ -1302,11 +1308,11 @@ public class Ken : Character {
             case "Shungoku":
                 this.stage.spawnParticle("Shungoku", target.body.Position.X, this.body.Position.Y, Y_offset: -125, facing: this.facing);
                 this.stage.spawnParticle("Shungoku_text", Camera.Instance.X, Camera.Instance.Y);
-                this.stage.StopFor(40 * 4);
+                this.stage.StopFor(40 * 4); // 40 frames a 15 fps
 
                 this.ChangeState("Shungoku_End");
                 this.SetVelocity();
-                this.body.Position.X = target.body.Position.X - 1 * this.facing;
+                this.body.Position.X = target.body.Position.X - 100 * this.facing;
 
                 target.SetVelocity();
                 target.ChangeState("OnGround");

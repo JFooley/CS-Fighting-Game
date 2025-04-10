@@ -14,7 +14,7 @@ public static class Config {
     // Battle
     public static int RoundLength = 90;
     public static int hitStopTime = 12;
-    public static int parry_advantage = 4;
+    public static int parry_advantage = 2;
     public static int parry_window = 10;
 
     public static int max_rounds = 2;

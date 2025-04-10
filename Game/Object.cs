@@ -28,10 +28,10 @@ namespace Object_Space {
             if (!this.behave) return;
 
         }
-        public virtual void DoRender(bool drawHitboxes = false) {
+        public virtual void Render(bool drawHitboxes = false) {
             if (!this.render) return;
         }
-        public virtual void DoAnimate() {
+        public virtual void Animate() {
             if (!this.animate) return;
         }
 

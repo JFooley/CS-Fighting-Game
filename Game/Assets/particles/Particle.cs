@@ -150,9 +150,6 @@ public class Particle : Character {
             new FrameData(521, 0, 0, new List<GenericBox> {}),
         };
         
-        var remove = new List<FrameData> {
-            new FrameData(0, 0, 0, new List<GenericBox> {}),
-        };
 
         // States
         var animations = new Dictionary<string, State> {
@@ -162,7 +159,6 @@ public class Particle : Character {
             {"SABlink_tail", new State(SABlink, "Remove", 20)},
             {"Shungoku", new State(Shungoku, "Remove", 15)},
             {"Shungoku_text", new State(Shungoku_text, "Remove", 15)},
-            {"Remove", new State(remove, "Remove", 60)},
         };
 
         this.animations = animations;
@@ -170,7 +166,7 @@ public class Particle : Character {
         this.LoadSounds();
     }
     
-    public override void DoRender(bool drawHitboxes = false) {
+    public override void Render(bool drawHitboxes = false) {
         if (!this.render) return;
         
         // Render sprite
@@ -184,9 +180,9 @@ public class Particle : Character {
     }
     
     public override void DoBehave() {        
-        if (this.CurrentState == "Remove") {
+        if (this.State.post_state == "Remove" && this.CurrentAnimation.ended) {
             this.remove = true;
-            this.CurrentAnimation.Reset(); // Causa problema no audio
-        } 
+            this.CurrentAnimation.Reset();
+        }
     }
 }

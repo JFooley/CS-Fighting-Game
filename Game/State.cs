@@ -14,15 +14,15 @@ public class State {
     public bool doTrace;
     public bool doGlow;
     public bool loopAnimation;
-    public bool changeOnLastframe;
-    public bool changeOnGround;
+    public bool change_on_end;
+    public bool change_on_ground;
 
     public State(List<FrameData> frames, string post_state, int framerate = 30, int priority = -1, bool loop = true, bool changeOnLastframe = true, bool changeOnGround = false, bool canBeParried = true, bool doTrace = false, bool doGlow = false, string hitstop = "Light") {
         this.animation = new Animation(frames, framerate, Config.Framerate, loop);
         this.post_state = post_state;
         this.priority = priority;
-        this.changeOnLastframe = changeOnLastframe;
-        this.changeOnGround = changeOnGround;
+        this.change_on_end = changeOnLastframe;
+        this.change_on_ground = changeOnGround;
         this.doTrace = doTrace;
         this.doGlow = doGlow;
         this.hitstop = hitstop;
@@ -33,8 +33,8 @@ public class State {
         this.animation = new Animation(frames, framerate, Config.Framerate);
         this.post_state = post_state;
         this.priority = priority;
-        this.changeOnLastframe = changeOnLastframe;
-        this.changeOnGround = changeOnGround;
+        this.change_on_end = changeOnLastframe;
+        this.change_on_ground = changeOnGround;
         this.doTrace = doTrace;
         this.doGlow = doGlow;
         this.hitstop = hitstop;

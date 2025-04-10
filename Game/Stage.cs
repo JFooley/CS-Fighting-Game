@@ -28,7 +28,6 @@ public class Stage {
 
     // Battle Info
     private int hitstopCounter = 0;
-    public bool onHitstop => hitstopCounter > 0 ? true : false;
     public List<Character> OnSceneCharacters = new List<Character> {};
     public List<Character> OnSceneCharactersSorted => this.OnSceneCharacters
             .OrderByDescending(x => x.State.priority)
@@ -79,11 +78,10 @@ public class Stage {
     public Dictionary<string, State> animations;
     private Dictionary<string, Texture> spriteImages;
     private Dictionary<string, Sound> stageSounds;
-    public string CurrentSprite = "";
-    public string CurrentSound = "";
+    public string CurrentSprite => CurrentAnimation.GetCurrentSimpleFrame();
     public State state => animations[CurrentState];
     public Animation CurrentAnimation => animations[CurrentState].animation;
-    public int CurrentFrameIndex => animations[CurrentState].animation.currentFrameIndex;
+    public int CurrentFrameIndex => animations[CurrentState].animation.current_frame_index;
 
     // Visual info
     public Color AmbientLight = new Color(255, 255, 255, 255);
@@ -118,21 +116,12 @@ public class Stage {
 
     // Behaviour
     public void Update() {
-        if (hitstopCounter > 0) {
-            hitstopCounter--;
-        }
-
-        if (!this.character_A.onHit) {
-            this.character_B.comboCounter = 0;
-        }
-        if (!this.character_B.onHit) {
-            this.character_A.comboCounter = 0;
-        }
+        // Render > Colide > Behave > Anima
+        if (!this.character_A.onHit) this.character_B.comboCounter = 0;
+        if (!this.character_B.onHit) this.character_A.comboCounter = 0;
 
         // Pause
-        if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) {
-            this.Pause();
-        }
+        if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) this.Pause();
 
         // Render stage sprite
         if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
@@ -143,42 +132,41 @@ public class Stage {
 
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
-        if (this.CurrentAnimation.onLastFrame) {
-            if (state.changeOnLastframe) {
-                if (animations.ContainsKey(this.state.post_state)) {
-                    this.LastState = this.CurrentState;
-                    this.CurrentState = this.state.post_state;
-                }
+        if (this.CurrentAnimation.ended && state.change_on_end) {
+            if (animations.ContainsKey(this.state.post_state)) {
+                this.LastState = this.CurrentState;
+                this.CurrentState = this.state.post_state;
+                if (CurrentState != LastState) this.animations[LastState].animation.Reset();
             }
         }
 
         // Keep music playing
         if (!this.pause) this.PlayMusic();
 
-        // Update Current Sprite
-        this.CurrentSprite = CurrentAnimation.GetCurrentSimpleFrame();
-
-        // Render chars, UI, shadows and particles
+        // Render 
         foreach (Character char_object in this.OnSceneCharactersRender) {
             this.DrawShadow(char_object);
-            char_object.DoRender(this.show_boxs);
+            char_object.Render(this.show_boxs);
         }
         UI.Instance.DrawBattleUI(this);
-        foreach (Character part_object in this.OnSceneParticles) {
-            part_object.DoRender(this.show_boxs);
-        }
+        foreach (Character part_object in this.OnSceneParticles) part_object.Render(this.show_boxs);
 
         // Update chars
-        if (hitstopCounter == 0) {
-            this.DoBehavior();
-            foreach (Character char_object in this.OnSceneCharactersSorted) char_object.Update();
-            this.OnSceneCharacters.RemoveAll(obj => obj.remove);
-            this.OnSceneCharacters.AddRange(this.newCharacters);
-            this.newCharacters.Clear();
+        foreach (Character char_object in this.OnSceneCharactersSorted) {
+            char_object.CheckColisions();
+            char_object.Update();
+            char_object.Animate();
         }
+        this.OnSceneCharacters.RemoveAll(obj => obj.remove);
+        this.OnSceneCharacters.AddRange(this.newCharacters);
+        this.newCharacters.Clear();
+        this.DoBehavior();
 
         // Update particles
-        foreach (Character part_object in this.OnSceneParticles) part_object.Update();
+        foreach (Character part_object in this.OnSceneParticles) {
+            part_object.Update();
+            part_object.Animate();
+        }
         this.OnSceneParticles.RemoveAll(obj => obj.remove);
         this.OnSceneParticles.AddRange(this.newParticles);
         this.newParticles.Clear();
@@ -213,8 +201,7 @@ public class Stage {
             if (this.character_A.notActing) this.character_A.facing = -1;
             if (this.character_B.notActing) this.character_B.facing = 1;
         }
-
-        this.CheckColisions();
+        
         this.DoSpecialBehaviour();
     }
     public virtual void DoSpecialBehaviour() {}
@@ -224,7 +211,7 @@ public class Stage {
         
         this.ResetRoundTime();
         
-        if(hitstopCounter == 0) this.reset_frames += 1;
+        if(this.character_A.hitstopCounter == 0 && this.character_B.hitstopCounter == 0) this.reset_frames += 1;
 
         // Block after hit
         if (this.character_B.StunFrames > 0) {
@@ -357,42 +344,8 @@ public class Stage {
     }
 
     // Auxiliary
-    public void CheckColisions() {        
-        for (int i = 0; i < this.OnSceneCharactersSorted.Count(); i++) {
-            for (int j = 0; j < this.OnSceneCharactersSorted.Count(); j++) {
-                if (i == j) continue;
-                var charA = this.OnSceneCharactersSorted[i];
-                var charB = this.OnSceneCharactersSorted[j];
-                
-                foreach (GenericBox boxA in charA.CurrentBoxes) {
-                    foreach (GenericBox boxB in charB.CurrentBoxes) {
-                        if (GenericBox.Intersects(boxA, boxB, charA, charB)) {
-                            if (boxA.type == GenericBox.PUSHBOX && boxB.type == GenericBox.PUSHBOX) { 
-                                // A body push B
-                                GenericBox.Colide(boxA, boxB, charA, charB);
-
-                            } else if (charA.playerIndex != charB.playerIndex && !charA.hasHit && charA.type >= charB.type && (boxA.type == GenericBox.HITBOX || boxA.type == GenericBox.GRABBOX) && boxB.type == GenericBox.HURTBOX) { 
-                                // A hit B
-                                this.Stop(charA.State.hitstop);
-
-                                charA.hasHit = true;
-                                var hit = charA.ImposeBehavior(charB, parried: charB.canParry);
-
-                                if (hit == Character.PARRY) charB.ChangeState("Parry", reset: true);
-
-                                if (charA.playerIndex == 1) this.character_A.comboCounter += hit == Character.HIT ? 1 : 0; 
-                                else this.character_B.comboCounter += hit == Character.HIT ? 1 : 0;
-
-                                this.spawnHitspark(hit, boxA.getRealB(charA).X - (boxA.width * 1/3), (boxA.getRealA(charA).Y + boxA.getRealB(charA).Y) / 2 + 125, charA.facing);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
     public bool CheckRoundEnd() {
-        if (this.hitstopCounter != 0 || this.debug_mode || this.pause ) return false;
+        if (this.debug_mode || this.pause ) return false;
         
         bool doEnd = false;
 
@@ -449,22 +402,38 @@ public class Stage {
         foreach (Character char_object in this.OnSceneCharacters) char_object.animate = !char_object.animate;
         foreach (Character part_object in this.OnSceneParticles) part_object.animate = ! part_object.animate;
     }
-    public void Stop(string amount, bool is_parry = false) {
-        if (is_parry) {
-            this.hitstopCounter = Config.hitStopTime + Config.parry_advantage;
+    public void Hitstop(string amount, bool parry, Character character) {
+        if (parry) {
+            this.StopFor(Config.hitStopTime + Config.parry_advantage);
 
-        } else {
             switch (amount) {
                 case "Light":
-                    this.hitstopCounter = Config.hitStopTime * 1/2;
+                    character.hitstopCounter = Config.hitStopTime * 1/2;
                     break;
 
                 case "Medium":
-                    this.hitstopCounter = Config.hitStopTime * 2/3;
+                    character.hitstopCounter = Config.hitStopTime * 2/3;
                     break;
 
                 case "Heavy":
-                    this.hitstopCounter = Config.hitStopTime;
+                    character.hitstopCounter = Config.hitStopTime;
+                    break;
+
+                default:
+                    break;
+            }
+        } else {
+            switch (amount) {
+                case "Light":
+                    this.StopFor(Config.hitStopTime * 1/2);
+                    break;
+
+                case "Medium":
+                    this.StopFor(Config.hitStopTime * 2/3);
+                    break;
+
+                case "Heavy":
+                    this.StopFor(Config.hitStopTime);
                     break;
 
                 default:
@@ -473,7 +442,7 @@ public class Stage {
         }
     }
     public void StopFor(int frame_amount) {
-        this.hitstopCounter = frame_amount;
+        foreach (var entity in this.OnSceneCharacters) entity.hitstopCounter = frame_amount;
     }
 
     // Round Time

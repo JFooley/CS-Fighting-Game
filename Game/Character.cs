@@ -78,7 +78,7 @@ public class Character : Object_Space.Object {
     public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
-    public bool notActing => !this.onAir && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || (this.CurrentState == "DashForward" && this.CurrentAnimation.onLastFrame) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.onLastFrame) || this.CurrentState == "Parry");
+    public bool notActing => !this.onAir && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || this.CurrentState == "Landing" || (this.CurrentState == "DashForward" && this.CurrentAnimation.ended) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.ended) || this.CurrentState == "Parry");
     public bool notActingAir => this.onAir && (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward" || this.CurrentState == "AirParry") || this.CurrentState == "JumpFalling";
     public bool notActingLow => notActing && isCrounching || this.CurrentState == "LowParry";
     public bool isCrounching = false;
@@ -93,6 +93,7 @@ public class Character : Object_Space.Object {
 
     // Flags and counters
     public int comboCounter = 0;
+    public int hitstopCounter = 0;
     public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
     public bool SA_flag = false;
 
@@ -107,12 +108,11 @@ public class Character : Object_Space.Object {
     public int shadow_size = 1;
 
     // Gets
-    public string CurrentSprite = "";
-    public string CurrentSound = "";
+    public string CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
+    public string CurrentSound => CurrentAnimation.GetCurrentFrame().Sound_index;
     public State State => animations[CurrentState];
     public Animation CurrentAnimation => animations[CurrentState].animation;
-    public int CurrentFrameIndex => animations[CurrentState].animation.currentFrameIndex;
-    public bool hasFrameChange => animations[CurrentState].animation.hasFrameChange;
+    public int CurrentFrameIndex => animations[CurrentState].animation.current_frame_index;
     public int lastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
@@ -133,11 +133,11 @@ public class Character : Object_Space.Object {
     // Every Frame methods
     public override void Update() {
         base.Update();
-        this.DoBehave();
-        this.DoAnimate();
+        if (hitstopCounter == 0) this.DoBehave();
+        if (hitstopCounter > 0) hitstopCounter -= 1;
     }
-    public override void DoRender(bool drawHitboxes = false) {
-        base.DoRender(drawHitboxes);
+    public override void Render(bool drawHitboxes = false) {
+        base.Render(drawHitboxes);
         
         // Set current sprite
         var temp_sprite = this.GetCurrentSpriteImage();
@@ -153,7 +153,7 @@ public class Character : Object_Space.Object {
                 if (LastSprites[i] != null) Program.window.Draw(LastSprites[i], new RenderStates(Program.hueChange));
             }
             
-            if (this.hasFrameChange) {               
+            if (this.CurrentAnimation.has_frame_change) {               
                 LastSprites[2] = LastSprites[1];
                 LastSprites[1] = LastSprites[0];
                 LastSprites[0] = temp_sprite;
@@ -174,13 +174,13 @@ public class Character : Object_Space.Object {
             RectangleShape anchorY = new RectangleShape(new Vector2f(0, 10)) {
                 Position = new Vector2f(this.body.Position.X, this.body.Position.Y - 60),
                 FillColor = SFML.Graphics.Color.Transparent,
-                OutlineColor = Color.White, 
+                OutlineColor = this.CurrentAnimation.on_last_frame ? Color.Red : Color.White, 
                 OutlineThickness = 1.0f
             };
             RectangleShape anchorX = new RectangleShape(new Vector2f(10, 0)) {
                 Position = new Vector2f(this.body.Position.X - 5, this.body.Position.Y - 55),
                 FillColor = SFML.Graphics.Color.Transparent,
-                OutlineColor = Color.White, 
+                OutlineColor = this.CurrentAnimation.on_last_frame ? Color.Red : Color.White, 
                 OutlineThickness = 1.0f 
             };
             
@@ -221,37 +221,35 @@ public class Character : Object_Space.Object {
                 // Desenha o retângulo da hitbox na janela
                 Program.window.Draw(hitboxRect);
             }
-
-            UI.Instance.DrawText(this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 50, spacing: -10, size: 0.5f, alignment: "center");
+            UI.Instance.DrawText(this.CurrentFrameIndex.ToString(), this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 135, spacing: Config.spacing_small, alignment: "center", textureName: "default small");
+            UI.Instance.DrawText(this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 125, spacing: Config.spacing_small, alignment: "center", textureName: "default small");
         }
     }
-    public override void DoAnimate() {
+    public override void Animate() {
         if (!this.animate) return;
+        if (this.hitstopCounter != 0) return;
 
         this.CheckStun();
-
-        // Update Current Sprite
-        this.CurrentSprite = CurrentAnimation.GetCurrentFrame().Sprite_index;
-        this.CurrentSound = CurrentAnimation.GetCurrentFrame().Sound_index;
 
         // Update body.Position
         this.body.Update(this);
         this.body.Position.X += CurrentAnimation.GetCurrentFrame().DeltaX * this.facing;
         this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
 
-        // Change state, if necessary
-        if (State.changeOnLastframe && this.CurrentAnimation.onLastFrame) {
-            this.ChangeState(this.State.post_state);
-        } else if (State.changeOnGround && !this.onAir) {
-            this.ChangeState(this.State.post_state);
-        }
-
         // Advance to the next frame and reset hit if necessary
         this.lastFrameIndex = this.CurrentFrameIndex;
         if (CurrentAnimation.AdvanceFrame() && CurrentAnimation.GetCurrentFrame().hasHit == false) this.hasHit = false;
+
+        // Change state, if necessary
+        if (State.change_on_end && this.CurrentAnimation.ended) {
+            this.ChangeState(this.State.post_state);
+        } else if (State.change_on_ground && !this.onAir) {
+            this.ChangeState(this.State.post_state);
+        }
     }
     public void PlaySound() {
-        if (this.CurrentFrameIndex != this.lastFrameIndex && this.CurrentSound != null && characterSounds.ContainsKey(this.CurrentSound)) {
+        if (this.CurrentAnimation.has_frame_change && characterSounds.ContainsKey(this.CurrentSound)) {
+            this.characterSounds[this.CurrentSound].Stop();
             this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
             this.characterSounds[this.CurrentSound].Play();
         }
@@ -301,7 +299,7 @@ public class Character : Object_Space.Object {
             if (force) {
                 this.StunFrames = Math.Max(advantage, 1);
             } else {
-                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 1);
+                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.anim_size - enemy.CurrentFrameIndex) + advantage, 1);
             }
 
         } else { // Block stun states
@@ -309,9 +307,9 @@ public class Character : Object_Space.Object {
             else this.ChangeState("OnBlock", reset: true);
 
             if (force) {
-                this.StunFrames = Math.Max(advantage, 0);
+                this.StunFrames = Math.Max(advantage, 1);
             } else {
-                this.StunFrames = Math.Max((60 / enemy.CurrentAnimation.framerate) * (enemy.CurrentAnimation.animSize - enemy.CurrentFrameIndex) + advantage, 0);
+                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.anim_size - enemy.CurrentFrameIndex) + advantage, 1);
             }
         }
 
@@ -326,6 +324,42 @@ public class Character : Object_Space.Object {
                 if (this.onAir) this.ChangeState("JumpFalling");
                 else if (this.isCrounching) this.ChangeState("Crouching");
                 else this.ChangeState("Idle");
+            }
+        }
+    }
+    public void CheckColisions() {  
+        if (hitstopCounter != 0) return;
+             
+        // Para cada character no stage
+        foreach (var charB in this.stage.OnSceneCharacters) {
+            if (charB == this) continue;
+            
+            foreach (GenericBox boxA in this.CurrentBoxes) {
+                if (boxA.type != GenericBox.HITBOX && boxA.type != GenericBox.PUSHBOX && boxA.type != GenericBox.GRABBOX) continue;
+                
+                foreach (GenericBox boxB in charB.CurrentBoxes) {
+                    if (boxB.type == GenericBox.HURTBOX && boxB.type == GenericBox.PUSHBOX) continue;
+                    
+                    if (GenericBox.Intersects(boxA, boxB, this, charB)) {
+                        if (boxA.type == GenericBox.PUSHBOX && boxB.type == GenericBox.PUSHBOX) { 
+                            // A body push B
+                            GenericBox.Colide(boxA, boxB, this, charB);
+
+                        } else if (this.playerIndex != charB.playerIndex && this.hasHit == false && this.type >= charB.type && (boxA.type == GenericBox.HITBOX || boxA.type == GenericBox.GRABBOX) && boxB.type == GenericBox.HURTBOX) { 
+                            // A hit B
+                            this.hasHit = true;
+                            var hit = this.ImposeBehavior(charB, parried: charB.canParry);
+                            
+                            if (hit == Character.PARRY) charB.ChangeState("Parry", reset: true);
+                            stage.Hitstop(this.State.hitstop, parry: hit == Character.PARRY, character: charB);
+                            
+                            if (this.playerIndex == 1) stage.character_A.comboCounter += hit == Character.HIT ? 1 : 0; 
+                            else stage.character_B.comboCounter += hit == Character.HIT ? 1 : 0;
+
+                            stage.spawnHitspark(hit, boxA.getRealB(this).X - (boxA.width * 1/3), (boxA.getRealA(this).Y + boxA.getRealB(this).Y) / 2 + 125, this.facing);
+                        }
+                    }
+                }
             }
         }
     }
@@ -389,30 +423,20 @@ public class Character : Object_Space.Object {
     
     // Auxiliar methods
     public void ChangeState(string newState, int index = 0, bool reset = false) {
-        this.LastState = CurrentState;
-
         if (this.LifePoints.X <= 0 && this.CurrentState == "OnGround" && !reset) return;
 
         if (newState == "Parry" && this.onAir) newState = "AirParry";
 
+        this.LastState = this.CurrentState;
         if (animations.ContainsKey(newState)) {
+            if (CurrentState != newState || reset) this.CurrentAnimation.Reset();
             this.CurrentState = newState;
-        }
-        if (CurrentState != LastState || reset) {
-            this.animations[LastState].animation.Reset();
-            this.CurrentAnimation.currentFrameIndex = index;
         }
 
         this.hasHit = false;
-
-        if (this.CurrentState.Contains("Falling")) {
-            this.StunFrames = 0;
-        } else if (this.CurrentState.Contains("Crouching") || this.CurrentState.Contains("Low")) {
-            this.isCrounching = true;
-        } else {
-            this.isCrounching = false;
-        }
-
+        if (this.CurrentState.Contains("Falling")) this.StunFrames = 0;
+        else if (this.CurrentState.Contains("Crouching") || this.CurrentState.Contains("Low")) this.isCrounching = true;
+        else this.isCrounching = false;
     }
     public Sprite GetCurrentSpriteImage() {
         if (spriteImages.ContainsKey(this.CurrentSprite)) {

@@ -8,71 +8,71 @@ namespace Animation_Space {
         public List<string> SimpleFrames { get; private set; }
 
         // logic
-        public int currentFrameIndex;
-        public bool onLastFrame;
-        public bool hasFrameChange => this.frameCounter == 0; 
+        public int current_frame_index;
+        public bool on_last_frame;
+        public bool ended;
+        public bool has_frame_change => this.frame_counter == 0; 
 
         // infos
-        public int animSize;
-        public int realAnimSize => animSize * (60 / this.framerate);
+        public int anim_size;
+        public int real_anim_size => anim_size * (60 / this.framerate);
         public bool loop;
         public int framerate;
-        public int screenFramerate;
-        public int frameCounter;
+        public int screen_framerate;
+        public int frame_counter;
 
         public Animation(List<FrameData> frames, int framerate = 30, int screenFramerate = 60, bool loop = true) {
             this.Frames = frames;
-            this.currentFrameIndex = 0;
-            this.animSize = Frames.Count() - 1;
+            this.current_frame_index = 0;
+            this.anim_size = Frames.Count() - 1;
             this.loop = loop;
             this.framerate = framerate;
-            this.screenFramerate = screenFramerate;
-            this.frameCounter = 0;
+            this.screen_framerate = screenFramerate;
+            this.frame_counter = 0;
         }
 
         public Animation(List<string> SimpleFrames, int framerate = 30, int screenFramerate = 60) {
             this.SimpleFrames = SimpleFrames;
-            this.currentFrameIndex = 0;
-            this.animSize = SimpleFrames.Count() - 1;
+            this.current_frame_index = 0;
+            this.anim_size = SimpleFrames.Count() - 1;
             this.loop = true;
             this.framerate = framerate;
-            this.screenFramerate = screenFramerate;
-            this.frameCounter = 0;
+            this.screen_framerate = screenFramerate;
+            this.frame_counter = 0;
         }
 
         public FrameData GetCurrentFrame()
         {
-            return this.Frames[currentFrameIndex];
+            return this.Frames[current_frame_index];
         }
 
         public string GetCurrentSimpleFrame()
         {
-            return this.SimpleFrames[currentFrameIndex];
+            return this.SimpleFrames[current_frame_index];
         }
 
         public bool AdvanceFrame() {
             // Calcula o número de frames de tela por frame de animação
-            float framesPerAnimFrame = screenFramerate / framerate;
+            float framesPerAnimFrame = screen_framerate / framerate;
 
             // Incrementa o contador de frames
-            frameCounter++;
+            frame_counter++;
 
             // Avança o frame de animação apenas quando o contador de frames atinge o limite calculado
-            if (frameCounter >= framesPerAnimFrame) {
-                frameCounter = 0; // Reseta o contador
-                currentFrameIndex++; // Avança um frame
+            if (frame_counter >= framesPerAnimFrame) {
+                frame_counter = 0; // Reseta o contador
+                current_frame_index++; // Avança um frame
+                
+                if (this.ended && this.loop) this.Reset();
 
-                if (currentFrameIndex < animSize) {
-                    this.onLastFrame = false;
-                } else if (currentFrameIndex == animSize) {
-                    this.onLastFrame = true;
-                } else {
-                    if (this.loop) {
-                        this.Reset();
-                    } else {
-                        this.currentFrameIndex -= 1;
-                    }
-                }
+                if (current_frame_index == anim_size) this.on_last_frame = true;
+                else this.on_last_frame = false;
+                
+                if (current_frame_index > anim_size) {
+                    this.ended = true;
+                    this.current_frame_index -= 1;
+                } else this.ended = false;
+                
                 return true; // do frame change
             }
 
@@ -80,9 +80,10 @@ namespace Animation_Space {
         }
 
         public void Reset() {
-            currentFrameIndex = 0;
-            onLastFrame = false;
-            frameCounter = 0;
+            current_frame_index = 0;
+            frame_counter = 0;
+            on_last_frame = false;
+            ended = false;
         }
     }
 
@@ -99,7 +100,7 @@ namespace Animation_Space {
         public float width;
         public float height;
 
-        public int type; // 0 Hitbox, 1 Hurtbox, 2 Pushbox, 3 ParryBox, 4 Grabbox
+        public int type; // 0 Hitbox, 1 Hurtbox, 2 Pushbox, 3 ParryBox, 4 Grabbox, <0 Animation Anchor
         public int quadsize = 250;
 
         public GenericBox(int type, int x1, int y1, int x2, int y2) {   
