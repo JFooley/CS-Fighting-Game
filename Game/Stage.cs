@@ -152,21 +152,14 @@ public class Stage {
         foreach (Character part_object in this.OnSceneParticles) part_object.Render(this.show_boxs);
 
         // Update chars
-        foreach (Character char_object in this.OnSceneCharactersSorted) {
-            char_object.CheckColisions();
-            char_object.Update();
-            char_object.Animate();
-        }
+        foreach (Character char_object in this.OnSceneCharactersSorted) char_object.Update();
         this.OnSceneCharacters.RemoveAll(obj => obj.remove);
         this.OnSceneCharacters.AddRange(this.newCharacters);
         this.newCharacters.Clear();
         this.DoBehavior();
 
         // Update particles
-        foreach (Character part_object in this.OnSceneParticles) {
-            part_object.Update();
-            part_object.Animate();
-        }
+        foreach (Character part_object in this.OnSceneParticles) part_object.Update();
         this.OnSceneParticles.RemoveAll(obj => obj.remove);
         this.OnSceneParticles.AddRange(this.newParticles);
         this.newParticles.Clear();

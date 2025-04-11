@@ -106,6 +106,7 @@ public class Character : Object_Space.Object {
     // visuals
     public Texture thumb = new Texture(250, 250);
     public int shadow_size = 1;
+    public bool has_frame_change => this.LastFrameIndex != this.CurrentFrameIndex;
 
     // Gets
     public string CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
@@ -113,7 +114,7 @@ public class Character : Object_Space.Object {
     public State State => animations[CurrentState];
     public Animation CurrentAnimation => animations[CurrentState].animation;
     public int CurrentFrameIndex => animations[CurrentState].animation.current_frame_index;
-    public int lastFrameIndex = -1;
+    public int LastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
         this.folderPath = folderPath;
@@ -133,8 +134,11 @@ public class Character : Object_Space.Object {
     // Every Frame methods
     public override void Update() {
         base.Update();
-        if (hitstopCounter == 0) this.DoBehave();
-        if (hitstopCounter > 0) hitstopCounter -= 1;
+        if (this.hitstopCounter <= 0) {
+            this.Animate();
+            this.CheckColisions();
+            this.DoBehave();
+        } else this.hitstopCounter -= 1;
     }
     public override void Render(bool drawHitboxes = false) {
         base.Render(drawHitboxes);
@@ -153,7 +157,7 @@ public class Character : Object_Space.Object {
                 if (LastSprites[i] != null) Program.window.Draw(LastSprites[i], new RenderStates(Program.hueChange));
             }
             
-            if (this.CurrentAnimation.has_frame_change) {               
+            if (this.has_frame_change) {               
                 LastSprites[2] = LastSprites[1];
                 LastSprites[1] = LastSprites[0];
                 LastSprites[0] = temp_sprite;
@@ -227,8 +231,6 @@ public class Character : Object_Space.Object {
     }
     public override void Animate() {
         if (!this.animate) return;
-        if (this.hitstopCounter != 0) return;
-
         this.CheckStun();
 
         // Update body.Position
@@ -237,7 +239,7 @@ public class Character : Object_Space.Object {
         this.body.Position.Y += CurrentAnimation.GetCurrentFrame().DeltaY * this.facing;
 
         // Advance to the next frame and reset hit if necessary
-        this.lastFrameIndex = this.CurrentFrameIndex;
+        this.LastFrameIndex = this.CurrentFrameIndex;
         if (CurrentAnimation.AdvanceFrame() && CurrentAnimation.GetCurrentFrame().hasHit == false) this.hasHit = false;
 
         // Change state, if necessary
@@ -248,8 +250,7 @@ public class Character : Object_Space.Object {
         }
     }
     public void PlaySound() {
-        if (this.CurrentAnimation.has_frame_change && characterSounds.ContainsKey(this.CurrentSound)) {
-            this.characterSounds[this.CurrentSound].Stop();
+        if (this.has_frame_change && characterSounds.ContainsKey(this.CurrentSound)) {
             this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
             this.characterSounds[this.CurrentSound].Play();
         }
@@ -327,11 +328,9 @@ public class Character : Object_Space.Object {
             }
         }
     }
-    public void CheckColisions() {  
-        if (hitstopCounter != 0) return;
-             
+    public void CheckColisions() {               
         // Para cada character no stage
-        foreach (var charB in this.stage.OnSceneCharacters) {
+        foreach (var charB in Program.stage.OnSceneCharacters) {
             if (charB == this) continue;
             
             foreach (GenericBox boxA in this.CurrentBoxes) {

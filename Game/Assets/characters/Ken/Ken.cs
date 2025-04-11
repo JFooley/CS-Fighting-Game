@@ -815,14 +815,14 @@ public class Ken : Character {
             this.ChangeState("SA1");
             this.SA_flag = false;
 
-        } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.has_frame_change) {
+        } else if (this.CurrentState == "SA1" && this.CurrentFrameIndex == 3 && this.has_frame_change) {
             this.stage.spawnParticle("SALighting", this.body.Position.X, this.body.Position.Y, X_offset: 50, Y_offset: -120, facing: this.facing);
             this.stage.StopFor(54);
             
         } else if (this.CurrentState == "SA1" && this.CurrentAnimation.on_last_frame && this.SA_flag) {
             this.ChangeState("SA1_tail");
 
-        } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.has_frame_change ) {
+        } else if (this.CurrentState == "SA1_tail" && this.CurrentFrameIndex == 3 && this.has_frame_change ) {
             this.AddVelocity(
                 X: 1, 
                 Y: 150);
@@ -842,14 +842,14 @@ public class Ken : Character {
         // Shorys
         if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "CloseMP" || this.CurrentState == "LowLightK" || this.CurrentState == "LowMediumP"))) {
             this.ChangeState("LightShory");
-        } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.has_frame_change) {
+        } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.has_frame_change) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
         if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" )) {
             this.ChangeState("HeavyShory");
-        } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 7 && this.CurrentAnimation.has_frame_change) {
+        } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 7 && this.has_frame_change) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 80);
@@ -857,7 +857,7 @@ public class Ken : Character {
         if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("ShoryEX");
-        } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 7 && this.CurrentAnimation.has_frame_change) {
+        } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 7 && this.has_frame_change) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 100);

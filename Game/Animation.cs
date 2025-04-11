@@ -11,7 +11,6 @@ namespace Animation_Space {
         public int current_frame_index;
         public bool on_last_frame;
         public bool ended;
-        public bool has_frame_change => this.frame_counter == 0; 
 
         // infos
         public int anim_size;
@@ -41,42 +40,41 @@ namespace Animation_Space {
             this.frame_counter = 0;
         }
 
-        public FrameData GetCurrentFrame()
-        {
+        public FrameData GetCurrentFrame() {
             return this.Frames[current_frame_index];
         }
 
-        public string GetCurrentSimpleFrame()
-        {
+        public string GetCurrentSimpleFrame() {
             return this.SimpleFrames[current_frame_index];
         }
 
         public bool AdvanceFrame() {
-            // Calcula o número de frames de tela por frame de animação
-            float framesPerAnimFrame = screen_framerate / framerate;
-
-            // Incrementa o contador de frames
             frame_counter++;
 
-            // Avança o frame de animação apenas quando o contador de frames atinge o limite calculado
-            if (frame_counter >= framesPerAnimFrame) {
-                frame_counter = 0; // Reseta o contador
-                current_frame_index++; // Avança um frame
+            // Check if it's time to advance a frame
+            if (frame_counter >= screen_framerate / framerate) {
+                frame_counter = 0; 
+                current_frame_index++; 
                 
+                // Reset when needed
                 if (this.ended && this.loop) this.Reset();
 
+                // Check if it's on last frame
                 if (current_frame_index == anim_size) this.on_last_frame = true;
                 else this.on_last_frame = false;
                 
+                // Check if animation has ended
                 if (current_frame_index > anim_size) {
                     this.ended = true;
                     this.current_frame_index -= 1;
+                    this.frame_counter = 0;
+
                 } else this.ended = false;
                 
-                return true; // do frame change
+                return true; // frame change
             }
 
-            return false; // no frame change
+            return false; // frame don't change
         }
 
         public void Reset() {

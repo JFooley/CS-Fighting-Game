@@ -8,7 +8,7 @@ public class Fireball : Character {
         : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage, 1) {
             this.playerIndex = team;
             this.facing = facing;
-            this.LifePoints = new Vector2i(life_points, life_points);
+            this.LifePoints = new Vector2i(life_points, 0);
             this.shadow_size = 0;
         }
     public override void Load() {
