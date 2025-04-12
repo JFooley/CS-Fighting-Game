@@ -15,18 +15,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\KO.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\koiti.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\kurae.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_block.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_1.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_10.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_2.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_3.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_4.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_5.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_6.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_7.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_8.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\on_hit_9.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\pouso.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\shin like.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\shinpu.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Ken\sounds\shinryuken.wav
@@ -732,22 +720,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_2.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_3.mp3
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_block.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_1.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_10.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_2.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_3.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_4.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_5.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_6.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_7.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_8.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\on_hit_9.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\power_1.mp3
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\sounds.dat
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\throw_1.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\throw_2.wav
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\throw_3.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\0.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\1.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\10.png
@@ -1668,7 +1640,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\97.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\98.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\99.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\config.json
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default medium click.png
@@ -1690,6 +1661,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\icon.ico
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\anim_maker.py
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\background_remover.py
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\cleandats.bat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\colider_creator.py
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\content_mover.py
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\misc\framedata_list_creator.py
@@ -1703,8 +1675,15 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Fireball\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_block.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_1.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_10.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_2.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_3.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_4.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_5.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_6.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_7.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_8.wav
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\on_hit_9.wav
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\parry.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Hitspark\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\particles\sounds\Particle\explosão.wav
@@ -1931,7 +1910,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sound\music.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sprites\0.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Night Alley\sound\music.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Night Alley\sound\sounds.dat
