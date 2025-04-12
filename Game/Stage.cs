@@ -113,7 +113,6 @@ public class Stage {
 
     // Behaviour
     public void Update() {
-        // Render > Colide > Behave > Anima
         if (!this.character_A.onHit) this.character_B.comboCounter = 0;
         if (!this.character_B.onHit) this.character_A.comboCounter = 0;
 

@@ -132,11 +132,12 @@ public abstract class Character : Object_Space.Object {
 
     // Every Frame methods
     public override void Update() {
+        // Render > Behave > Colide > Anima
         base.Update();
         if (this.hitstopCounter <= 0) {
             this.Animate();
-            this.CheckColisions();
             this.DoBehave();
+            this.CheckColisions();
         } else this.hitstopCounter -= 1;
     }
     public override void Render(bool drawHitboxes = false) {
