@@ -20,7 +20,7 @@ public class NYCSubway : Stage {
 
         this.CurrentState = "day";
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

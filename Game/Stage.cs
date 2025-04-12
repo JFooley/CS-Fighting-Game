@@ -27,7 +27,6 @@ public class Stage {
     public int reset_frames = 0;
 
     // Battle Info
-    private int hitstopCounter = 0;
     public List<Character> OnSceneCharacters = new List<Character> {};
     public List<Character> OnSceneCharactersSorted => this.OnSceneCharacters
             .OrderByDescending(x => x.State.priority)
@@ -36,15 +35,14 @@ public class Stage {
     public List<Character> OnSceneCharactersRender => this.OnSceneCharacters
             .OrderBy(x => x.State.priority)
             .ToList();
-
     public List<Character> OnSceneParticles = new List<Character> {};
     public List<Character> newCharacters = new List<Character> {};
     public List<Character> newParticles = new List<Character> {};
 
     public Character character_A;
     public Character character_B;
-    public Vector2f last_pos_A;
-    public Vector2f last_pos_B;
+    public Vector2f last_pos_A => character_A.body.LastPosition;
+    public Vector2f last_pos_B => character_B.body.LastPosition;
     public int rounds_A;
     public int rounds_B;
     public int elapsed_time => this.matchTimer.Elapsed.Seconds;
@@ -75,13 +73,14 @@ public class Stage {
     // Animation infos
     public string CurrentState { get; set; }
     public string LastState { get; set; }
-    public Dictionary<string, State> animations;
-    private Dictionary<string, Texture> spriteImages;
-    private Dictionary<string, Sound> stageSounds;
+    public Dictionary<string, State> states;
+    private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+    private Dictionary<string, SoundBuffer> sounds = new Dictionary<string, SoundBuffer>();
     public string CurrentSprite => CurrentAnimation.GetCurrentSimpleFrame();
-    public State state => animations[CurrentState];
-    public Animation CurrentAnimation => animations[CurrentState].animation;
-    public int CurrentFrameIndex => animations[CurrentState].animation.current_frame_index;
+    public Sound music;
+    public State state => states[CurrentState];
+    public Animation CurrentAnimation => states[CurrentState].animation;
+    public int CurrentFrameIndex => states[CurrentState].animation.current_frame_index;
 
     // Visual info
     public Color AmbientLight = new Color(255, 255, 255, 255);
@@ -101,8 +100,6 @@ public class Stage {
         this.rounds_A = 0;
         this.rounds_B = 0;
         this.CurrentState = "Default";
-        this.spriteImages = new Dictionary<string, Texture>();
-        this.stageSounds = new Dictionary<string, Sound>();
 
         this.spark = new Hitspark("Default", 0, 0, 1, this);
         this.fireball = new Fireball("Default", 1, 0, 0, 0, 1, this);
@@ -124,8 +121,8 @@ public class Stage {
         if (InputManager.Instance.Key_down("Start") && Program.sub_state == Program.Battling) this.Pause();
 
         // Render stage sprite
-        if (this.spriteImages.ContainsKey(this.CurrentSprite)) {
-            Sprite temp_sprite = new Sprite(this.spriteImages[this.CurrentSprite]);
+        if (this.textures.ContainsKey(this.CurrentSprite)) {
+            Sprite temp_sprite = new Sprite(this.textures[this.CurrentSprite]);
             temp_sprite.Position = new Vector2f (0, 0);
             Program.window.Draw(temp_sprite);
         }
@@ -133,10 +130,10 @@ public class Stage {
         // Advance to the next frame
         CurrentAnimation.AdvanceFrame();
         if (this.CurrentAnimation.ended && state.change_on_end) {
-            if (animations.ContainsKey(this.state.post_state)) {
+            if (states.ContainsKey(this.state.post_state)) {
                 this.LastState = this.CurrentState;
                 this.CurrentState = this.state.post_state;
-                if (CurrentState != LastState) this.animations[LastState].animation.Reset();
+                if (CurrentState != LastState) this.states[LastState].animation.Reset();
             }
         }
 
@@ -183,8 +180,6 @@ public class Stage {
                 character_B.body.Position.X = this.last_pos_B.X;
             }
         }
-        this.last_pos_A = this.character_A.body.Position;
-        this.last_pos_B = this.character_B.body.Position;
         
         // Keep characters facing each other
         if (this.character_A.body.Position.X < this.character_B.body.Position.X) {
@@ -295,9 +290,7 @@ public class Stage {
     // Spawns
     public void spawnParticle(String state, float X, float Y, int facing = 1, int X_offset = 0, int Y_offset = 0) {
         var par = new Particle(state, X + X_offset * facing, Y + Y_offset, facing);
-        par.animations = this.particle.animations;
-        par.spriteImages = this.particle.spriteImages;
-        par.characterSounds = this.particle.characterSounds;
+        par.states = this.particle.states;
         this.newParticles.Add(par);
     }
     public void spawnHitspark(int hit, float X, float Y, int facing, int X_offset = 0, int Y_offset = 0) {
@@ -312,16 +305,12 @@ public class Stage {
             return;
         }
         var hs = new Hitspark(state, X + X_offset * facing, Y + Y_offset, facing);
-        hs.animations = this.spark.animations;
-        hs.spriteImages = this.spark.spriteImages;
-        hs.characterSounds = this.spark.characterSounds;
+        hs.states = this.spark.states;
         this.newParticles.Add(hs);
     }
     public Fireball spawnFireball(string state, float X, float Y, int facing, int team, int life_points = 1, int X_offset = 10, int Y_offset = 0) {        
         var fb = new Fireball(state, life_points, X + X_offset * facing, Y + Y_offset, team, facing, this);
-        fb.animations = this.fireball.animations;
-        fb.spriteImages = this.fireball.spriteImages;
-        fb.characterSounds = this.fireball.characterSounds;
+        fb.states = this.fireball.states;
         this.newCharacters.Add(fb);
         return fb;
     }
@@ -519,21 +508,21 @@ public class Stage {
     // Music
     public void SetMusicVolume(float amount = -1) {
         if (amount == -1) amount = Config.Music_Volume;
-        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Volume = amount * (Config.Main_Volume / 100);
+        this.music.Volume = amount * (Config.Main_Volume / 100);
     }
     public void StopMusic() {
-        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Stop();
+        this.music.Stop();
     }
     public void PauseMusic() {
-        if (this.stageSounds.Keys.Contains("music")) this.stageSounds["music"].Pause();
+        this.music.Pause();
     }
     public void PlayMusic() {
-        if (this.stageSounds.Keys.Contains("music") && (this.stageSounds["music"].Status == SoundStatus.Stopped || this.stageSounds["music"].Status == SoundStatus.Paused)){
-            this.stageSounds["music"].Play();
+        if (this.music.Status == SoundStatus.Stopped || this.music.Status == SoundStatus.Paused){
+            this.music.Play();
         }
     }
     public void ToggleMusic() {
-        if (this.stageSounds["music"].Status == SoundStatus.Paused) this.PlayMusic();
+        if (this.music.Status == SoundStatus.Paused) this.PlayMusic();
         else this.PauseMusic();
     }
     public void ToggleMusicVolume(bool control, float volume_A = -1, float volume_B = -1) {
@@ -579,7 +568,7 @@ public class Stage {
         // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
         string datpath = Path.Combine(fullPath, "visuals.dat");
         if (System.IO.File.Exists(datpath)) {
-            this.spriteImages = DataManagement.LoadTextures(datpath);
+            this.textures = DataManagement.LoadTextures(datpath);
             
         } else {
             // Obtém todos os arquivos no diretório especificado
@@ -592,21 +581,21 @@ public class Stage {
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                this.spriteImages[fileNameWithoutExtension] = texture;
+                this.textures[fileNameWithoutExtension] = texture;
             }
 
             // Salva o arquivo binário
-            DataManagement.SaveTextures(datpath, this.spriteImages);
+            DataManagement.SaveTextures(datpath, this.textures);
         }
 
         return true;
     }
     public void UnloadSpriteImages() {
-        foreach (var image in this.spriteImages.Values)
+        foreach (var image in this.textures.Values)
         {
             image.Dispose(); // Free the memory used by the image
         }
-        this.spriteImages.Clear(); // Clear the dictionary
+        this.textures.Clear(); // Clear the dictionary
     }
     public bool LoadSounds() {
         string currentDirectory = Directory.GetCurrentDirectory();
@@ -620,7 +609,7 @@ public class Stage {
         // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
         string datpath = Path.Combine(fullSoundPath, "sounds.dat");
         if (System.IO.File.Exists(datpath)) {
-            this.stageSounds = DataManagement.LoadSounds(datpath);
+            this.sounds = DataManagement.LoadSounds(datpath);
             
         } else {
             // Obtém todos os arquivos no diretório especificado
@@ -633,21 +622,25 @@ public class Stage {
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
 
                 // Adiciona no dicionário
-                this.stageSounds[fileNameWithoutExtension] = new Sound(buffer);
+                this.sounds[fileNameWithoutExtension] = buffer;
             } 
-            
+
             // Salva o arquivo binário
-            DataManagement.SaveSounds(datpath, this.stageSounds);
+            DataManagement.SaveSounds(datpath, this.sounds);
         }
+
+        // setta a musica
+        this.music = new Sound(sounds["music"]);
+        
         return true;
     }
     public void UnloadSounds() {
         this.StopMusic();
-        foreach (var sound in this.stageSounds.Values)
+        foreach (var sound in this.sounds.Values)
         {
             sound.Dispose(); // Free the memory used by the image
         }
-        this.stageSounds.Clear(); 
+        this.sounds.Clear(); 
     }
 
     public virtual void LoadStage() {}

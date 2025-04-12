@@ -8,7 +8,7 @@ public static class Config {
     public const int Framerate = 60;
 
     public static bool Fullscreen = true;
-    public static bool Vsync = true;
+    public static bool Vsync = false;
     public static int inputWindowTime = 4;    
     
     // Battle

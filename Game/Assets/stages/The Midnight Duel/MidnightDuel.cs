@@ -17,7 +17,7 @@ public class MidnightDuel : Stage {
             { "Default", new State(frames, "Default", 8)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

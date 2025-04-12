@@ -2,8 +2,15 @@ using Character_Space;
 using Animation_Space;
 using SFML.System;
 using Stage_Space;
+using SFML.Graphics;
+using SFML.Audio;
 
 public class Fireball : Character {
+    private static Dictionary<string, Texture> textures_local = new Dictionary<string, Texture>();
+    public override Dictionary<string, Texture> textures {get => textures_local; protected set => textures_local = value ?? new Dictionary<string, Texture>();}
+    private static Dictionary<string, SoundBuffer> sounds_local = new Dictionary<string, SoundBuffer>();
+    public override Dictionary<string, SoundBuffer> sounds {get => sounds_local; protected set => sounds_local = value ?? new Dictionary<string, SoundBuffer>();}
+
     public Fireball(string initialState, int life_points, float startX, float startY, int team, int facing, Stage stage)
         : base("Fireball", initialState, startX, startY, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", stage, 1) {
             this.playerIndex = team;
@@ -53,11 +60,11 @@ public class Fireball : Character {
         var animations = new Dictionary<string, State> {
             {"Ken1", new State(KenFireballFrames, "Ken1", 20, 7)},
             {"Ken2", new State(KenFireballFrames, "Ken2", 20, 7)},
-            {"Ken3", new State(KenFireballFrames, "Ken3", 30, 7)},
+            {"Ken3", new State(KenFireballFrames, "Ken3", 30, 7, doGlow: true)},
             {"KenExit", new State(KenFireballFinal, "Remove", 30, 7)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

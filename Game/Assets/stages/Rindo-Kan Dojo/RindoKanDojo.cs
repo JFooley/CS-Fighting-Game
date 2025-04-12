@@ -17,7 +17,7 @@ public class RindoKanDojo : Stage {
             { "Default", new State(frames, "Default", 1)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

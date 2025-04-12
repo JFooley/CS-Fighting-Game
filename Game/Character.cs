@@ -42,7 +42,7 @@ using Data_space;
 // Wakeup
 
 namespace Character_Space {
-public class Character : Object_Space.Object {
+public abstract class Character : Object_Space.Object {
     // Consts
     public const int NOTHING = -1;
     public const int BLOCK = 0;
@@ -71,9 +71,8 @@ public class Character : Object_Space.Object {
     public int push_box_width = 25;
 
     // Object infos
-    public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
-    public string CurrentState { get; set; }
-    private string LastState { get; set; }
+    public string CurrentState;
+    public string LastState;
     private Sprite[] LastSprites = new Sprite[3]; // For tracing
     public Color LightTint = new Color(255, 255, 255, 255);
 
@@ -91,30 +90,32 @@ public class Character : Object_Space.Object {
     public bool blockingLow = false;
     public bool blocking = false;
 
+    // Data
+    public Dictionary<string, State> states = new Dictionary<string, State>{};
+    public abstract Dictionary<string, Texture> textures { get; protected set;}
+    public abstract Dictionary<string, SoundBuffer> sounds { get; protected set;}
+    private static List<Sound> active_sounds = new List<Sound>();
+
+    // Visuals
+    public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
+    public Texture thumb = new Texture(250, 250);
+    public int shadow_size = 1;
+    public bool has_frame_change => this.LastFrameIndex != this.CurrentFrameIndex || this.CurrentAnimation.frame_counter == 0;
+
+    // Gets
+    public string CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
+    public string CurrentSound => CurrentAnimation.GetCurrentFrame().Sound_index;
+    public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
+    public int CurrentFrameIndex => CurrentAnimation.current_frame_index;
+    public Animation CurrentAnimation => states[CurrentState].animation;
+    public State State => states[CurrentState];
+    public int LastFrameIndex = -1;
+
     // Flags and counters
     public int comboCounter = 0;
     public int hitstopCounter = 0;
     public float damageScaling => Math.Max(0.1f, 1 - comboCounter * 0.1f);
     public bool SA_flag = false;
-
-    // Data
-    public Dictionary<string, State> animations = new Dictionary<string, State>{};
-    public Dictionary<string, Texture> spriteImages = new Dictionary<string, Texture>{};
-    public Dictionary<string, Sound> characterSounds = new Dictionary<string, Sound>{};
-    public List<GenericBox> CurrentBoxes => CurrentAnimation.GetCurrentFrame().Boxes;
-
-    // visuals
-    public Texture thumb = new Texture(250, 250);
-    public int shadow_size = 1;
-    public bool has_frame_change => this.LastFrameIndex != this.CurrentFrameIndex;
-
-    // Gets
-    public string CurrentSprite => CurrentAnimation.GetCurrentFrame().Sprite_index;
-    public string CurrentSound => CurrentAnimation.GetCurrentFrame().Sound_index;
-    public State State => animations[CurrentState];
-    public Animation CurrentAnimation => animations[CurrentState].animation;
-    public int CurrentFrameIndex => animations[CurrentState].animation.current_frame_index;
-    public int LastFrameIndex = -1;
 
     public Character(string name, string initialState, float startX, float startY, string folderPath, string soundFolderPath, Stage stage, int type = 0) : base() {
         this.folderPath = folderPath;
@@ -127,8 +128,6 @@ public class Character : Object_Space.Object {
         base.body.Position.X = startX; 
         base.body.Position.Y = startY;
         this.floorLine = startY;
-        this.spriteImages = new Dictionary<string, Texture>();
-        this.characterSounds = new Dictionary<string, Sound>();
     }
 
     // Every Frame methods
@@ -144,7 +143,7 @@ public class Character : Object_Space.Object {
         base.Render(drawHitboxes);
         
         // Set current sprite
-        var temp_sprite = this.GetCurrentSpriteImage();
+        var temp_sprite = this.GetCurrentSprite();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         temp_sprite.Color = this.LightTint;
@@ -247,12 +246,6 @@ public class Character : Object_Space.Object {
             this.ChangeState(this.State.post_state);
         } else if (State.change_on_ground && !this.onAir) {
             this.ChangeState(this.State.post_state);
-        }
-    }
-    public void PlaySound() {
-        if (this.has_frame_change && characterSounds.ContainsKey(this.CurrentSound)) {
-            this.characterSounds[this.CurrentSound].Volume = Config.Character_Volume;
-            this.characterSounds[this.CurrentSound].Play();
         }
     }
     
@@ -427,21 +420,30 @@ public class Character : Object_Space.Object {
         if (newState == "Parry" && this.onAir) newState = "AirParry";
 
         this.LastState = this.CurrentState;
-        if (animations.ContainsKey(newState)) {
+        if (states.ContainsKey(newState)) {
             if (CurrentState != newState || reset) this.CurrentAnimation.Reset();
             this.CurrentState = newState;
+            this.hasHit = false;
         }
 
-        this.hasHit = false;
         if (this.CurrentState.Contains("Falling")) this.StunFrames = 0;
         else if (this.CurrentState.Contains("Crouching") || this.CurrentState.Contains("Low")) this.isCrounching = true;
         else this.isCrounching = false;
     }
-    public Sprite GetCurrentSpriteImage() {
-        if (spriteImages.ContainsKey(this.CurrentSprite)) {
-            return new Sprite(spriteImages[this.CurrentSprite]);
+    public Sprite GetCurrentSprite() {
+        if (textures.TryGetValue(this.CurrentSprite, out Texture texture)) {
+            return new Sprite(texture);
         }
         return new Sprite(); 
+    }
+    public void PlaySound() {
+        if (this.has_frame_change && !this.CurrentAnimation.playing_sound && this.CurrentSound != "" && sounds.TryGetValue(this.CurrentSound, out SoundBuffer buffer)) {
+            var sound = new Sound(buffer) {Volume = Config.Character_Volume};
+            sound.Play();
+            active_sounds.Add(sound);
+            active_sounds.RemoveAll(s => s.Status == SoundStatus.Stopped);
+            this.CurrentAnimation.playing_sound = true;
+        }
     }
     public void Reset(int start_point, int facing, String state = "Idle", bool total_reset = false) {
         this.ChangeState(state, reset: true);
@@ -467,7 +469,7 @@ public class Character : Object_Space.Object {
         // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
         string datpath = Path.Combine(fullPath, "visuals.dat");
         if (System.IO.File.Exists(datpath)) {
-            this.spriteImages = DataManagement.LoadTextures(datpath);
+            textures = DataManagement.LoadTextures(datpath);
             
         } else {
             // Obtém todos os arquivos no diretório especificado
@@ -480,19 +482,19 @@ public class Character : Object_Space.Object {
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
                 
                 // Usa o nome do arquivo sem extensão como chave no dicionário
-                this.spriteImages[fileNameWithoutExtension] = texture;
+                textures[fileNameWithoutExtension] = texture;
             }
 
             // Salva o arquivo binário
-            DataManagement.SaveTextures(datpath, this.spriteImages);
+            DataManagement.SaveTextures(datpath, textures);
         }
     }
     public void UnloadSpriteImages() {
-        foreach (var image in spriteImages.Values)
+        foreach (var image in textures.Values)
         {
             image.Dispose(); // Free the memory used by the image
         }
-        spriteImages.Clear(); // Clear the dictionary
+        textures.Clear(); // Clear the dictionary
     }
 
     // Sounds load
@@ -508,32 +510,29 @@ public class Character : Object_Space.Object {
         // Verifica se o arquivo binário existe, senão, carrega as texturas e cria ele
         string datpath = Path.Combine(fullSoundPath, "sounds.dat");
         if (System.IO.File.Exists(datpath)) {
-            this.characterSounds = DataManagement.LoadSounds(datpath);
+            sounds = DataManagement.LoadSounds(datpath);
             
         } else {
             // Obtém todos os arquivos no diretório especificado
             string[] files = System.IO.Directory.GetFiles(fullSoundPath);
             foreach (string file in files) {
-                // Tenta carregar a textura
-                var buffer = new SoundBuffer(file);
-                
                 // Obtém o nome do arquivo sem a extensão
                 string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
 
                 // Adiciona no dicionário
-                this.characterSounds[fileNameWithoutExtension] = new Sound(buffer);
+                sounds[fileNameWithoutExtension] = new SoundBuffer(file);
             }
 
             // Salva o arquivo binário
-            DataManagement.SaveSounds(datpath, this.characterSounds);
+            DataManagement.SaveSounds(datpath, sounds);
         }
     }
     public void UnloadSounds() {
-        foreach (var sound in characterSounds.Values)
+        foreach (var sound in sounds.Values)
         {
             sound.Dispose(); // Free the memory used by the image
         }
-        characterSounds.Clear(); 
+        sounds.Clear(); 
     }
 
     // General Load
@@ -559,11 +558,6 @@ public class Character : Object_Space.Object {
     public override void Unload() {
         this.UnloadSounds();
         this.UnloadSpriteImages();
-    }
-
-    // Copy
-    public Character Copy() {
-        return (Character) this.MemberwiseClone();
     }
 }
 

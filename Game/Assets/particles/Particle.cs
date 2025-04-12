@@ -3,8 +3,14 @@ using Animation_Space;
 using SFML.System;
 using SFML.Graphics;
 using Stage_Space;
+using SFML.Audio;
 
 public class Particle : Character {
+    private static Dictionary<string, Texture> textures_local = new Dictionary<string, Texture>();
+    public override Dictionary<string, Texture> textures {get => textures_local; protected set => textures_local = value ?? new Dictionary<string, Texture>();}
+    private static Dictionary<string, SoundBuffer> sounds_local = new Dictionary<string, SoundBuffer>();
+    public override Dictionary<string, SoundBuffer> sounds {get => sounds_local; protected set => sounds_local = value ?? new Dictionary<string, SoundBuffer>();}
+
     public Particle(string initialState, float startX, float startY, int facing, Stage stage = null)
         : base("Particle", initialState, startX, startY, "Assets/particles/sprites/Particle", "Assets/particles/sounds/Particle", stage) {
             this.facing = facing;
@@ -150,7 +156,6 @@ public class Particle : Character {
             new FrameData(521, 0, 0, new List<GenericBox> {}),
         };
         
-
         // States
         var animations = new Dictionary<string, State> {
             {"SALighting", new State(SAGathering, "SALighting_tail", 60)},
@@ -161,7 +166,7 @@ public class Particle : Character {
             {"Shungoku_text", new State(Shungoku_text, "Remove", 15)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }
@@ -170,13 +175,13 @@ public class Particle : Character {
         if (!this.render) return;
         
         // Render sprite
-        Sprite temp_sprite = this.GetCurrentSpriteImage();
+        Sprite temp_sprite = this.GetCurrentSprite();
         temp_sprite.Position = new Vector2f(this.body.Position.X - (temp_sprite.GetLocalBounds().Width / 2 * this.facing), this.body.Position.Y - temp_sprite.GetLocalBounds().Height / 2);
         temp_sprite.Scale = new Vector2f(this.size_ratio * this.facing, this.size_ratio);
         Program.window.Draw(temp_sprite);
 
         // Play sounds
-        base.PlaySound();
+        this.PlaySound();
     }
     
     public override void DoBehave() {        

@@ -4,8 +4,14 @@ using Animation_Space;
 using Input_Space;
 using Stage_Space;
 using SFML.Graphics;
+using SFML.Audio;
 
 public class Psylock : Character {
+    private static Dictionary<string, Texture> textures_local = new Dictionary<string, Texture>();
+    public override Dictionary<string, Texture> textures {get => textures_local; protected set => textures_local = value ?? new Dictionary<string, Texture>();}
+    private static Dictionary<string, SoundBuffer> sounds_local = new Dictionary<string, SoundBuffer>();
+    public override Dictionary<string, SoundBuffer> sounds {get => sounds_local; protected set => sounds_local = value ?? new Dictionary<string, SoundBuffer>();}
+
     public Psylock(string initialState, int startX, int startY, Stage stage)
         : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", stage)
     {
@@ -282,7 +288,7 @@ public class Psylock : Character {
             { "Intro", new State(introFrames, "Idle", 10)},
         };
 
-        this.animations = states;
+        this.states = states;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

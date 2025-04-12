@@ -65,7 +65,7 @@ namespace Data_space {
             return textures;
         }
 
-        public static void SaveSounds(string fileName, Dictionary<string, Sound> sounds) {
+        public static void SaveSounds(string fileName, Dictionary<string, SoundBuffer> sounds) {
             using (FileStream fs = new FileStream(fileName, FileMode.Create))
             using (BinaryWriter writer = new BinaryWriter(fs))
             {
@@ -77,7 +77,7 @@ namespace Data_space {
                     writer.Write(pair.Key);
                     
                     // Obtém os dados brutos do SoundBuffer
-                    SoundBuffer buffer = pair.Value.SoundBuffer;
+                    SoundBuffer buffer = pair.Value;
                     short[] samples = buffer.Samples;
                     byte[] sampleBytes = new byte[samples.Length * 2];
                     Buffer.BlockCopy(samples, 0, sampleBytes, 0, sampleBytes.Length);
@@ -90,8 +90,8 @@ namespace Data_space {
                 }
             }
         }
-        public static Dictionary<string, Sound> LoadSounds(string fileName) {
-            Dictionary<string, Sound> loadedSounds = new Dictionary<string, Sound>();
+        public static Dictionary<string, SoundBuffer> LoadSounds(string fileName) {
+            Dictionary<string, SoundBuffer> loadedSounds = new Dictionary<string, SoundBuffer>();
             
             using (FileStream fs = new FileStream(fileName, FileMode.Open))
             using (BinaryReader reader = new BinaryReader(fs))
@@ -112,7 +112,7 @@ namespace Data_space {
                     SoundBuffer buffer = new SoundBuffer(samples, channels, sampleRate);
                     
                     // Cria o Sound e adiciona ao dicionário
-                    loadedSounds[soundName] = new Sound(buffer);
+                    loadedSounds[soundName] = buffer;
                 }
             }
             

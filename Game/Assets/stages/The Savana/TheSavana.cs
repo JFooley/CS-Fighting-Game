@@ -17,7 +17,7 @@ public class TheSavana : Stage {
             { "Default", new State(frames, "Default", 15)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

@@ -1,8 +1,15 @@
 using Character_Space;
 using Animation_Space;
 using Stage_Space;
+using SFML.Graphics;
+using SFML.Audio;
 
 public class Hitspark : Character {
+    private static Dictionary<string, Texture> textures_local = new Dictionary<string, Texture>();
+    public override Dictionary<string, Texture> textures {get => textures_local; protected set => textures_local = value ?? new Dictionary<string, Texture>();}
+    private static Dictionary<string, SoundBuffer> sounds_local = new Dictionary<string, SoundBuffer>();
+    public override Dictionary<string, SoundBuffer> sounds {get => sounds_local; protected set => sounds_local = value ?? new Dictionary<string, SoundBuffer>();}
+
     public Hitspark(string initialState, float startX, float startY, int facing, Stage stage = null)
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", stage) {
             this.facing = facing;
@@ -79,7 +86,7 @@ public class Hitspark : Character {
             {"Block", new State(Block, "Remove", 30)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

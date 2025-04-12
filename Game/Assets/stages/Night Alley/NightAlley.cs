@@ -17,7 +17,7 @@ public class NightAlley : Stage {
             { "Default", new State(frames, "Default", 60)},
         };
 
-        this.animations = animations;
+        this.states = animations;
         this.LoadSpriteImages();
         this.LoadSounds();
     }

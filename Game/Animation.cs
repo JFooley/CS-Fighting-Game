@@ -9,8 +9,9 @@ namespace Animation_Space {
 
         // logic
         public int current_frame_index;
-        public bool on_last_frame;
-        public bool ended;
+        public bool on_last_frame = false;
+        public bool ended = false;
+        public bool playing_sound = false;
 
         // infos
         public int anim_size;
@@ -49,15 +50,16 @@ namespace Animation_Space {
         }
 
         public bool AdvanceFrame() {
+            // Reset when needed
+            if (this.ended && this.loop) this.Reset();
+
             frame_counter++;
 
             // Check if it's time to advance a frame
             if (frame_counter >= screen_framerate / framerate) {
+                playing_sound = false;
                 frame_counter = 0; 
                 current_frame_index++; 
-                
-                // Reset when needed
-                if (this.ended && this.loop) this.Reset();
 
                 // Check if it's on last frame
                 if (current_frame_index == anim_size) this.on_last_frame = true;
@@ -81,6 +83,7 @@ namespace Animation_Space {
             current_frame_index = 0;
             frame_counter = 0;
             on_last_frame = false;
+            playing_sound = false;
             ended = false;
         }
     }
