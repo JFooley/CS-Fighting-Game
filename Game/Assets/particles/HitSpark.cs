@@ -66,8 +66,8 @@ public class Hitspark : Character {
         };
 
         var Parry = new List<FrameData> {
-            new FrameData("parry1", 0, 0, new List<GenericBox> {}, "parry"),
-            new FrameData("parry2", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry1", 0, 0, new List<GenericBox> {}),
+            new FrameData("parry2", 0, 0, new List<GenericBox> {}, "parry"),
             new FrameData("parry3", 0, 0, new List<GenericBox> {}),
             new FrameData("parry4", 0, 0, new List<GenericBox> {}),
             new FrameData("parry5", 0, 0, new List<GenericBox> {}),
