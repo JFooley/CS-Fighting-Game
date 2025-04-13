@@ -15,29 +15,26 @@ namespace Animation_Space {
 
         // infos
         public int anim_size;
-        public int real_anim_size => anim_size * (60 / this.framerate);
         public bool loop;
         public int framerate;
-        public int screen_framerate;
+        public int screen_framerate => Config.Framerate;
         public int frame_counter;
 
-        public Animation(List<FrameData> frames, int framerate = 30, int screenFramerate = 60, bool loop = true) {
+        public Animation(List<FrameData> frames, int framerate = 30, bool loop = true) {
             this.Frames = frames;
             this.current_frame_index = 0;
             this.anim_size = Frames.Count() - 1;
             this.loop = loop;
             this.framerate = framerate;
-            this.screen_framerate = screenFramerate;
             this.frame_counter = 0;
         }
 
-        public Animation(List<string> SimpleFrames, int framerate = 30, int screenFramerate = 60) {
+        public Animation(List<string> SimpleFrames, int framerate = 30) {
             this.SimpleFrames = SimpleFrames;
             this.current_frame_index = 0;
             this.anim_size = SimpleFrames.Count() - 1;
             this.loop = true;
             this.framerate = framerate;
-            this.screen_framerate = screenFramerate;
             this.frame_counter = 0;
         }
 

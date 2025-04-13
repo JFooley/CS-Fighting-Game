@@ -99,7 +99,6 @@ public static class Config {
             Console.WriteLine("Config file not found. Using default settings.");
         }
     }
-
     private class ConfigData {
         public bool Fullscreen { get; set; }
         public bool Vsync { get; set; }
