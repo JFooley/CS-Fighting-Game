@@ -120,7 +120,7 @@ public class Fireball : Character {
 
         if (this.LifePoints.X <= 0) return hit;
 
-        if (parried && this.State.canBeParried) {
+        if (parried && this.State.can_be_parried) {
             this.LifePoints.X -= 1;
             this.hasHit = true;
             return Character.PARRY;

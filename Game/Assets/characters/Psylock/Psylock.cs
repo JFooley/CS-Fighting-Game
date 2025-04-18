@@ -276,7 +276,7 @@ public class Psylock : Character {
             { "Jump", new State(jumpFrames, "JumpFalling", 20)},
             { "JumpForward", new State(jumpFrames, "JumpFalling", 20)},
             { "JumpBackward", new State(jumpFrames, "JumpFalling", 20)},
-            { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, changeOnLastframe: false)},
+            { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, change_on_end: false)},
 
             { "Sweeped", new State(idleFrames, "Falling", 30)},
             { "Airboned", new State(idleFrames, "Falling", 30)},
@@ -377,7 +377,7 @@ public class Psylock : Character {
     public override int ImposeBehavior(Character target, bool parried = false) {
         int hit = -1;
 
-        if (parried && this.State.canBeParried) return Character.PARRY;
+        if (parried && this.State.can_be_parried) return Character.PARRY;
 
         switch (this.CurrentState) {
             case "AAttack":

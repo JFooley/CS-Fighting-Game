@@ -77,15 +77,15 @@ public abstract class Character : Object_Space.Object {
     public Color LightTint = new Color(255, 255, 255, 255);
 
     // Combat logic infos
-    public bool notActing => !this.onAir && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward" || this.CurrentState == "Crouching" || this.CurrentState == "CrouchingIn" || this.CurrentState == "CrouchingOut" || this.CurrentState == "Landing" || (this.CurrentState == "DashForward" && this.CurrentAnimation.ended) || (this.CurrentState == "DashBackward" && this.CurrentAnimation.ended) || this.CurrentState == "Parry");
-    public bool notActingAir => this.onAir && (this.CurrentState == "Jump" || this.CurrentState == "JumpForward" || this.CurrentState == "JumpBackward" || this.CurrentState == "AirParry") || this.CurrentState == "JumpFalling";
-    public bool notActingLow => notActing && isCrounching || this.CurrentState == "LowParry";
-    public bool isCrounching = false;
+    public bool notActing => this.State.not_acting && !this.State.low && !this.State.air && !this.onAir;
+    public bool notActingLow => this.State.not_acting && this.State.low && !this.State.air && !this.onAir;
+    public bool notActingAir => this.State.not_acting && !this.State.low && this.State.air && this.onAir;
     public bool onAir => this.body.Position.Y < this.floorLine;
+    public bool crounching => this.State.low;
     public bool canParry => InputManager.Instance.Key_press("Right", input_window: 10, player: this.playerIndex, facing: this.facing) && (notActing || notActingAir || notActingLow) && !this.isBlocking();
     public bool canDash => notActing && !this.CurrentState.Contains("Parry");
-    public bool hasHit = false; 
     public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
+    public bool hasHit = false; 
     public bool blockingHigh = false;
     public bool blockingLow = false;
     public bool blocking = false;
@@ -227,6 +227,7 @@ public abstract class Character : Object_Space.Object {
             }
             UI.Instance.DrawText(this.CurrentFrameIndex.ToString(), this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 135, spacing: Config.spacing_small, alignment: "center", textureName: "default small");
             UI.Instance.DrawText(this.CurrentState, this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 125, spacing: Config.spacing_small, alignment: "center", textureName: "default small");
+            UI.Instance.DrawText(this.State.not_acting ? "waiting" : "busy", this.body.Position.X - Camera.Instance.X, this.body.Position.Y - Camera.Instance.Y - 115, spacing: Config.spacing_small, alignment: "center", textureName: "default small");
         }
     }
     public override void Animate() {
@@ -282,7 +283,7 @@ public abstract class Character : Object_Space.Object {
                 }
                 return;
 
-            } else if (this.isCrounching) {
+            } else if (this.crounching) {
                 this.facing = -enemy.facing;
                 this.ChangeState("OnHitLow", reset: true);
 
@@ -298,7 +299,7 @@ public abstract class Character : Object_Space.Object {
             }
 
         } else { // Block stun states
-            if (this.isCrounching) this.ChangeState("OnBlockLow", reset: true);
+            if (this.crounching) this.ChangeState("OnBlockLow", reset: true);
             else this.ChangeState("OnBlock", reset: true);
 
             if (force) {
@@ -317,7 +318,7 @@ public abstract class Character : Object_Space.Object {
             this.StunFrames -= 1;
             if (this.StunFrames == 0 && this.CurrentState != "Airboned") {
                 if (this.onAir) this.ChangeState("JumpFalling");
-                else if (this.isCrounching) this.ChangeState("Crouching");
+                else if (this.crounching) this.ChangeState("Crouching");
                 else this.ChangeState("Idle");
             }
         }
@@ -415,7 +416,7 @@ public abstract class Character : Object_Space.Object {
     }
     
     // Auxiliar methods
-    public void ChangeState(string newState, int index = 0, bool reset = false) {
+    public void ChangeState(string newState, bool reset = false) {
         if (this.LifePoints.X <= 0 && this.CurrentState == "OnGround" && !reset) return;
 
         if (newState == "Parry" && this.onAir) newState = "AirParry";
@@ -428,8 +429,6 @@ public abstract class Character : Object_Space.Object {
         }
 
         if (this.CurrentState.Contains("Falling")) this.StunFrames = 0;
-        else if (this.CurrentState.Contains("Crouching") || this.CurrentState.Contains("Low")) this.isCrounching = true;
-        else this.isCrounching = false;
     }
     public Sprite GetCurrentSprite() {
         if (textures.TryGetValue(this.CurrentSprite, out Texture texture)) {

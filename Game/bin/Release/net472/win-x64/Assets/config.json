@@ -6,7 +6,7 @@
   "parry_window": 0,
   "_main_volume": 100.0,
   "_character_volume": 80.0,
-  "_music_volume": 100.0,
+  "_music_volume": 80.0,
   "_effect_volume": 100.0,
   "RoundLength": 90,
   "hitStopTime": 12,
