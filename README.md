@@ -47,11 +47,12 @@ Implementado:
 - Imposição de movimento unificada (Agora usa apenas o método Push)
 - Trail visual para Super e movimentos EX
 - Sistema de mudança sutil na cor da sprite de acordo com cada stage (simula uma iluminação global simples)
+- Uso de shaders
+- Load unificado e mais eficiente (usando arquivos binários)
 
 Deprecated:
 - Física simples
 
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
-- Feat: Limite de juggle
 - Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
