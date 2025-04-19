@@ -31,7 +31,7 @@ public class Psylock : Character {
 
     public override void Load() {
         // Boxes
-        var pushbox = new GenericBox(2, 125 - this.push_box_width, 145, 125 + this.push_box_width, 195);
+        var pushbox = new GenericBox(2, 125 - this.push_box_width, 110, 125 + this.push_box_width, 195);
         var airPuxbox = new GenericBox(2, 125 - this.push_box_width, 80, 125 + this.push_box_width, 156);
 
         // Animations
@@ -230,19 +230,19 @@ public class Psylock : Character {
         };
         
         var jumpFrames = new List<FrameData> {
-            new FrameData(130, 0, 0, new List<GenericBox> { new GenericBox(1, 110, 105, 126, 118), new GenericBox(1, 98, 118, 126, 161), new GenericBox(1, 125, 119, 147, 137), new GenericBox(1, 92, 148, 155, 195) }),
-            new FrameData(131, 0, 0, new List<GenericBox> { new GenericBox(1, 109, 109, 123, 123), new GenericBox(1, 97, 123, 129, 165), new GenericBox(1, 129, 125, 141, 142), new GenericBox(1, 94, 154, 151, 194) }),
-            new FrameData(132, 0, 0, new List<GenericBox> { new GenericBox(1, 107, 56, 129, 195), new GenericBox(1, 127, 125, 151, 149), new GenericBox(1, 92, 87, 107, 117) }),
-            new FrameData(133, 0, 0, new List<GenericBox> { new GenericBox(1, 106, 55, 130, 195), new GenericBox(1, 129, 124, 152, 149), new GenericBox(1, 96, 87, 108, 118) }),
-            new FrameData(134, 0, 0, new List<GenericBox> { new GenericBox(1, 99, 89, 129, 194), new GenericBox(1, 129, 126, 150, 152), new GenericBox(1, 94, 61, 112, 89), new GenericBox(1, 87, 97, 98, 112) }),
-            new FrameData(135, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 86, 133, 189), new GenericBox(1, 130, 129, 145, 153), new GenericBox(1, 121, 70, 141, 95) }),
-            new FrameData(136, 0, 0, new List<GenericBox> { new GenericBox(1, 127, 87, 145, 104), new GenericBox(1, 136, 103, 169, 118), new GenericBox(1, 103, 97, 140, 158), new GenericBox(1, 100, 159, 124, 177) }),
-            new FrameData(137, 0, 0, new List<GenericBox> { new GenericBox(1, 104, 96, 147, 157), new GenericBox(1, 131, 88, 151, 107), new GenericBox(1, 147, 107, 167, 127) }),
-            new FrameData(138, 0, 0, new List<GenericBox> { new GenericBox(1, 135, 91, 153, 110), new GenericBox(1, 105, 96, 153, 149), new GenericBox(1, 105, 149, 129, 165) }),
-            new FrameData(139, 0, 0, new List<GenericBox> { new GenericBox(1, 137, 96, 153, 115), new GenericBox(1, 102, 101, 150, 155) }),
-            new FrameData(140, 0, 0, new List<GenericBox> { new GenericBox(1, 104, 102, 148, 147), new GenericBox(1, 138, 97, 155, 115) }),
-            new FrameData(141, 0, 0, new List<GenericBox> { new GenericBox(1, 133, 90, 149, 107), new GenericBox(1, 99, 99, 147, 153), new GenericBox(1, 99, 152, 125, 171), new GenericBox(1, 147, 101, 170, 116) }),
-            new FrameData(142, 0, 0, new List<GenericBox> { new GenericBox(1, 99, 97, 141, 163), new GenericBox(1, 111, 81, 152, 102), new GenericBox(1, 98, 159, 116, 177) }),
+            new FrameData(130, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 110, 105, 126, 118), new GenericBox(1, 98, 118, 126, 161), new GenericBox(1, 125, 119, 147, 137), new GenericBox(1, 92, 148, 155, 195) }),
+            new FrameData(131, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 109, 109, 123, 123), new GenericBox(1, 97, 123, 129, 165), new GenericBox(1, 129, 125, 141, 142), new GenericBox(1, 94, 154, 151, 194) }),
+            new FrameData(132, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 107, 56, 129, 195), new GenericBox(1, 127, 125, 151, 149), new GenericBox(1, 92, 87, 107, 117) }),
+            new FrameData(133, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 106, 55, 130, 195), new GenericBox(1, 129, 124, 152, 149), new GenericBox(1, 96, 87, 108, 118) }),
+            new FrameData(134, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 99, 89, 129, 194), new GenericBox(1, 129, 126, 150, 152), new GenericBox(1, 94, 61, 112, 89), new GenericBox(1, 87, 97, 98, 112) }),
+            new FrameData(135, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 102, 86, 133, 189), new GenericBox(1, 130, 129, 145, 153), new GenericBox(1, 121, 70, 141, 95) }),
+            new FrameData(136, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 127, 87, 145, 104), new GenericBox(1, 136, 103, 169, 118), new GenericBox(1, 103, 97, 140, 158), new GenericBox(1, 100, 159, 124, 177) }),
+            new FrameData(137, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 104, 96, 147, 157), new GenericBox(1, 131, 88, 151, 107), new GenericBox(1, 147, 107, 167, 127) }),
+            new FrameData(138, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 135, 91, 153, 110), new GenericBox(1, 105, 96, 153, 149), new GenericBox(1, 105, 149, 129, 165) }),
+            new FrameData(139, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 137, 96, 153, 115), new GenericBox(1, 102, 101, 150, 155) }),
+            new FrameData(140, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 104, 102, 148, 147), new GenericBox(1, 138, 97, 155, 115) }),
+            new FrameData(141, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 133, 90, 149, 107), new GenericBox(1, 99, 99, 147, 153), new GenericBox(1, 99, 152, 125, 171), new GenericBox(1, 147, 101, 170, 116) }),
+            new FrameData(142, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 99, 97, 141, 163), new GenericBox(1, 111, 81, 152, 102), new GenericBox(1, 98, 159, 116, 177) }),
         };
 
         var jumpFallingFrames = new List<FrameData> {
@@ -252,42 +252,36 @@ public class Psylock : Character {
 
         // States
         var states = new Dictionary<string, State> {
-            { "Idle", new State(idleFrames, "Idle", 20)},
-
+            { "Idle", new State(idleFrames, "Idle", 20, not_acting: true)},
             { "OnHit", new State(idleFrames, "Idle", 20)},
-            { "OnHitLow", new State(idleFrames, "Idle", 20)},
-
+            { "OnHitLow", new State(idleFrames, "Idle", 20, low: true)},
             { "OnBlock", new State(idleFrames, "Idle", 20)},
-            { "OnBlockLow", new State(idleFrames, "Idle", 20)},
+            { "OnBlockLow", new State(idleFrames, "Idle", 20, low: true)},
+            { "Parry", new State(idleFrames, "Idle", 20)},
+            { "AirParry", new State(idleFrames, "Idle", 20, low: true)},
             // Normals
             { "AAttack", new State(AFrames, "Idle", 30)},
             { "BAttack", new State(CFrames, "Idle", 20)},
             { "CAttack", new State(BFrames, "Idle", 20)},
             { "DAttack", new State(DFrames, "Idle", 20)},
-
             { "AltDAttack", new State(FrontDFrames, "Idle", 20)},
             { "AltCAttack", new State(BackCFrames, "Idle", 20)},
-
             // Movement
-            { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 30)},
-            { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20)},
-
+            { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 30, not_acting: true)},
+            { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20, not_acting: true)},
             { "DashForward", new State(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new State(dashBackwardFrames, "Idle", 20)},
-
-            { "Crouching", new State(crouchingFrames, "Crouching", 4)},
-
-            { "Jump", new State(jumpFrames, "JumpFalling", 20)},
-            { "JumpForward", new State(jumpFrames, "JumpFalling", 20)},
-            { "JumpBackward", new State(jumpFrames, "JumpFalling", 20)},
-            { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, change_on_end: false)},
-
-            { "Sweeped", new State(idleFrames, "Falling", 30)},
-            { "Airboned", new State(idleFrames, "Falling", 30)},
-            { "Falling", new State(idleFrames, "OnGround", 30)},
-            { "OnGround", new State(idleFrames, "Wakeup", 30)},
-            { "Wakeup", new State(idleFrames, "Idle", 30)},
-
+            { "Crouching", new State(crouchingFrames, "Crouching", 4, not_acting: true, low: true)},
+            { "Jump", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
+            { "JumpForward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
+            { "JumpBackward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
+            { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, not_acting: true, air: true, change_on_end: false)},
+            // On hit
+            { "Sweeped", new State(idleFrames, "Falling", 30, low: true)},
+            { "Airboned", new State(idleFrames, "Falling", 30, air: true)},
+            { "Falling", new State(idleFrames, "OnGround", 30, low: true)},
+            { "OnGround", new State(idleFrames, "Wakeup", 30, low: true)},
+            { "Wakeup", new State(idleFrames, "Idle", 30, low: true)},
             // Bonus 
             { "Intro", new State(introFrames, "Idle", 10)},
         };

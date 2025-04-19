@@ -720,6 +720,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_2.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\golpe_3.mp3
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sounds\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\0.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\1.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\10.png
@@ -1640,6 +1641,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\97.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\98.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\99.png
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\characters\Psylock\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\config.json
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\fonts\default medium click.png
@@ -1909,7 +1911,9 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Burning Dojo\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sound\music.mp3
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sprites\0.png
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Japan Fields\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Night Alley\sound\music.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Night Alley\sound\sounds.dat

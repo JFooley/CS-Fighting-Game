@@ -263,8 +263,8 @@ public abstract class Character : Object_Space.Object {
         return (this.notActing || this.CurrentState == "OnBlock") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing);
     }
     public bool isBlockingLow() {
-        if ((this.notActing || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
-        return (this.notActing || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
+        if ((this.notActingLow || this.CurrentState == "OnBlockLow") && (this.blockingLow || this.blocking)) return true;
+        return (this.notActingLow || this.CurrentState == "OnBlockLow") && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Down", player: this.playerIndex);
     }
     public void Stun(Character enemy, int advantage, bool hit = true, bool airbone = false, bool sweep = false, bool force = false) {
         this.StunFrames = 0;
