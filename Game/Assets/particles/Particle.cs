@@ -15,6 +15,7 @@ public class Particle : Character {
         : base("Particle", initialState, startX, startY, "Assets/particles/sprites/Particle", "Assets/particles/sounds/Particle", stage) {
             this.facing = facing;
         }
+    public Particle() : base("Particle", "", 0, 0, "Assets/particles/sprites/Particle", "Assets/particles/sounds/Particle", null) {}
 
     public override void Load() {
         // Animations
@@ -167,8 +168,6 @@ public class Particle : Character {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
     
     public override void Render(bool drawHitboxes = false) {
@@ -181,7 +180,7 @@ public class Particle : Character {
         Program.window.Draw(temp_sprite);
 
         // Play sounds
-        this.PlaySound();
+        this.PlayFrameSound();
     }
     
     public override void DoBehave() {        

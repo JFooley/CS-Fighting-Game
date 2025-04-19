@@ -18,7 +18,5 @@ public class JapanFields : Stage {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 }

@@ -98,7 +98,7 @@ public abstract class Character : Object_Space.Object {
 
     // Visuals
     public Vector2f VisualPosition => new Vector2f(this.body.Position.X - 125, this.body.Position.Y - 250);
-    public Texture thumb = new Texture(250, 250);
+    public Texture thumb;
     public int shadow_size = 1;
     public bool has_frame_change => this.LastFrameIndex != this.CurrentFrameIndex || this.CurrentAnimation.frame_counter == 0;
 
@@ -171,7 +171,7 @@ public abstract class Character : Object_Space.Object {
         } else Program.window.Draw(temp_sprite);
 
         // Play sounds
-        this.PlaySound();
+        this.PlayFrameSound();
         
         // Draw Hitboxes
         if (drawHitboxes) {  
@@ -436,14 +436,23 @@ public abstract class Character : Object_Space.Object {
         }
         return new Sprite(); 
     }
-    public void PlaySound() {
+    public void PlayFrameSound() {
         if (this.has_frame_change && !this.CurrentAnimation.playing_sound && this.CurrentSound != "" && sounds.TryGetValue(this.CurrentSound, out SoundBuffer buffer)) {
-            var sound = new Sound(buffer) {Volume = Config.Character_Volume};
-            sound.Play();
-            active_sounds.Add(sound);
+            var temp_sound = new Sound(buffer) {Volume = Config.Character_Volume};
+            temp_sound.Play();
+            active_sounds.Add(temp_sound);
             active_sounds.RemoveAll(s => s.Status == SoundStatus.Stopped);
             this.CurrentAnimation.playing_sound = true;
         }
+    }
+    public void PlaySound(string sound_name) {
+        if (sounds.TryGetValue(sound_name, out SoundBuffer buffer)) {
+            var temp_sound = new Sound(buffer) {Volume = Config.Character_Volume};
+            temp_sound.Play();
+            active_sounds.Add(temp_sound);
+            active_sounds.RemoveAll(s => s.Status == SoundStatus.Stopped);
+            this.CurrentAnimation.playing_sound = true;
+        };
     }
     public void Reset(int start_point, int facing, String state = "Idle", bool total_reset = false) {
         this.ChangeState(state, reset: true);

@@ -18,7 +18,5 @@ public class MidnightDuel : Stage {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 }

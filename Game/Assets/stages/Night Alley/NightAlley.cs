@@ -18,7 +18,5 @@ public class NightAlley : Stage {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 }

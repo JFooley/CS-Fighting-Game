@@ -14,6 +14,7 @@ public class Hitspark : Character {
         : base("Hitspark", initialState, startX, startY, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", stage) {
             this.facing = facing;
         }
+    public Hitspark() : base("Hitspark", "", 0, 0, "Assets/particles/sprites/Hitspark", "Assets/particles/sounds/Hitspark", null) {}
 
     public override void Load() {
         // Animations
@@ -87,8 +88,6 @@ public class Hitspark : Character {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 
     public override void DoBehave() {        

@@ -110,6 +110,10 @@ public class Stage {
         this.timer = new Stopwatch();
         this.matchTimer = new Stopwatch();
     }
+    public Stage(string name, string thumbPath) {
+        this.name = name;
+        this.thumb = new Sprite(new Texture(thumbPath));
+    }
 
     // Behaviour
     public void Update() {
@@ -541,12 +545,12 @@ public class Stage {
         this.particle.Load();
     }
     public void UnloadCharacters() {
-        this.character_A.Unload();
-        this.character_B.Unload();
+        this.character_A = null;
+        this.character_B = null;
 
-        this.spark.Unload();
-        this.fireball.Unload();
-        this.particle.Unload();
+        this.spark = null;
+        this.fireball = null;
+        this.particle = null;
     }
     public bool LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();
@@ -648,10 +652,7 @@ public class Stage {
         this.ResetRoundTime();
         this.ResetPlayers();
         this.ResetTimer();
-        this.UnloadSounds();
-        this.UnloadSpriteImages();
         this.UnloadCharacters();
-
     }
 
 }

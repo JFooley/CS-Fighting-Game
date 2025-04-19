@@ -24,6 +24,10 @@ public class Psylock : Character {
 
         this.thumb = new Texture("Assets/characters/Psylock/thumb.png");
     }
+    public Psylock() : base("Psylock", "", 0, 0, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", null) 
+    {
+        this.thumb = new Texture("Assets/characters/Psylock/thumb.png");
+    }
 
     public override void Load() {
         // Boxes
@@ -289,8 +293,6 @@ public class Psylock : Character {
         };
 
         this.states = states;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 
     public override void DoBehave() {

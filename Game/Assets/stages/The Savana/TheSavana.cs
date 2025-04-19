@@ -18,7 +18,5 @@ public class TheSavana : Stage {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 }

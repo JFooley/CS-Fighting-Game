@@ -79,6 +79,13 @@ public static class Program {
     public static Shader colorFillShader;
     public static Shader hueChange;
 
+    // Data
+    private static List<Stage> stages;
+    private static List<Character> characters;
+    private static Fireball fb = new Fireball();
+    private static Hitspark hs = new Hitspark();
+    private static Particle pt = new Particle();
+
     public static void Main() {  
         Config.LoadFromFile();
         
@@ -110,14 +117,15 @@ public static class Program {
         // Carregamento de texturas de fontes
         UI.Instance.LoadFonts();
         
-        List<Character> characters = new List<Character> {
-            new Ken("Intro", 0, 0, null),
-            new Psylock("Intro", 0, 0, null),
+        // Carregamento dos personagens
+        characters = new List<Character> {
+            new Ken(),
+            new Psylock(),
         };
 
-        // Instanciamento do stages
-        List<Stage> stages = new List<Stage>{
-            new Stage("Random", 0, 0, 0, "", "", "Assets/stages/random.png"),
+        // Carregamento dos stages
+        stages = new List<Stage> {
+            new Stage("Random", "Assets/stages/random.png"),
             new BurningDojo(),
             new MidnightDuel(),
             new NightAlley(),
@@ -125,20 +133,24 @@ public static class Program {
             new RindoKanDojo(),
             new TheSavana(),
             new JapanFields(),
-            new Stage("Settings", 0, 0, 0, "", "", "Assets/stages/settings.png"),
+            new Stage("Settings", "Assets/stages/settings.png"),
         };
         stage = stages[0];
 
-        // Menu e SelectStage visuals
-        Sprite main_screen = new Sprite(new Texture("Assets/ui/title.png"));
+        // Visuals
+        Sprite main_bg = new Sprite(new Texture("Assets/ui/title.png"));
+        Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
+        Sprite char_bg = new Sprite(new Texture("Assets/ui/bgchar.png"));
+        Sprite stage_bg = new Sprite();
+
         Sprite frame = new Sprite(new Texture("Assets/ui/frame.png"));
-        Sprite bgchar = new Sprite(new Texture("Assets/ui/bgchar.png"));
         Sprite fade90 = new Sprite(new Texture("Assets/ui/90fade.png"));
+
         Sprite fight_logo = new Sprite(new Texture("Assets/ui/fight.png"));
         Sprite timesup_logo = new Sprite(new Texture("Assets/ui/timesup.png"));
         Sprite KO_logo = new Sprite(new Texture("Assets/ui/ko.png"));
-        Sprite settings_bg = new Sprite(new Texture("Assets/ui/settings.png"));
         Sprite fslogo = new Sprite(new Texture("Assets/ui/fs.png"));
+
         Sprite sprite_A = new Sprite(characters[pointer_charA].thumb);
         Sprite sprite_B = new Sprite(characters[pointer_charB].thumb);
 
@@ -151,11 +163,21 @@ public static class Program {
             
             switch (game_state) {
                 case Intro:
-                    game_state = MainMenu;
+                    if (UI.Instance.counter % 20 == 0) pointer = pointer < 3 ? pointer + 1 : 0;
+                    fslogo.Position = new Vector2f(10, 139);
+                    window.Draw(fslogo);
+                    UI.Instance.DrawText(string.Concat(Enumerable.Repeat(".", pointer)), -122, 68, alignment: "left", spacing: -24);
+
+                    if (!loading) {
+                        Thread main_loader = new Thread(MainLoader);
+                        main_loader.Start();
+                        loading = true;
+                    }
                     break;
 
                 case MainMenu:
-                    window.Draw(main_screen);
+                    window.Draw(main_bg);
+                    UI.Instance.DrawText("by JFooley", 0, 76, spacing: Config.spacing_small-1, textureName: "default small");
                     if (UI.Instance.blink2Hz || InputManager.Instance.Key_hold("Start")) UI.Instance.DrawText("press start", 0, 50, spacing: Config.spacing_medium, size: 1f, textureName: InputManager.Instance.Key_hold("Start") ? "default medium click" : "default medium white");
 
                     if (InputManager.Instance.Key_up("Start")) {
@@ -199,7 +221,7 @@ public static class Program {
                     break;
                 
                 case SelectChar:
-                    window.Draw(bgchar);
+                    window.Draw(char_bg);
 
                     // Setup sprites texture
                     sprite_A.Texture = characters[pointer_charA].thumb;
@@ -207,10 +229,10 @@ public static class Program {
 
                     // Draw Shadows
                     sprite_A.Scale = new Vector2f(1f, 1f);
-                    sprite_B.Scale = new Vector2f(-1f, 1f);
-
                     sprite_A.Position = new Vector2f(Camera.Instance.X - 81 - sprite_A.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_A.GetLocalBounds().Height/2);
                     window.Draw(sprite_A, new RenderStates(colorFillShader));
+
+                    sprite_B.Scale = new Vector2f(-1f, 1f);
                     sprite_B.Position = new Vector2f(Camera.Instance.X + 73 + sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
                     window.Draw(sprite_B, new RenderStates(colorFillShader));
 
@@ -221,6 +243,7 @@ public static class Program {
                     sprite_A.Position = new Vector2f(Camera.Instance.X - 77 - sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
                     if (charA_selected != null) window.Draw(sprite_A, new RenderStates(colorTinterShader));
                     else window.Draw(sprite_A);
+
                     sprite_B.Position = new Vector2f(Camera.Instance.X + 77 + sprite_B.GetLocalBounds().Width/2, Camera.Instance.Y - 20 - sprite_B.GetLocalBounds().Height/2);
                     sprite_B.Scale = new Vector2f(-1f, 1f);
                     if (charB_selected != null) window.Draw(sprite_B, new RenderStates(colorTinterShader));
@@ -229,8 +252,10 @@ public static class Program {
                     // Draw texts
                     if (charA_selected == null) UI.Instance.DrawText("<  >", -77, -16);
                     if (charB_selected == null) UI.Instance.DrawText("<  >", +77, -16);
+
                     UI.Instance.DrawText(player1_wins.ToString(), 0, 63, alignment: "right");
                     UI.Instance.DrawText(player2_wins.ToString(), 0, 63, alignment: "left");
+
                     UI.Instance.DrawText(characters[pointer_charA].name, -77, 45, spacing: Config.spacing_small, textureName: "default small");
                     UI.Instance.DrawText(characters[pointer_charB].name, +77, 45, spacing: Config.spacing_small, textureName: "default small");
                     
@@ -269,16 +294,19 @@ public static class Program {
                     break;
                 
                 case LoadScreen:
-                    if (UI.Instance.counter % 20 == 0) pointer = pointer < 3 ? pointer + 1 : 0;
-                    fslogo.Position = new Vector2f(10, 139);
-                    window.Draw(fslogo);
-                    UI.Instance.DrawText(string.Concat(Enumerable.Repeat(".", pointer)), -122, 68, alignment: "left", spacing: -24);
+                    stage.LoadStage();
+                    stage.LoadCharacters(charA_selected, charB_selected);
+                    camera.SetChars(stage.character_A, stage.character_B);
+                    camera.SetLimits(stage.length, stage.height);
 
-                    if (!loading) {
-                        Thread stage_loader = new Thread(StageLoader);
-                        stage_loader.Start();
-                        loading = true;
-                    }
+                    loading = false;
+                    pointer = 0;
+                    charA_selected = null;
+                    charB_selected = null;
+                    pointer_charA = 0;
+                    pointer_charB = 0;
+
+                    game_state = Battle;
                     break;
 
                 case Battle:
@@ -482,20 +510,30 @@ public static class Program {
         }
     }
 
-    public static void StageLoader() { 
-        stage.LoadStage();
-        stage.LoadCharacters(charA_selected, charB_selected);
-        camera.SetChars(stage.character_A, stage.character_B);
-        camera.SetLimits(stage.length, stage.height);
+    public static void MainLoader() { 
+        foreach (var character in characters) {
+            if (character.GetType() == typeof(Character)) continue;
+            character.LoadSpriteImages();
+            character.LoadSounds();
+        }
 
+        foreach (var stage in stages) {
+            if (stage.GetType() == typeof(Stage)) continue;
+            stage.LoadSpriteImages();
+            stage.LoadSounds();
+        }
+
+        fb.LoadSpriteImages();
+        fb.LoadSounds();
+
+        hs.LoadSpriteImages();
+        hs.LoadSounds();
+
+        pt.LoadSpriteImages();
+        pt.LoadSounds();
+        
         loading = false;
-        pointer = 0;
-        charA_selected = null;
-        charB_selected = null;
-        pointer_charA = 0;
-        pointer_charB = 0;
-
-        game_state = Battle;
+        game_state = MainMenu;
     }
 }
 

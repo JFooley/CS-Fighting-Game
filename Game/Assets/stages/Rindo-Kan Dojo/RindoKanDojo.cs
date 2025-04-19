@@ -18,7 +18,5 @@ public class RindoKanDojo : Stage {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 }

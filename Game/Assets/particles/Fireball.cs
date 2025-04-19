@@ -18,6 +18,8 @@ public class Fireball : Character {
             this.LifePoints = new Vector2i(life_points, 0);
             this.shadow_size = 0;
         }
+    public Fireball() : base("Fireball", "", 0, 0, "Assets/particles/sprites/Fireball", "Assets/particles/sounds/Fireball", null, 1) {}
+
     public override void Load() {
         // Animations
         var kenFB0 = new GenericBox(0, 139, 115, 163, 143);
@@ -65,8 +67,6 @@ public class Fireball : Character {
         };
 
         this.states = animations;
-        this.LoadSpriteImages();
-        this.LoadSounds();
     }
 
     public override void DoBehave() {
