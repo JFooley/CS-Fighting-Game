@@ -175,7 +175,7 @@ public class Stage {
 
         // Keep characters close 
         float deltaS = Math.Abs(character_A.body.Position.X - character_B.body.Position.X);
-        if (deltaS >= Config.maxDistance) {
+        if (deltaS >= Config.max_distance) {
             if ((character_A.facing == 1 && character_A.body.Position.X < last_pos_A.X) || (character_A.facing == -1 && character_A.body.Position.X > last_pos_A.X)) {
                 character_A.body.Position.X = this.last_pos_A.X;
             }
@@ -214,7 +214,7 @@ public class Stage {
         }
 
         // Reset chars life, stun and super bar
-        if (this.reset_frames >= Config.resetFrames) {
+        if (this.reset_frames >= Config.reset_frames) {
             if (this.character_B.notActing) {
                 if (this.block_after_hit) this.character_B.blocking = false;
                 if (this.refil_life){
@@ -231,7 +231,7 @@ public class Stage {
                 } 
                 if (this.refil_super) this.character_A.SuperPoints.X = this.character_A.SuperPoints.Y;
             }
-            this.reset_frames = Config.resetFrames;
+            this.reset_frames = Config.reset_frames;
         }
     }
     public void PauseScreen() {

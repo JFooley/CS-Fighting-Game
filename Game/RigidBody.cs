@@ -7,7 +7,7 @@ public class RigidBody {
     public Vector2f Velocity;
     public Vector2f Force;
     public int force_frames = 0;
-    private float gravidade = Config.Gravity;
+    private float gravidade = Config.gravity;
     private float atrito => gravidade * 0.5F;
 
     public RigidBody(float X = 0, float Y = 0) {

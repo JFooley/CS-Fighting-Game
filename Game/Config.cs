@@ -50,9 +50,10 @@ public static class Config {
     public const float light_pushback = 3f;
     public const float medium_pushback = 4f;
     public const float heavy_pushback = 5.5f;
-    public const int maxDistance = 350;
-    public const int resetFrames = 20;
-    public const float Gravity = 2450f / (Framerate*Framerate);
+    public const int max_distance = 350;
+    public const int reset_frames = 20;
+    public const float gravity = 2450f / (Framerate*Framerate);
+    public const int corner_limit = 125;
 
     // Text
     public const int spacing_small = -26; 

@@ -364,19 +364,19 @@ public abstract class Character : Object_Space.Object {
 
     // Static Methods 
     public static void Push(Character target, Character self, string amount, float X_amount = 0, float Y_amount = 0, bool airbone = false, bool force_push = false) {
-        if ((target.body.Position.X <= Camera.Instance.X - ((Config.maxDistance - 20) / 2) || target.body.Position.X >= Camera.Instance.X + ((Config.maxDistance - 20) / 2)) && !force_push) {
+        if ((target.body.Position.X <= Camera.Instance.X - Config.corner_limit || target.body.Position.X >= Camera.Instance.X + Config.corner_limit) && !force_push) {
             if (X_amount != 0) {
                 self.SetVelocity(X: self.facing * target.facing * X_amount, keep_Y: true);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
+                target.SetVelocity(X: self.facing * target.facing * X_amount, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Light") {
                 self.SetVelocity(X: self.facing * target.facing * Config.light_pushback, keep_Y: true);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.light_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Medium") {
                 self.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, keep_Y: true);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.medium_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             } else if (amount == "Heavy"){
                 self.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, keep_Y: true);
-                target.SetVelocity(Y: (target.onAir || airbone) ? Y_amount : 0, keep_X: true);
+                target.SetVelocity(X: self.facing * target.facing * Config.heavy_pushback, Y: (target.onAir || airbone) ? Y_amount : 0);
             }
         } else {
             if (X_amount != 0) {
