@@ -547,10 +547,6 @@ public class Stage {
     public void UnloadCharacters() {
         this.character_A = null;
         this.character_B = null;
-
-        this.spark = null;
-        this.fireball = null;
-        this.particle = null;
     }
     public bool LoadSpriteImages() {
         string currentDirectory = Directory.GetCurrentDirectory();

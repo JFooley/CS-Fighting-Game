@@ -80,12 +80,16 @@ public abstract class Character : Object_Space.Object {
     public bool notActing => this.State.not_acting && !this.State.low && !this.State.air && !this.onAir;
     public bool notActingLow => this.State.not_acting && this.State.low && !this.State.air && !this.onAir;
     public bool notActingAir => this.State.not_acting && !this.State.low && this.State.air && this.onAir;
+    public bool notActingAll => notActing || notActingAir || notActingLow;
+
+    public bool onHit => this.State.on_hit;
     public bool onAir => this.body.Position.Y < this.floorLine;
     public bool crounching => this.State.low;
-    public bool canParry => InputManager.Instance.Key_press("Right", input_window: 10, player: this.playerIndex, facing: this.facing) && (notActing || notActingAir || notActingLow) && !this.isBlocking();
-    public bool canDash => notActing && !this.CurrentState.Contains("Parry");
-    public bool onHit => this.CurrentState.Contains("Airboned") || this.CurrentState.Contains("OnHit");
+
+    public bool canParry => InputManager.Instance.Key_press("Right", input_window: 10, player: this.playerIndex, facing: this.facing) && notActingAll && !this.isBlocking();
+    public bool canDash => notActing && !this.State.is_parry;
     public bool hasHit = false; 
+
     public bool blockingHigh = false;
     public bool blockingLow = false;
     public bool blocking = false;

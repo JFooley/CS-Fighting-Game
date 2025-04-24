@@ -707,14 +707,14 @@ public class Ken : Character {
 
         // States
         var states = new Dictionary<string, State> {
-            // Normals
             { "Idle", new State(idleFrames, "Idle", 20, not_acting: true)},
-            { "OnBlock", new State(OnBlockFrames, "OnBlock", 20, change_on_end: false, loop: false)}, 
-            { "OnBlockLow", new State(OnBlockLowFrames, "OnBlockLow", 20, change_on_end: false, loop: false, low: true)}, 
-            { "OnHit", new State(OnHitFrames, "OnHit", 30, change_on_end: false, loop: false)},
-            { "OnHitLow", new State(OnHitLowFrames, "OnHitLow", 30, change_on_end: false, loop: false, low: true)},
-            { "Parry", new State(parryFrames, "Idle", 60, 6, loop: false, doGlow: true, not_acting: true)},
-            { "AirParry", new State(airParryFrames, "JumpFalling", 60, 6, loop: false, doGlow: true, not_acting: true, air: true)},
+            { "OnBlock", new State(OnBlockFrames, "OnBlock", 20, change_on_end: false, loop: false, on_block: true)}, 
+            { "OnBlockLow", new State(OnBlockLowFrames, "OnBlockLow", 20, change_on_end: false, loop: false, low: true, on_block: true)},
+            { "OnHit", new State(OnHitFrames, "OnHit", 30, change_on_end: false, loop: false, on_hit: true)},
+            { "OnHitLow", new State(OnHitLowFrames, "OnHitLow", 30, change_on_end: false, loop: false, low: true, on_hit: true)},
+            { "Airboned", new State(AirbonedFrames, "Falling", 15, change_on_ground: true, change_on_end: false, loop: false, air: true, on_hit: true)},
+            { "Parry", new State(parryFrames, "Idle", 60, 6, loop: false, doGlow: true, not_acting: true, is_parry: true)},
+            { "AirParry", new State(airParryFrames, "JumpFalling", 60, 6, loop: false, doGlow: true, not_acting: true, air: true, is_parry: true)},
             // Normals
             { "LightP", new State(LPFrames, "Idle", 30, 0)},
             { "LowLightP", new State(lowLPFrames, "Crouching", 30, 0, low: true)},
@@ -749,11 +749,11 @@ public class Ken : Character {
             { "Shungoku", new State(Shungoku, "Idle", 10, 5, hitstop: "None", doTrace: true, canBeParried: false)},
             { "Shungoku_End", new State(idleFrames, "Idle", 10, 5, hitstop: "None")},
             // Specials
-            { "LightShory", new State(lightShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy")},
-            { "HeavyShory", new State(heavyShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy")},
-            { "ShoryEX", new State(EXShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", doTrace: true)},
-            { "ShoryFalling", new State(shoryFallingFrames, "Landing", 20, change_on_end: false, change_on_ground: true, loop: false)},
-            { "LightHaduken", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Medium")},
+            { "LightShory", new State(lightShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", air: true)},
+            { "HeavyShory", new State(heavyShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", air: true)},
+            { "ShoryEX", new State(EXShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", doTrace: true, air: true)},
+            { "ShoryFalling", new State(shoryFallingFrames, "Landing", 20, change_on_end: false, change_on_ground: true, loop: false, air: true)},
+            { "LightHaduken", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Medium", air: true)},
             { "HeavyHaduken", new State(hadukenFrames, "Idle", 20, 3, hitstop: "Medium")},
             { "HadukenEX", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Heavy", doTrace: true)},
             { "LightTatso", new State(lightTatsoFrames, "Landing", 30, 3, hitstop: "Medium")},
@@ -761,8 +761,7 @@ public class Ken : Character {
             { "TatsoEX", new State(EXTatsoFrames, "Landing", 60, 3, hitstop: "Medium", doTrace: true)},
             { "AirTatso", new State(tatsoFrames, "Landing", 30, 3, change_on_ground: true, change_on_end: false, air: true)},
             { "AirTatsoEX", new State(tatsoFrames, "Landing", 60, 3, change_on_ground: true, change_on_end: false, doTrace: true, air: true)},
-            // Hit and Block
-            { "Airboned", new State(AirbonedFrames, "Falling", 15, change_on_ground: true, change_on_end: false, loop: false, air: true)},
+            // Other
             { "Falling", new State(fallingFrames, "OnGround", 20)},
             { "Sweeped", new State(sweepedFrames, "Falling", 30, low: true)},
             { "OnGround", new State(OnGroundFrames, "Wakeup", 4, low: true)},
