@@ -215,7 +215,7 @@ public class Stage {
 
         // Reset chars life, stun and super bar
         if (this.reset_frames >= Config.reset_frames) {
-            if (this.character_B.notActing) {
+            if (this.character_B.notActingAll) {
                 if (this.block_after_hit) this.character_B.blocking = false;
                 if (this.refil_life){
                     this.character_B.LifePoints.X = this.character_B.LifePoints.Y;
@@ -223,7 +223,7 @@ public class Stage {
                 } 
                 if (this.refil_super) this.character_B.SuperPoints.X = this.character_B.SuperPoints.Y;
             }
-            if (this.character_A.notActing) {
+            if (this.character_A.notActingAll) {
                 if (this.block_after_hit) this.character_A.blocking = false;
                 if (this.refil_life){
                     this.character_A.LifePoints.X = this.character_A.LifePoints.Y;

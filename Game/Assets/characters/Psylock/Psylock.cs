@@ -12,6 +12,8 @@ public class Psylock : Character {
     private static Dictionary<string, SoundBuffer> sounds_local = new Dictionary<string, SoundBuffer>();
     public override Dictionary<string, SoundBuffer> sounds {get => sounds_local; protected set => sounds_local = value ?? new Dictionary<string, SoundBuffer>();}
 
+    private Fireball current_fireball;
+
     public Psylock(string initialState, int startX, int startY, Stage stage)
         : base("Psylock", initialState, startX, startY, "Assets/characters/Psylock/sprites", "Assets/characters/Psylock/sounds", stage)
     {
@@ -202,25 +204,25 @@ public class Psylock : Character {
         };
 
         var dashForwardFrames = new List<FrameData> {
-            new FrameData(116, 0, 0, new List<GenericBox> { new GenericBox(1, 77, 118, 120, 135), new GenericBox(1, 120, 125, 152, 157), new GenericBox(1, 151, 135, 187, 164), new GenericBox(1, 96, 155, 122, 191) }),
-            new FrameData(117, 18, 0, new List<GenericBox> { new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
-            new FrameData(118, 10, 0, new List<GenericBox> { new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
-            new FrameData(119, 14, 0, new List<GenericBox> { new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
-            new FrameData(120, 3, 0, new List<GenericBox> { new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
-            new FrameData(121, 0, 0, new List<GenericBox> { new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),
+            new FrameData(116, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 77, 118, 120, 135), new GenericBox(1, 120, 125, 152, 157), new GenericBox(1, 151, 135, 187, 164), new GenericBox(1, 96, 155, 122, 191) }),
+            new FrameData(117, 15, 0, new List<GenericBox> { pushbox, new GenericBox(1, 82, 131, 133, 149), new GenericBox(1, 112, 100, 138, 131), new GenericBox(1, 132, 130, 161, 174), new GenericBox(1, 160, 159, 178, 173) }),
+            new FrameData(118, 10, 0, new List<GenericBox> { pushbox, new GenericBox(1, 132, 99, 161, 163), new GenericBox(1, 106, 154, 145, 178) }),
+            new FrameData(119, 14, 0, new List<GenericBox> { pushbox, new GenericBox(1, 99, 150, 146, 189), new GenericBox(1, 146, 149, 168, 177), new GenericBox(1, 152, 124, 168, 150) }),
+            new FrameData(120, 3, 0, new List<GenericBox> { pushbox, new GenericBox(1, 140, 168, 174, 184), new GenericBox(1, 84, 134, 103, 149), new GenericBox(1, 76, 147, 140, 195), new GenericBox(1, 58, 167, 76, 188) }),
+            new FrameData(121, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 81, 157, 142, 194), new GenericBox(1, 58, 148, 82, 168), new GenericBox(1, 80, 137, 142, 158), new GenericBox(1, 96, 122, 116, 137) }),
         };
 
         var dashBackwardFrames = new List<FrameData> {
-            new FrameData(121, 0.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(122, -1.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(123, -2.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(124, -1.5f, 0.0f, new List<GenericBox> {}),
-            new FrameData(125, -2.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(126, -2.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(127, -2.5f, 0.0f, new List<GenericBox> {}),
-            new FrameData(128, -2.0f, 0.0f, new List<GenericBox> {}),
-            new FrameData(129, -1.5f, 0.0f, new List<GenericBox> {}),
-            new FrameData(130, -0.5f, 0.0f, new List<GenericBox> {}),
+            new FrameData(121, 0.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(122, -1.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(123, -2.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(124, -1.5f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(125, -2.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(126, -2.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(127, -2.5f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(128, -2.0f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(129, -1.5f, 0.0f, new List<GenericBox> { pushbox }),
+            new FrameData(130, -0.5f, 0.0f, new List<GenericBox> { pushbox }),
         };
 
         var crouchingFrames = new List<FrameData> {
@@ -245,50 +247,81 @@ public class Psylock : Character {
             new FrameData(142, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 99, 97, 141, 163), new GenericBox(1, 111, 81, 152, 102), new GenericBox(1, 98, 159, 116, 177) }),
         };
 
+        var jumpForward = new List<FrameData> {
+            new FrameData("146", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 95, 106, 155, 165), new GenericBox(1, 140, 97, 163, 118) }),
+            new FrameData("147", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 94, 104, 154, 165), new GenericBox(1, 141, 107, 167, 130) }),
+            new FrameData("148", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 94, 105, 155, 155), new GenericBox(1, 145, 108, 166, 129) }),
+            new FrameData("149", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 95, 105, 155, 165), new GenericBox(1, 147, 134, 167, 156) }),
+            new FrameData("150", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 95, 105, 145, 165) }),
+            new FrameData("151", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 94, 105, 155, 154), new GenericBox(1, 78, 114, 101, 134) }),
+            new FrameData("152", 0.0f, 0.0f, new List<GenericBox> { airPuxbox, new GenericBox(1, 95, 95, 155, 145) }),
+        };
+
         var jumpFallingFrames = new List<FrameData> {
-            new FrameData(143, 0, 0, new List<GenericBox> { new GenericBox(1, 103, 66, 135, 195) }),
-            new FrameData(144, 0, 0, new List<GenericBox> { new GenericBox(1, 102, 66, 137, 195) }),
+            new FrameData(143, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 116, 90, 138, 110)}),
+            new FrameData(144, 0, 0, new List<GenericBox> { airPuxbox, new GenericBox(1, 116, 90, 138, 110)}),
+        };
+
+        var onHitFrames = new List<FrameData> {
+            new FrameData(708, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 90, 110, 150, 200)}),
+            new FrameData(709, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 90, 110, 150, 200)}),
+            new FrameData(710, 0, 0, new List<GenericBox> { pushbox, new GenericBox(1, 90, 110, 150, 200)}),
+        };
+
+        var onHitLowFrames = new List<FrameData> {
+            new FrameData("726", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 85, 115, 164, 195) }),
+            new FrameData("727", 0.0f, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 84, 115, 165, 195) }),
         };
 
         // States
         var states = new Dictionary<string, State> {
             { "Idle", new State(idleFrames, "Idle", 20, not_acting: true)},
-            { "OnHit", new State(idleFrames, "Idle", 20)},
-            { "OnHitLow", new State(idleFrames, "Crouching", 20, low: true)},
-            { "OnBlock", new State(idleFrames, "Idle", 20)},
-            { "OnBlockLow", new State(idleFrames, "Crouching", 20, low: true)},
+
+            { "OnHit", new State(onHitFrames, "Idle", 20, change_on_end: false, loop: false, on_hit: true)},
+            { "OnHitLow", new State(onHitLowFrames, "OnHitLow", 20,  change_on_end: false, loop: false, on_hit: true, low: true)},
+
+            { "OnBlock", new State(idleFrames, "Idle", 20, change_on_end: false, loop: false, on_block: true)},
+            { "OnBlockLow", new State(idleFrames, "Crouching", 20, change_on_end: false, loop: false, on_block: true, low: true)},
+
             { "Parry", new State(idleFrames, "Idle", 30, priority: 6, not_acting: true, doGlow: true)},
             { "AirParry", new State(idleFrames, "JumpFalling", 30, priority: 6, not_acting: true, low: true, doGlow: true)},
+
             // Normals
             { "AAttack", new State(AFrames, "Idle", 30, priority: 0)},
             { "BAttack", new State(BFrames, "Idle", 20, priority: 1)},
             { "CAttack", new State(CFrames, "Idle", 20, priority: 0)},
             { "DAttack", new State(DFrames, "Idle", 20, priority: 1)},
+
             { "AltDAttack", new State(FrontDFrames, "Idle", 20, priority: 3)},
             { "AltCAttack", new State(BackCFrames, "Idle", 20, priority: 3)},
+
             // Movement
             { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 30, not_acting: true)},
             { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20, not_acting: true)},
+
             { "DashForward", new State(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new State(dashBackwardFrames, "Idle", 20)},
+
             { "Crouching", new State(crouchingFrames, "Crouching", 4, not_acting: true, low: true)},
+
             { "Jump", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpForward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpBackward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, not_acting: true, air: true, change_on_end: false, change_on_ground: true)},
+            
             // On hit
             { "Sweeped", new State(idleFrames, "Falling", 30, low: true)},
             { "Airboned", new State(idleFrames, "Falling", 30, air: true)},
             { "Falling", new State(idleFrames, "OnGround", 30, low: true)},
             { "OnGround", new State(idleFrames, "Wakeup", 30, low: true)},
             { "Wakeup", new State(idleFrames, "Idle", 30, low: true)},
+
             // Bonus 
             { "Intro", new State(introFrames, "Idle", 10)},
         };
 
         this.states = states;
     }
-
     public override void DoBehave() {
         if (this.behave == false) return;
         
@@ -304,27 +337,6 @@ public class Psylock : Character {
             this.ChangeState("Idle");
         }
 
-        // Specials
-        String F_dash = "Right Right";
-        String B_dash = "Left Left";
-
-        // Normals
-        if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("AltDAttack");
-        } else if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("AltCAttack");
-        }
-
-        if (InputManager.Instance.Key_down("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("AAttack");
-        } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("BAttack");
-        } else if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
-            this.ChangeState("CAttack");
-        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.notActing ) {
-            this.ChangeState("DAttack");
-        }
-
         // Crouching
         if (InputManager.Instance.Key_hold("Down", player: this.playerIndex, facing: this.facing) && !InputManager.Instance.Key_hold("Up", player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("Crouching");
@@ -333,9 +345,9 @@ public class Psylock : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down(F_dash, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Was_down("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
-        } else if (InputManager.Instance.Was_down(B_dash, 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        } else if (InputManager.Instance.Was_down("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
@@ -368,6 +380,32 @@ public class Psylock : Character {
                 X: -(this.move_speed + 1), 
                 Y: this.jump_hight);
         } 
+
+        // Psy-Blast
+        if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
+        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && ((this.notActing || this.notActingLow) || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
+            this.ChangeState("LightPsy-Blast");
+        }
+
+        // Supers
+
+
+        // Normals
+        if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("AltDAttack");
+        } else if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("AltCAttack");
+        }
+
+        if (InputManager.Instance.Key_down("A", player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("AAttack");
+        } else if (InputManager.Instance.Key_down("B", player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("BAttack");
+        } else if (InputManager.Instance.Key_down("C", player: this.playerIndex, facing: this.facing) && this.notActing) {
+            this.ChangeState("CAttack");
+        } else if (InputManager.Instance.Key_down("D", player: this.playerIndex, facing: this.facing) && this.notActing ) {
+            this.ChangeState("DAttack");
+        }
     }
 
     public override int ImposeBehavior(Character target, bool parried = false) {

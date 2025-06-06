@@ -2966,8 +2966,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sounds\golpe_1.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sounds\golpe_2.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sounds\golpe_3.mp3
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\0.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\1.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\10.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\100.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\101.png
@@ -3078,7 +3076,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\197.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\198.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\199.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\2.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\20.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\200.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\201.png
@@ -3189,7 +3186,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\297.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\298.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\299.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\3.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\30.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\300.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\301.png
@@ -3300,7 +3296,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\397.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\398.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\399.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\4.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\40.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\400.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\401.png
@@ -3411,7 +3406,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\497.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\498.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\499.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\5.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\50.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\500.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\501.png
@@ -3522,7 +3516,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\character
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\597.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\598.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\599.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\6.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\60.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\600.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\601.png
@@ -4484,6 +4477,6 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Th
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Burning Dojo\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Burning Dojo\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sounds\sounds.dat
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Japan Fields\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\stages\Japan Fields\sprites\visuals.dat
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Debug\net472\Assets\characters\Psylock\sprites\visuals.dat
