@@ -2021,11 +2021,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\game\\Project FS.csproj",
+      "projectUniqueName": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\Game\\Project FS.csproj",
       "projectName": "Project FS",
-      "projectPath": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\game\\Project FS.csproj",
+      "projectPath": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\Game\\Project FS.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
-      "outputPath": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\game\\obj\\",
+      "outputPath": "D:\\GABRIEL\\Repositórios\\CS Fighting Game\\Game\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config"

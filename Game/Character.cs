@@ -277,14 +277,12 @@ public abstract class Character : Object_Space.Object {
                 this.ChangeState("Sweeped", reset: true);
                 return;
 
-            } else if (airbone || this.LifePoints.X <= 0) {
+            } else if (airbone || this.LifePoints.X <= 0 || this.CurrentState == "Airboned") {
                 this.facing = -enemy.facing;
                 this.ChangeState("Airboned", reset: true);
                 this.StunFrames = 0;
 
-                if (this.LifePoints.X <= 0) {
-                    this.SetVelocity(X: -Config.heavy_pushback, Y: 10);
-                }
+                if (this.LifePoints.X <= 0) this.SetVelocity(X: -Config.heavy_pushback, Y: 10);
                 return;
 
             } else if (this.crounching) {
@@ -296,23 +294,18 @@ public abstract class Character : Object_Space.Object {
                 this.ChangeState("OnHit", reset: true);
             }
 
-            if (force) {
-                this.StunFrames = Math.Max(advantage, 1);
-            } else {
-                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.anim_size - enemy.CurrentFrameIndex) + advantage, 1);
-            }
-
         } else { // Block stun states
+            this.facing = -enemy.facing;
             if (this.crounching) this.ChangeState("OnBlockLow", reset: true);
-            else this.ChangeState("OnBlock", reset: true);
-
-            if (force) {
-                this.StunFrames = Math.Max(advantage, 1);
-            } else {
-                this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.anim_size - enemy.CurrentFrameIndex) + advantage, 1);
-            }
+                else this.ChangeState("OnBlock", reset: true);
         }
-
+    
+        // Set stun frames
+        if (force) {
+            this.StunFrames = Math.Max(advantage, 1);
+        } else {
+            this.StunFrames = Math.Max(60 / enemy.CurrentAnimation.framerate * (enemy.CurrentAnimation.anim_size - enemy.CurrentFrameIndex) + advantage, 1);
+        }
     }
     public void BlockStun(Character enemy, int advantage, bool force = false) {
         this.Stun(enemy, advantage, hit: false, force: force);
