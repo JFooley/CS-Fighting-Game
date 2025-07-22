@@ -9,15 +9,17 @@ public static class Config {
 
     public static bool Fullscreen = true;
     public static bool Vsync = false;
-    public static int inputWindowTime = 4;    
-    
+    public static int inputWindowTime = 4;
+
     // Battle
     public static int RoundLength = 90;
+    public const int DefaultRoundLength = 90;
     public static int hitStopTime = 12;
+    public const int defaultHitStopTime = 12;
+    public static int max_rounds = 2;
+    public const int defaultmax_rounds = 2;
     public static int parry_advantage = 2;
     public static int parry_window = 10;
-
-    public static int max_rounds = 2;
 
     // Audio
     public static float _main_volume = 100f;

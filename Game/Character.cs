@@ -332,11 +332,11 @@ public abstract class Character : Object_Space.Object {
                     if (boxB.type == GenericBox.HURTBOX && boxB.type == GenericBox.PUSHBOX) continue;
                     
                     if (GenericBox.Intersects(boxA, boxB, this, charB)) {
-                        if (boxA.type == GenericBox.PUSHBOX && boxB.type == GenericBox.PUSHBOX) { 
+                        if (boxA.type == GenericBox.PUSHBOX && boxB.type == GenericBox.PUSHBOX) {
                             // A body push B
                             GenericBox.Colide(boxA, boxB, this, charB);
 
-                        } else if (this.playerIndex != charB.playerIndex && this.hasHit == false && this.type >= charB.type && (boxA.type == GenericBox.HITBOX || boxA.type == GenericBox.GRABBOX) && boxB.type == GenericBox.HURTBOX) { 
+                        } else if (this.playerIndex != charB.playerIndex && this.hasHit == false && charB.State.can_be_hit && this.type >= charB.type && (boxA.type == GenericBox.HITBOX || boxA.type == GenericBox.GRABBOX) && boxB.type == GenericBox.HURTBOX) { 
                             // A hit B
                             this.hasHit = true;
                             var hit = this.ImposeBehavior(charB, parried: charB.canParry);

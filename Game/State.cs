@@ -8,13 +8,14 @@ public class State {
     public string hitstop; // None, Light, Medium, Heavy
 
     // Combat logic
-    public bool can_be_parried;
+    public bool not_acting;
     public bool air;
     public bool low;
-    public bool not_acting;
     public bool on_hit;
     public bool on_block;
     public bool is_parry;
+    public bool can_be_parried;
+    public bool can_be_hit;
 
     // Anim logic
     public bool doTrace;
@@ -22,7 +23,7 @@ public class State {
     public bool change_on_end;
     public bool change_on_ground;
 
-    public State(List<FrameData> frames, string post_state, int framerate = 30, int priority = -1, bool loop = true, bool change_on_end = true, bool change_on_ground = false, bool canBeParried = true, bool doTrace = false, bool doGlow = false, string hitstop = "Light", bool not_acting = false, bool air = false, bool low = false, bool on_hit = false, bool on_block = false, bool is_parry = false) {
+    public State(List<FrameData> frames, string post_state, int framerate = 30, int priority = -1, bool loop = true, bool change_on_end = true, bool change_on_ground = false, bool canBeParried = true, bool doTrace = false, bool doGlow = false, string hitstop = "Light", bool not_acting = false, bool air = false, bool low = false, bool on_hit = false, bool on_block = false, bool is_parry = false, bool can_be_hit = true) {
         this.animation = new Animation(frames, framerate, loop);
         this.post_state = post_state;
         this.priority = priority;
@@ -32,6 +33,7 @@ public class State {
         this.doGlow = doGlow;
         this.hitstop = hitstop;
         this.can_be_parried = canBeParried;
+        this.can_be_hit = can_be_hit;
         this.not_acting = not_acting;
         this.air = air;
         this.low = low;
@@ -40,7 +42,7 @@ public class State {
         this.is_parry = is_parry;
     }
 
-    public State(List<string> frames, string post_state, int framerate = 30, int priority = -1, bool loop = true, bool change_on_end = true, bool change_on_ground = false, bool canBeParried = true, bool doTrace = false, bool doGlow = false, string hitstop = "Light", bool not_acting = false, bool air = false, bool low = false, bool on_hit = false, bool on_block = false, bool is_parry = false) {
+    public State(List<string> frames, string post_state, int framerate = 30, int priority = -1, bool loop = true, bool change_on_end = true, bool change_on_ground = false, bool canBeParried = true, bool doTrace = false, bool doGlow = false, string hitstop = "Light", bool not_acting = false, bool air = false, bool low = false, bool on_hit = false, bool on_block = false, bool is_parry = false, bool can_be_hit = true) {
         this.animation = new Animation(frames, framerate);
         this.post_state = post_state;
         this.priority = priority;
@@ -50,6 +52,7 @@ public class State {
         this.doGlow = doGlow;
         this.hitstop = hitstop;
         this.can_be_parried = canBeParried;
+        this.can_be_hit = can_be_hit;
         this.not_acting = not_acting;
         this.air = air;
         this.low = low;

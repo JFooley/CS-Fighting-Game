@@ -437,10 +437,10 @@ public static class Program {
                     UI.Instance.DrawText("< " + Config.RoundLength + "s >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
                     //5
                     UI.Instance.DrawText("Match", -170, -24, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 5 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< " + Config.max_rounds + " rounds >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
+                    UI.Instance.DrawText("< First to " + Config.max_rounds + " >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
                     //6
                     UI.Instance.DrawText("Hitstop", -170, -14, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 6 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< " + (Config.hitStopTime == 0 ? "no hitstop" : Config.hitStopTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
+                    UI.Instance.DrawText("< " + (Config.hitStopTime == Config.defaultHitStopTime ? "Default" : Config.hitStopTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
                     //7
                     UI.Instance.DrawText("Input window", -170, -04, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 7 ? "default small hover" : "default small");
                     UI.Instance.DrawText("< " + (Config.inputWindowTime == 1 ? "frame perfect" : Config.inputWindowTime + " frames") + " >", 0, -04, spacing: Config.spacing_small, textureName: pointer == 7 ? "default small red" : "default small");

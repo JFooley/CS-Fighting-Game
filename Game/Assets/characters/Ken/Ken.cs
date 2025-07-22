@@ -16,6 +16,7 @@ public class Ken : Character {
     private int tatso_speed = 4;
     private Fireball current_fireball;
 
+    // Constructors
     public Ken(string initialState, int startX, int startY, Stage stage)
         : base("Ken", initialState, startX, startY, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", stage)
     {
@@ -26,8 +27,7 @@ public class Ken : Character {
         this.dash_speed = 8;
         this.move_speed = 3;
     }
-    public Ken() : base("Ken", "", 0, 0, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", null) 
-    {
+    public Ken() : base("Ken", "", 0, 0, "Assets/characters/Ken/sprites", "Assets/characters/Ken/sounds", null) {
         this.thumb = new Texture("Assets/characters/Ken/thumb.png");
     }
     
@@ -707,6 +707,7 @@ public class Ken : Character {
 
         // States
         var states = new Dictionary<string, State> {
+            // Basic
             { "Idle", new State(idleFrames, "Idle", 20, not_acting: true)},
             { "OnBlock", new State(OnBlockFrames, "OnBlock", 20, change_on_end: false, loop: false, on_block: true)}, 
             { "OnBlockLow", new State(OnBlockLowFrames, "OnBlockLow", 20, change_on_end: false, loop: false, low: true, on_block: true)},
@@ -751,7 +752,7 @@ public class Ken : Character {
             // Specials
             { "LightShory", new State(lightShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", air: true)},
             { "HeavyShory", new State(heavyShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", air: true)},
-            { "ShoryEX", new State(EXShoryFrames, "ShoryFalling", 30, 3, hitstop: "Heavy", doTrace: true, air: true)},
+            { "ShoryEX", new State(EXShoryFrames, "ShoryFalling", 60, 3, hitstop: "Heavy", doTrace: true, air: true, can_be_hit: false)},
             { "ShoryFalling", new State(shoryFallingFrames, "Landing", 20, change_on_end: false, change_on_ground: true, loop: false, air: true)},
             { "LightHaduken", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Medium", air: true)},
             { "HeavyHaduken", new State(hadukenFrames, "Idle", 20, 3, hitstop: "Medium")},
@@ -762,12 +763,12 @@ public class Ken : Character {
             { "AirTatso", new State(tatsoFrames, "Landing", 30, 3, change_on_ground: true, change_on_end: false, air: true)},
             { "AirTatsoEX", new State(tatsoFrames, "Landing", 60, 3, change_on_ground: true, change_on_end: false, doTrace: true, air: true)},
             // Other
-            { "Falling", new State(fallingFrames, "OnGround", 20)},
-            { "Sweeped", new State(sweepedFrames, "Falling", 30, low: true)},
-            { "OnGround", new State(OnGroundFrames, "Wakeup", 4, low: true)},
-            { "Wakeup", new State(wakeupFrames, "Idle", 15)},
+            { "Falling", new State(fallingFrames, "OnGround", 20, can_be_hit: false)},
+            { "Sweeped", new State(sweepedFrames, "Falling", 30, low: true, can_be_hit: false)},
+            { "OnGround", new State(OnGroundFrames, "Wakeup", 4, low: true, can_be_hit: false)},
+            { "Wakeup", new State(wakeupFrames, "Idle", 15, can_be_hit: false)},
             // Bonus
-            { "Intro", new State(introFrames, "Idle", 10)},
+            { "Intro", new State(introFrames, "Idle", 10, can_be_hit: false)},
         };
 
         this.states = states;
