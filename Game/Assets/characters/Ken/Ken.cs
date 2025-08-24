@@ -495,6 +495,13 @@ public class Ken : Character {
             new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
             new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
 
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
+
             new FrameData(15366, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 132, 99), new GenericBox(1, 103, 92, 147, 110), new GenericBox(1, 107, 110, 137, 134), new GenericBox(1, 95, 133, 154, 157) }),
             new FrameData(15367, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 112, 82, 131, 98), new GenericBox(1, 100, 93, 140, 114), new GenericBox(1, 106, 114, 139, 136), new GenericBox(1, 100, 135, 140, 164) }),
             new FrameData(15368, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 86, 132, 101), new GenericBox(1, 100, 95, 143, 116), new GenericBox(1, 105, 116, 140, 139), new GenericBox(1, 97, 138, 152, 178) }),
@@ -505,6 +512,13 @@ public class Ken : Character {
             new FrameData(15357, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 110, 89, 127, 107), new GenericBox(1, 97, 103, 135, 123), new GenericBox(1, 111, 123, 162, 149), new GenericBox(1, 114, 148, 139, 194) }),
             new FrameData(15358, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 82, 126, 95), new GenericBox(1, 103, 93, 140, 115), new GenericBox(1, 110, 115, 141, 138), new GenericBox(1, 97, 137, 150, 170) }),
             new FrameData(15359, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 114, 82, 131, 98), new GenericBox(1, 102, 93, 140, 112), new GenericBox(1, 109, 112, 140, 136), new GenericBox(1, 109, 136, 136, 158) }),
+
+            new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
+            new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
+            new FrameData(15458, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 108, 81, 128, 95), new GenericBox(1, 93, 91, 142, 111), new GenericBox(1, 102, 111, 168, 136), new GenericBox(1, 101, 136, 132, 168), new GenericBox(0, 154, 116, 197, 137) }),
+            new FrameData(15459, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 104, 80, 127, 96), new GenericBox(1, 92, 93, 139, 111), new GenericBox(1, 102, 111, 146, 135), new GenericBox(1, 111, 135, 136, 167) }),
+            new FrameData(15460, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 107, 81, 127, 96), new GenericBox(1, 100, 94, 137, 118), new GenericBox(1, 67, 117, 134, 138), new GenericBox(1, 107, 138, 136, 168), new GenericBox(0, 43, 113, 86, 138) }),
+            new FrameData(15461, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 111, 79, 133, 97), new GenericBox(1, 100, 89, 143, 112), new GenericBox(1, 78, 113, 134, 137), new GenericBox(1, 102, 136, 129, 165), new GenericBox(0, 55, 112, 100, 138) }),
 
             new FrameData(15456, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 79, 133, 96), new GenericBox(1, 100, 90, 137, 109), new GenericBox(1, 102, 109, 134, 136), new GenericBox(1, 99, 136, 120, 174) }, hasHit: false),
             new FrameData(15457, this.tatso_speed, 0.0f, new List<GenericBox> { pushbox, new GenericBox(1, 115, 80, 136, 98), new GenericBox(1, 100, 90, 139, 115), new GenericBox(1, 109, 115, 176, 134), new GenericBox(1, 99, 134, 130, 169), new GenericBox(0, 143, 113, 197, 137) }),
@@ -757,9 +771,9 @@ public class Ken : Character {
             { "LightHaduken", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Medium", air: true)},
             { "HeavyHaduken", new State(hadukenFrames, "Idle", 20, 3, hitstop: "Medium")},
             { "HadukenEX", new State(hadukenFrames, "Idle", 30, 3, hitstop: "Heavy", doTrace: true)},
-            { "LightTatso", new State(lightTatsoFrames, "Landing", 30, 3, hitstop: "Medium")},
-            { "HeavyTatso", new State(heavyTatsoFrames, "Landing", 30, 3, hitstop: "Medium")},
-            { "TatsoEX", new State(EXTatsoFrames, "Landing", 60, 3, hitstop: "Medium", doTrace: true)},
+            { "LightTatso", new State(lightTatsoFrames, "Landing", 30, 3, hitstop: "Light")},
+            { "HeavyTatso", new State(heavyTatsoFrames, "Landing", 30, 3, hitstop: "Light")},
+            { "TatsoEX", new State(EXTatsoFrames, "Landing", 60, 3, hitstop: "Light", doTrace: true)},
             { "AirTatso", new State(tatsoFrames, "Landing", 30, 3, change_on_ground: true, change_on_end: false, air: true)},
             { "AirTatsoEX", new State(tatsoFrames, "Landing", 60, 3, change_on_ground: true, change_on_end: false, doTrace: true, air: true)},
             // Other
@@ -790,10 +804,10 @@ public class Ken : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down("Right Right", 10, flexEntry: false, flexTransition: false, player: this.playerIndex, facing: this.facing) && this.canDash) {
+        if (InputManager.Instance.Key_sequence_press("Right Right", 10, flexEntry: false, flexTransition: false, player: this.playerIndex, facing: this.facing) && this.canDash) {
             this.ChangeState("DashForward");
         } 
-        else if (InputManager.Instance.Was_down("Left Left", 10, flexEntry: false, flexTransition: false, player: this.playerIndex, facing: this.facing) && this.canDash) {
+        else if (InputManager.Instance.Key_sequence_press("Left Left", 10, flexEntry: false, flexTransition: false, player: this.playerIndex, facing: this.facing) && this.canDash) {
             this.ChangeState("DashBackward");
         }
 
@@ -827,7 +841,7 @@ public class Ken : Character {
         }
 
         // Super
-        if (InputManager.Instance.Was_down("Down Down RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && (this.CurrentState == "CloseMP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLightK"))) && Character.CheckSuperPoints(this, 100)) {
+        if (InputManager.Instance.Key_sequence_press("Down Down RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && (this.CurrentState == "CloseMP" || this.CurrentState.Contains("Shory") || this.CurrentState == "LowLightK"))) && Character.CheckSuperPoints(this, 100)) {
             Character.UseSuperPoints(this, 100);
             this.ChangeState("SA1");
             this.SA_flag = false;
@@ -845,7 +859,7 @@ public class Ken : Character {
                 Y: 150);
         }
 
-        if (InputManager.Instance.Was_down("C C Right A D", 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f && Character.CheckSuperPoints(this, 100))) {
+        if (InputManager.Instance.Key_sequence_press("C C Right A D", 10, player: this.playerIndex, facing: this.facing) && this.notActing && (this.LifePoints.X / this.LifePoints.Y <= 0.5f && Character.CheckSuperPoints(this, 100))) {
             this.ChangeState("Shungoku");
             Character.UseSuperPoints(this, 100);
             this.stage.spawnParticle("SABlink", this.body.Position.X, this.body.Position.Y, Y_offset: -140, facing: this.facing);
@@ -857,21 +871,21 @@ public class Ken : Character {
         }
 
         // Shorys
-        if (InputManager.Instance.Was_down("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "CloseMP" || this.CurrentState == "LowLightK" || this.CurrentState == "LowMediumP"))) {
+        if (InputManager.Instance.Key_sequence_press("Right Down Right C", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "CloseMP" || this.CurrentState == "LowLightK" || this.CurrentState == "LowMediumP"))) {
             this.ChangeState("LightShory");
         } else if (this.CurrentState == "LightShory" && this.CurrentFrameIndex == 4 && this.has_frame_change) {
             this.AddVelocity(
                 X: 1.6f, 
                 Y: 43);
         } 
-        if (InputManager.Instance.Was_down("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && this.CurrentState == "LowMediumP" )) {
+        if (InputManager.Instance.Key_sequence_press("Right Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && this.CurrentState == "LowMediumP" )) {
             this.ChangeState("HeavyShory");
         } else if (this.CurrentState == "HeavyShory" && this.CurrentFrameIndex == 7 && this.has_frame_change) {
             this.AddVelocity(
                 X: 2.4f, 
                 Y: 80);
         } 
-        if (InputManager.Instance.Was_down("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
+        if (InputManager.Instance.Key_sequence_press("Right Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || this.hasHit && this.CurrentState == "LowMediumP" ) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("ShoryEX");
         } else if (this.CurrentState == "ShoryEX" && this.CurrentFrameIndex == 7 && this.has_frame_change) {
@@ -882,17 +896,17 @@ public class Ken : Character {
 
         // Haduken
         if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
-        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && ((this.notActing || this.notActingLow) || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
+        if (this.current_fireball == null && InputManager.Instance.Key_sequence_press("Down Right C", 10, player: this.playerIndex, facing: this.facing) && ((this.notActing || this.notActingLow) || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
             this.ChangeState("LightHaduken");
         } else if (this.CurrentState == "LightHaduken" && this.CurrentFrameIndex == 3 && this.CurrentAnimation.frame_counter == 0) {
             this.current_fireball = stage.spawnFireball("Ken1", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.playerIndex, X_offset: 25);
         } 
-        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow)) {
+        if (this.current_fireball == null && InputManager.Instance.Key_sequence_press("Down Right D", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow)) {
             this.ChangeState("HeavyHaduken");
         } else if (this.CurrentState == "HeavyHaduken" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frame_counter == 0) {
             this.current_fireball = stage.spawnFireball("Ken2", this.body.Position.X, this.body.Position.Y - 5, this.facing, this.playerIndex, X_offset: 25);
         }
-        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow) && Character.CheckSuperPoints(this, 50)) {
+        if (this.current_fireball == null && InputManager.Instance.Key_sequence_press("Down Right RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("HadukenEX");
         } else if (this.CurrentState == "HadukenEX" && this.CurrentFrameIndex == 4 && this.CurrentAnimation.frame_counter == 0) {
@@ -900,19 +914,19 @@ public class Ken : Character {
         }
 
         // Tatso
-        if (InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK"))) {
+        if (InputManager.Instance.Key_sequence_press("Down Left A", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK"))) {
             this.ChangeState("LightTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "LightTatso") {
             this.AddVelocity(Y: 0.5f, raw_set: true);
 
-        } else if (InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK"))) {
+        } else if (InputManager.Instance.Key_sequence_press("Down Left B", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK"))) {
             this.ChangeState("HeavyTatso");
             this.SetVelocity(Y: 5);
         } else if (this.CurrentState == "HeavyTatso") {
             this.AddVelocity(Y: 0.55f, raw_set: true);
 
-        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK")) && Character.CheckSuperPoints(this, 50)) {
+        } else if (InputManager.Instance.Key_sequence_press("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && (this.notActing || this.notActingLow || (this.hasHit && this.CurrentState == "LowLightK")) && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("TatsoEX");
             this.SetVelocity(Y: 5);
@@ -921,17 +935,17 @@ public class Ken : Character {
         }
         
         // Air tatso
-        if ((InputManager.Instance.Was_down("Down Left B", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Was_down("Down Left A", 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
+        if ((InputManager.Instance.Key_sequence_press("Down Left B", 10, player: this.playerIndex, facing: this.facing) || InputManager.Instance.Key_sequence_press("Down Left A", 10, player: this.playerIndex, facing: this.facing)) && this.notActingAir) {
             this.ChangeState("AirTatso");
             this.PlaySound("tatso");
-        } else if (InputManager.Instance.Was_down("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActingAir && Character.CheckSuperPoints(this, 50)) {
+        } else if (InputManager.Instance.Key_sequence_press("Down Left RB", 10, player: this.playerIndex, facing: this.facing) && this.notActingAir && Character.CheckSuperPoints(this, 50)) {
             Character.UseSuperPoints(this, 50);
             this.ChangeState("AirTatsoEX");
             this.PlaySound("tatso");
         } 
 
         // Normals
-        if (InputManager.Instance.Was_down("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LightP") {
+        if (InputManager.Instance.Key_sequence_press("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LightP") {
             this.SetVelocity();
             this.ChangeState("CloseMP");
         } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.crounching) {

@@ -276,13 +276,11 @@ public class Psylock : Character {
         // States
         var states = new Dictionary<string, State> {
             { "Idle", new State(idleFrames, "Idle", 20, not_acting: true)},
-
-            { "OnHit", new State(onHitFrames, "Idle", 20, change_on_end: false, loop: false, on_hit: true)},
-            { "OnHitLow", new State(onHitLowFrames, "OnHitLow", 20,  change_on_end: false, loop: false, on_hit: true, low: true)},
-
             { "OnBlock", new State(idleFrames, "Idle", 20, change_on_end: false, loop: false, on_block: true)},
             { "OnBlockLow", new State(idleFrames, "Crouching", 20, change_on_end: false, loop: false, on_block: true, low: true)},
-
+            { "OnHit", new State(onHitFrames, "Idle", 20, change_on_end: false, loop: false, on_hit: true)},
+            { "OnHitLow", new State(onHitLowFrames, "OnHitLow", 20,  change_on_end: false, loop: false, on_hit: true, low: true)},
+            { "Airboned", new State(idleFrames, "Falling", 30, change_on_ground: true, change_on_end: false, loop: false, air: true, on_hit: true)},
             { "Parry", new State(idleFrames, "Idle", 30, priority: 6, not_acting: true, doGlow: true)},
             { "AirParry", new State(idleFrames, "JumpFalling", 30, priority: 6, not_acting: true, low: true, doGlow: true)},
 
@@ -291,47 +289,34 @@ public class Psylock : Character {
             { "BAttack", new State(BFrames, "Idle", 20, priority: 1)},
             { "CAttack", new State(CFrames, "Idle", 20, priority: 0)},
             { "DAttack", new State(DFrames, "Idle", 20, priority: 1)},
-
             { "AltDAttack", new State(FrontDFrames, "Idle", 20, priority: 3)},
             { "AltCAttack", new State(BackCFrames, "Idle", 20, priority: 3)},
 
             // Movement
             { "WalkingForward", new State(walkingForwardFrames, "WalkingForward", 30, not_acting: true)},
             { "WalkingBackward", new State(walkingBackwardFrames, "WalkingBackward", 20, not_acting: true)},
-
             { "DashForward", new State(dashForwardFrames, "Idle", 20)},
             { "DashBackward", new State(dashBackwardFrames, "Idle", 20)},
-
             { "Crouching", new State(crouchingFrames, "Crouching", 4, not_acting: true, low: true)},
-
             { "Jump", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpForward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpBackward", new State(jumpFrames, "JumpFalling", 20, not_acting: true, air: true)},
             { "JumpFalling", new State(jumpFallingFrames, "Idle", 20, not_acting: true, air: true, change_on_end: false, change_on_ground: true)},
-            
-            // On hit
-            { "Sweeped", new State(idleFrames, "Falling", 30, low: true)},
-            { "Airboned", new State(idleFrames, "Falling", 30, air: true)},
-            { "Falling", new State(idleFrames, "OnGround", 30, low: true)},
-            { "OnGround", new State(idleFrames, "Wakeup", 30, low: true)},
-            { "Wakeup", new State(idleFrames, "Idle", 30, low: true)},
+
+            // Other
+            { "Falling", new State(idleFrames, "OnGround", 30, can_be_hit: false)},
+            { "Sweeped", new State(idleFrames, "Falling", 30, low: true, can_be_hit: false)},
+            { "OnGround", new State(idleFrames, "Wakeup", 30, low: true, can_be_hit: false)},
+            { "Wakeup", new State(idleFrames, "Idle", 30, low: true, can_be_hit: false)},
 
             // Bonus 
-            { "Intro", new State(introFrames, "Idle", 10)},
+            { "Intro", new State(introFrames, "Idle", 10, can_be_hit: false)},
         };
 
         this.states = states;
     }
     public override void DoBehave() {
         if (this.behave == false) return;
-        
-        if (this.StunFrames > 0) {
-            this.StunFrames -= 1;
-            if (this.StunFrames == 0) this.ChangeState("Idle");
-            return;
-        }
-
-        this.DizzyPoints.X = Math.Max(Math.Min(this.DizzyPoints.Y, this.DizzyPoints.X + 1), 0);
         
         if (((this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward") & !InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) & !InputManager.Instance.Key_hold("Right", player: this.playerIndex, facing: this.facing)) || (this.CurrentState == "JumpFalling" && this.body.Position.Y == this.floorLine)) {
             this.ChangeState("Idle");
@@ -345,9 +330,9 @@ public class Psylock : Character {
         }
 
         // Dashing
-        if (InputManager.Instance.Was_down("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        if (InputManager.Instance.Key_sequence_press("Right Right", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashForward");
-        } else if (InputManager.Instance.Was_down("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
+        } else if (InputManager.Instance.Key_sequence_press("Left Left", 13, flexEntry: false, player: this.playerIndex, facing: this.facing) && (this.CurrentState == "Idle" || this.CurrentState == "WalkingForward" || this.CurrentState == "WalkingBackward")) {
             this.ChangeState("DashBackward");
         }
 
@@ -383,7 +368,7 @@ public class Psylock : Character {
 
         // Psy-Blast
         if (this.current_fireball != null && this.current_fireball.remove) this.current_fireball = null;
-        if (this.current_fireball == null && InputManager.Instance.Was_down("Down Right C", 10, player: this.playerIndex, facing: this.facing) && ((this.notActing || this.notActingLow) || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
+        if (this.current_fireball == null && InputManager.Instance.Key_sequence_press("Down Right C", 10, player: this.playerIndex, facing: this.facing) && ((this.notActing || this.notActingLow) || (this.hasHit && (this.CurrentState == "MediumP" || this.CurrentState == "LightP" || this.CurrentState == "LowLightK")))) {
             this.ChangeState("LightPsy-Blast");
         }
 

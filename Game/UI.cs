@@ -254,8 +254,8 @@ namespace UI_space {
         };
 
         private const int CellSize = 32; // Tamanho de cada célula
-        private const int Columns = 10;    // Número de colunas
-        private const int Rows = 10;       // Número de linhas
+        private const int Columns = 10;  // Número de colunas
+        private const int Rows = 10;     // Número de linhas
 
         public static void Load(string textureName, string textureFile)
         {
