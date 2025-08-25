@@ -2162,13 +2162,11 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\NYC Subway\sprites\19.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\NYC Subway\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\NYC Subway\thumb.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\random.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\sound\music.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\sprites\0.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\sprites\visuals.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\Rindo-Kan Dojo\thumb.png
-D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\settings.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sound\music.mp3
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sound\sounds.dat
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Midnight Duel\sprites\0.png
@@ -2199,6 +2197,7 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\stages\The Savana\thumb.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\90fade.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\bgchar.png
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\controls.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\fight.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\hud.xcf
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\files\Regua.png
@@ -2206,7 +2205,9 @@ D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publis
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\fs.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\hud.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\ko.png
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\random.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\settings.png
+D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\settings_bg.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\timesup.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Assets\ui\title.png
 D:\GABRIEL\Repositórios\CS Fighting Game\Game\bin\Release\net472\win-x64\publish\Project FS.exe

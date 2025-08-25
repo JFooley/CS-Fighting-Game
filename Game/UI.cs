@@ -30,7 +30,7 @@ namespace UI_space {
         // visuals
         Sprite hud = new Sprite(new Texture("Assets/ui/hud.png"));
         private Dictionary<string, Dictionary<char, Sprite>> font_textures;
-        private string superBarMsg = "Max!";
+        private string superBarMsg = "max aura";
 
         private UI() {
             this.font_textures = new Dictionary<string, Dictionary<char, Sprite>>();
@@ -110,8 +110,8 @@ namespace UI_space {
                 pos_Y = Y;
                 offset_X = 0;
             } else {
-                pos_X = Camera.GetInstance().X;
-                pos_Y = Camera.GetInstance().Y;
+                pos_X = Camera.Instance.X;
+                pos_Y = Camera.Instance.Y;
             }
             foreach (Sprite sprite in text_sprites) {   
                 sprite.Position = new Vector2f(pos_X + offset_X, pos_Y + Y);
@@ -152,7 +152,7 @@ namespace UI_space {
                 var control = stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y ? this.blink10Hz : true;
                 if (control) this.DrawRectangle(-180 + (119 - superA), 97, superA, 4, this.bar_super_full);
             }
-            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, -193, 72, spacing: Config.spacing_medium, alignment: "left", textureName: "default medium");
+            if (stage.character_A.SuperPoints.X == stage.character_A.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, -193, 75, spacing: Config.spacing_medium, alignment: "left", textureName: "default small");
             
             // Draw Stun bar A
             var stunA_scale = ( stage.character_A.DizzyPoints.Y - stage.character_A.DizzyPoints.X) * 150 / stage.character_A.DizzyPoints.Y;
@@ -175,7 +175,7 @@ namespace UI_space {
                 var control = stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y ? this.blink10Hz : true;
                 if (control) this.DrawRectangle(61, 97, superB, 4, this.bar_super_full);
             }
-            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, 193, 72, spacing: Config.spacing_medium, alignment: "right", textureName: "default medium");
+            if (stage.character_B.SuperPoints.X == stage.character_B.SuperPoints.Y && this.blink2Hz) this.DrawText(this.superBarMsg, 193, 75, spacing: Config.spacing_medium, alignment: "right", textureName: "default small");
 
             // Draw Stun bar B
             var stunB_scale = ( stage.character_B.DizzyPoints.Y - stage.character_B.DizzyPoints.X) * 150 / stage.character_B.DizzyPoints.Y;
