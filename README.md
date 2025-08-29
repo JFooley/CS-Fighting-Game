@@ -1,4 +1,4 @@
-Projeto de Fighting Game feito em C# usando SFML 
+O Project Fighting System (Project FS) é um protótipo de fighting game feito em C# usando SFML com a plataforma de desenvolvimento .NET
 
 Implementado:
 - Sistema de input segregrado para player 1 e 2
@@ -56,3 +56,4 @@ Deprecated:
 Em desenvolvimento:
 - Feat: Mecanica de stun quando a barra de stun fica cheia
 - Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
+
