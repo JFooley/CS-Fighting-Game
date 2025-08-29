@@ -54,6 +54,8 @@ Deprecated:
 - Física simples
 
 Em desenvolvimento:
-- Feat: Mecanica de stun quando a barra de stun fica cheia
-- Feat: Uso de 3 hitboxes (high, medium, low) para definir animações de hit diferentes e posição da hitspark
+- Conteúdo audiovisual melhorado
+- Mecanica de agarrão
+- Modularização de janelas de menus e botões selecionáveis.
+
 
