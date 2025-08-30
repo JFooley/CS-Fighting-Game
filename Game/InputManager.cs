@@ -109,17 +109,17 @@ namespace Input_Space {
             {
                 { Keys.Q, 0 },      // A
                 { Keys.W, 1 },      // B
-                { Keys.D1, 2 },      // X
-                { Keys.D2, 3 },      // Y
-                { Keys.D4, 4 },      // L
+                { Keys.D1, 2 },     // X
+                { Keys.D2, 3 },     // Y
+                { Keys.D4, 4 },     // L
                 { Keys.R, 5 },      // LT
-                { Keys.D3, 6 },      // R
+                { Keys.D3, 6 },     // R
                 { Keys.E, 7 },      // RT
-                { Keys.NumPad8, 8 },     // Up
+                { Keys.NumPad8, 8 },   // Up
                 { Keys.NumPad2, 9 },   // Down
                 { Keys.NumPad4, 10 },  // Left
-                { Keys.NumPad6, 11 }, // Right
-                { Keys.Add, 12 }, // Start
+                { Keys.NumPad6, 11 },  // Right
+                { Keys.Add, 12 },      // Start
                 { Keys.Subtract, 13 }, // Select
             };
 
@@ -130,9 +130,9 @@ namespace Input_Space {
                 { 0x4000, 2 },      // X
                 { 0x8000, 3 },      // Y
                 { 0x0100, 4 },      // L
-                { -1, 5 },          // LT
+                { 0x0400, 5 },      // LT
                 { 0x0200, 6 },      // R
-                { -2, 7 },          // RT
+                { 0x0800, 7 },      // RT
                 { 0x0001, 8 },      // Up
                 { 0x0002, 9 },      // Down
                 { 0x0004, 10 },     // Esquerda
@@ -165,22 +165,27 @@ namespace Input_Space {
 
         // Behaviour
         public void Update() {
-            if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && JoystickInput.IsJoystickConnected(1)) {
+            // Altera automaticamente o dispositivo de entrada
+            if (autoDetectDevice && JoystickInput.IsJoystickConnected(0) && JoystickInput.IsJoystickConnected(1))
+            {
                 inputDevice[0] = NONE_INPUT;
                 inputDevice[1] = JOYSTICK_0_INPUT;
                 inputDevice[2] = JOYSTICK_1_INPUT;
             }
-            else if (autoDetectDevice && JoystickInput.IsJoystickConnected(0)) {
+            else if (autoDetectDevice && JoystickInput.IsJoystickConnected(0))
+            {
                 inputDevice[0] = NONE_INPUT;
                 inputDevice[1] = JOYSTICK_0_INPUT;
                 inputDevice[2] = KEYBOARD_A_INPUT;
             }
-            else {
+            else
+            {
                 inputDevice[0] = NONE_INPUT;
                 inputDevice[1] = KEYBOARD_A_INPUT;
                 inputDevice[2] = KEYBOARD_B_INPUT;
             }
 
+            // Lê o estado atual dos dispositivos de entrada
             int[] currentInput =  new int[3] {0, 0, 0};
             for (int i = 1; i < 3; i++) {
                 if (inputDevice[i] == KEYBOARD_A_INPUT) {
@@ -197,24 +202,26 @@ namespace Input_Space {
                 }
             }
 
-
+            // Atualiza o estado dos botões
             for (int j = 2; j >= 0; j--) {
                 buttonLastState[j] = buttonState[j];
                 buttonState[j] = 0;
 
+                // Processa o estado dos botões default
                 if (j == 0) buttonState[0] = buttonState[1] | buttonState[2];
-                else {
-                    for (int i = 0; i < this.maxButtonIndex; i++) {
-                        if ((currentInput[j] & (1 << i)) != 0) {
+                else
+                {
+                    for (int i = 0; i < this.maxButtonIndex; i++)
+                    {
+                        if ((currentInput[j] & (1 << i)) != 0)
+                        {
                             buttonState[j] |= (1 << i);
                         }
                     }
                 }
 
                 // Adiciona o estado atual do botão no buffer
-                if (buffers[j].Count >= BufferSize) {
-                    buffers[j].Dequeue();
-                }
+                if (buffers[j].Count >= BufferSize) buffers[j].Dequeue();
                 buffers[j].Enqueue(buttonState[j]);
             }
 
@@ -374,15 +381,15 @@ namespace Input_Space {
             stateValue |= ((g.wButtons & 0x0004) != 0 | (g.sThumbLX < -threshold)) ? (1 << joystickMap[0x0004]) : 0; // Left
             stateValue |= ((g.wButtons & 0x0008) != 0 | (g.sThumbLX > threshold)) ? (1 << joystickMap[0x0008]) : 0; // Right
 
-            // 2. Processa botões conforme seu mapping original
+            // 2. Processa botões conforme o mapping original
             stateValue |= (g.wButtons & 0x1000) != 0 ? (1 << joystickMap[0x1000]) : 0; // A
             stateValue |= (g.wButtons & 0x2000) != 0 ? (1 << joystickMap[0x2000]) : 0; // B
             stateValue |= (g.wButtons & 0x4000) != 0 ? (1 << joystickMap[0x4000]) : 0; // X
             stateValue |= (g.wButtons & 0x8000) != 0 ? (1 << joystickMap[0x8000]) : 0; // Y
             stateValue |= (g.wButtons & 0x0100) != 0 ? (1 << joystickMap[0x0100]) : 0; // LB
             stateValue |= (g.wButtons & 0x0200) != 0 ? (1 << joystickMap[0x0200]) : 0; // RB
-            stateValue |= g.bLeftTrigger > 0 ? (1 << joystickMap[-1]) : 0;             // LT
-            stateValue |= g.bRightTrigger > 0 ? (1 << joystickMap[-2]) : 0;            // RT
+            stateValue |= g.bLeftTrigger > 0 ? (1 << joystickMap[0x0400]) : 0;         // LT
+            stateValue |= g.bRightTrigger > 0 ? (1 << joystickMap[0x0800]) : 0;        // RT
             stateValue |= (g.wButtons & 0x0010) != 0 ? (1 << joystickMap[0x0010]) : 0; // Start
             stateValue |= (g.wButtons & 0x0020) != 0 ? (1 << joystickMap[0x0020]) : 0; // Select
 

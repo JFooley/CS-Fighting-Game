@@ -168,7 +168,11 @@ public static class Program {
                 case Intro:
                     if (UI.Instance.counter % 20 == 0) pointer = pointer < 3 ? pointer + 1 : 0;
                     fslogo.Position = new Vector2f(10, 139);
+
+                    window.Draw(controls);
+                    // window.Draw(fade90);
                     window.Draw(fslogo);
+
                     UI.Instance.DrawText(string.Concat(Enumerable.Repeat(".", pointer)), -122, 68, alignment: "left", spacing: -24);
 
                     if (!loading)
@@ -339,12 +343,14 @@ public static class Program {
                 case Battle:
                     stage.Update();
 
-                    switch (sub_state) {
+                    switch (sub_state)
+                    {
                         case Intro:
                             stage.SetMusicVolume();
                             stage.StopRoundTime();
                             stage.ResetTimer();
-                            if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle") { // Espera até a animação de intro finalizar
+                            if (stage.character_A.CurrentState == "Idle" && stage.character_B.CurrentState == "Idle")
+                            { // Espera até a animação de intro finalizar
                                 sub_state = RoundStart;
                             }
                             break;
@@ -429,8 +435,8 @@ public static class Program {
 
                     UI.Instance.DrawText(winner_text, 0, -100, spacing: Config.spacing_medium, size: 1f, textureName: "default medium");
                     UI.Instance.DrawText("Rematch", 0, 0, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 0 ? "default medium hover" : "default medium");
-                    UI.Instance.DrawText("Menu", 0, 20, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 1 ? "default medium hover" : "default medium");
-                    UI.Instance.DrawText("Exit", 0, 40, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 2 ? "default medium red" : "default medium");
+                    UI.Instance.DrawText("Change stage", 0, 20, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 1 ? "default medium hover" : "default medium");
+                    UI.Instance.DrawText("Exit game", 0, 40, spacing: Config.spacing_medium, size: 1f, textureName: pointer == 2 ? "default medium red" : "default medium");
 
                     // Change option
                     if (InputManager.Instance.Key_down("Up") && pointer > 0)
@@ -572,12 +578,12 @@ public static class Program {
                     break;
 
                 case Controls:
-                    Camera.Instance.UnlockCamera();
+                    if (Camera.GetInstance().isLocked) Camera.Instance.UnlockCamera();
                     window.Draw(controls);
 
                     if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")) {
                         game_state = return_state;
-                        Camera.Instance.LockCamera();
+                        if (return_state == Battle) Camera.Instance.LockCamera();
                     }
                     break;
             }

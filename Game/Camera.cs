@@ -7,6 +7,7 @@ public class Camera
 {
     private static Camera _instance;
     private static readonly object _lock = new object();
+    public bool isLocked => lock_on_players;
     private bool lock_on_players = false;
 
     public Character CharA { get; private set; }
