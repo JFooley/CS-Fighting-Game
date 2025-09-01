@@ -75,7 +75,7 @@ public class Camera
         // Camera to center between players
         if (this.lock_on_players && CharA != null && CharB != null) {
             this.X = (this.CharA.body.Position.X + this.CharB.body.Position.X) / 2;
-            this.Y = ((this.CharA.body.Position.Y + this.CharB.body.Position.Y) / 2) - 125;
+            this.Y = ((this.CharA.body.Position.Y + this.CharB.body.Position.Y) / 2) - Config.camera_height;
 
             // Limit camera pos
             float halfViewWidth = Program.view.Size.X / 2;

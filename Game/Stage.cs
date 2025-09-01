@@ -17,10 +17,10 @@ namespace Stage_Space {
         public Sprite thumb;
 
         // Debug infos
-        public bool debug_mode = false;
+        public bool training_mode = false;
         public bool pause = false;
         public bool show_boxs = false;
-        public bool block_after_hit = false;
+        public int block = 0; // 0 - never, 1 - after hit, 2 - always
         public bool refil_life = true;
         public bool refil_super = true;
         public int reset_frames = 0;
@@ -45,8 +45,8 @@ namespace Stage_Space {
         public int rounds_A;
         public int rounds_B;
         public int elapsed_time => this.matchTimer.Elapsed.Seconds;
-        public int round_time => elapse_time ? Config.RoundLength - (int) matchTimer.Elapsed.TotalSeconds : Config.RoundLength;
-        public double raw_round_time => elapse_time ? Config.RoundLength - this.matchTimer.Elapsed.TotalMilliseconds/1000 : Config.RoundLength;
+        public int round_time => elapse_time ? Config.round_length - (int) matchTimer.Elapsed.TotalSeconds : Config.round_length;
+        public double raw_round_time => elapse_time ? Config.round_length - this.matchTimer.Elapsed.TotalMilliseconds/1000 : Config.round_length;
         public bool elapse_time = true;
 
         // Technical infos
@@ -164,7 +164,7 @@ namespace Stage_Space {
             this.newParticles.Clear();
             
             // Render Pause menu and Traning assets
-            if (this.debug_mode) this.TrainingMode();
+            if (this.training_mode) this.TrainingMode();
             if (this.pause) this.PauseScreen();
         }
         private void DoBehavior() {
@@ -211,29 +211,40 @@ namespace Stage_Space {
 
             // Block after hit
             if (this.character_B.StunFrames > 0) {
-                if (this.block_after_hit) this.character_B.blocking = true;
+                if (this.block == 1) this.character_B.blocking = true;
                 this.reset_frames = 0;
             } else if (this.character_A.StunFrames > 0) {
-                if (this.block_after_hit) this.character_A.blocking = true;
+                if (this.block == 1) this.character_A.blocking = true;
                 this.reset_frames = 0;
             }
 
+            // Block allways
+            if (this.block == 2) {
+                this.character_A.blocking = true;
+                this.character_B.blocking = true;
+            }
+
             // Reset chars life, stun and super bar
-            if (this.reset_frames >= Config.reset_frames) {
-                if (this.character_B.notActingAll) {
-                    if (this.block_after_hit) this.character_B.blocking = false;
-                    if (this.refil_life){
+            if (this.reset_frames >= Config.reset_frames)
+            {
+                if (this.character_B.notActingAll)
+                {
+                    if (this.block != 2) this.character_B.blocking = false;
+                    if (this.refil_life)
+                    {
                         this.character_B.LifePoints.X = this.character_B.LifePoints.Y;
                         this.character_B.DizzyPoints.X = this.character_B.DizzyPoints.Y;
-                    } 
+                    }
                     if (this.refil_super) this.character_B.SuperPoints.X = this.character_B.SuperPoints.Y;
                 }
-                if (this.character_A.notActingAll) {
-                    if (this.block_after_hit) this.character_A.blocking = false;
-                    if (this.refil_life){
+                if (this.character_A.notActingAll)
+                {
+                    if (this.block != 2)this.character_A.blocking = false;
+                    if (this.refil_life)
+                    {
                         this.character_A.LifePoints.X = this.character_A.LifePoints.Y;
                         this.character_A.DizzyPoints.X = this.character_A.DizzyPoints.Y;
-                    } 
+                    }
                     if (this.refil_super) this.character_A.SuperPoints.X = this.character_A.SuperPoints.Y;
                 }
                 this.reset_frames = Config.reset_frames;
@@ -245,57 +256,52 @@ namespace Stage_Space {
 
             // Draw options
             UI.Instance.DrawText("Pause", 0, -75, size: 1f, spacing: Config.spacing_medium, textureName: "default medium");
-            UI.Instance.DrawText("Settings", 0, -40, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
-            UI.Instance.DrawText("Controls", 0, -20, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
-            UI.Instance.DrawText("Training mode", 0, 0, spacing: Config.spacing_medium, textureName: this.pause_pointer == 2 ? "default medium hover" : "default medium");
-            if (debug_mode) {
-                UI.Instance.DrawText("Show hitboxes", 0, 15, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
-                UI.Instance.DrawText(block_after_hit ? "Block: after hit" : "Block: never", 0, 25, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
-                UI.Instance.DrawText(refil_life ? "Life: refil" : "Life: keep", 0, 35, spacing: Config.spacing_small, textureName: this.pause_pointer == 5 ? "default small hover" : "default small");
-                UI.Instance.DrawText(refil_super ? "Super: refil" : "Super: keep", 0, 45, spacing: Config.spacing_small, textureName: this.pause_pointer == 6 ? "default small hover" : "default small");
+            UI.Instance.DrawText("Settings", 0, -45, spacing: Config.spacing_medium, textureName: this.pause_pointer == 0 ? "default medium hover" : "default medium");
+            UI.Instance.DrawText("Controls", 0, -30, spacing: Config.spacing_medium, textureName: this.pause_pointer == 1 ? "default medium hover" : "default medium");
+            UI.Instance.DrawText("Training mode", 0, -15, spacing: Config.spacing_medium, textureName: this.pause_pointer == 2 ? "default medium hover" : "default medium");
+            if (training_mode) {
+                UI.Instance.DrawText("Reset characters", 0, 0, spacing: Config.spacing_small, textureName: this.pause_pointer == 3 ? "default small hover" : "default small");
+                UI.Instance.DrawText("Show hitboxes", 0, 10, spacing: Config.spacing_small, textureName: this.pause_pointer == 4 ? "default small hover" : "default small");
+                UI.Instance.DrawText(block switch { 0 => "Block: never", 1 => "Block: after hit", 2 => "Block: always", _ => "Block: Error"}, 0, 20, spacing: Config.spacing_small, textureName: this.pause_pointer == 5 ? "default small hover" : "default small");
+                UI.Instance.DrawText(refil_life ? "Life: refil" : "Life: keep", 0, 30, spacing: Config.spacing_small, textureName: this.pause_pointer == 6 ? "default small hover" : "default small");
+                UI.Instance.DrawText(refil_super ? "Super: refil" : "Super: keep", 0, 40, spacing: Config.spacing_small, textureName: this.pause_pointer == 7 ? "default small hover" : "default small");
             }
-            UI.Instance.DrawText("End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 7 ? "default medium red" : "default medium");
+            UI.Instance.DrawText("End match", 0, 70, spacing: Config.spacing_medium, textureName: this.pause_pointer == 8 ? "default medium red" : "default medium");
 
             // Change option 
             if (InputManager.Instance.Key_down("Up") && this.pause_pointer > 0) {
                 this.pause_pointer -= 1;
-                if (!debug_mode && this.pause_pointer < 7 && this.pause_pointer > 2) this.pause_pointer = 2;
-            } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 7) {
+                if (!training_mode && this.pause_pointer < 8 && this.pause_pointer > 2) this.pause_pointer = 2;
+            } else if (InputManager.Instance.Key_down("Down") && this.pause_pointer < 8) {
                 this.pause_pointer += 1;
-                if (!debug_mode && this.pause_pointer < 7 && this.pause_pointer > 2) this.pause_pointer = 7;
+                if (!training_mode && this.pause_pointer < 8 && this.pause_pointer > 2) this.pause_pointer = 8;
             }
 
             // Do option
-            if (this.pause_pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
-                Program.return_state = Program.game_state;
-                Program.game_state = Program.Settings;
-
-            } else if (this.pause_pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
-                Program.return_state = Program.game_state;
-                Program.game_state = Program.Controls;
-
-            } else if (this.pause_pointer == 2 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
-                this.debug_mode = !this.debug_mode;
-
-            }  else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+            if (this.pause_pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+                Program.ChangeState(Program.Settings);
+            else if (this.pause_pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+                Program.ChangeState(Program.Controls);
+            else if (this.pause_pointer == 2 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+                this.training_mode = !this.training_mode;
+            else if (this.pause_pointer == 3 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+                this.ResetPlayers();
+            else if (this.pause_pointer == 4 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
                 this.show_boxs = !this.show_boxs;
-
-            } else if (this.pause_pointer == 4 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
-                this.block_after_hit = !this.block_after_hit;
-
-            } else if (this.pause_pointer == 5 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {
+            else if (this.pause_pointer == 5 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+                this.block = block >= 2 ? 0 : block + 1;
+            else if (this.pause_pointer == 6 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
                 this.refil_life = !this.refil_life;
-
-            } else if (this.pause_pointer == 6 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) { 
+            else if (this.pause_pointer == 7 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
                 this.refil_super = !this.refil_super;
-
-            } else if (this.pause_pointer == 7 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))) {  
+            else if (this.pause_pointer == 8 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
+            {
                 this.Pause();
                 Program.winner = Program.Drawn;
                 Program.sub_state = Program.MatchEnd;
                 this.show_boxs = false;
-                this.debug_mode = false;
-                this.block_after_hit = false;
+                this.training_mode = false;
+                this.block = 0;
                 this.refil_life = true;
                 this.refil_super = true;
                 this.pause_pointer = 0;
@@ -342,7 +348,7 @@ namespace Stage_Space {
 
         // Auxiliary
         public bool CheckRoundEnd() {
-            if (this.debug_mode || this.pause ) return false;
+            if (this.training_mode || this.pause ) return false;
             
             bool doEnd = false;
 
@@ -401,19 +407,19 @@ namespace Stage_Space {
         }
         public void Hitstop(string amount, bool parry, Character character) {
             if (parry) {
-                this.StopFor(Config.hitStopTime + Config.parry_advantage);
+                this.StopFor(Config.hit_stop_time + Config.parry_advantage);
 
                 switch (amount) {
                     case "Light":
-                        character.hitstopCounter = Config.hitStopTime * 1/2;
+                        character.hitstopCounter = Config.hit_stop_time * 1/2;
                         break;
 
                     case "Medium":
-                        character.hitstopCounter = Config.hitStopTime * 2/3;
+                        character.hitstopCounter = Config.hit_stop_time * 2/3;
                         break;
 
                     case "Heavy":
-                        character.hitstopCounter = Config.hitStopTime;
+                        character.hitstopCounter = Config.hit_stop_time;
                         break;
 
                     default:
@@ -422,15 +428,15 @@ namespace Stage_Space {
             } else {
                 switch (amount) {
                     case "Light":
-                        this.StopFor(Config.hitStopTime * 1/2);
+                        this.StopFor(Config.hit_stop_time * 1/2);
                         break;
 
                     case "Medium":
-                        this.StopFor(Config.hitStopTime * 2/3);
+                        this.StopFor(Config.hit_stop_time * 2/3);
                         break;
 
                     case "Heavy":
-                        this.StopFor(Config.hitStopTime);
+                        this.StopFor(Config.hit_stop_time);
                         break;
 
                     default:

@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using UI_space;
 
 namespace Input_Space {
     public class InputManager {    
@@ -232,10 +233,6 @@ namespace Input_Space {
         public bool Key_hold(String key, int player = DEFAULT, int facing = 1) {
             return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != 0;
         }
-        public bool Key_hold_for(String key, float frames, int player = DEFAULT, int facing = 1){
-
-            return false;
-        }
         public bool Key_down(String key, int player = DEFAULT, int facing = 1) {
             return (buttonState[player] & (1 << keysTranslationMap[facing][key])) != 0 && (buttonLastState[player] & (1 << keysTranslationMap[facing][key])) == 0;
         }
@@ -307,33 +304,34 @@ namespace Input_Space {
         }
         public bool Key_press(String key, int player = DEFAULT, int facing = 1, int input_window = -1) {
             List<int> bufferList = buffers[player].ToList();
-            for (int i = bufferList.Count() - 1; i > (bufferList.Count() - (input_window == -1 ? Config.inputWindowTime : input_window)); i--) {
+            for (int i = bufferList.Count() - 1; i > (bufferList.Count() - (input_window == -1 ? Config.input_window_time : input_window)); i--) {
                 if ((bufferList[i] & (1 << keysTranslationMap[facing][key])) != 0 && (bufferList[i-1] & (1 << keysTranslationMap[facing][key])) == 0) {
                     return true;
                 };
             }
             return false;
         }
-
-    public static class RawInput {
-        [DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(Keys vKey);
-
-        public static int ReadKeyboardState(Dictionary<Keys, int> keyMapA)
+        
+    public static class RawInput
         {
-            int state = 0;
+            [DllImport("user32.dll")]
+            private static extern short GetAsyncKeyState(Keys vKey);
 
-            foreach (var key in keyMapA)
+            public static int ReadKeyboardState(Dictionary<Keys, int> keyMapA)
             {
-                if ((GetAsyncKeyState(key.Key) & 0x8000) != 0)
-                {
-                    state |= 1 << key.Value;
-                }
-            }
+                int state = 0;
 
-            return state;
+                foreach (var key in keyMapA)
+                {
+                    if ((GetAsyncKeyState(key.Key) & 0x8000) != 0)
+                    {
+                        state |= 1 << key.Value;
+                    }
+                }
+
+                return state;
+            }
         }
-    }
 
     public class JoystickInput {
         [DllImport("xinput1_3.dll")]

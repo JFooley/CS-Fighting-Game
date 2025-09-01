@@ -9,15 +9,17 @@ public static class Config {
 
     public static bool Fullscreen = true;
     public static bool Vsync = false;
-    public static int inputWindowTime = 4;
 
     // Battle
-    public static int RoundLength = 90;
-    public const int DefaultRoundLength = 90;
-    public static int hitStopTime = 12;
-    public const int defaultHitStopTime = 12;
+    public static int round_length = 90;
+    public const int default_round_length = 90;
+    public static int hit_stop_time = 12;
+    public const int default_hit_stop_time = 12;
     public static int max_rounds = 2;
-    public const int defaultmax_rounds = 2;
+    public const int default_max_rounds = 2;
+    public static int input_window_time = 4;
+    public const int default_input_window_time = 4;
+
     public static int parry_advantage = 2;
     public static int parry_window = 10;
 
@@ -48,14 +50,17 @@ public static class Config {
         set { _effect_volume = value; }
     }
 
-    // Battle constants 32 38 48
+    // Battle constants
     public const float light_pushback = 3f;
     public const float medium_pushback = 4f;
     public const float heavy_pushback = 5.5f;
+
+    // Game constants
     public const int max_distance = 350;
     public const int reset_frames = 20;
     public const float gravity = 2450f / (Framerate*Framerate);
     public const int corner_limit = 125;
+    public const int camera_height = 140;
 
     // Text
     public const int spacing_small = -26; 
@@ -66,15 +71,15 @@ public static class Config {
         {
             Fullscreen,
             Vsync,
-            inputWindowTime,
+            input_window_time,
             parry_advantage,
             parry_window,
             _main_volume,
             _character_volume,
             _music_volume,
             _effect_volume,
-            RoundLength,
-            hitStopTime,
+            round_length,
+            hit_stop_time,
             max_rounds
         };
 
@@ -88,15 +93,15 @@ public static class Config {
 
             Fullscreen = configData.Fullscreen;
             Vsync = configData.Vsync;
-            inputWindowTime = configData.inputWindowTime;
+            input_window_time = configData.input_window_time;
             parry_advantage = configData.parry_advantage;
             parry_window = configData.parry_window;
             _main_volume = configData._main_volume;
             _character_volume = configData._character_volume;
             _music_volume = configData._music_volume;
             _effect_volume = configData._effect_volume;
-            RoundLength = configData.RoundLength;
-            hitStopTime = configData.hitStopTime;
+            round_length = configData.round_length;
+            hit_stop_time = configData.hit_stop_time;
             max_rounds = configData.max_rounds;
         } else {
             Console.WriteLine("Config file not found. Using default settings.");
@@ -105,15 +110,15 @@ public static class Config {
     private class ConfigData {
         public bool Fullscreen { get; set; }
         public bool Vsync { get; set; }
-        public int inputWindowTime { get; set; }
+        public int input_window_time { get; set; }
         public int parry_advantage { get; set; }
         public int parry_window { get; set; }
         public float _main_volume { get; set; }
         public float _character_volume { get; set; }
         public float _music_volume { get; set; }
         public float _effect_volume { get; set; }
-        public int RoundLength { get; set; }
-        public int hitStopTime { get; set; }
+        public int round_length { get; set; }
+        public int hit_stop_time { get; set; }
         public int max_rounds { get; set; }
     }
 }

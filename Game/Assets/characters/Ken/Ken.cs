@@ -945,7 +945,7 @@ public class Ken : Character {
         } 
 
         // Normals
-        if (InputManager.Instance.Key_sequence_press("D", Config.hitStopTime, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LightP") {
+        if (InputManager.Instance.Key_sequence_press("D", Config.hit_stop_time, player: this.playerIndex, facing: this.facing) && this.hasHit && this.CurrentState == "LightP") {
             this.SetVelocity();
             this.ChangeState("CloseMP");
         } else if (InputManager.Instance.Key_press("B", player: this.playerIndex, facing: this.facing) && InputManager.Instance.Key_hold("Left", player: this.playerIndex, facing: this.facing) && this.notActing && !this.crounching) {

@@ -190,7 +190,7 @@ public static class Program {
 
                     if (InputManager.Instance.Key_up("Start"))
                     {
-                        game_state = SelectStage;
+                        ChangeState(SelectStage);
                         pointer = 0;
                     }
                     break;
@@ -207,36 +207,22 @@ public static class Program {
                     UI.Instance.DrawText("E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
                     UI.Instance.DrawText("Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
-                    if (InputManager.Instance.Key_down("Left") && pointer > 0)
-                    {
-                        pointer -= 1;
+                    if (InputManager.Instance.Key_down("Left"))
+                        pointer = pointer <= 0 ? stages.Count - 1 : pointer - 1;
+                    else if (InputManager.Instance.Key_down("Right"))
+                        pointer = pointer >= stages.Count - 1 ? 0 : pointer + 1;
 
-                    }
-                    else if (InputManager.Instance.Key_down("Right") && pointer < stages.Count - 1)
-                    {
-                        pointer += 1;
-
-                    }
-                    else if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D"))
-                    {
+                    if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")) {
                         if (stages[pointer].name == "Settings")
-                        {
-                            return_state = SelectStage;
-                            game_state = Settings;
-
-                        }
-                        else
-                        {
-                            if (stages[pointer].name == "Random") pointer = Program.random.Next(1, stages.Count() - 2);
+                            ChangeState(Settings);
+                        else {
+                            if (stages[pointer].name == "Random")
+                                pointer = Program.random.Next(1, stages.Count() - 2);
                             Program.stage = stages[pointer];
-                            game_state = SelectChar;
+                            ChangeState(SelectChar);
                         }
                         pointer = 0;
-                    }
-                    else if (InputManager.Instance.Key_up("LB"))
-                    {
-                        game_state = MainMenu;
-                    }
+                    } else if (InputManager.Instance.Key_up("LB")) ChangeState(MainMenu);
                     break;
 
                 case SelectChar:
@@ -282,46 +268,35 @@ public static class Program {
                     UI.Instance.DrawText("Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
 
                     // Chose option A
-                    if (InputManager.Instance.Key_down("Left", player: 1) && pointer_charA > 0 && charA_selected == null)
-                    {
-                        pointer_charA -= 1;
-                    }
-                    else if (InputManager.Instance.Key_down("Right", player: 1) && pointer_charA < characters.Count - 1 && charA_selected == null)
-                    {
-                        pointer_charA += 1;
-                    }
-                    else if (InputManager.Instance.Key_down("A", player: 1) || InputManager.Instance.Key_down("B", player: 1) || InputManager.Instance.Key_down("C", player: 1) || InputManager.Instance.Key_down("D", player: 1))
-                    {
+                    if (InputManager.Instance.Key_down("Left", player: 1) && charA_selected == null)
+                        pointer_charA = pointer_charA <= 0 ? characters.Count - 1 : pointer_charA - 1;
+                    else if (InputManager.Instance.Key_down("Right", player: 1) && charA_selected == null)
+                        pointer_charA = pointer_charA >= characters.Count - 1 ? 0 : pointer_charA + 1;
+
+                    if (InputManager.Instance.Key_down("A", player: 1) || InputManager.Instance.Key_down("B", player: 1) || InputManager.Instance.Key_down("C", player: 1) || InputManager.Instance.Key_down("D", player: 1))
                         charA_selected = characters[pointer_charA].name;
-                    }
 
                     // Chose option B
-                    if (InputManager.Instance.Key_down("Left", player: 2) && pointer_charB > 0 && charB_selected == null)
-                    {
-                        pointer_charB -= 1;
-                    }
-                    else if (InputManager.Instance.Key_down("Right", player: 2) && pointer_charB < characters.Count - 1 && charB_selected == null)
-                    {
-                        pointer_charB += 1;
-                    }
-                    else if (InputManager.Instance.Key_down("A", player: 2) || InputManager.Instance.Key_down("B", player: 2) || InputManager.Instance.Key_down("C", player: 2) || InputManager.Instance.Key_down("D", player: 2))
-                    {
-                        charB_selected = characters[pointer_charB].name;
-                    }
+                    if (InputManager.Instance.Key_down("Left", player: 2) && charB_selected == null)
+                        pointer_charB = pointer_charB <= 0 ? characters.Count - 1 : pointer_charB - 1;
+                    else if (InputManager.Instance.Key_down("Right", player: 2) && charB_selected == null)
+                        pointer_charB = pointer_charB >= characters.Count - 1 ? 0 : pointer_charB + 1;
 
+                    if (InputManager.Instance.Key_down("A", player: 2) || InputManager.Instance.Key_down("B", player: 2) || InputManager.Instance.Key_down("C", player: 2) || InputManager.Instance.Key_down("D", player: 2))
+                        charB_selected = characters[pointer_charB].name;
+                    
                     // Return option
-                    else if (InputManager.Instance.Key_up("LB"))
+                    if (InputManager.Instance.Key_up("LB"))
                     {
                         charB_selected = null;
                         charA_selected = null;
-                        game_state = SelectStage;
+                        ChangeState(SelectStage);
                     }
 
                     // Ends when chars are selected
                     if (charA_selected != null && charB_selected != null && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
-                    {
-                        game_state = LoadScreen;
-                    }
+                        ChangeState(LoadScreen);
+
                     break;
 
                 case LoadScreen:
@@ -337,7 +312,7 @@ public static class Program {
                     pointer_charA = 0;
                     pointer_charB = 0;
 
-                    game_state = Battle;
+                    ChangeState(Battle);
                     break;
 
                 case Battle:
@@ -418,7 +393,7 @@ public static class Program {
                             stage.ResetPlayers(force: true, total_reset: true);
 
                             sub_state = Intro;
-                            game_state = PostBattle;
+                            ChangeState(PostBattle);
                             break;
 
                     }
@@ -440,13 +415,9 @@ public static class Program {
 
                     // Change option
                     if (InputManager.Instance.Key_down("Up") && pointer > 0)
-                    {
                         pointer -= 1;
-                    }
                     else if (InputManager.Instance.Key_down("Down") && pointer < 2)
-                    {
                         pointer += 1;
-                    }
 
                     // Do option
                     if (pointer == 0 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
@@ -454,18 +425,16 @@ public static class Program {
                         camera.SetChars(stage.character_A, stage.character_B);
                         camera.SetLimits(stage.length, stage.height);
                         stage.LockPlayers();
-                        game_state = Battle;
+                        ChangeState(Battle);
 
                     }
                     else if (pointer == 1 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
                     { // MENU 
                         stage.UnloadStage();
-                        game_state = SelectStage;
+                        ChangeState(SelectStage);
                     }
                     else if (pointer == 2 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
-                    {
                         window.Close();
-                    }
 
                     break;
 
@@ -487,48 +456,39 @@ public static class Program {
                     UI.Instance.DrawText("Window mode", -170, -44, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 3 ? "default small hover" : "default small");
                     UI.Instance.DrawText("< " + (Config.Fullscreen ? "Fullscreen" : "Windowed") + " >", 0, -44, spacing: Config.spacing_small, textureName: pointer == 3 ? "default small red" : "default small");
                     //4
-                    UI.Instance.DrawText("Round Lenght", -170, -34, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 4 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< " + Config.RoundLength + "s >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
+                    UI.Instance.DrawText("Round Length", -170, -34, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 4 ? "default small hover" : "default small");
+                    UI.Instance.DrawText("< " + (Config.round_length == Config.default_round_length ? "Default (" + Config.default_round_length + "s)" : Config.round_length + "s") + " >", 0, -34, spacing: Config.spacing_small, textureName: pointer == 4 ? "default small red" : "default small");
                     //5
                     UI.Instance.DrawText("Match", -170, -24, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 5 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< First to " + Config.max_rounds + " >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
+                    UI.Instance.DrawText("< " + (Config.max_rounds == Config.default_max_rounds ? "Default (FT" + Config.default_max_rounds + ")" : "First to " + Config.max_rounds.ToString()) + " >", 0, -24, spacing: Config.spacing_small, textureName: pointer == 5 ? "default small red" : "default small");
                     //6
                     UI.Instance.DrawText("Hitstop", -170, -14, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 6 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< " + (Config.hitStopTime == Config.defaultHitStopTime ? "Default" : Config.hitStopTime + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
+                    UI.Instance.DrawText("< " + (Config.hit_stop_time == Config.default_hit_stop_time ? "Default" : Config.hit_stop_time + " frames") + " >", 0, -14, spacing: Config.spacing_small, textureName: pointer == 6 ? "default small red" : "default small");
                     //7
                     UI.Instance.DrawText("Input window", -170, -04, alignment: "left", spacing: Config.spacing_small, textureName: pointer == 7 ? "default small hover" : "default small");
-                    UI.Instance.DrawText("< " + (Config.inputWindowTime == 1 ? "frame perfect" : Config.inputWindowTime + " frames") + " >", 0, -04, spacing: Config.spacing_small, textureName: pointer == 7 ? "default small red" : "default small");
-                    //8
-                    UI.Instance.DrawText("Back", -80, 74, spacing: Config.spacing_medium, textureName: pointer == 8 ? "default medium red" : "default medium");
+                    UI.Instance.DrawText("< " + (Config.input_window_time == Config.default_input_window_time ? "Default" : Config.input_window_time + " frames") + " >", 0, -04, spacing: Config.spacing_small, textureName: pointer == 7 ? "default small red" : "default small");
 
                     // Change option 
-                    if (InputManager.Instance.Key_down("Up") && pointer > 0)
-                    {
-                        pointer -= 1;
-                    }
-                    else if (InputManager.Instance.Key_down("Down") && pointer < 8)
-                    {
-                        pointer += 1;
-                    }
+                    if (InputManager.Instance.Key_down("Up"))
+                        pointer = pointer <= 0 ? 7 : pointer - 1;
+                    else if (InputManager.Instance.Key_down("Down"))
+                        pointer = pointer >= 7 ? 0 : pointer + 1;
 
                     // Do option
                     if (pointer == 0)
                     {
                         if (InputManager.Instance.Key_down("Left") && Config.Main_Volume > 0) Config.Main_Volume -= 1;
                         else if (InputManager.Instance.Key_down("Right") && Config.Main_Volume < 100) Config.Main_Volume += 1;
-
                     }
                     else if (pointer == 1)
                     {
                         if (InputManager.Instance.Key_down("Left") && Config._music_volume > 0) Config._music_volume -= 1;
                         else if (InputManager.Instance.Key_down("Right") && Config._music_volume < 100) Config._music_volume += 1;
-
                     }
                     else if (pointer == 2 && (InputManager.Instance.Key_down("Left") || InputManager.Instance.Key_down("Right")))
                     {
                         Config.Vsync = !Config.Vsync;
                         window.SetVerticalSyncEnabled(Config.Vsync);
-
                     }
                     else if (pointer == 3 && (InputManager.Instance.Key_down("Left") || InputManager.Instance.Key_down("Right")))
                     {
@@ -542,37 +502,36 @@ public static class Program {
                         window.SetMouseCursorVisible(false);
                         window.SetView(view);
                         camera.SetWindow(window);
-
                     }
                     else if (pointer == 4)
                     {
-                        if (InputManager.Instance.Key_down("Left") && Config.RoundLength > 1) Config.RoundLength -= 1;
-                        else if (InputManager.Instance.Key_down("Right") && Config.RoundLength < 99) Config.RoundLength += 1;
-
+                        if (InputManager.Instance.Key_down("Left") && Config.round_length > 1) Config.round_length -= 1;
+                        else if (InputManager.Instance.Key_down("Right") && Config.round_length < 99) Config.round_length += 1;
                     }
                     else if (pointer == 5)
                     {
                         if (InputManager.Instance.Key_down("Left") && Config.max_rounds > 1) Config.max_rounds -= 1;
                         else if (InputManager.Instance.Key_down("Right") && Config.max_rounds < 5) Config.max_rounds += 1;
-
                     }
                     else if (pointer == 6)
                     {
-                        if (InputManager.Instance.Key_down("Left") && Config.hitStopTime > 0) Config.hitStopTime -= 1;
-                        else if (InputManager.Instance.Key_down("Right")) Config.hitStopTime += 1;
-
+                        if (InputManager.Instance.Key_down("Left") && Config.hit_stop_time > 0) Config.hit_stop_time -= 1;
+                        else if (InputManager.Instance.Key_down("Right")) Config.hit_stop_time += 1;
                     }
                     else if (pointer == 7)
                     {
-                        if (InputManager.Instance.Key_down("Left") && Config.inputWindowTime > 1) Config.inputWindowTime -= 1;
-                        else if (InputManager.Instance.Key_down("Right")) Config.inputWindowTime += 1;
-
+                        if (InputManager.Instance.Key_down("Left") && Config.input_window_time > 1) Config.input_window_time -= 1;
+                        else if (InputManager.Instance.Key_down("Right")) Config.input_window_time += 1;
                     }
-                    else if (pointer == 8 && (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")))
-                    {
+
+                    // Return option
+                    UI.Instance.DrawText("E", -194, 67, spacing: Config.spacing_small, textureName: "icons", alignment: "left");
+                    UI.Instance.DrawText("Return", -182, 67, spacing: Config.spacing_small, alignment: "left", textureName: InputManager.Instance.Key_hold("LB") ? "default small click" : "default small");
+
+                    if (InputManager.Instance.Key_up("LB")) {
                         Config.SaveToFile();
                         Camera.Instance.LockCamera();
-                        game_state = return_state;
+                        ChangeState(return_state);
                         pointer = 0;
                     }
                     break;
@@ -582,8 +541,8 @@ public static class Program {
                     window.Draw(controls);
 
                     if (InputManager.Instance.Key_up("A") || InputManager.Instance.Key_up("B") || InputManager.Instance.Key_up("C") || InputManager.Instance.Key_up("D")) {
-                        game_state = return_state;
                         if (return_state == Battle) Camera.Instance.LockCamera();
+                        ChangeState(return_state);
                     }
                     break;
             }
@@ -595,14 +554,22 @@ public static class Program {
         }
     }
 
-    public static void MainLoader() { 
-        foreach (var character in characters) {
+    public static void ChangeState(int new_state) {
+        return_state = game_state;
+        game_state = new_state;
+    }
+
+    public static void MainLoader()
+    {
+        foreach (var character in characters)
+        {
             if (character.GetType() == typeof(Character)) continue;
             character.LoadSpriteImages();
             character.LoadSounds();
         }
 
-        foreach (var stage in stages) {
+        foreach (var stage in stages)
+        {
             if (stage.GetType() == typeof(Stage)) continue;
             stage.LoadSpriteImages();
             stage.LoadSounds();
@@ -616,9 +583,9 @@ public static class Program {
 
         pt.LoadSpriteImages();
         pt.LoadSounds();
-        
+
         loading = false;
-        game_state = MainMenu;
+        ChangeState(MainMenu);
     }
 }
 
